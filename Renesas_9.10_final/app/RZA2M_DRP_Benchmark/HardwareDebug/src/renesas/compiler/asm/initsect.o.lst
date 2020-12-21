@@ -1,0 +1,185 @@
+   1              	# 1 "../src/renesas/compiler/asm/initsect.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : initsect.asm
+  25              	@* $Rev: 531 $
+  26              	@* $Date:: 2018-08-09 15:48:22 +0900#$
+  27              	@* Description : copy and fill the variables
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	        .section    INIT_SECTION, "ax"
+  32              	        .global     INITSCT
+  34              	
+  35              	        @@ This program need the stack area (40bytes)
+  36              	INITSCT:
+  37 0000 04E02DE5 	        PUSH    {lr}
+  38 0004 0040A0E1 	        MOV     r4, r0          @ 1st parameter : copy table
+  39 0008 04102DE5 	        PUSH    {r1}
+  40 000c 000054E3 	        CMP     r4, #0
+  41 0010 0300001B 	        BLNE    _COPYVAR        @ copy the variables
+  42 0014 04409DE4 	        POP     {r4}            @ 2nd parameter : zero table
+  43 0018 000054E3 	        CMP     r4, #0
+  44 001c 3C00001B 	        BLNE    _ZEROVAR        @ fill the variables with zero
+  45 0020 04F09DE4 	        POP     {pc}            @ return from subroutine
+  46              	
+  47              	@@@
+  48              	@@@ Copy the vaiables
+  49              	@@@ This program gets from the table of coping area "DTBL[]"
+  50              	_COPYVAR:
+  51              	
+  52              	_CVAR01:
+  53 0024 040094E4 	        LDR     r0, [r4], #4        @ r0 = top of source block
+  54 0028 041094E4 	        LDR     r1, [r4], #4        @ r1 = end of source block
+  55 002c 002041E0 	        SUB     r2, r1, r0          @ r2 = bytes to copy
+  56 0030 041094E4 	        LDR     r1, [r4], #4        @ r1 = top of destination block
+  57              	
+  58 0034 000050E3 	        CMP     r0, #0              @ check terminator
+  59 0038 1EFF2F01 	        BXEQ    lr                  @ return
+  60              	
+  61 003c A232B0E1 	        MOVS    r3,r2, LSR #(3+2)   @ Number of eight word multiples
+  62 0040 1300000A 	        BEQ     _CVAR03             @ Fewer than eight words to move?
+  63              	
+  64 0044 F00F2DE9 	        PUSH    {r4-r11}            @ Save some working registers
+  65 0048 0C0000EA 	        B       _CVAR02
+  66 004c 00F020E3 	        .align 7                    @ alignment for loop optimization
+  66      00F020E3 
+  66      00F020E3 
+  66      00F020E3 
+  66      00F020E3 
+  67              	                                    @ 7 : 2^7 = 128bytes boundary
+  68              	_CVAR02:
+  69 0080 F00FB0E8 	        LDM     r0!, {r4-r11}       @ Load 8 words from the source
+  70 0084 F00FA1E8 	        STM     r1!, {r4-r11}       @ and put them at the destination
+  71 0088 013053E2 	        SUBS    r3, r3, #1          @ Decrement the counter
+  72 008c FBFFFF1A 	        BNE     _CVAR02             @ ... copy more
+  73              	
+  74 0090 F00FBDE8 	        POP     {r4-r11}            @ Don't require these now - restore
+  75              	                                    @ originals
+  76              	
+  77              	_CVAR03:
+  78 0094 1F2012E2 	        ANDS    r2, r2, #0x1f       @ Number of bytes to copy
+  79 0098 1C00000A 	        BEQ     _CVAR05             @ No byte left to copy?
+  80 009c 170000EA 	        B       _CVAR04
+  81 00a0 00F020E3 	        .align 7                    @ alignment for loop optimization
+  81      00F020E3 
+  81      00F020E3 
+  81      00F020E3 
+  81      00F020E3 
+  82              	                                    @ 7 : 2^7 = 128bytes boundary
+  83              	_CVAR04:
+  84 0100 0130D0E4 	        LDRB    r3, [r0], #1        @ Load a word from the source and
+  85 0104 0130C1E4 	        STRB    r3, [r1], #1        @ store it to the destination
+  86 0108 012052E2 	        SUBS    r2, r2, #1          @ Decrement the counter
+  87 010c FBFFFF1A 	        BNE     _CVAR04             @ ... copy more
+  88              	
+  89              	_CVAR05:
+  90 0110 C3FFFFEA 	        B       _CVAR01             @ copy the next block
+  91              	
+  92              	
+  93              	@@@
+  94              	@@@ Fill the vaiables
+  95              	@@@ This program gets from the table of coping area "BTBL[]"
+  96              	_ZEROVAR:
+  97              	
+  98              	_ZVAR01:
+  99 0114 041094E4 	        LDR     r1, [r4], #4        @ r1 = top of block
+ 100 0118 042094E4 	        LDR     r2, [r4], #4        @ r2 = end of block
+ 101 011c 012042E0 	        SUB     r2, r2, r1          @ r2 = number of bytes to fill zero
+ 102              	
+ 103 0120 000051E3 	        CMP     r1, #0              @ check terminator
+ 104 0124 1EFF2F01 	        BXEQ    lr                  @ return
+ 105              	
+ 106 0128 0000A0E3 	        MOV     r0, #0              @ fill value
+ 107              	
+ 108 012c A232B0E1 	        MOVS    r3,r2, LSR #(3+2)   @ Number of eight word multiples
+ 109 0130 1600000A 	        BEQ     _ZVAR03             @ Fewer than eight words to clean?
+ 110              	
+ 111 0134 F00F2DE9 	        PUSH    {r4-r11}            @ Save some working registers
+ 112              	
+ 113 0138 0040A0E1 	        MOV     r4, r0              @ fill zero
+ 114 013c 0050A0E1 	        MOV     r5, r0              @
+ 115 0140 0060A0E1 	        MOV     r6, r0              @
+ 116 0144 0070A0E1 	        MOV     r7, r0              @
+ 117 0148 0080A0E1 	        MOV     r8, r0              @
+ 118 014c 0090A0E1 	        MOV     r9, r0              @
+ 119 0150 00A0A0E1 	        MOV     r10, r0             @
+ 120 0154 00B0A0E1 	        MOV     r11, r0             @
+ 121              	
+ 122 0158 080000EA 	        B       _ZVAR02
+ 123 015c 00F020E3 	        .align 7                    @ alignment for loop optimization
+ 123      00F020E3 
+ 123      00F020E3 
+ 123      00F020E3 
+ 123      00F020E3 
+ 124              	                                    @ 7 : 2^7 = 128bytes boundary
+ 125              	_ZVAR02:
+ 126 0180 F00FA1E8 	        STM     r1!, {r4-r11}       @ fill the block
+ 127 0184 013053E2 	        SUBS    r3, r3, #1          @ Decrement the counter
+ 128 0188 FCFFFF1A 	        BNE     _ZVAR02             @ ... fill more
+ 129              	
+ 130 018c F00FBDE8 	        POP     {r4-r11}            @ Don't require these now - restore
+ 131              	                                    @ originals
+ 132              	
+ 133              	_ZVAR03:
+ 134 0190 1F2012E2 	        ANDS    r2, r2, #0x1f       @ Number of bytes to copy
+ 135 0194 1C00000A 	        BEQ     _ZVAR05             @ No words left to copy?
+ 136              	
+ 137 0198 180000EA 	        B       _ZVAR04
+ 138 019c 00F020E3 	        .align 7                    @ alignment for loop optimization
+ 138      00F020E3 
+ 138      00F020E3 
+ 138      00F020E3 
+ 138      00F020E3 
+ 139              	                                    @ 7 : 2^7 = 128bytes boundary
+ 140              	_ZVAR04:
+ 141 0200 0100C1E4 	        STRB    r0, [r1], #1        @ Fill the block
+ 142 0204 012052E2 	        SUBS    r2, r2, #1          @ Decrement the counter
+ 143 0208 FCFFFF1A 	        BNE     _ZVAR04             @ ... fill more
+ 144              	
+ 145              	_ZVAR05:
+ 146 020c C0FFFFEA 	        B       _ZVAR01             @ fill the next block
+ 147              	
+ 148              	
+ 149              	        .END
+DEFINED SYMBOLS
+../src/renesas/compiler/asm/initsect.asm:36     INIT_SECTION:00000000 INITSCT
+../src/renesas/compiler/asm/initsect.asm:37     INIT_SECTION:00000000 $a
+../src/renesas/compiler/asm/initsect.asm:50     INIT_SECTION:00000024 _COPYVAR
+../src/renesas/compiler/asm/initsect.asm:96     INIT_SECTION:00000114 _ZEROVAR
+../src/renesas/compiler/asm/initsect.asm:52     INIT_SECTION:00000024 _CVAR01
+../src/renesas/compiler/asm/initsect.asm:77     INIT_SECTION:00000094 _CVAR03
+../src/renesas/compiler/asm/initsect.asm:68     INIT_SECTION:00000080 _CVAR02
+../src/renesas/compiler/asm/initsect.asm:89     INIT_SECTION:00000110 _CVAR05
+../src/renesas/compiler/asm/initsect.asm:83     INIT_SECTION:00000100 _CVAR04
+../src/renesas/compiler/asm/initsect.asm:98     INIT_SECTION:00000114 _ZVAR01
+../src/renesas/compiler/asm/initsect.asm:133    INIT_SECTION:00000190 _ZVAR03
+../src/renesas/compiler/asm/initsect.asm:125    INIT_SECTION:00000180 _ZVAR02
+../src/renesas/compiler/asm/initsect.asm:145    INIT_SECTION:0000020c _ZVAR05
+../src/renesas/compiler/asm/initsect.asm:140    INIT_SECTION:00000200 _ZVAR04
+
+NO UNDEFINED SYMBOLS

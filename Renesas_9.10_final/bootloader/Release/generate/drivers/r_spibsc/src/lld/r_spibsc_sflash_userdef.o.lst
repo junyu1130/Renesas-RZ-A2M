@@ -1,0 +1,1133 @@
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"r_spibsc_sflash_userdef.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.Userdef_SPIBSC_SFLASH_ReadStatus,"ax",%progbits
+  17              		.align	2
+  18              		.global	Userdef_SPIBSC_SFLASH_ReadStatus
+  19              		.arch armv7-a
+  20              		.syntax unified
+  21              		.arm
+  22              		.fpu neon
+  24              	Userdef_SPIBSC_SFLASH_ReadStatus:
+  25              	.LVL0:
+  26              	.LFB1:
+  27              		.file 1 "../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c"
+   1:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /*******************************************************************************
+   2:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * DISCLAIMER
+   3:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * all applicable laws, including copyright laws.
+   7:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * and to discontinue the availability of this software. By using this software,
+  18:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * following link:
+  20:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * http://www.renesas.com/disclaimer
+  21:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *******************************************************************************/
+  23:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /*******************************************************************************
+  24:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * File Name    : r_spibsc_sflash_userdef.c
+  25:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * $Rev: 606 $
+  26:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * $Date:: 2018-09-05 18:13:42 +0900#$
+  27:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Device(s)    : RZ/A2M
+  28:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * OS           : None
+  29:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * H/W Platform : RZ/A2M Board
+  30:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  : RZ/A2M Sample Program - function of SPIBSC Module
+  31:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Operation    :
+  32:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Limitations  :
+  33:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *******************************************************************************/
+  34:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  35:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  36:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** Includes   <System Includes> , "Project Includes"
+  37:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  38:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** #include "r_spibsc_lld_rza2m_api.h"
+  39:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** #include "r_spibsc_sflash_userdef.h"
+  40:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** #include "r_spibsc_drv_sc_cfg.h"
+  41:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  42:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  43:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** Typedef definitions
+  44:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  45:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  46:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  47:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  48:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** Macro definitions
+  49:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  50:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /*#define SPIBSC_PRV_FOR_DEBUG */
+  51:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  52:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  53:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** Imported global variables and functions (from other files)
+  54:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  55:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  56:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  57:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  58:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** Exported global variables and functions (to be accessed by other files)
+  59:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  60:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  61:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  62:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+  63:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_SetMode
+  64:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+  65:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+  66:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+  67:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+  68:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_SetMode(uint8_t mode, uint8_t sdr_ddr)
+  69:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+  70:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+  71:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t config;
+  72:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  73:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  74:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Read Status Command (05H)==== */
+  75:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_ReadStatus(&status);
+  76:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  77:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Read Configuration Command (15H) ==== */
+  78:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_ReadConfig(&config);
+  79:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  80:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Write Enable Command (06H) ==== */
+  81:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WriteEnable();
+  82:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  83:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Change of status register and configuration register ==== */
+  84:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     status = status & 0xC0;
+  85:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_QE_ENABLE == mode )
+  86:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+  87:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****        status = status | SPIBSC_RDSR_QE;   /* QE(Quad Enable) = 1 */
+  88:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+  89:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     else
+  90:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+  91:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         status = status & (uint8_t)(~SPIBSC_RDSR_QE);   /* QE(Quad Disable) = 0 */
+  92:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+  93:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  94:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+  95:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_DDR_TRANSFER == sdr_ddr )
+  96:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+  97:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* for EEh Command (Quad I/O DTR Read/DDR)
+  98:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          * Dummy cycle            : 8cycle @ 66MHz    DC[1:0]  = B'10
+  99:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          * Output Driver Strength : 15 Ohms           ODS[2:0] = B'110
+ 100:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          */
+ 101:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config & 0x30;
+ 102:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config | 0x86;
+ 103:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 104:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     else
+ 105:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 106:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* for ECh Command (Quad I/O Fast Read/SDR)
+ 107:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          * Dummy cycle            : 4cycle @ 70MHz    DC[1:0]  = B'01
+ 108:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          * Output Driver Strength : 15 Ohms           ODS[2:0] = B'110
+ 109:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****          */
+ 110:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config & 0x30;
+ 111:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config | 0x46;
+ 112:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 113:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     
+ 114:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Write Status Command (01H) ==== */
+ 115:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WriteStatus(&status, &config);
+ 116:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 117:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** #ifdef SPIBSC_PRV_FOR_DEBUG
+ 118:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Read Status Command (05H)==== */
+ 119:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_ReadStatus(&status);
+ 120:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 121:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Read Configuration Command (15H) ==== */
+ 122:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_ReadConfig(&config);
+ 123:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** #endif    /* SPIBSC_PRV_FOR_DEBUG */
+ 124:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 125:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 126:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 127:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_SetMode
+ 128:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 129:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 130:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 131:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 132:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_ReadStatus
+ 133:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 134:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+ 135:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+ 136:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 137:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_ReadStatus(uint8_t *p_status)
+ 138:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+  28              		.loc 1 138 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  32              		.loc 1 139 5 view .LVU1
+ 140:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint32_t addr = 0x00000000;
+  33              		.loc 1 140 5 view .LVU2
+ 141:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+  34              		.loc 1 141 5 view .LVU3
+ 142:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     
+ 143:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_RDSR_05H;
+  35              		.loc 1 143 5 view .LVU4
+ 144:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, &status, 1);
+  36              		.loc 1 144 5 view .LVU5
+ 138:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  37              		.loc 1 138 1 is_stmt 0 view .LVU6
+  38 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+  39              		.cfi_def_cfa_offset 24
+  40              		.cfi_offset 4, -8
+  41              		.cfi_offset 14, -4
+  42              		.loc 1 144 5 view .LVU7
+  43 0004 0130A0E3 		mov	r3, #1
+  44 0008 04308DE5 		str	r3, [sp, #4]
+  45 000c 0F308DE2 		add	r3, sp, #15
+ 138:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  46              		.loc 1 138 1 view .LVU8
+  47 0010 0040A0E1 		mov	r4, r0
+  48              		.loc 1 144 5 view .LVU9
+  49 0014 00308DE5 		str	r3, [sp]
+  50 0018 0030A0E3 		mov	r3, #0
+  51 001c 0320A0E1 		mov	r2, r3
+  52 0020 0310A0E1 		mov	r1, r3
+  53 0024 0300A0E1 		mov	r0, r3
+  54              	.LVL1:
+  55              		.loc 1 144 5 view .LVU10
+  56 0028 FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+  57              	.LVL2:
+ 145:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     
+ 146:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     *p_status = status;
+  58              		.loc 1 146 5 is_stmt 1 view .LVU11
+  59              		.loc 1 146 15 is_stmt 0 view .LVU12
+  60 002c 0F30DDE5 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+  61 0030 0030C4E5 		strb	r3, [r4]
+ 147:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 148:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+  62              		.loc 1 148 1 view .LVU13
+  63 0034 10D08DE2 		add	sp, sp, #16
+  64              		.cfi_def_cfa_offset 8
+  65              		@ sp needed
+  66 0038 1080BDE8 		pop	{r4, pc}
+  67              		.loc 1 148 1 view .LVU14
+  68              		.cfi_endproc
+  69              	.LFE1:
+  71              		.section	.text.Userdef_SPIBSC_SFLASH_ReadConfig,"ax",%progbits
+  72              		.align	2
+  73              		.global	Userdef_SPIBSC_SFLASH_ReadConfig
+  74              		.syntax unified
+  75              		.arm
+  76              		.fpu neon
+  78              	Userdef_SPIBSC_SFLASH_ReadConfig:
+  79              	.LVL3:
+  80              	.LFB2:
+ 149:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 150:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_ReadStatus
+ 151:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 152:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 153:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 154:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 155:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_ReadConfig
+ 156:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 157:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+ 158:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+ 159:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 160:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_ReadConfig(uint8_t *p_config)
+ 161:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+  81              		.loc 1 161 1 is_stmt 1 view -0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 8
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  85              		.loc 1 162 5 view .LVU16
+ 163:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint32_t addr = 0x00000000;
+  86              		.loc 1 163 5 view .LVU17
+ 164:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t config;
+  87              		.loc 1 164 5 view .LVU18
+ 165:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     
+ 166:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_RDCR_15H;
+  88              		.loc 1 166 5 view .LVU19
+ 167:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, &config, 1);
+  89              		.loc 1 167 5 view .LVU20
+ 161:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  90              		.loc 1 161 1 is_stmt 0 view .LVU21
+  91 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+  92              		.cfi_def_cfa_offset 24
+  93              		.cfi_offset 4, -8
+  94              		.cfi_offset 14, -4
+  95              		.loc 1 167 5 view .LVU22
+  96 0004 0F308DE2 		add	r3, sp, #15
+ 161:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+  97              		.loc 1 161 1 view .LVU23
+  98 0008 0040A0E1 		mov	r4, r0
+  99              		.loc 1 167 5 view .LVU24
+ 100 000c 00308DE5 		str	r3, [sp]
+ 101 0010 0100A0E3 		mov	r0, #1
+ 102              	.LVL4:
+ 103              		.loc 1 167 5 view .LVU25
+ 104 0014 0030A0E3 		mov	r3, #0
+ 105 0018 0320A0E1 		mov	r2, r3
+ 106 001c 0310A0E1 		mov	r1, r3
+ 107 0020 04008DE5 		str	r0, [sp, #4]
+ 108 0024 FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 109              	.LVL5:
+ 168:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 169:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     *p_config = config;
+ 110              		.loc 1 169 5 is_stmt 1 view .LVU26
+ 111              		.loc 1 169 15 is_stmt 0 view .LVU27
+ 112 0028 0F30DDE5 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 113 002c 0030C4E5 		strb	r3, [r4]
+ 170:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 171:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 114              		.loc 1 171 1 view .LVU28
+ 115 0030 10D08DE2 		add	sp, sp, #16
+ 116              		.cfi_def_cfa_offset 8
+ 117              		@ sp needed
+ 118 0034 1080BDE8 		pop	{r4, pc}
+ 119              		.loc 1 171 1 view .LVU29
+ 120              		.cfi_endproc
+ 121              	.LFE2:
+ 123              		.section	.text.Userdef_SPIBSC_SFLASH_WriteStatus,"ax",%progbits
+ 124              		.align	2
+ 125              		.global	Userdef_SPIBSC_SFLASH_WriteStatus
+ 126              		.syntax unified
+ 127              		.arm
+ 128              		.fpu neon
+ 130              	Userdef_SPIBSC_SFLASH_WriteStatus:
+ 131              	.LVL6:
+ 132              	.LFB3:
+ 172:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 173:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_ReadConfig
+ 174:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 175:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 176:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 177:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 178:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_WriteStatus
+ 179:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 180:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+ 181:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+ 182:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 183:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_WriteStatus(uint8_t *p_status, uint8_t *p_config)
+ 184:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 133              		.loc 1 184 1 is_stmt 1 view -0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 8
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 185:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 137              		.loc 1 185 5 view .LVU31
+ 186:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint32_t addr = 0x00000000;
+ 138              		.loc 1 186 5 view .LVU32
+ 187:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t write_data[2];
+ 139              		.loc 1 187 5 view .LVU33
+ 188:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 189:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[0] = *p_status;
+ 140              		.loc 1 189 5 view .LVU34
+ 184:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 141              		.loc 1 184 1 is_stmt 0 view .LVU35
+ 142 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+ 143              		.cfi_def_cfa_offset 24
+ 144              		.cfi_offset 14, -4
+ 190:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 191:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 192:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_WRSR_01H;
+ 193:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, &write_data[0], 2, 0, 0);  /*  Write status & config */
+ 145              		.loc 1 193 5 view .LVU36
+ 146 0004 0C208DE2 		add	r2, sp, #12
+ 189:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 147              		.loc 1 189 19 view .LVU37
+ 148 0008 0030D0E5 		ldrb	r3, [r0]	@ zero_extendqisi2
+ 149              		.loc 1 193 5 view .LVU38
+ 150 000c 0300A0E3 		mov	r0, #3
+ 151              	.LVL7:
+ 189:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 152              		.loc 1 189 19 view .LVU39
+ 153 0010 0C30CDE5 		strb	r3, [sp, #12]
+ 190:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 154              		.loc 1 190 5 is_stmt 1 view .LVU40
+ 190:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 155              		.loc 1 190 19 is_stmt 0 view .LVU41
+ 156 0014 0030D1E5 		ldrb	r3, [r1]	@ zero_extendqisi2
+ 157              		.loc 1 193 5 view .LVU42
+ 158 0018 0010A0E3 		mov	r1, #0
+ 159              	.LVL8:
+ 160              		.loc 1 193 5 view .LVU43
+ 161 001c 04108DE5 		str	r1, [sp, #4]
+ 162 0020 00108DE5 		str	r1, [sp]
+ 190:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     write_data[1] = *p_config;
+ 163              		.loc 1 190 19 view .LVU44
+ 164 0024 0D30CDE5 		strb	r3, [sp, #13]
+ 192:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, &write_data[0], 2, 0, 0);  /*  Write status & config */
+ 165              		.loc 1 192 5 is_stmt 1 view .LVU45
+ 166              	.LVL9:
+ 167              		.loc 1 193 5 view .LVU46
+ 168 0028 0230A0E3 		mov	r3, #2
+ 169 002c FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 170              	.LVL10:
+ 194:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 195:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 171              		.loc 1 195 1 is_stmt 0 view .LVU47
+ 172 0030 14D08DE2 		add	sp, sp, #20
+ 173              		.cfi_def_cfa_offset 4
+ 174              		@ sp needed
+ 175 0034 04F09DE4 		ldr	pc, [sp], #4
+ 176              		.cfi_endproc
+ 177              	.LFE3:
+ 179              		.section	.text.Userdef_SPIBSC_SFLASH_WriteEnable,"ax",%progbits
+ 180              		.align	2
+ 181              		.global	Userdef_SPIBSC_SFLASH_WriteEnable
+ 182              		.syntax unified
+ 183              		.arm
+ 184              		.fpu neon
+ 186              	Userdef_SPIBSC_SFLASH_WriteEnable:
+ 187              	.LFB4:
+ 196:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 197:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_WriteStatus
+ 198:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 199:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 200:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 201:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 202:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 203:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 204:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_WriteEnable
+ 205:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 206:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+ 207:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+ 208:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 209:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_WriteEnable(void)
+ 210:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 188              		.loc 1 210 1 is_stmt 1 view -0
+ 189              		.cfi_startproc
+ 190              		@ args = 0, pretend = 0, frame = 8
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 192              		.loc 1 211 5 view .LVU49
+ 212:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint32_t addr = 0x00000000;
+ 193              		.loc 1 212 5 view .LVU50
+ 194              	.LVL11:
+ 210:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 195              		.loc 1 210 1 is_stmt 0 view .LVU51
+ 196 0000 1F402DE9 		push	{r0, r1, r2, r3, r4, lr}
+ 197              		.cfi_def_cfa_offset 24
+ 198              		.cfi_offset 4, -8
+ 199              		.cfi_offset 14, -4
+ 213:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 214:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 215:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 216:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     do
+ 217:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 218:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* ==== Write Enable Command (06H) ==== */
+ 219:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         table_no = SFLASH_CMD_INDEX_WREN_06H;
+ 220:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, 0, 0);
+ 200              		.loc 1 220 9 view .LVU52
+ 201 0004 0040A0E3 		mov	r4, #0
+ 202              	.L8:
+ 213:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 203              		.loc 1 213 5 is_stmt 1 discriminator 1 view .LVU53
+ 216:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 204              		.loc 1 216 5 discriminator 1 view .LVU54
+ 219:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, 0, 0);
+ 205              		.loc 1 219 9 discriminator 1 view .LVU55
+ 206              	.LVL12:
+ 207              		.loc 1 220 9 discriminator 1 view .LVU56
+ 208 0008 0030A0E3 		mov	r3, #0
+ 209 000c 0200A0E3 		mov	r0, #2
+ 210 0010 0320A0E1 		mov	r2, r3
+ 211 0014 0310A0E1 		mov	r1, r3
+ 212 0018 04408DE5 		str	r4, [sp, #4]
+ 213 001c 00408DE5 		str	r4, [sp]
+ 214 0020 FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 215              	.LVL13:
+ 221:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 222:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* ==== Read Status Command (05H)==== */
+ 223:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         Userdef_SPIBSC_SFLASH_ReadStatus(&status);
+ 216              		.loc 1 223 9 discriminator 1 view .LVU57
+ 217 0024 0F008DE2 		add	r0, sp, #15
+ 218 0028 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_ReadStatus
+ 219              	.LVL14:
+ 224:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 225:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     while (SPIBSC_RDSR_WEL != (SPIBSC_RDSR_WEL & status));
+ 220              		.loc 1 225 11 discriminator 1 view .LVU58
+ 221              		.loc 1 225 28 is_stmt 0 discriminator 1 view .LVU59
+ 222 002c 0F30DDE5 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 223              		.loc 1 225 5 discriminator 1 view .LVU60
+ 224 0030 020013E3 		tst	r3, #2
+ 225 0034 F3FFFF0A 		beq	.L8
+ 226:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 227:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 226              		.loc 1 227 1 view .LVU61
+ 227 0038 10D08DE2 		add	sp, sp, #16
+ 228              		.cfi_def_cfa_offset 8
+ 229              		@ sp needed
+ 230 003c 1080BDE8 		pop	{r4, pc}
+ 231              		.cfi_endproc
+ 232              	.LFE4:
+ 234              		.section	.text.Userdef_SPIBSC_SFLASH_SetMode,"ax",%progbits
+ 235              		.align	2
+ 236              		.global	Userdef_SPIBSC_SFLASH_SetMode
+ 237              		.syntax unified
+ 238              		.arm
+ 239              		.fpu neon
+ 241              	Userdef_SPIBSC_SFLASH_SetMode:
+ 242              	.LVL15:
+ 243              	.LFB0:
+  69:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 244              		.loc 1 69 1 is_stmt 1 view -0
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 8
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+  70:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t config;
+ 248              		.loc 1 70 5 view .LVU63
+  71:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 249              		.loc 1 71 5 view .LVU64
+  75:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 250              		.loc 1 75 5 view .LVU65
+  69:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 251              		.loc 1 69 1 is_stmt 0 view .LVU66
+ 252 0000 37402DE9 		push	{r0, r1, r2, r4, r5, lr}
+ 253              		.cfi_def_cfa_offset 24
+ 254              		.cfi_offset 4, -12
+ 255              		.cfi_offset 5, -8
+ 256              		.cfi_offset 14, -4
+  69:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 257              		.loc 1 69 1 view .LVU67
+ 258 0004 0050A0E1 		mov	r5, r0
+  75:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 259              		.loc 1 75 5 view .LVU68
+ 260 0008 06008DE2 		add	r0, sp, #6
+ 261              	.LVL16:
+  69:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 262              		.loc 1 69 1 view .LVU69
+ 263 000c 0140A0E1 		mov	r4, r1
+  75:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 264              		.loc 1 75 5 view .LVU70
+ 265 0010 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_ReadStatus
+ 266              	.LVL17:
+  78:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 267              		.loc 1 78 5 is_stmt 1 view .LVU71
+ 268 0014 07008DE2 		add	r0, sp, #7
+ 269 0018 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_ReadConfig
+ 270              	.LVL18:
+  81:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 271              		.loc 1 81 5 view .LVU72
+ 272 001c FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_WriteEnable
+ 273              	.LVL19:
+  84:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_QE_ENABLE == mode )
+ 274              		.loc 1 84 5 view .LVU73
+  84:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_QE_ENABLE == mode )
+ 275              		.loc 1 84 21 is_stmt 0 view .LVU74
+ 276 0020 0630DDE5 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+  85:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 277              		.loc 1 85 5 is_stmt 1 view .LVU75
+  85:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 278              		.loc 1 85 8 is_stmt 0 view .LVU76
+ 279 0024 010055E3 		cmp	r5, #1
+  87:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 280              		.loc 1 87 8 is_stmt 1 view .LVU77
+ 115:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 281              		.loc 1 115 5 is_stmt 0 view .LVU78
+ 282 0028 07108DE2 		add	r1, sp, #7
+ 283 002c 06008DE2 		add	r0, sp, #6
+  84:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_QE_ENABLE == mode )
+ 284              		.loc 1 84 21 view .LVU79
+ 285 0030 3F30C303 		biceq	r3, r3, #63
+  91:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 286              		.loc 1 91 25 view .LVU80
+ 287 0034 80300312 		andne	r3, r3, #128
+  87:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 288              		.loc 1 87 15 view .LVU81
+ 289 0038 40308303 		orreq	r3, r3, #64
+  91:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 290              		.loc 1 91 9 is_stmt 1 view .LVU82
+  95:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 291              		.loc 1 95 8 is_stmt 0 view .LVU83
+ 292 003c 010054E3 		cmp	r4, #1
+ 293 0040 0630CDE5 		strb	r3, [sp, #6]
+  95:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 294              		.loc 1 95 5 is_stmt 1 view .LVU84
+ 101:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config | 0x86;
+ 295              		.loc 1 101 9 view .LVU85
+ 102:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 296              		.loc 1 102 9 view .LVU86
+ 297 0044 0730DDE5 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 298 0048 303003E2 		and	r3, r3, #48
+ 102:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 299              		.loc 1 102 16 is_stmt 0 view .LVU87
+ 300 004c 86308303 		orreq	r3, r3, #134
+ 110:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         config = config | 0x46;
+ 301              		.loc 1 110 9 is_stmt 1 view .LVU88
+ 111:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 302              		.loc 1 111 9 view .LVU89
+ 111:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 303              		.loc 1 111 16 is_stmt 0 view .LVU90
+ 304 0050 46308313 		orrne	r3, r3, #70
+ 305 0054 0730CDE5 		strb	r3, [sp, #7]
+ 115:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 306              		.loc 1 115 5 is_stmt 1 view .LVU91
+ 307 0058 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_WriteStatus
+ 308              	.LVL20:
+ 125:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 309              		.loc 1 125 1 is_stmt 0 view .LVU92
+ 310 005c 0CD08DE2 		add	sp, sp, #12
+ 311              		.cfi_def_cfa_offset 12
+ 312              		@ sp needed
+ 313 0060 3080BDE8 		pop	{r4, r5, pc}
+ 314              		.cfi_endproc
+ 315              	.LFE0:
+ 317              		.section	.text.Userdef_SPIBSC_SFLASH_WaitReady,"ax",%progbits
+ 318              		.align	2
+ 319              		.global	Userdef_SPIBSC_SFLASH_WaitReady
+ 320              		.syntax unified
+ 321              		.arm
+ 322              		.fpu neon
+ 324              	Userdef_SPIBSC_SFLASH_WaitReady:
+ 325              	.LFB5:
+ 228:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 229:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_WriteEnable
+ 230:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 231:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 232:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 233:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_WaitReady
+ 234:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 235:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    :
+ 236:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value :
+ 237:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 238:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_WaitReady(void)
+ 239:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 326              		.loc 1 239 1 is_stmt 1 view -0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 8
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330 0000 07402DE9 		push	{r0, r1, r2, lr}
+ 331              		.cfi_def_cfa_offset 16
+ 332              		.cfi_offset 14, -4
+ 333              	.L19:
+ 240:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t status;
+ 334              		.loc 1 240 5 discriminator 1 view .LVU94
+ 241:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 242:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 243:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     do
+ 335              		.loc 1 243 5 discriminator 1 view .LVU95
+ 244:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 245:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* ==== Read Status Command (05H)==== */
+ 246:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         Userdef_SPIBSC_SFLASH_ReadStatus(&status);
+ 336              		.loc 1 246 9 discriminator 1 view .LVU96
+ 337 0004 07008DE2 		add	r0, sp, #7
+ 338 0008 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_ReadStatus
+ 339              	.LVL21:
+ 247:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 248:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     while (SPIBSC_RDSR_WIP == (SPIBSC_RDSR_WIP & status));
+ 340              		.loc 1 248 11 discriminator 1 view .LVU97
+ 341              		.loc 1 248 28 is_stmt 0 discriminator 1 view .LVU98
+ 342 000c 0730DDE5 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 343              		.loc 1 248 5 discriminator 1 view .LVU99
+ 344 0010 010013E3 		tst	r3, #1
+ 345 0014 FAFFFF1A 		bne	.L19
+ 249:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 250:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 346              		.loc 1 250 1 view .LVU100
+ 347 0018 0CD08DE2 		add	sp, sp, #12
+ 348              		.cfi_def_cfa_offset 4
+ 349              		@ sp needed
+ 350 001c 04F09DE4 		ldr	pc, [sp], #4
+ 351              		.cfi_endproc
+ 352              	.LFE5:
+ 354              		.section	.text.Userdef_SPIBSC_SFLASH_Read,"ax",%progbits
+ 355              		.align	2
+ 356              		.global	Userdef_SPIBSC_SFLASH_Read
+ 357              		.syntax unified
+ 358              		.arm
+ 359              		.fpu neon
+ 361              	Userdef_SPIBSC_SFLASH_Read:
+ 362              	.LVL22:
+ 363              	.LFB6:
+ 251:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 252:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_WaitReady
+ 253:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 254:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 255:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 256:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_Read
+ 257:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  : The range of the serial flash memory designated by arguments
+ 258:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                is read and stored in a buffer.
+ 259:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    : uint32_t addr  : read address(address of serial flash memory)
+ 260:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                uint8_t *p_read_buff: Start address in a buffer
+ 261:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                uint32_t read_size  : The number of data byte
+ 262:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                uint8_t sdr_ddr: The number of data byte
+ 263:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value : none
+ 264:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 265:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_Read(uint32_t addr, uint8_t *p_read_buff, int32_t read_size, uint8_t sdr
+ 266:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 364              		.loc 1 266 1 is_stmt 1 view -0
+ 365              		.cfi_startproc
+ 366              		@ args = 0, pretend = 0, frame = 0
+ 367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 267:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 368              		.loc 1 267 5 view .LVU102
+ 268:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 269:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 270:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* Test Code for ROM Read 256 */
+ 271:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 272:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     if ( SPIBSC_DDR_TRANSFER == sdr_ddr )
+ 369              		.loc 1 272 5 view .LVU103
+ 370              		.loc 1 272 8 is_stmt 0 view .LVU104
+ 371 0000 010053E3 		cmp	r3, #1
+ 266:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 372              		.loc 1 266 1 view .LVU105
+ 373 0004 73402DE9 		push	{r0, r1, r4, r5, r6, lr}
+ 374              		.cfi_def_cfa_offset 24
+ 375              		.cfi_offset 4, -16
+ 376              		.cfi_offset 5, -12
+ 377              		.cfi_offset 6, -8
+ 378              		.cfi_offset 14, -4
+ 266:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 379              		.loc 1 266 1 view .LVU106
+ 380 0008 0040A0E1 		mov	r4, r0
+ 381 000c 0150A0E1 		mov	r5, r1
+ 382 0010 0260A0E1 		mov	r6, r2
+ 383              		.loc 1 272 8 view .LVU107
+ 384 0014 0F00001A 		bne	.L23
+ 273:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 274:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 275:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* Switch to manual operating mode */
+ 276:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_MANUAL, SPIBSC_DDR_TRANSFER, 0);
+ 385              		.loc 1 276 9 view .LVU108
+ 386 0018 0020A0E3 		mov	r2, #0
+ 387              	.LVL23:
+ 388              		.loc 1 276 9 view .LVU109
+ 389 001c 0310A0E1 		mov	r1, r3
+ 390              	.LVL24:
+ 391              		.loc 1 276 9 is_stmt 1 view .LVU110
+ 392 0020 0200A0E1 		mov	r0, r2
+ 393              	.LVL25:
+ 394              		.loc 1 276 9 is_stmt 0 view .LVU111
+ 395 0024 FEFFFFEB 		bl	R_SPIBSC_ChangeMode
+ 396              	.LVL26:
+ 277:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 278:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* ==== Read ROM data form address 0x000000000 ==== */
+ 279:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         table_no = SFLASH_CMD_INDEX_4DTRD4B_EEH;    /* 4BIT_DDR_READ */
+ 397              		.loc 1 279 9 is_stmt 1 view .LVU112
+ 280:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, p_read_buff, read_size);
+ 398              		.loc 1 280 9 view .LVU113
+ 399 0028 0030A0E3 		mov	r3, #0
+ 400 002c 0410A0E1 		mov	r1, r4
+ 401 0030 0320A0E1 		mov	r2, r3
+ 402 0034 60008DE8 		stm	sp, {r5, r6}
+ 403 0038 0500A0E3 		mov	r0, #5
+ 404 003c FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 405              	.LVL27:
+ 281:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 282:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* Switch to manual operating mode */
+ 283:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_MANUAL, SPIBSC_SDR_TRANSFER, 0);
+ 406              		.loc 1 283 9 view .LVU114
+ 407 0040 0020A0E3 		mov	r2, #0
+ 408 0044 0210A0E1 		mov	r1, r2
+ 409 0048 0200A0E1 		mov	r0, r2
+ 284:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 285:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     else
+ 286:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     {
+ 287:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 288:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         /* ==== Read ROM data form address 0x000000000 ==== */
+ 289:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         table_no = SFLASH_CMD_INDEX_4READ4B_ECH;    /* 4BIT_SDR_READ */
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, p_read_buff, read_size);
+ 291:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 292:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 293:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 410              		.loc 1 293 1 is_stmt 0 view .LVU115
+ 411 004c 08D08DE2 		add	sp, sp, #8
+ 412              		.cfi_remember_state
+ 413              		.cfi_def_cfa_offset 16
+ 414              		@ sp needed
+ 415 0050 7040BDE8 		pop	{r4, r5, r6, lr}
+ 416              		.cfi_restore 14
+ 417              		.cfi_restore 6
+ 418              		.cfi_restore 5
+ 419              		.cfi_restore 4
+ 420              		.cfi_def_cfa_offset 0
+ 421              	.LVL28:
+ 283:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 422              		.loc 1 283 9 view .LVU116
+ 423 0054 FEFFFFEA 		b	R_SPIBSC_ChangeMode
+ 424              	.LVL29:
+ 425              	.L23:
+ 426              		.cfi_restore_state
+ 289:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****         R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, p_read_buff, read_size);
+ 427              		.loc 1 289 9 is_stmt 1 view .LVU117
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 428              		.loc 1 290 9 view .LVU118
+ 429 0058 0030A0E3 		mov	r3, #0
+ 430              	.LVL30:
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 431              		.loc 1 290 9 is_stmt 0 view .LVU119
+ 432 005c 0010A0E1 		mov	r1, r0
+ 433              	.LVL31:
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 434              		.loc 1 290 9 view .LVU120
+ 435 0060 0320A0E1 		mov	r2, r3
+ 436              	.LVL32:
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 437              		.loc 1 290 9 view .LVU121
+ 438 0064 60008DE8 		stm	sp, {r5, r6}
+ 439 0068 0600A0E3 		mov	r0, #6
+ 440              	.LVL33:
+ 290:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     }
+ 441              		.loc 1 290 9 view .LVU122
+ 442 006c FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 443              	.LVL34:
+ 444              		.loc 1 293 1 view .LVU123
+ 445 0070 08D08DE2 		add	sp, sp, #8
+ 446              		.cfi_def_cfa_offset 16
+ 447              		@ sp needed
+ 448 0074 7080BDE8 		pop	{r4, r5, r6, pc}
+ 449              		.loc 1 293 1 view .LVU124
+ 450              		.cfi_endproc
+ 451              	.LFE6:
+ 453              		.section	.text.Userdef_SPIBSC_SFLASH_ReadId,"ax",%progbits
+ 454              		.align	2
+ 455              		.global	Userdef_SPIBSC_SFLASH_ReadId
+ 456              		.syntax unified
+ 457              		.arm
+ 458              		.fpu neon
+ 460              	Userdef_SPIBSC_SFLASH_ReadId:
+ 461              	.LVL35:
+ 462              	.LFB7:
+ 294:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 295:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Spibsc_Sflash_UserdefRead
+ 296:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 297:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 298:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 299:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Spibsc_Sflash_UserdefReadId
+ 300:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  :
+ 301:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    : uint8_t *p_id   : Start address in a buffer
+ 302:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value : none
+ 303:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 304:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_ReadId(uint8_t *p_id)
+ 305:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 463              		.loc 1 305 1 is_stmt 1 view -0
+ 464              		.cfi_startproc
+ 465              		@ args = 0, pretend = 0, frame = 0
+ 466              		@ frame_needed = 0, uses_anonymous_args = 0
+ 306:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 467              		.loc 1 306 5 view .LVU126
+ 307:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint32_t addr = 0x00000000;
+ 468              		.loc 1 307 5 view .LVU127
+ 308:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 309:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 310:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== RDID Command (9FH)==== */
+ 311:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_RDID_9FH;
+ 469              		.loc 1 311 5 view .LVU128
+ 312:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, p_id, 3);
+ 470              		.loc 1 312 5 view .LVU129
+ 471 0000 0330A0E3 		mov	r3, #3
+ 305:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 472              		.loc 1 305 1 is_stmt 0 view .LVU130
+ 473 0004 07402DE9 		push	{r0, r1, r2, lr}
+ 474              		.cfi_def_cfa_offset 16
+ 475              		.cfi_offset 14, -4
+ 476              		.loc 1 312 5 view .LVU131
+ 477 0008 09008DE8 		stm	sp, {r0, r3}
+ 478 000c 0030A0E3 		mov	r3, #0
+ 479 0010 0320A0E1 		mov	r2, r3
+ 480 0014 0310A0E1 		mov	r1, r3
+ 481 0018 0400A0E3 		mov	r0, #4
+ 482              	.LVL36:
+ 483              		.loc 1 312 5 view .LVU132
+ 484 001c FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 485              	.LVL37:
+ 313:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 314:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* === Expected value  === */
+ 315:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* Manufacturer ID : 0xC2  */
+ 316:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* Memory type : 0x20      */
+ 317:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* Memory density : 0x1A   */
+ 318:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 319:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 486              		.loc 1 319 1 view .LVU133
+ 487 0020 0CD08DE2 		add	sp, sp, #12
+ 488              		.cfi_def_cfa_offset 4
+ 489              		@ sp needed
+ 490 0024 04F09DE4 		ldr	pc, [sp], #4
+ 491              		.cfi_endproc
+ 492              	.LFE7:
+ 494              		.section	.text.Userdef_SPIBSC_SFLASH_Write,"ax",%progbits
+ 495              		.align	2
+ 496              		.global	Userdef_SPIBSC_SFLASH_Write
+ 497              		.syntax unified
+ 498              		.arm
+ 499              		.fpu neon
+ 501              	Userdef_SPIBSC_SFLASH_Write:
+ 502              	.LVL38:
+ 503              	.LFB8:
+ 320:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 321:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Spibsc_Sflash_UserdefReadId
+ 322:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 323:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 324:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 325:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Spibsc_Sflash_UserdefWrite
+ 326:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  : Data of an argument is written on a serial flash memory
+ 327:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    : uint32_t addr : write address(address of serial flash memory)
+ 328:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                uint8_t *p_write_buf  : write data(Start address in a buffer)
+ 329:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** *                uint32_t write_size : The number of data byte
+ 330:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value : none
+ 331:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 332:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_Write(uint32_t addr, uint8_t *p_write_buff, int32_t write_size)
+ 333:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 504              		.loc 1 333 1 is_stmt 1 view -0
+ 505              		.cfi_startproc
+ 506              		@ args = 0, pretend = 0, frame = 0
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 334:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 508              		.loc 1 334 5 view .LVU135
+ 335:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 336:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 337:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Write Enable ==== */
+ 338:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WriteEnable();
+ 509              		.loc 1 338 5 view .LVU136
+ 333:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 510              		.loc 1 333 1 is_stmt 0 view .LVU137
+ 511 0000 73402DE9 		push	{r0, r1, r4, r5, r6, lr}
+ 512              		.cfi_def_cfa_offset 24
+ 513              		.cfi_offset 4, -16
+ 514              		.cfi_offset 5, -12
+ 515              		.cfi_offset 6, -8
+ 516              		.cfi_offset 14, -4
+ 333:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 517              		.loc 1 333 1 view .LVU138
+ 518 0004 0040A0E1 		mov	r4, r0
+ 519 0008 0150A0E1 		mov	r5, r1
+ 520 000c 0260A0E1 		mov	r6, r2
+ 521              		.loc 1 338 5 view .LVU139
+ 522 0010 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_WriteEnable
+ 523              	.LVL39:
+ 339:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 340:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== 4BIT Page Program 4B ==== */
+ 341:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_4PP4B_3EH;
+ 524              		.loc 1 341 5 is_stmt 1 view .LVU140
+ 342:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 	addr = (0xFFFFFF00UL & addr);    /* 256byte Align */
+ 525              		.loc 1 342 2 view .LVU141
+ 343:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, p_write_buff, write_size, 0, 0);
+ 526              		.loc 1 343 5 view .LVU142
+ 527 0014 0030A0E3 		mov	r3, #0
+ 528 0018 0520A0E1 		mov	r2, r5
+ 529 001c 04308DE5 		str	r3, [sp, #4]
+ 530 0020 FF10C4E3 		bic	r1, r4, #255
+ 531              	.LVL40:
+ 532              		.loc 1 343 5 is_stmt 0 view .LVU143
+ 533 0024 00308DE5 		str	r3, [sp]
+ 534 0028 0700A0E3 		mov	r0, #7
+ 535 002c 0630A0E1 		mov	r3, r6
+ 536 0030 FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 537              	.LVL41:
+ 344:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 345:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Wait Ready ==== */
+ 346:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WaitReady();
+ 538              		.loc 1 346 5 is_stmt 1 view .LVU144
+ 347:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 348:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 539              		.loc 1 348 1 is_stmt 0 view .LVU145
+ 540 0034 08D08DE2 		add	sp, sp, #8
+ 541              		.cfi_def_cfa_offset 16
+ 542              		@ sp needed
+ 543 0038 7040BDE8 		pop	{r4, r5, r6, lr}
+ 544              		.cfi_restore 14
+ 545              		.cfi_restore 6
+ 546              		.cfi_restore 5
+ 547              		.cfi_restore 4
+ 548              		.cfi_def_cfa_offset 0
+ 549              	.LVL42:
+ 346:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 550              		.loc 1 346 5 view .LVU146
+ 551 003c FEFFFFEA 		b	Userdef_SPIBSC_SFLASH_WaitReady
+ 552              	.LVL43:
+ 553              		.cfi_endproc
+ 554              	.LFE8:
+ 556              		.section	.text.Userdef_SPIBSC_SFLASH_Erase,"ax",%progbits
+ 557              		.align	2
+ 558              		.global	Userdef_SPIBSC_SFLASH_Erase
+ 559              		.syntax unified
+ 560              		.arm
+ 561              		.fpu neon
+ 563              	Userdef_SPIBSC_SFLASH_Erase:
+ 564              	.LVL44:
+ 565              	.LFB9:
+ 349:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 350:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  * End of function Userdef_SPIBSC_SFLASH_Write
+ 351:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****  ******************************************************************************/
+ 352:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 353:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** /******************************************************************************
+ 354:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Function Name: Userdef_SPIBSC_SFLASH_Erase
+ 355:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Description  : Serial flash memory is sector erase
+ 356:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Arguments    : uint32_t addr  : erase address(address of serial flash memory)
+ 357:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** * Return Value : none
+ 358:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** ******************************************************************************/
+ 359:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** void Userdef_SPIBSC_SFLASH_Erase(uint32_t addr)
+ 360:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** {
+ 566              		.loc 1 360 1 is_stmt 1 view -0
+ 567              		.cfi_startproc
+ 568              		@ args = 0, pretend = 0, frame = 0
+ 569              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 570              		.loc 1 361 5 view .LVU148
+ 362:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 363:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 364:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Write Enable ==== */
+ 365:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WriteEnable();
+ 571              		.loc 1 365 5 view .LVU149
+ 360:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 572              		.loc 1 360 1 is_stmt 0 view .LVU150
+ 573 0000 13402DE9 		push	{r0, r1, r4, lr}
+ 574              		.cfi_def_cfa_offset 16
+ 575              		.cfi_offset 4, -8
+ 576              		.cfi_offset 14, -4
+ 360:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     uint8_t table_no;
+ 577              		.loc 1 360 1 view .LVU151
+ 578 0004 0040A0E1 		mov	r4, r0
+ 579              		.loc 1 365 5 view .LVU152
+ 580 0008 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_WriteEnable
+ 581              	.LVL45:
+ 366:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 367:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Sector Erase 4B  ==== */
+ 368:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     table_no = SFLASH_CMD_INDEX_SE4B_21H;
+ 582              		.loc 1 368 5 is_stmt 1 view .LVU153
+ 369:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 	addr = (0xFFFFF000UL & addr);    /* 4Kbyte Align */
+ 583              		.loc 1 369 2 view .LVU154
+ 370:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     R_SPIBSC_SPICMDIssue(table_no, addr, 0, 0, 0, 0);
+ 584              		.loc 1 370 5 view .LVU155
+ 585 000c 0030A0E3 		mov	r3, #0
+ 586 0010 FF1EC4E3 		bic	r1, r4, #4080
+ 587 0014 0320A0E1 		mov	r2, r3
+ 588 0018 0F10C1E3 		bic	r1, r1, #15
+ 589 001c 04308DE5 		str	r3, [sp, #4]
+ 590 0020 0800A0E3 		mov	r0, #8
+ 591 0024 00308DE5 		str	r3, [sp]
+ 592 0028 FEFFFFEB 		bl	R_SPIBSC_SPICMDIssue
+ 593              	.LVL46:
+ 371:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 372:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     /* ==== Wait Ready ==== */
+ 373:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c ****     Userdef_SPIBSC_SFLASH_WaitReady();
+ 594              		.loc 1 373 5 view .LVU156
+ 374:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 375:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** }
+ 595              		.loc 1 375 1 is_stmt 0 view .LVU157
+ 596 002c 08D08DE2 		add	sp, sp, #8
+ 597              		.cfi_def_cfa_offset 8
+ 598              		@ sp needed
+ 599 0030 1040BDE8 		pop	{r4, lr}
+ 600              		.cfi_restore 14
+ 601              		.cfi_restore 4
+ 602              		.cfi_def_cfa_offset 0
+ 603              	.LVL47:
+ 373:../generate/drivers/r_spibsc/src/lld/r_spibsc_sflash_userdef.c **** 
+ 604              		.loc 1 373 5 view .LVU158
+ 605 0034 FEFFFFEA 		b	Userdef_SPIBSC_SFLASH_WaitReady
+ 606              	.LVL48:
+ 607              		.cfi_endproc
+ 608              	.LFE9:
+ 610              		.text
+ 611              	.Letext0:
+ 612              		.file 2 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 613              		.file 3 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 614              		.file 4 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\lib\\gcc\\arm-none
+ 615              		.file 5 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 616              		.file 6 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 617              		.file 7 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 618              		.file 8 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 619              		.file 9 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/ge
+ 620              		.file 10 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+ 621              		.file 11 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+DEFINED SYMBOLS
+                            *ABS*:00000000 r_spibsc_sflash_userdef.c
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:17     .text.Userdef_SPIBSC_SFLASH_ReadStatus:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:24     .text.Userdef_SPIBSC_SFLASH_ReadStatus:00000000 Userdef_SPIBSC_SFLASH_ReadStatus
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:72     .text.Userdef_SPIBSC_SFLASH_ReadConfig:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:78     .text.Userdef_SPIBSC_SFLASH_ReadConfig:00000000 Userdef_SPIBSC_SFLASH_ReadConfig
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:124    .text.Userdef_SPIBSC_SFLASH_WriteStatus:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:130    .text.Userdef_SPIBSC_SFLASH_WriteStatus:00000000 Userdef_SPIBSC_SFLASH_WriteStatus
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:180    .text.Userdef_SPIBSC_SFLASH_WriteEnable:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:186    .text.Userdef_SPIBSC_SFLASH_WriteEnable:00000000 Userdef_SPIBSC_SFLASH_WriteEnable
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:235    .text.Userdef_SPIBSC_SFLASH_SetMode:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:241    .text.Userdef_SPIBSC_SFLASH_SetMode:00000000 Userdef_SPIBSC_SFLASH_SetMode
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:318    .text.Userdef_SPIBSC_SFLASH_WaitReady:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:324    .text.Userdef_SPIBSC_SFLASH_WaitReady:00000000 Userdef_SPIBSC_SFLASH_WaitReady
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:355    .text.Userdef_SPIBSC_SFLASH_Read:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:361    .text.Userdef_SPIBSC_SFLASH_Read:00000000 Userdef_SPIBSC_SFLASH_Read
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:454    .text.Userdef_SPIBSC_SFLASH_ReadId:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:460    .text.Userdef_SPIBSC_SFLASH_ReadId:00000000 Userdef_SPIBSC_SFLASH_ReadId
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:495    .text.Userdef_SPIBSC_SFLASH_Write:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:501    .text.Userdef_SPIBSC_SFLASH_Write:00000000 Userdef_SPIBSC_SFLASH_Write
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:557    .text.Userdef_SPIBSC_SFLASH_Erase:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccxqmkfe.s:563    .text.Userdef_SPIBSC_SFLASH_Erase:00000000 Userdef_SPIBSC_SFLASH_Erase
+                           .group:00000000 wm4.0.58582867dec117551e3c8e9255733210
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.stddef.h.39.144cf5ddcd53cbfdac30259dc1a6c87f
+                           .group:00000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
+                           .group:00000000 wm4.features.h.33.318b64d71e0957639cfb30f1db1f7ec8
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.7cb3972cd43265932d4782d5eb589854
+                           .group:00000000 wm4.ieeefp.h.77.3f06799abf5dd88bdddee084775a1223
+                           .group:00000000 wm4.config.h.224.c701144a7b0518c6ee9b9b5465b79f81
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.155.3588ebfdd1e8c7ede80509bb9c3b8009
+                           .group:00000000 wm4._types.h.127.34941de1b2539d59d5cac00e0dd27a45
+                           .group:00000000 wm4.reent.h.17.e292bf8b0bec6c96e131a54347145a30
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.77.dcd6129ff07fe81bd5636db29abe53b2
+                           .group:00000000 wm4.cdefs.h.49.6260d97adb8d27534cbdc0f868b8ea87
+                           .group:00000000 wm4.math.h.13.97100c05caf9f40dd9f5a3cda48ccc01
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+                           .group:00000000 wm4.r_spibsc_lld_rza2m_reg.h.41.976b0e72e154b02f742a03dc8c64dccd
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_spibsc_lld_rza2m_api.h.50.f9c452986541e72f270c3a76fbeab96c
+
+UNDEFINED SYMBOLS
+R_SPIBSC_SPICMDIssue
+R_SPIBSC_ChangeMode

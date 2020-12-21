@@ -1,0 +1,827 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"spi.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.MySPI_Init,"ax",%progbits
+  17              		.align	2
+  18              		.global	MySPI_Init
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	MySPI_Init:
+  24              	.LFB3:
+  25              		.file 1 "../src/renesas/application/spi.c"
+   1:../src/renesas/application/spi.c **** #include "spi.h"
+   2:../src/renesas/application/spi.c **** 
+   3:../src/renesas/application/spi.c **** //————————————————————————
+   4:../src/renesas/application/spi.c **** //完整spi数据传输(22组16位数据)
+   5:../src/renesas/application/spi.c **** //16位一次传输
+   6:../src/renesas/application/spi.c **** //MSB16位:   开始标志0x1100
+   7:../src/renesas/application/spi.c **** //16位数据*20
+   8:../src/renesas/application/spi.c **** //16位：     结束标志0xff00
+   9:../src/renesas/application/spi.c **** //————————————————————————
+  10:../src/renesas/application/spi.c **** static int_t s_my_gpio_handle;
+  11:../src/renesas/application/spi.c **** u8 end_flag = 0;	//结束标志0xff,用完置0
+  12:../src/renesas/application/spi.c **** u16 outputData[20];//存储检测到的输出数据
+  13:../src/renesas/application/spi.c **** 
+  14:../src/renesas/application/spi.c **** //static uint32_t s_main_led_flg;      /* LED lighting/turning off */
+  15:../src/renesas/application/spi.c **** 
+  16:../src/renesas/application/spi.c **** //define some para
+  17:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p64_hi ={GPIO_PORT_6_PIN_4,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+  18:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p64_lo ={GPIO_PORT_6_PIN_4,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  19:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p65_hi ={GPIO_PORT_6_PIN_5,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+  20:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p65_lo ={GPIO_PORT_6_PIN_5,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  21:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p66_hi ={GPIO_PORT_6_PIN_6,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+  22:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p66_lo ={GPIO_PORT_6_PIN_6,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  23:../src/renesas/application/spi.c **** static st_r_drv_gpio_pin_rw_t s_p67    ={GPIO_PORT_6_PIN_7, GPIO_LEVEL_SC_DEFAULT, GPIO_SUCCESS };
+  24:../src/renesas/application/spi.c **** static const r_gpio_port_pin_t s_led_pin_list[] =
+  25:../src/renesas/application/spi.c **** {
+  26:../src/renesas/application/spi.c **** //    GPIO_PORT_6_PIN_0,
+  27:../src/renesas/application/spi.c **** 	GPIO_PORT_6_PIN_4,
+  28:../src/renesas/application/spi.c **** 	GPIO_PORT_6_PIN_5,
+  29:../src/renesas/application/spi.c **** 	GPIO_PORT_6_PIN_6,
+  30:../src/renesas/application/spi.c **** //	GPIO_PORT_6_PIN_7
+  31:../src/renesas/application/spi.c **** };
+  32:../src/renesas/application/spi.c **** 
+  33:../src/renesas/application/spi.c **** 
+  34:../src/renesas/application/spi.c **** 
+  35:../src/renesas/application/spi.c **** //软件模拟SPI
+  36:../src/renesas/application/spi.c **** int_t MySPI_Init(void)
+  37:../src/renesas/application/spi.c **** {
+  26              		.loc 1 37 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 04E02DE5 		str	lr, [sp, #-4]!
+  31              		.cfi_def_cfa_offset 4
+  32              		.cfi_offset 14, -4
+  33 0004 14D04DE2 		sub	sp, sp, #20
+  34              		.cfi_def_cfa_offset 24
+  38:../src/renesas/application/spi.c ****     int_t err;
+  39:../src/renesas/application/spi.c ****     st_r_drv_gpio_pin_list_t pin_led;
+  40:../src/renesas/application/spi.c ****     char_t data;
+  41:../src/renesas/application/spi.c ****     s_my_gpio_handle = open(DEVICE_INDENTIFIER "gpio", O_RDWR);
+  35              		.loc 1 41 0
+  36 0008 0210A0E3 		mov	r1, #2
+  37 000c 000000E3 		movw	r0, #:lower16:.LC0
+  38 0010 000040E3 		movt	r0, #:upper16:.LC0
+  39 0014 FEFFFFEB 		bl	open
+  40              	.LVL0:
+  41 0018 003000E3 		movw	r3, #:lower16:.LANCHOR0
+  42 001c 003040E3 		movt	r3, #:upper16:.LANCHOR0
+  43 0020 000083E5 		str	r0, [r3]
+  42:../src/renesas/application/spi.c ****     pin_led.p_pin_list = s_led_pin_list;
+  44              		.loc 1 42 0
+  45 0024 003000E3 		movw	r3, #:lower16:.LANCHOR1
+  46 0028 003040E3 		movt	r3, #:upper16:.LANCHOR1
+  47 002c 04308DE5 		str	r3, [sp, #4]
+  43:../src/renesas/application/spi.c ****     pin_led.count = (sizeof(s_led_pin_list)) / (sizeof(s_led_pin_list[0]));
+  48              		.loc 1 43 0
+  49 0030 0330A0E3 		mov	r3, #3
+  50 0034 08308DE5 		str	r3, [sp, #8]
+  44:../src/renesas/application/spi.c ****     err = direct_control(s_my_gpio_handle, CTL_GPIO_INIT_BY_PIN_LIST, &pin_led);
+  51              		.loc 1 44 0
+  52 0038 04208DE2 		add	r2, sp, #4
+  53 003c 0210A0E3 		mov	r1, #2
+  54 0040 FEFFFFEB 		bl	direct_control
+  55              	.LVL1:
+  45:../src/renesas/application/spi.c ****     return err;
+  46:../src/renesas/application/spi.c **** }
+  56              		.loc 1 46 0
+  57 0044 14D08DE2 		add	sp, sp, #20
+  58              		.cfi_def_cfa_offset 4
+  59              		@ sp needed
+  60 0048 04F09DE4 		ldr	pc, [sp], #4
+  61              		.cfi_endproc
+  62              	.LFE3:
+  64              		.section	.text.SPI_ReadData,"ax",%progbits
+  65              		.align	2
+  66              		.global	SPI_ReadData
+  67              		.syntax unified
+  68              		.arm
+  69              		.fpu neon
+  71              	SPI_ReadData:
+  72              	.LFB4:
+  47:../src/renesas/application/spi.c **** 
+  48:../src/renesas/application/spi.c **** //SPI读取数据,16位一次
+  49:../src/renesas/application/spi.c **** u16 SPI_ReadData(void)
+  50:../src/renesas/application/spi.c **** {
+  73              		.loc 1 50 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 70402DE9 		push	{r4, r5, r6, lr}
+  78              		.cfi_def_cfa_offset 16
+  79              		.cfi_offset 4, -16
+  80              		.cfi_offset 5, -12
+  81              		.cfi_offset 6, -8
+  82              		.cfi_offset 14, -4
+  83              	.LVL2:
+  51:../src/renesas/application/spi.c **** 	u16 data = 0;
+  52:../src/renesas/application/spi.c **** 	u8 i;
+  53:../src/renesas/application/spi.c **** 	SPI_CS0;
+  84              		.loc 1 53 0
+  85 0004 003000E3 		movw	r3, #:lower16:.LANCHOR0
+  86 0008 003040E3 		movt	r3, #:upper16:.LANCHOR0
+  87 000c 002000E3 		movw	r2, #:lower16:.LANCHOR2
+  88 0010 002040E3 		movt	r2, #:upper16:.LANCHOR2
+  89 0014 0810A0E3 		mov	r1, #8
+  90 0018 000093E5 		ldr	r0, [r3]
+  91 001c FEFFFFEB 		bl	direct_control
+  92              	.LVL3:
+  54:../src/renesas/application/spi.c ****     for(i=0; i<16; i++)
+  93              		.loc 1 54 0
+  94 0020 0050A0E3 		mov	r5, #0
+  51:../src/renesas/application/spi.c **** 	u16 data = 0;
+  95              		.loc 1 51 0
+  96 0024 0540A0E1 		mov	r4, r5
+  97              		.loc 1 54 0
+  98 0028 130000EA 		b	.L4
+  99              	.LVL4:
+ 100              	.L5:
+  55:../src/renesas/application/spi.c ****     {
+  56:../src/renesas/application/spi.c **** 		SPI_SCLK1;
+ 101              		.loc 1 56 0 discriminator 3
+ 102 002c 006000E3 		movw	r6, #:lower16:.LANCHOR0
+ 103 0030 006040E3 		movt	r6, #:upper16:.LANCHOR0
+ 104 0034 002000E3 		movw	r2, #:lower16:.LANCHOR3
+ 105 0038 002040E3 		movt	r2, #:upper16:.LANCHOR3
+ 106 003c 0810A0E3 		mov	r1, #8
+ 107 0040 000096E5 		ldr	r0, [r6]
+ 108 0044 FEFFFFEB 		bl	direct_control
+ 109              	.LVL5:
+  57:../src/renesas/application/spi.c **** 
+  58:../src/renesas/application/spi.c ****         SPI_SCLK0;
+ 110              		.loc 1 58 0 discriminator 3
+ 111 0048 002000E3 		movw	r2, #:lower16:.LANCHOR4
+ 112 004c 002040E3 		movt	r2, #:upper16:.LANCHOR4
+ 113 0050 0810A0E3 		mov	r1, #8
+ 114 0054 000096E5 		ldr	r0, [r6]
+ 115 0058 FEFFFFEB 		bl	direct_control
+ 116              	.LVL6:
+  59:../src/renesas/application/spi.c **** 
+  60:../src/renesas/application/spi.c ****         data <<= 1;// 左移
+ 117              		.loc 1 60 0 discriminator 3
+ 118 005c 8440A0E1 		lsl	r4, r4, #1
+ 119              	.LVL7:
+ 120 0060 7440FFE6 		uxth	r4, r4
+ 121              	.LVL8:
+  61:../src/renesas/application/spi.c ****         data = data | SPI_MISO;// 接收数据
+ 122              		.loc 1 61 0 discriminator 3
+ 123 0064 003000E3 		movw	r3, #:lower16:.LANCHOR5
+ 124 0068 003040E3 		movt	r3, #:upper16:.LANCHOR5
+ 125 006c 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 126 0070 044083E1 		orr	r4, r3, r4
+ 127              	.LVL9:
+  54:../src/renesas/application/spi.c ****     {
+ 128              		.loc 1 54 0 discriminator 3
+ 129 0074 015085E2 		add	r5, r5, #1
+ 130              	.LVL10:
+ 131 0078 7550EFE6 		uxtb	r5, r5
+ 132              	.LVL11:
+ 133              	.L4:
+  54:../src/renesas/application/spi.c ****     {
+ 134              		.loc 1 54 0 is_stmt 0 discriminator 1
+ 135 007c 0F0055E3 		cmp	r5, #15
+ 136 0080 E9FFFF9A 		bls	.L5
+  62:../src/renesas/application/spi.c ****     }
+  63:../src/renesas/application/spi.c **** 	SPI_CS1;
+ 137              		.loc 1 63 0 is_stmt 1
+ 138 0084 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 139 0088 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 140 008c 002000E3 		movw	r2, #:lower16:.LANCHOR6
+ 141 0090 002040E3 		movt	r2, #:upper16:.LANCHOR6
+ 142 0094 0810A0E3 		mov	r1, #8
+ 143 0098 000093E5 		ldr	r0, [r3]
+ 144 009c FEFFFFEB 		bl	direct_control
+ 145              	.LVL12:
+  64:../src/renesas/application/spi.c **** 	
+  65:../src/renesas/application/spi.c **** 	return data;
+  66:../src/renesas/application/spi.c **** 	
+  67:../src/renesas/application/spi.c **** }
+ 146              		.loc 1 67 0
+ 147 00a0 0400A0E1 		mov	r0, r4
+ 148 00a4 7080BDE8 		pop	{r4, r5, r6, pc}
+ 149              		.cfi_endproc
+ 150              	.LFE4:
+ 152              		.section	.text.MySPI_ReadByte,"ax",%progbits
+ 153              		.align	2
+ 154              		.global	MySPI_ReadByte
+ 155              		.syntax unified
+ 156              		.arm
+ 157              		.fpu neon
+ 159              	MySPI_ReadByte:
+ 160              	.LFB5:
+  68:../src/renesas/application/spi.c **** //返回值若为开始标志0x11,则开始读数据
+  69:../src/renesas/application/spi.c **** u8 MySPI_ReadByte(void)
+  70:../src/renesas/application/spi.c **** {
+ 161              		.loc 1 70 0
+ 162              		.cfi_startproc
+ 163              		@ args = 0, pretend = 0, frame = 0
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165 0000 F0412DE9 		push	{r4, r5, r6, r7, r8, lr}
+ 166              		.cfi_def_cfa_offset 24
+ 167              		.cfi_offset 4, -24
+ 168              		.cfi_offset 5, -20
+ 169              		.cfi_offset 6, -16
+ 170              		.cfi_offset 7, -12
+ 171              		.cfi_offset 8, -8
+ 172              		.cfi_offset 14, -4
+ 173              	.LVL13:
+  71:../src/renesas/application/spi.c ****     u8 i,k;
+  72:../src/renesas/application/spi.c ****     u8 start_flag = 0;
+  73:../src/renesas/application/spi.c **** 
+  74:../src/renesas/application/spi.c ****     SPI_CS0;
+ 174              		.loc 1 74 0
+ 175 0004 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 176 0008 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 177 000c 002000E3 		movw	r2, #:lower16:.LANCHOR2
+ 178 0010 002040E3 		movt	r2, #:upper16:.LANCHOR2
+ 179 0014 0810A0E3 		mov	r1, #8
+ 180 0018 000093E5 		ldr	r0, [r3]
+ 181 001c FEFFFFEB 		bl	direct_control
+ 182              	.LVL14:
+  72:../src/renesas/application/spi.c **** 
+ 183              		.loc 1 72 0
+ 184 0020 0040A0E3 		mov	r4, #0
+  75:../src/renesas/application/spi.c ****     for(i=0; i<8; i++)//开始标志0x11
+ 185              		.loc 1 75 0
+ 186 0024 0460A0E1 		mov	r6, r4
+ 187 0028 170000EA 		b	.L8
+ 188              	.LVL15:
+ 189              	.L9:
+  76:../src/renesas/application/spi.c ****     {
+  77:../src/renesas/application/spi.c **** 		SPI_SCLK1;
+ 190              		.loc 1 77 0 discriminator 3
+ 191 002c 005000E3 		movw	r5, #:lower16:.LANCHOR0
+ 192 0030 005040E3 		movt	r5, #:upper16:.LANCHOR0
+ 193 0034 002000E3 		movw	r2, #:lower16:.LANCHOR3
+ 194 0038 002040E3 		movt	r2, #:upper16:.LANCHOR3
+ 195 003c 0810A0E3 		mov	r1, #8
+ 196 0040 000095E5 		ldr	r0, [r5]
+ 197 0044 FEFFFFEB 		bl	direct_control
+ 198              	.LVL16:
+  78:../src/renesas/application/spi.c **** 
+  79:../src/renesas/application/spi.c ****         SPI_SCLK0;
+ 199              		.loc 1 79 0 discriminator 3
+ 200 0048 002000E3 		movw	r2, #:lower16:.LANCHOR4
+ 201 004c 002040E3 		movt	r2, #:upper16:.LANCHOR4
+ 202 0050 0810A0E3 		mov	r1, #8
+ 203 0054 000095E5 		ldr	r0, [r5]
+ 204 0058 FEFFFFEB 		bl	direct_control
+ 205              	.LVL17:
+  80:../src/renesas/application/spi.c **** 
+  81:../src/renesas/application/spi.c ****         start_flag <<= 1;
+ 206              		.loc 1 81 0 discriminator 3
+ 207 005c 8440A0E1 		lsl	r4, r4, #1
+ 208              	.LVL18:
+ 209 0060 7440EFE6 		uxtb	r4, r4
+ 210              	.LVL19:
+  82:../src/renesas/application/spi.c ****         SPI_MISO_R;
+ 211              		.loc 1 82 0 discriminator 3
+ 212 0064 007000E3 		movw	r7, #:lower16:.LANCHOR5
+ 213 0068 007040E3 		movt	r7, #:upper16:.LANCHOR5
+ 214 006c 0720A0E1 		mov	r2, r7
+ 215 0070 0910A0E3 		mov	r1, #9
+ 216 0074 000095E5 		ldr	r0, [r5]
+ 217 0078 FEFFFFEB 		bl	direct_control
+ 218              	.LVL20:
+  83:../src/renesas/application/spi.c ****         start_flag = start_flag | SPI_MISO;
+ 219              		.loc 1 83 0 discriminator 3
+ 220 007c 0230D7E5 		ldrb	r3, [r7, #2]	@ zero_extendqisi2
+ 221 0080 044083E1 		orr	r4, r3, r4
+ 222              	.LVL21:
+  75:../src/renesas/application/spi.c ****     {
+ 223              		.loc 1 75 0 discriminator 3
+ 224 0084 016086E2 		add	r6, r6, #1
+ 225              	.LVL22:
+ 226 0088 7660EFE6 		uxtb	r6, r6
+ 227              	.LVL23:
+ 228              	.L8:
+  75:../src/renesas/application/spi.c ****     {
+ 229              		.loc 1 75 0 is_stmt 0 discriminator 1
+ 230 008c 070056E3 		cmp	r6, #7
+ 231 0090 E5FFFF9A 		bls	.L9
+  84:../src/renesas/application/spi.c ****     }
+  85:../src/renesas/application/spi.c **** 	SPI_CS1;
+ 232              		.loc 1 85 0 is_stmt 1
+ 233 0094 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 234 0098 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 235 009c 002000E3 		movw	r2, #:lower16:.LANCHOR6
+ 236 00a0 002040E3 		movt	r2, #:upper16:.LANCHOR6
+ 237 00a4 0810A0E3 		mov	r1, #8
+ 238 00a8 000093E5 		ldr	r0, [r3]
+ 239 00ac FEFFFFEB 		bl	direct_control
+ 240              	.LVL24:
+  86:../src/renesas/application/spi.c **** 	
+  87:../src/renesas/application/spi.c ****     if(start_flag == 0x11)//开始接收真正的数据
+ 241              		.loc 1 87 0
+ 242 00b0 110054E3 		cmp	r4, #17
+ 243 00b4 1400000A 		beq	.L15
+  88:../src/renesas/application/spi.c ****     {
+  89:../src/renesas/application/spi.c **** 		for(k=0;k<20;k++)
+  90:../src/renesas/application/spi.c **** 		{
+  91:../src/renesas/application/spi.c **** 			outputData[k]=SPI_ReadData();
+  92:../src/renesas/application/spi.c **** 		}
+  93:../src/renesas/application/spi.c **** 
+  94:../src/renesas/application/spi.c **** 		SPI_CS0;
+  95:../src/renesas/application/spi.c **** 		for(i=0; i<8; i++)  //结束标志0xff
+  96:../src/renesas/application/spi.c ****         {
+  97:../src/renesas/application/spi.c **** 			SPI_SCLK1;
+  98:../src/renesas/application/spi.c **** 
+  99:../src/renesas/application/spi.c **** 			SPI_SCLK0;
+ 100:../src/renesas/application/spi.c **** 
+ 101:../src/renesas/application/spi.c ****             end_flag <<= 1;// 左移
+ 102:../src/renesas/application/spi.c ****             end_flag = end_flag | SPI_MISO;// 接收数据
+ 103:../src/renesas/application/spi.c ****         }
+ 104:../src/renesas/application/spi.c **** 		SPI_CS1;
+ 105:../src/renesas/application/spi.c ****     }
+ 106:../src/renesas/application/spi.c ****     else start_flag = 0;
+ 244              		.loc 1 106 0
+ 245 00b8 0040A0E3 		mov	r4, #0
+ 246              	.LVL25:
+ 247              	.L11:
+ 107:../src/renesas/application/spi.c **** 	
+ 108:../src/renesas/application/spi.c ****     return start_flag;
+ 109:../src/renesas/application/spi.c **** }
+ 248              		.loc 1 109 0
+ 249 00bc 0400A0E1 		mov	r0, r4
+ 250 00c0 F081BDE8 		pop	{r4, r5, r6, r7, r8, pc}
+ 251              	.LVL26:
+ 252              	.L12:
+  91:../src/renesas/application/spi.c **** 		}
+ 253              		.loc 1 91 0 discriminator 3
+ 254 00c4 FEFFFFEB 		bl	SPI_ReadData
+ 255              	.LVL27:
+ 256 00c8 003000E3 		movw	r3, #:lower16:outputData
+ 257 00cc 003040E3 		movt	r3, #:upper16:outputData
+ 258 00d0 8520A0E1 		lsl	r2, r5, #1
+ 259 00d4 B20083E1 		strh	r0, [r3, r2]	@ movhi
+  89:../src/renesas/application/spi.c **** 		{
+ 260              		.loc 1 89 0 discriminator 3
+ 261 00d8 015085E2 		add	r5, r5, #1
+ 262              	.LVL28:
+ 263 00dc 7550EFE6 		uxtb	r5, r5
+ 264              	.LVL29:
+ 265              	.L10:
+  89:../src/renesas/application/spi.c **** 		{
+ 266              		.loc 1 89 0 is_stmt 0 discriminator 1
+ 267 00e0 130055E3 		cmp	r5, #19
+ 268 00e4 F6FFFF9A 		bls	.L12
+  94:../src/renesas/application/spi.c **** 		for(i=0; i<8; i++)  //结束标志0xff
+ 269              		.loc 1 94 0 is_stmt 1
+ 270 00e8 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 271 00ec 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 272 00f0 002000E3 		movw	r2, #:lower16:.LANCHOR2
+ 273 00f4 002040E3 		movt	r2, #:upper16:.LANCHOR2
+ 274 00f8 0810A0E3 		mov	r1, #8
+ 275 00fc 000093E5 		ldr	r0, [r3]
+ 276 0100 FEFFFFEB 		bl	direct_control
+ 277              	.LVL30:
+  95:../src/renesas/application/spi.c ****         {
+ 278              		.loc 1 95 0
+ 279 0104 0050A0E3 		mov	r5, #0
+ 280              	.LVL31:
+ 281 0108 190000EA 		b	.L13
+ 282              	.LVL32:
+ 283              	.L15:
+  89:../src/renesas/application/spi.c **** 		{
+ 284              		.loc 1 89 0
+ 285 010c 0050A0E3 		mov	r5, #0
+ 286 0110 F2FFFFEA 		b	.L10
+ 287              	.LVL33:
+ 288              	.L14:
+  97:../src/renesas/application/spi.c **** 
+ 289              		.loc 1 97 0 discriminator 3
+ 290 0114 006000E3 		movw	r6, #:lower16:.LANCHOR0
+ 291 0118 006040E3 		movt	r6, #:upper16:.LANCHOR0
+ 292 011c 002000E3 		movw	r2, #:lower16:.LANCHOR3
+ 293 0120 002040E3 		movt	r2, #:upper16:.LANCHOR3
+ 294 0124 0810A0E3 		mov	r1, #8
+ 295 0128 000096E5 		ldr	r0, [r6]
+ 296 012c FEFFFFEB 		bl	direct_control
+ 297              	.LVL34:
+  99:../src/renesas/application/spi.c **** 
+ 298              		.loc 1 99 0 discriminator 3
+ 299 0130 002000E3 		movw	r2, #:lower16:.LANCHOR4
+ 300 0134 002040E3 		movt	r2, #:upper16:.LANCHOR4
+ 301 0138 0810A0E3 		mov	r1, #8
+ 302 013c 000096E5 		ldr	r0, [r6]
+ 303 0140 FEFFFFEB 		bl	direct_control
+ 304              	.LVL35:
+ 101:../src/renesas/application/spi.c ****             end_flag = end_flag | SPI_MISO;// 接收数据
+ 305              		.loc 1 101 0 discriminator 3
+ 306 0144 002000E3 		movw	r2, #:lower16:.LANCHOR7
+ 307 0148 002040E3 		movt	r2, #:upper16:.LANCHOR7
+ 308 014c 0030D2E5 		ldrb	r3, [r2]	@ zero_extendqisi2
+ 309 0150 8330A0E1 		lsl	r3, r3, #1
+ 310 0154 7330EFE6 		uxtb	r3, r3
+ 102:../src/renesas/application/spi.c ****         }
+ 311              		.loc 1 102 0 discriminator 3
+ 312 0158 001000E3 		movw	r1, #:lower16:.LANCHOR5
+ 313 015c 001040E3 		movt	r1, #:upper16:.LANCHOR5
+ 314 0160 0210D1E5 		ldrb	r1, [r1, #2]	@ zero_extendqisi2
+ 315 0164 013083E1 		orr	r3, r3, r1
+ 316 0168 0030C2E5 		strb	r3, [r2]
+  95:../src/renesas/application/spi.c ****         {
+ 317              		.loc 1 95 0 discriminator 3
+ 318 016c 015085E2 		add	r5, r5, #1
+ 319              	.LVL36:
+ 320 0170 7550EFE6 		uxtb	r5, r5
+ 321              	.LVL37:
+ 322              	.L13:
+  95:../src/renesas/application/spi.c ****         {
+ 323              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 324 0174 070055E3 		cmp	r5, #7
+ 325 0178 E5FFFF9A 		bls	.L14
+ 104:../src/renesas/application/spi.c ****     }
+ 326              		.loc 1 104 0 is_stmt 1
+ 327 017c 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 328 0180 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 329 0184 002000E3 		movw	r2, #:lower16:.LANCHOR6
+ 330 0188 002040E3 		movt	r2, #:upper16:.LANCHOR6
+ 331 018c 0810A0E3 		mov	r1, #8
+ 332 0190 000093E5 		ldr	r0, [r3]
+ 333 0194 FEFFFFEB 		bl	direct_control
+ 334              	.LVL38:
+ 335 0198 C7FFFFEA 		b	.L11
+ 336              		.cfi_endproc
+ 337              	.LFE5:
+ 339              		.section	.text.MySPI_SendByte,"ax",%progbits
+ 340              		.align	2
+ 341              		.global	MySPI_SendByte
+ 342              		.syntax unified
+ 343              		.arm
+ 344              		.fpu neon
+ 346              	MySPI_SendByte:
+ 347              	.LFB6:
+ 110:../src/renesas/application/spi.c **** 
+ 111:../src/renesas/application/spi.c **** 
+ 112:../src/renesas/application/spi.c **** //发送数据
+ 113:../src/renesas/application/spi.c **** void MySPI_SendByte(u8 data)
+ 114:../src/renesas/application/spi.c **** {
+ 348              		.loc 1 114 0
+ 349              		.cfi_startproc
+ 350              		@ args = 0, pretend = 0, frame = 0
+ 351              		@ frame_needed = 0, uses_anonymous_args = 0
+ 352              	.LVL39:
+ 353 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 354              		.cfi_def_cfa_offset 16
+ 355              		.cfi_offset 4, -16
+ 356              		.cfi_offset 5, -12
+ 357              		.cfi_offset 6, -8
+ 358              		.cfi_offset 14, -4
+ 359 0004 0050A0E1 		mov	r5, r0
+ 115:../src/renesas/application/spi.c **** 	u8 i;
+ 116:../src/renesas/application/spi.c **** 	
+ 117:../src/renesas/application/spi.c **** 	SPI_CS0;
+ 360              		.loc 1 117 0
+ 361 0008 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 362 000c 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 363 0010 002000E3 		movw	r2, #:lower16:.LANCHOR2
+ 364 0014 002040E3 		movt	r2, #:upper16:.LANCHOR2
+ 365 0018 0810A0E3 		mov	r1, #8
+ 366 001c 000093E5 		ldr	r0, [r3]
+ 367              	.LVL40:
+ 368 0020 FEFFFFEB 		bl	direct_control
+ 369              	.LVL41:
+ 118:../src/renesas/application/spi.c **** 	
+ 119:../src/renesas/application/spi.c **** 	for(i=0;i<8;i++)
+ 370              		.loc 1 119 0
+ 371 0024 0040A0E3 		mov	r4, #0
+ 372 0028 110000EA 		b	.L18
+ 373              	.LVL42:
+ 374              	.L24:
+ 120:../src/renesas/application/spi.c **** 	{	
+ 121:../src/renesas/application/spi.c **** 		SPI_SCLK0;
+ 122:../src/renesas/application/spi.c **** 		if((data&0x80) == 0x80)// 处理得到一位并发送
+ 123:../src/renesas/application/spi.c **** 		{
+ 124:../src/renesas/application/spi.c **** 			SPI_MOSI1;
+ 375              		.loc 1 124 0
+ 376 002c 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 377 0030 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 378 0034 002000E3 		movw	r2, #:lower16:.LANCHOR8
+ 379 0038 002040E3 		movt	r2, #:upper16:.LANCHOR8
+ 380 003c 0810A0E3 		mov	r1, #8
+ 381 0040 000093E5 		ldr	r0, [r3]
+ 382 0044 FEFFFFEB 		bl	direct_control
+ 383              	.LVL43:
+ 384              	.L20:
+ 125:../src/renesas/application/spi.c **** 		}			
+ 126:../src/renesas/application/spi.c **** 		else
+ 127:../src/renesas/application/spi.c **** 		{
+ 128:../src/renesas/application/spi.c **** 			SPI_MOSI0;
+ 129:../src/renesas/application/spi.c **** 		}		
+ 130:../src/renesas/application/spi.c **** 		data <<= 1;// 数据左移1位
+ 385              		.loc 1 130 0 discriminator 2
+ 386 0048 8550A0E1 		lsl	r5, r5, #1
+ 387              	.LVL44:
+ 388 004c 7550EFE6 		uxtb	r5, r5
+ 389              	.LVL45:
+ 131:../src/renesas/application/spi.c **** 		SPI_SCLK1;// 上升沿写入数据
+ 390              		.loc 1 131 0 discriminator 2
+ 391 0050 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 392 0054 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 393 0058 002000E3 		movw	r2, #:lower16:.LANCHOR3
+ 394 005c 002040E3 		movt	r2, #:upper16:.LANCHOR3
+ 395 0060 0810A0E3 		mov	r1, #8
+ 396 0064 000093E5 		ldr	r0, [r3]
+ 397 0068 FEFFFFEB 		bl	direct_control
+ 398              	.LVL46:
+ 119:../src/renesas/application/spi.c **** 	{	
+ 399              		.loc 1 119 0 discriminator 2
+ 400 006c 014084E2 		add	r4, r4, #1
+ 401              	.LVL47:
+ 402 0070 7440EFE6 		uxtb	r4, r4
+ 403              	.LVL48:
+ 404              	.L18:
+ 119:../src/renesas/application/spi.c **** 	{	
+ 405              		.loc 1 119 0 is_stmt 0 discriminator 1
+ 406 0074 070054E3 		cmp	r4, #7
+ 407 0078 1000008A 		bhi	.L23
+ 121:../src/renesas/application/spi.c **** 		if((data&0x80) == 0x80)// 处理得到一位并发送
+ 408              		.loc 1 121 0 is_stmt 1
+ 409 007c 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 410 0080 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 411 0084 002000E3 		movw	r2, #:lower16:.LANCHOR4
+ 412 0088 002040E3 		movt	r2, #:upper16:.LANCHOR4
+ 413 008c 0810A0E3 		mov	r1, #8
+ 414 0090 000093E5 		ldr	r0, [r3]
+ 415 0094 FEFFFFEB 		bl	direct_control
+ 416              	.LVL49:
+ 122:../src/renesas/application/spi.c **** 		{
+ 417              		.loc 1 122 0
+ 418 0098 800015E3 		tst	r5, #128
+ 419 009c E2FFFF1A 		bne	.L24
+ 128:../src/renesas/application/spi.c **** 		}		
+ 420              		.loc 1 128 0
+ 421 00a0 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 422 00a4 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 423 00a8 002000E3 		movw	r2, #:lower16:.LANCHOR9
+ 424 00ac 002040E3 		movt	r2, #:upper16:.LANCHOR9
+ 425 00b0 0810A0E3 		mov	r1, #8
+ 426 00b4 000093E5 		ldr	r0, [r3]
+ 427 00b8 FEFFFFEB 		bl	direct_control
+ 428              	.LVL50:
+ 429 00bc E1FFFFEA 		b	.L20
+ 430              	.L23:
+ 132:../src/renesas/application/spi.c **** 	}	
+ 133:../src/renesas/application/spi.c **** 	
+ 134:../src/renesas/application/spi.c **** 	SPI_CS1;
+ 431              		.loc 1 134 0
+ 432 00c0 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 433 00c4 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 434 00c8 002000E3 		movw	r2, #:lower16:.LANCHOR6
+ 435 00cc 002040E3 		movt	r2, #:upper16:.LANCHOR6
+ 436 00d0 0810A0E3 		mov	r1, #8
+ 437 00d4 000093E5 		ldr	r0, [r3]
+ 438 00d8 FEFFFFEB 		bl	direct_control
+ 439              	.LVL51:
+ 135:../src/renesas/application/spi.c **** }
+ 440              		.loc 1 135 0
+ 441 00dc 7080BDE8 		pop	{r4, r5, r6, pc}
+ 442              		.cfi_endproc
+ 443              	.LFE6:
+ 445              		.comm	outputData,40,4
+ 446              		.global	end_flag
+ 447              		.section	.bss.end_flag,"aw",%nobits
+ 448              		.set	.LANCHOR7,. + 0
+ 451              	end_flag:
+ 452 0000 00       		.space	1
+ 453              		.section	.bss.s_my_gpio_handle,"aw",%nobits
+ 454              		.align	2
+ 455              		.set	.LANCHOR0,. + 0
+ 458              	s_my_gpio_handle:
+ 459 0000 00000000 		.space	4
+ 460              		.section	.data.s_p64_hi,"aw",%progbits
+ 461              		.align	2
+ 462              		.set	.LANCHOR3,. + 0
+ 465              	s_p64_hi:
+ 466 0000 0406     		.short	1540
+ 467 0002 02       		.byte	2
+ 468 0003 00       		.byte	0
+ 469              		.section	.data.s_p64_lo,"aw",%progbits
+ 470              		.align	2
+ 471              		.set	.LANCHOR4,. + 0
+ 474              	s_p64_lo:
+ 475 0000 0406     		.short	1540
+ 476 0002 01       		.byte	1
+ 477 0003 00       		.byte	0
+ 478              		.section	.data.s_p65_hi,"aw",%progbits
+ 479              		.align	2
+ 480              		.set	.LANCHOR6,. + 0
+ 483              	s_p65_hi:
+ 484 0000 0506     		.short	1541
+ 485 0002 02       		.byte	2
+ 486 0003 00       		.byte	0
+ 487              		.section	.data.s_p65_lo,"aw",%progbits
+ 488              		.align	2
+ 489              		.set	.LANCHOR2,. + 0
+ 492              	s_p65_lo:
+ 493 0000 0506     		.short	1541
+ 494 0002 01       		.byte	1
+ 495 0003 00       		.byte	0
+ 496              		.section	.data.s_p66_hi,"aw",%progbits
+ 497              		.align	2
+ 498              		.set	.LANCHOR8,. + 0
+ 501              	s_p66_hi:
+ 502 0000 0606     		.short	1542
+ 503 0002 02       		.byte	2
+ 504 0003 00       		.byte	0
+ 505              		.section	.data.s_p66_lo,"aw",%progbits
+ 506              		.align	2
+ 507              		.set	.LANCHOR9,. + 0
+ 510              	s_p66_lo:
+ 511 0000 0606     		.short	1542
+ 512 0002 01       		.byte	1
+ 513 0003 00       		.byte	0
+ 514              		.section	.data.s_p67,"aw",%progbits
+ 515              		.align	2
+ 516              		.set	.LANCHOR5,. + 0
+ 519              	s_p67:
+ 520 0000 0706     		.short	1543
+ 521 0002 00       		.byte	0
+ 522 0003 00       		.byte	0
+ 523              		.section	.rodata.MySPI_Init.str1.4,"aMS",%progbits,1
+ 524              		.align	2
+ 525              	.LC0:
+ 526 0000 5C5C2E5C 		.ascii	"\\\\.\\gpio\000"
+ 526      6770696F 
+ 526      00
+ 527              		.section	.rodata.s_led_pin_list,"a",%progbits
+ 528              		.align	2
+ 529              		.set	.LANCHOR1,. + 0
+ 532              	s_led_pin_list:
+ 533 0000 0406     		.short	1540
+ 534 0002 0506     		.short	1541
+ 535 0004 0606     		.short	1542
+ 536              		.text
+ 537              	.Letext0:
+ 538              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 539              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 540              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 541              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 542              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 543              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 544              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 545              		.file 9 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0.
+ 546              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 547              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 548              		.file 12 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+ 549              		.file 13 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+ 550              		.file 14 "../src/renesas/application/spi.h"
+ 551              		.file 15 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+ 552              		.file 16 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:17     .text.MySPI_Init:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:23     .text.MySPI_Init:00000000 MySPI_Init
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:525    .rodata.MySPI_Init.str1.4:00000000 .LC0
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:455    .bss.s_my_gpio_handle:00000000 .LANCHOR0
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:529    .rodata.s_led_pin_list:00000000 .LANCHOR1
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:65     .text.SPI_ReadData:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:71     .text.SPI_ReadData:00000000 SPI_ReadData
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:489    .data.s_p65_lo:00000000 .LANCHOR2
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:462    .data.s_p64_hi:00000000 .LANCHOR3
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:471    .data.s_p64_lo:00000000 .LANCHOR4
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:516    .data.s_p67:00000000 .LANCHOR5
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:480    .data.s_p65_hi:00000000 .LANCHOR6
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:153    .text.MySPI_ReadByte:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:159    .text.MySPI_ReadByte:00000000 MySPI_ReadByte
+                            *COM*:00000028 outputData
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:448    .bss.end_flag:00000000 .LANCHOR7
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:340    .text.MySPI_SendByte:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:346    .text.MySPI_SendByte:00000000 MySPI_SendByte
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:498    .data.s_p66_hi:00000000 .LANCHOR8
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:507    .data.s_p66_lo:00000000 .LANCHOR9
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:451    .bss.end_flag:00000000 end_flag
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:452    .bss.end_flag:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:454    .bss.s_my_gpio_handle:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:458    .bss.s_my_gpio_handle:00000000 s_my_gpio_handle
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:461    .data.s_p64_hi:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:465    .data.s_p64_hi:00000000 s_p64_hi
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:470    .data.s_p64_lo:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:474    .data.s_p64_lo:00000000 s_p64_lo
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:479    .data.s_p65_hi:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:483    .data.s_p65_hi:00000000 s_p65_hi
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:488    .data.s_p65_lo:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:492    .data.s_p65_lo:00000000 s_p65_lo
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:497    .data.s_p66_hi:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:501    .data.s_p66_hi:00000000 s_p66_hi
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:506    .data.s_p66_lo:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:510    .data.s_p66_lo:00000000 s_p66_lo
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:515    .data.s_p67:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:519    .data.s_p67:00000000 s_p67
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:524    .rodata.MySPI_Init.str1.4:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:528    .rodata.s_led_pin_list:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccJT8a1n.s:532    .rodata.s_led_pin_list:00000000 s_led_pin_list
+                           .group:00000000 wm4.0.9054d66a5fa2dfc330cdb37bfcae7de2
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.spi.h.5.3b3ff8eaea4ccc599824217a7c80c124
+
+UNDEFINED SYMBOLS
+open
+direct_control

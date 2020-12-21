@@ -1,0 +1,1972 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"network.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.padding,"ax",%progbits
+  17              		.align	2
+  18              		.global	padding
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	padding:
+  24              	.LFB0:
+  25              		.file 1 "../src/renesas/application/Translator/network.c"
+   1:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+   2:../src/renesas/application/Translator/network.c **** * DISCLAIMER
+   3:../src/renesas/application/Translator/network.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
+   4:../src/renesas/application/Translator/network.c **** * other uses are authorized. This software is owned by Renesas Electronics Corporation and is prote
+   5:../src/renesas/application/Translator/network.c **** * applicable laws, including copyright laws. 
+   6:../src/renesas/application/Translator/network.c **** * THIS SOFTWARE IS PROVIDED 'AS IS' AND RENESAS MAKES NO WARRANTIES REGARDING
+   7:../src/renesas/application/Translator/network.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF 
+   8:../src/renesas/application/Translator/network.c **** * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIM
+   9:../src/renesas/application/Translator/network.c **** * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AF
+  10:../src/renesas/application/Translator/network.c **** * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY RE
+  11:../src/renesas/application/Translator/network.c **** * SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  12:../src/renesas/application/Translator/network.c **** * Renesas reserves the right, without notice, to make changes to this software and to discontinue t
+  13:../src/renesas/application/Translator/network.c **** * this software. By using this software, you agree to the additional terms and conditions found by 
+  14:../src/renesas/application/Translator/network.c **** * following link:
+  15:../src/renesas/application/Translator/network.c **** * http://www.renesas.com/disclaimer 
+  16:../src/renesas/application/Translator/network.c **** *
+  17:../src/renesas/application/Translator/network.c **** * Changed from original python code to C source code.
+  18:../src/renesas/application/Translator/network.c **** * Copyright (C) 2017 Renesas Electronics Corporation. All rights reserved.
+  19:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+  20:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+  21:../src/renesas/application/Translator/network.c **** * File Name    : network.c
+  22:../src/renesas/application/Translator/network.c **** * Version      : 1.00
+  23:../src/renesas/application/Translator/network.c **** * Description  : Definitions of all functions
+  24:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+  25:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+  26:../src/renesas/application/Translator/network.c **** * History : DD.MM.YYYY Version  Description
+  27:../src/renesas/application/Translator/network.c **** *         : 16.06.2017 1.00     First Release
+  28:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+  29:../src/renesas/application/Translator/network.c **** 
+  30:../src/renesas/application/Translator/network.c **** #include <math.h>
+  31:../src/renesas/application/Translator/network.c **** #include "Typedef.h"
+  32:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+  33:../src/renesas/application/Translator/network.c **** * Function Name: padding
+  34:../src/renesas/application/Translator/network.c **** * Description  : - Padding operation
+  35:../src/renesas/application/Translator/network.c **** *				 - Creates a new output matrix with zero's padded on the original input 
+  36:../src/renesas/application/Translator/network.c **** * Arguments    : dData		- Pointer to the input data
+  37:../src/renesas/application/Translator/network.c **** *				 dPad		- Pointer to the padding output
+  38:../src/renesas/application/Translator/network.c **** *				 iShapes	- Dimensions 
+  39:../src/renesas/application/Translator/network.c **** *					( N, input channels, input height, input width, output height, output width ,pad top, pad lef
+  40:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+  41:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+  42:../src/renesas/application/Translator/network.c **** void padding(TPrecision *dData, TPrecision *dPad, TsInt *iShapes)
+  43:../src/renesas/application/Translator/network.c **** {
+  26              		.loc 1 43 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 64
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 04B02DE5 		str	fp, [sp, #-4]!
+  32              		.cfi_def_cfa_offset 4
+  33              		.cfi_offset 11, -4
+  34 0004 00B08DE2 		add	fp, sp, #0
+  35              		.cfi_def_cfa_register 11
+  36 0008 44D04DE2 		sub	sp, sp, #68
+  37 000c 38000BE5 		str	r0, [fp, #-56]
+  38 0010 3C100BE5 		str	r1, [fp, #-60]
+  39 0014 40200BE5 		str	r2, [fp, #-64]
+  44:../src/renesas/application/Translator/network.c **** 	TsInt iD1,iD2,iD3,iD4;
+  45:../src/renesas/application/Translator/network.c **** 	TsInt iN = iShapes[0];		// Number of examples
+  40              		.loc 1 45 0
+  41 0018 40301BE5 		ldr	r3, [fp, #-64]
+  42 001c 003093E5 		ldr	r3, [r3]
+  43 0020 18300BE5 		str	r3, [fp, #-24]
+  46:../src/renesas/application/Translator/network.c **** 	TsInt iC = iShapes[1];		// Number of channels
+  44              		.loc 1 46 0
+  45 0024 40301BE5 		ldr	r3, [fp, #-64]
+  46 0028 043093E5 		ldr	r3, [r3, #4]
+  47 002c 1C300BE5 		str	r3, [fp, #-28]
+  47:../src/renesas/application/Translator/network.c **** 	TsInt iH = iShapes[2];		// Input image height
+  48              		.loc 1 47 0
+  49 0030 40301BE5 		ldr	r3, [fp, #-64]
+  50 0034 083093E5 		ldr	r3, [r3, #8]
+  51 0038 20300BE5 		str	r3, [fp, #-32]
+  48:../src/renesas/application/Translator/network.c **** 	TsInt iW = iShapes[3];		// Input image width
+  52              		.loc 1 48 0
+  53 003c 40301BE5 		ldr	r3, [fp, #-64]
+  54 0040 0C3093E5 		ldr	r3, [r3, #12]
+  55 0044 24300BE5 		str	r3, [fp, #-36]
+  49:../src/renesas/application/Translator/network.c **** 	TsInt iPH = iShapes[4];		// Output height
+  56              		.loc 1 49 0
+  57 0048 40301BE5 		ldr	r3, [fp, #-64]
+  58 004c 103093E5 		ldr	r3, [r3, #16]
+  59 0050 28300BE5 		str	r3, [fp, #-40]
+  50:../src/renesas/application/Translator/network.c **** 	TsInt iPW = iShapes[5];		// Output width
+  60              		.loc 1 50 0
+  61 0054 40301BE5 		ldr	r3, [fp, #-64]
+  62 0058 143093E5 		ldr	r3, [r3, #20]
+  63 005c 2C300BE5 		str	r3, [fp, #-44]
+  51:../src/renesas/application/Translator/network.c **** 	TsInt pad_top = iShapes[6];	// Number of pixels to be added to the height
+  64              		.loc 1 51 0
+  65 0060 40301BE5 		ldr	r3, [fp, #-64]
+  66 0064 183093E5 		ldr	r3, [r3, #24]
+  67 0068 30300BE5 		str	r3, [fp, #-48]
+  52:../src/renesas/application/Translator/network.c **** 	TsInt pad_left = iShapes[7];	// Number of pixels to be added to the width
+  68              		.loc 1 52 0
+  69 006c 40301BE5 		ldr	r3, [fp, #-64]
+  70 0070 1C3093E5 		ldr	r3, [r3, #28]
+  71 0074 34300BE5 		str	r3, [fp, #-52]
+  53:../src/renesas/application/Translator/network.c **** 
+  54:../src/renesas/application/Translator/network.c **** 	// Padding operation
+  55:../src/renesas/application/Translator/network.c **** 	for(iD1=0; iD1 < iN*iC*iPH*iPW; iD1++)
+  72              		.loc 1 55 0
+  73 0078 0030A0E3 		mov	r3, #0
+  74 007c 08300BE5 		str	r3, [fp, #-8]
+  75 0080 080000EA 		b	.L2
+  76              	.L3:
+  56:../src/renesas/application/Translator/network.c **** 		dPad[iD1]=0;
+  77              		.loc 1 56 0 discriminator 3
+  78 0084 08301BE5 		ldr	r3, [fp, #-8]
+  79 0088 0331A0E1 		lsl	r3, r3, #2
+  80 008c 3C201BE5 		ldr	r2, [fp, #-60]
+  81 0090 033082E0 		add	r3, r2, r3
+  82 0094 0020A0E3 		mov	r2, #0
+  83 0098 002083E5 		str	r2, [r3]	@ float
+  55:../src/renesas/application/Translator/network.c **** 		dPad[iD1]=0;
+  84              		.loc 1 55 0 discriminator 3
+  85 009c 08301BE5 		ldr	r3, [fp, #-8]
+  86 00a0 013083E2 		add	r3, r3, #1
+  87 00a4 08300BE5 		str	r3, [fp, #-8]
+  88              	.L2:
+  55:../src/renesas/application/Translator/network.c **** 		dPad[iD1]=0;
+  89              		.loc 1 55 0 is_stmt 0 discriminator 1
+  90 00a8 18301BE5 		ldr	r3, [fp, #-24]
+  91 00ac 1C201BE5 		ldr	r2, [fp, #-28]
+  92 00b0 920303E0 		mul	r3, r2, r3
+  93 00b4 28201BE5 		ldr	r2, [fp, #-40]
+  94 00b8 920303E0 		mul	r3, r2, r3
+  95 00bc 2C201BE5 		ldr	r2, [fp, #-44]
+  96 00c0 920303E0 		mul	r3, r2, r3
+  97 00c4 08201BE5 		ldr	r2, [fp, #-8]
+  98 00c8 030052E1 		cmp	r2, r3
+  99 00cc ECFFFFBA 		blt	.L3
+  57:../src/renesas/application/Translator/network.c **** 
+  58:../src/renesas/application/Translator/network.c **** 	for(iD1=0; iD1 < iN; iD1++)
+ 100              		.loc 1 58 0 is_stmt 1
+ 101 00d0 0030A0E3 		mov	r3, #0
+ 102 00d4 08300BE5 		str	r3, [fp, #-8]
+ 103 00d8 4A0000EA 		b	.L4
+ 104              	.L11:
+  59:../src/renesas/application/Translator/network.c **** 	{
+  60:../src/renesas/application/Translator/network.c **** 		for(iD2 = 0; iD2 < iC; iD2++)
+ 105              		.loc 1 60 0
+ 106 00dc 0030A0E3 		mov	r3, #0
+ 107 00e0 0C300BE5 		str	r3, [fp, #-12]
+ 108 00e4 400000EA 		b	.L5
+ 109              	.L10:
+  61:../src/renesas/application/Translator/network.c **** 		{
+  62:../src/renesas/application/Translator/network.c **** 			for(iD3 = pad_top; iD3 < iH + pad_top; iD3++)
+ 110              		.loc 1 62 0
+ 111 00e8 30301BE5 		ldr	r3, [fp, #-48]
+ 112 00ec 10300BE5 		str	r3, [fp, #-16]
+ 113 00f0 340000EA 		b	.L6
+ 114              	.L9:
+  63:../src/renesas/application/Translator/network.c **** 			{				
+  64:../src/renesas/application/Translator/network.c **** 				for(iD4 = pad_left; iD4 < iW + pad_left; iD4++)
+ 115              		.loc 1 64 0
+ 116 00f4 34301BE5 		ldr	r3, [fp, #-52]
+ 117 00f8 14300BE5 		str	r3, [fp, #-20]
+ 118 00fc 280000EA 		b	.L7
+ 119              	.L8:
+  65:../src/renesas/application/Translator/network.c **** 				{
+  66:../src/renesas/application/Translator/network.c **** 					dPad[(iD1*iC*iPH*iPW)+(iD2*iPH*iPW)+(iD3*iPW)+(iD4)] = dData[(iD1*iC*iH*iW)+(iD2*iH*iW)+((iD3-
+ 120              		.loc 1 66 0 discriminator 3
+ 121 0100 08301BE5 		ldr	r3, [fp, #-8]
+ 122 0104 1C201BE5 		ldr	r2, [fp, #-28]
+ 123 0108 920302E0 		mul	r2, r2, r3
+ 124 010c 0C301BE5 		ldr	r3, [fp, #-12]
+ 125 0110 033082E0 		add	r3, r2, r3
+ 126 0114 20201BE5 		ldr	r2, [fp, #-32]
+ 127 0118 920302E0 		mul	r2, r2, r3
+ 128 011c 10101BE5 		ldr	r1, [fp, #-16]
+ 129 0120 30301BE5 		ldr	r3, [fp, #-48]
+ 130 0124 033041E0 		sub	r3, r1, r3
+ 131 0128 033082E0 		add	r3, r2, r3
+ 132 012c 24201BE5 		ldr	r2, [fp, #-36]
+ 133 0130 920302E0 		mul	r2, r2, r3
+ 134 0134 14101BE5 		ldr	r1, [fp, #-20]
+ 135 0138 34301BE5 		ldr	r3, [fp, #-52]
+ 136 013c 033041E0 		sub	r3, r1, r3
+ 137 0140 033082E0 		add	r3, r2, r3
+ 138 0144 0331A0E1 		lsl	r3, r3, #2
+ 139 0148 38201BE5 		ldr	r2, [fp, #-56]
+ 140 014c 032082E0 		add	r2, r2, r3
+ 141 0150 08301BE5 		ldr	r3, [fp, #-8]
+ 142 0154 1C101BE5 		ldr	r1, [fp, #-28]
+ 143 0158 910301E0 		mul	r1, r1, r3
+ 144 015c 0C301BE5 		ldr	r3, [fp, #-12]
+ 145 0160 033081E0 		add	r3, r1, r3
+ 146 0164 28101BE5 		ldr	r1, [fp, #-40]
+ 147 0168 910301E0 		mul	r1, r1, r3
+ 148 016c 10301BE5 		ldr	r3, [fp, #-16]
+ 149 0170 033081E0 		add	r3, r1, r3
+ 150 0174 2C101BE5 		ldr	r1, [fp, #-44]
+ 151 0178 910301E0 		mul	r1, r1, r3
+ 152 017c 14301BE5 		ldr	r3, [fp, #-20]
+ 153 0180 033081E0 		add	r3, r1, r3
+ 154 0184 0331A0E1 		lsl	r3, r3, #2
+ 155 0188 3C101BE5 		ldr	r1, [fp, #-60]
+ 156 018c 033081E0 		add	r3, r1, r3
+ 157 0190 002092E5 		ldr	r2, [r2]	@ float
+ 158 0194 002083E5 		str	r2, [r3]	@ float
+  64:../src/renesas/application/Translator/network.c **** 				{
+ 159              		.loc 1 64 0 discriminator 3
+ 160 0198 14301BE5 		ldr	r3, [fp, #-20]
+ 161 019c 013083E2 		add	r3, r3, #1
+ 162 01a0 14300BE5 		str	r3, [fp, #-20]
+ 163              	.L7:
+  64:../src/renesas/application/Translator/network.c **** 				{
+ 164              		.loc 1 64 0 is_stmt 0 discriminator 1
+ 165 01a4 24201BE5 		ldr	r2, [fp, #-36]
+ 166 01a8 34301BE5 		ldr	r3, [fp, #-52]
+ 167 01ac 033082E0 		add	r3, r2, r3
+ 168 01b0 14201BE5 		ldr	r2, [fp, #-20]
+ 169 01b4 030052E1 		cmp	r2, r3
+ 170 01b8 D0FFFFBA 		blt	.L8
+  62:../src/renesas/application/Translator/network.c **** 			{				
+ 171              		.loc 1 62 0 is_stmt 1 discriminator 2
+ 172 01bc 10301BE5 		ldr	r3, [fp, #-16]
+ 173 01c0 013083E2 		add	r3, r3, #1
+ 174 01c4 10300BE5 		str	r3, [fp, #-16]
+ 175              	.L6:
+  62:../src/renesas/application/Translator/network.c **** 			{				
+ 176              		.loc 1 62 0 is_stmt 0 discriminator 1
+ 177 01c8 20201BE5 		ldr	r2, [fp, #-32]
+ 178 01cc 30301BE5 		ldr	r3, [fp, #-48]
+ 179 01d0 033082E0 		add	r3, r2, r3
+ 180 01d4 10201BE5 		ldr	r2, [fp, #-16]
+ 181 01d8 030052E1 		cmp	r2, r3
+ 182 01dc C4FFFFBA 		blt	.L9
+  60:../src/renesas/application/Translator/network.c **** 		{
+ 183              		.loc 1 60 0 is_stmt 1 discriminator 2
+ 184 01e0 0C301BE5 		ldr	r3, [fp, #-12]
+ 185 01e4 013083E2 		add	r3, r3, #1
+ 186 01e8 0C300BE5 		str	r3, [fp, #-12]
+ 187              	.L5:
+  60:../src/renesas/application/Translator/network.c **** 		{
+ 188              		.loc 1 60 0 is_stmt 0 discriminator 1
+ 189 01ec 0C201BE5 		ldr	r2, [fp, #-12]
+ 190 01f0 1C301BE5 		ldr	r3, [fp, #-28]
+ 191 01f4 030052E1 		cmp	r2, r3
+ 192 01f8 BAFFFFBA 		blt	.L10
+  58:../src/renesas/application/Translator/network.c **** 	{
+ 193              		.loc 1 58 0 is_stmt 1 discriminator 2
+ 194 01fc 08301BE5 		ldr	r3, [fp, #-8]
+ 195 0200 013083E2 		add	r3, r3, #1
+ 196 0204 08300BE5 		str	r3, [fp, #-8]
+ 197              	.L4:
+  58:../src/renesas/application/Translator/network.c **** 	{
+ 198              		.loc 1 58 0 is_stmt 0 discriminator 1
+ 199 0208 08201BE5 		ldr	r2, [fp, #-8]
+ 200 020c 18301BE5 		ldr	r3, [fp, #-24]
+ 201 0210 030052E1 		cmp	r2, r3
+ 202 0214 B0FFFFBA 		blt	.L11
+  67:../src/renesas/application/Translator/network.c **** 				}
+  68:../src/renesas/application/Translator/network.c **** 			}
+  69:../src/renesas/application/Translator/network.c **** 		}
+  70:../src/renesas/application/Translator/network.c **** 	}
+  71:../src/renesas/application/Translator/network.c **** }
+ 203              		.loc 1 71 0 is_stmt 1
+ 204 0218 00F020E3 		nop
+ 205 021c 00D08BE2 		add	sp, fp, #0
+ 206              		.cfi_def_cfa_register 13
+ 207              		@ sp needed
+ 208 0220 04B09DE4 		ldr	fp, [sp], #4
+ 209              		.cfi_restore 11
+ 210              		.cfi_def_cfa_offset 0
+ 211 0224 1EFF2FE1 		bx	lr
+ 212              		.cfi_endproc
+ 213              	.LFE0:
+ 215              		.section	.text.convolution,"ax",%progbits
+ 216              		.align	2
+ 217              		.global	convolution
+ 218              		.syntax unified
+ 219              		.arm
+ 220              		.fpu neon
+ 222              	convolution:
+ 223              	.LFB1:
+  72:../src/renesas/application/Translator/network.c **** 
+  73:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+  74:../src/renesas/application/Translator/network.c **** * Function Name: convolution
+  75:../src/renesas/application/Translator/network.c **** * Description  : - Convolution layer
+  76:../src/renesas/application/Translator/network.c **** *				 - Performs elementwise multiplication of selected input data and weights and add them up with
+  77:../src/renesas/application/Translator/network.c **** *				   by taking in the filter size and strides as the convolution parameters
+  78:../src/renesas/application/Translator/network.c **** * Arguments    : dData		- Pointer to the input data
+  79:../src/renesas/application/Translator/network.c **** *				 dPad		- Pointer to the padding output
+  80:../src/renesas/application/Translator/network.c **** *			 	 dWeights	- Pointer to the weights
+  81:../src/renesas/application/Translator/network.c **** *				 dBiases	- Pointer to the biases
+  82:../src/renesas/application/Translator/network.c **** *				 dOut		- Pointer to the convolution output (to be filled with values during convolution operat
+  83:../src/renesas/application/Translator/network.c **** *				 iShapes	- Dimensions 
+  84:../src/renesas/application/Translator/network.c **** *					( N, Channels, input height, input width, No. of filters, channels, filter height, filter wid
+  85:../src/renesas/application/Translator/network.c **** *					  output height,output width,pad top, pad bottom, pad left, pad right, stride height,stride w
+  86:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+  87:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+  88:../src/renesas/application/Translator/network.c **** void convolution(TPrecision *dData,TPrecision *dPad, TPrecision *dWeights, TPrecision *dBiases,TPre
+ 224              		.loc 1 88 0
+ 225              		.cfi_startproc
+ 226              		@ args = 8, pretend = 0, frame = 160
+ 227              		@ frame_needed = 1, uses_anonymous_args = 0
+ 228 0000 00482DE9 		push	{fp, lr}
+ 229              		.cfi_def_cfa_offset 8
+ 230              		.cfi_offset 11, -8
+ 231              		.cfi_offset 14, -4
+ 232 0004 04B08DE2 		add	fp, sp, #4
+ 233              		.cfi_def_cfa 11, 4
+ 234 0008 A0D04DE2 		sub	sp, sp, #160
+ 235 000c 98000BE5 		str	r0, [fp, #-152]
+ 236 0010 9C100BE5 		str	r1, [fp, #-156]
+ 237 0014 A0200BE5 		str	r2, [fp, #-160]
+ 238 0018 A4300BE5 		str	r3, [fp, #-164]
+  89:../src/renesas/application/Translator/network.c **** 	TsInt iD1,iD2,iD3,iD4;   // Dimensions
+  90:../src/renesas/application/Translator/network.c **** 	TsInt iItr1,iItr2,iItr3;
+  91:../src/renesas/application/Translator/network.c **** 	TsInt iN = iShapes[0];     // Number of examples
+ 239              		.loc 1 91 0
+ 240 001c 08309BE5 		ldr	r3, [fp, #8]
+ 241 0020 003093E5 		ldr	r3, [r3]
+ 242 0024 28300BE5 		str	r3, [fp, #-40]
+  92:../src/renesas/application/Translator/network.c **** 	TsInt iC = iShapes[1];     // Number of channels
+ 243              		.loc 1 92 0
+ 244 0028 08309BE5 		ldr	r3, [fp, #8]
+ 245 002c 043093E5 		ldr	r3, [r3, #4]
+ 246 0030 2C300BE5 		str	r3, [fp, #-44]
+  93:../src/renesas/application/Translator/network.c **** 	TsInt iH = iShapes[2];     // Input image height
+ 247              		.loc 1 93 0
+ 248 0034 08309BE5 		ldr	r3, [fp, #8]
+ 249 0038 083093E5 		ldr	r3, [r3, #8]
+ 250 003c 30300BE5 		str	r3, [fp, #-48]
+  94:../src/renesas/application/Translator/network.c **** 	TsInt iW = iShapes[3];     // Input image width
+ 251              		.loc 1 94 0
+ 252 0040 08309BE5 		ldr	r3, [fp, #8]
+ 253 0044 0C3093E5 		ldr	r3, [r3, #12]
+ 254 0048 34300BE5 		str	r3, [fp, #-52]
+  95:../src/renesas/application/Translator/network.c **** 	TsInt iF = iShapes[4];     // Number of filters
+ 255              		.loc 1 95 0
+ 256 004c 08309BE5 		ldr	r3, [fp, #8]
+ 257 0050 103093E5 		ldr	r3, [r3, #16]
+ 258 0054 38300BE5 		str	r3, [fp, #-56]
+  96:../src/renesas/application/Translator/network.c **** 	TsInt iFH = iShapes[6];    // Filter height
+ 259              		.loc 1 96 0
+ 260 0058 08309BE5 		ldr	r3, [fp, #8]
+ 261 005c 183093E5 		ldr	r3, [r3, #24]
+ 262 0060 3C300BE5 		str	r3, [fp, #-60]
+  97:../src/renesas/application/Translator/network.c **** 	TsInt iFW = iShapes[7];    // Filter width
+ 263              		.loc 1 97 0
+ 264 0064 08309BE5 		ldr	r3, [fp, #8]
+ 265 0068 1C3093E5 		ldr	r3, [r3, #28]
+ 266 006c 40300BE5 		str	r3, [fp, #-64]
+  98:../src/renesas/application/Translator/network.c **** 	TsInt iHp = iShapes[8];    // Output height
+ 267              		.loc 1 98 0
+ 268 0070 08309BE5 		ldr	r3, [fp, #8]
+ 269 0074 203093E5 		ldr	r3, [r3, #32]
+ 270 0078 44300BE5 		str	r3, [fp, #-68]
+  99:../src/renesas/application/Translator/network.c **** 	TsInt iWp = iShapes[9];    // Output width
+ 271              		.loc 1 99 0
+ 272 007c 08309BE5 		ldr	r3, [fp, #8]
+ 273 0080 243093E5 		ldr	r3, [r3, #36]
+ 274 0084 48300BE5 		str	r3, [fp, #-72]
+ 100:../src/renesas/application/Translator/network.c **** 
+ 101:../src/renesas/application/Translator/network.c **** 	TsInt pad_top = iShapes[10];	//No. of pixels to pad on top of input
+ 275              		.loc 1 101 0
+ 276 0088 08309BE5 		ldr	r3, [fp, #8]
+ 277 008c 283093E5 		ldr	r3, [r3, #40]
+ 278 0090 4C300BE5 		str	r3, [fp, #-76]
+ 102:../src/renesas/application/Translator/network.c **** 	TsInt pad_bottom = iShapes[11];	//No. of pixels to pad on bottom of input
+ 279              		.loc 1 102 0
+ 280 0094 08309BE5 		ldr	r3, [fp, #8]
+ 281 0098 2C3093E5 		ldr	r3, [r3, #44]
+ 282 009c 50300BE5 		str	r3, [fp, #-80]
+ 103:../src/renesas/application/Translator/network.c **** 	TsInt pad_left = iShapes[12];	//No. of pixels to pad on left of input
+ 283              		.loc 1 103 0
+ 284 00a0 08309BE5 		ldr	r3, [fp, #8]
+ 285 00a4 303093E5 		ldr	r3, [r3, #48]
+ 286 00a8 54300BE5 		str	r3, [fp, #-84]
+ 104:../src/renesas/application/Translator/network.c **** 	TsInt pad_right = iShapes[13];	//No. of pixels to pad on right of input
+ 287              		.loc 1 104 0
+ 288 00ac 08309BE5 		ldr	r3, [fp, #8]
+ 289 00b0 343093E5 		ldr	r3, [r3, #52]
+ 290 00b4 58300BE5 		str	r3, [fp, #-88]
+ 105:../src/renesas/application/Translator/network.c **** 
+ 106:../src/renesas/application/Translator/network.c **** 	TsInt iSH = iShapes[14];  // Stride height
+ 291              		.loc 1 106 0
+ 292 00b8 08309BE5 		ldr	r3, [fp, #8]
+ 293 00bc 383093E5 		ldr	r3, [r3, #56]
+ 294 00c0 5C300BE5 		str	r3, [fp, #-92]
+ 107:../src/renesas/application/Translator/network.c **** 	TsInt iSW = iShapes[15];  // Stride width
+ 295              		.loc 1 107 0
+ 296 00c4 08309BE5 		ldr	r3, [fp, #8]
+ 297 00c8 3C3093E5 		ldr	r3, [r3, #60]
+ 298 00cc 60300BE5 		str	r3, [fp, #-96]
+ 108:../src/renesas/application/Translator/network.c **** 
+ 109:../src/renesas/application/Translator/network.c **** 	TsInt iws, ihs, iPH, iPW ;
+ 110:../src/renesas/application/Translator/network.c **** 	TsInt pad_shapes[] = {iN, iC, iH, iW, iH + pad_top + pad_bottom, iW + pad_left + pad_right, pad_to
+ 299              		.loc 1 110 0
+ 300 00d0 28301BE5 		ldr	r3, [fp, #-40]
+ 301 00d4 90300BE5 		str	r3, [fp, #-144]
+ 302 00d8 2C301BE5 		ldr	r3, [fp, #-44]
+ 303 00dc 8C300BE5 		str	r3, [fp, #-140]
+ 304 00e0 30301BE5 		ldr	r3, [fp, #-48]
+ 305 00e4 88300BE5 		str	r3, [fp, #-136]
+ 306 00e8 34301BE5 		ldr	r3, [fp, #-52]
+ 307 00ec 84300BE5 		str	r3, [fp, #-132]
+ 308 00f0 30201BE5 		ldr	r2, [fp, #-48]
+ 309 00f4 4C301BE5 		ldr	r3, [fp, #-76]
+ 310 00f8 032082E0 		add	r2, r2, r3
+ 311 00fc 50301BE5 		ldr	r3, [fp, #-80]
+ 312 0100 033082E0 		add	r3, r2, r3
+ 313 0104 80300BE5 		str	r3, [fp, #-128]
+ 314 0108 34201BE5 		ldr	r2, [fp, #-52]
+ 315 010c 54301BE5 		ldr	r3, [fp, #-84]
+ 316 0110 032082E0 		add	r2, r2, r3
+ 317 0114 58301BE5 		ldr	r3, [fp, #-88]
+ 318 0118 033082E0 		add	r3, r2, r3
+ 319 011c 7C300BE5 		str	r3, [fp, #-124]
+ 320 0120 4C301BE5 		ldr	r3, [fp, #-76]
+ 321 0124 78300BE5 		str	r3, [fp, #-120]
+ 322 0128 54301BE5 		ldr	r3, [fp, #-84]
+ 323 012c 74300BE5 		str	r3, [fp, #-116]
+ 111:../src/renesas/application/Translator/network.c **** 	TPrecision dvalue;
+ 112:../src/renesas/application/Translator/network.c **** 		
+ 113:../src/renesas/application/Translator/network.c **** 	for(iD1=0;iD1<iN*iF*iHp*iWp;iD1++)
+ 324              		.loc 1 113 0
+ 325 0130 0030A0E3 		mov	r3, #0
+ 326 0134 08300BE5 		str	r3, [fp, #-8]
+ 327 0138 080000EA 		b	.L13
+ 328              	.L14:
+ 114:../src/renesas/application/Translator/network.c **** 		dOut[iD1]=0;
+ 329              		.loc 1 114 0 discriminator 3
+ 330 013c 08301BE5 		ldr	r3, [fp, #-8]
+ 331 0140 0331A0E1 		lsl	r3, r3, #2
+ 332 0144 04209BE5 		ldr	r2, [fp, #4]
+ 333 0148 033082E0 		add	r3, r2, r3
+ 334 014c 0020A0E3 		mov	r2, #0
+ 335 0150 002083E5 		str	r2, [r3]	@ float
+ 113:../src/renesas/application/Translator/network.c **** 		dOut[iD1]=0;
+ 336              		.loc 1 113 0 discriminator 3
+ 337 0154 08301BE5 		ldr	r3, [fp, #-8]
+ 338 0158 013083E2 		add	r3, r3, #1
+ 339 015c 08300BE5 		str	r3, [fp, #-8]
+ 340              	.L13:
+ 113:../src/renesas/application/Translator/network.c **** 		dOut[iD1]=0;
+ 341              		.loc 1 113 0 is_stmt 0 discriminator 1
+ 342 0160 28301BE5 		ldr	r3, [fp, #-40]
+ 343 0164 38201BE5 		ldr	r2, [fp, #-56]
+ 344 0168 920303E0 		mul	r3, r2, r3
+ 345 016c 44201BE5 		ldr	r2, [fp, #-68]
+ 346 0170 920303E0 		mul	r3, r2, r3
+ 347 0174 48201BE5 		ldr	r2, [fp, #-72]
+ 348 0178 920303E0 		mul	r3, r2, r3
+ 349 017c 08201BE5 		ldr	r2, [fp, #-8]
+ 350 0180 030052E1 		cmp	r2, r3
+ 351 0184 ECFFFFBA 		blt	.L14
+ 115:../src/renesas/application/Translator/network.c **** 
+ 116:../src/renesas/application/Translator/network.c **** 	iPH = iH + pad_top + pad_bottom;   // Padded input height
+ 352              		.loc 1 116 0 is_stmt 1
+ 353 0188 30201BE5 		ldr	r2, [fp, #-48]
+ 354 018c 4C301BE5 		ldr	r3, [fp, #-76]
+ 355 0190 033082E0 		add	r3, r2, r3
+ 356 0194 50201BE5 		ldr	r2, [fp, #-80]
+ 357 0198 033082E0 		add	r3, r2, r3
+ 358 019c 64300BE5 		str	r3, [fp, #-100]
+ 117:../src/renesas/application/Translator/network.c **** 	iPW =iW + pad_left + pad_right;	   // Padded input width
+ 359              		.loc 1 117 0
+ 360 01a0 34201BE5 		ldr	r2, [fp, #-52]
+ 361 01a4 54301BE5 		ldr	r3, [fp, #-84]
+ 362 01a8 033082E0 		add	r3, r2, r3
+ 363 01ac 58201BE5 		ldr	r2, [fp, #-88]
+ 364 01b0 033082E0 		add	r3, r2, r3
+ 365 01b4 68300BE5 		str	r3, [fp, #-104]
+ 118:../src/renesas/application/Translator/network.c **** 
+ 119:../src/renesas/application/Translator/network.c **** 	if (pad_top!=0 || pad_bottom!=0 || pad_left!=0 || pad_right!=0)
+ 366              		.loc 1 119 0
+ 367 01b8 4C301BE5 		ldr	r3, [fp, #-76]
+ 368 01bc 000053E3 		cmp	r3, #0
+ 369 01c0 0800001A 		bne	.L15
+ 370              		.loc 1 119 0 is_stmt 0 discriminator 1
+ 371 01c4 50301BE5 		ldr	r3, [fp, #-80]
+ 372 01c8 000053E3 		cmp	r3, #0
+ 373 01cc 0500001A 		bne	.L15
+ 374              		.loc 1 119 0 discriminator 2
+ 375 01d0 54301BE5 		ldr	r3, [fp, #-84]
+ 376 01d4 000053E3 		cmp	r3, #0
+ 377 01d8 0200001A 		bne	.L15
+ 378              		.loc 1 119 0 discriminator 3
+ 379 01dc 58301BE5 		ldr	r3, [fp, #-88]
+ 380 01e0 000053E3 		cmp	r3, #0
+ 381 01e4 0500000A 		beq	.L16
+ 382              	.L15:
+ 120:../src/renesas/application/Translator/network.c **** 	{
+ 121:../src/renesas/application/Translator/network.c **** 		padding(dData, dPad, pad_shapes);
+ 383              		.loc 1 121 0 is_stmt 1
+ 384 01e8 90304BE2 		sub	r3, fp, #144
+ 385 01ec 0320A0E1 		mov	r2, r3
+ 386 01f0 9C101BE5 		ldr	r1, [fp, #-156]
+ 387 01f4 98001BE5 		ldr	r0, [fp, #-152]
+ 388 01f8 FEFFFFEB 		bl	padding
+ 389 01fc 010000EA 		b	.L17
+ 390              	.L16:
+ 122:../src/renesas/application/Translator/network.c **** 	}
+ 123:../src/renesas/application/Translator/network.c **** 	else
+ 124:../src/renesas/application/Translator/network.c **** 	{
+ 125:../src/renesas/application/Translator/network.c **** 		dPad = dData;
+ 391              		.loc 1 125 0
+ 392 0200 98301BE5 		ldr	r3, [fp, #-152]
+ 393 0204 9C300BE5 		str	r3, [fp, #-156]
+ 394              	.L17:
+ 126:../src/renesas/application/Translator/network.c **** 	}
+ 127:../src/renesas/application/Translator/network.c **** 	// Filtering operation
+ 128:../src/renesas/application/Translator/network.c **** 	for (iD1=0; iD1<iN; iD1++)
+ 395              		.loc 1 128 0
+ 396 0208 0030A0E3 		mov	r3, #0
+ 397 020c 08300BE5 		str	r3, [fp, #-8]
+ 398 0210 8E0000EA 		b	.L18
+ 399              	.L31:
+ 129:../src/renesas/application/Translator/network.c **** 	{
+ 130:../src/renesas/application/Translator/network.c **** 	    for (iD2=0; iD2<iF; iD2++)
+ 400              		.loc 1 130 0
+ 401 0214 0030A0E3 		mov	r3, #0
+ 402 0218 0C300BE5 		str	r3, [fp, #-12]
+ 403 021c 840000EA 		b	.L19
+ 404              	.L30:
+ 131:../src/renesas/application/Translator/network.c **** 	    {
+ 132:../src/renesas/application/Translator/network.c **** 	    	for (iD3=0; iD3<iHp;iD3++)
+ 405              		.loc 1 132 0
+ 406 0220 0030A0E3 		mov	r3, #0
+ 407 0224 10300BE5 		str	r3, [fp, #-16]
+ 408 0228 7A0000EA 		b	.L20
+ 409              	.L29:
+ 133:../src/renesas/application/Translator/network.c **** 	    	{
+ 134:../src/renesas/application/Translator/network.c **** 	    		ihs = iD3 * iSH;
+ 410              		.loc 1 134 0
+ 411 022c 10301BE5 		ldr	r3, [fp, #-16]
+ 412 0230 5C201BE5 		ldr	r2, [fp, #-92]
+ 413 0234 920303E0 		mul	r3, r2, r3
+ 414 0238 6C300BE5 		str	r3, [fp, #-108]
+ 135:../src/renesas/application/Translator/network.c **** 	    		for (iD4=0; iD4<iWp; iD4++)
+ 415              		.loc 1 135 0
+ 416 023c 0030A0E3 		mov	r3, #0
+ 417 0240 14300BE5 		str	r3, [fp, #-20]
+ 418 0244 6C0000EA 		b	.L21
+ 419              	.L28:
+ 136:../src/renesas/application/Translator/network.c **** 	    		{
+ 137:../src/renesas/application/Translator/network.c **** 	    			iws = iD4 * iSW;
+ 420              		.loc 1 137 0
+ 421 0248 14301BE5 		ldr	r3, [fp, #-20]
+ 422 024c 60201BE5 		ldr	r2, [fp, #-96]
+ 423 0250 920303E0 		mul	r3, r2, r3
+ 424 0254 70300BE5 		str	r3, [fp, #-112]
+ 138:../src/renesas/application/Translator/network.c **** 				dvalue=0;
+ 425              		.loc 1 138 0
+ 426 0258 0030A0E3 		mov	r3, #0
+ 427 025c 24300BE5 		str	r3, [fp, #-36]	@ float
+ 139:../src/renesas/application/Translator/network.c **** 				for(iItr1=0; iItr1<iC; iItr1++)
+ 428              		.loc 1 139 0
+ 429 0260 0030A0E3 		mov	r3, #0
+ 430 0264 18300BE5 		str	r3, [fp, #-24]
+ 431 0268 440000EA 		b	.L22
+ 432              	.L27:
+ 140:../src/renesas/application/Translator/network.c **** 				{
+ 141:../src/renesas/application/Translator/network.c **** 					for(iItr2=ihs; iItr2<(ihs+iFH); iItr2++)
+ 433              		.loc 1 141 0
+ 434 026c 6C301BE5 		ldr	r3, [fp, #-108]
+ 435 0270 1C300BE5 		str	r3, [fp, #-28]
+ 436 0274 380000EA 		b	.L23
+ 437              	.L26:
+ 142:../src/renesas/application/Translator/network.c **** 					{
+ 143:../src/renesas/application/Translator/network.c **** 						for(iItr3=iws; iItr3<(iws+iFW); iItr3++)
+ 438              		.loc 1 143 0
+ 439 0278 70301BE5 		ldr	r3, [fp, #-112]
+ 440 027c 20300BE5 		str	r3, [fp, #-32]
+ 441 0280 2C0000EA 		b	.L24
+ 442              	.L25:
+ 144:../src/renesas/application/Translator/network.c **** 						{
+ 145:../src/renesas/application/Translator/network.c **** 							dvalue += dPad[(iD1*iC*iPH*iPW)+(iItr1*iPH*iPW)+(iItr2*iPW)+iItr3] * dWeights[(iD2*iC*iFH*iF
+ 443              		.loc 1 145 0 discriminator 3
+ 444 0284 08301BE5 		ldr	r3, [fp, #-8]
+ 445 0288 2C201BE5 		ldr	r2, [fp, #-44]
+ 446 028c 920302E0 		mul	r2, r2, r3
+ 447 0290 18301BE5 		ldr	r3, [fp, #-24]
+ 448 0294 033082E0 		add	r3, r2, r3
+ 449 0298 64201BE5 		ldr	r2, [fp, #-100]
+ 450 029c 920302E0 		mul	r2, r2, r3
+ 451 02a0 1C301BE5 		ldr	r3, [fp, #-28]
+ 452 02a4 033082E0 		add	r3, r2, r3
+ 453 02a8 68201BE5 		ldr	r2, [fp, #-104]
+ 454 02ac 920302E0 		mul	r2, r2, r3
+ 455 02b0 20301BE5 		ldr	r3, [fp, #-32]
+ 456 02b4 033082E0 		add	r3, r2, r3
+ 457 02b8 0331A0E1 		lsl	r3, r3, #2
+ 458 02bc 9C201BE5 		ldr	r2, [fp, #-156]
+ 459 02c0 033082E0 		add	r3, r2, r3
+ 460 02c4 007A93ED 		vldr.32	s14, [r3]
+ 461 02c8 0C301BE5 		ldr	r3, [fp, #-12]
+ 462 02cc 2C201BE5 		ldr	r2, [fp, #-44]
+ 463 02d0 920302E0 		mul	r2, r2, r3
+ 464 02d4 18301BE5 		ldr	r3, [fp, #-24]
+ 465 02d8 033082E0 		add	r3, r2, r3
+ 466 02dc 3C201BE5 		ldr	r2, [fp, #-60]
+ 467 02e0 920302E0 		mul	r2, r2, r3
+ 468 02e4 1C101BE5 		ldr	r1, [fp, #-28]
+ 469 02e8 6C301BE5 		ldr	r3, [fp, #-108]
+ 470 02ec 033041E0 		sub	r3, r1, r3
+ 471 02f0 033082E0 		add	r3, r2, r3
+ 472 02f4 40201BE5 		ldr	r2, [fp, #-64]
+ 473 02f8 920302E0 		mul	r2, r2, r3
+ 474 02fc 20101BE5 		ldr	r1, [fp, #-32]
+ 475 0300 70301BE5 		ldr	r3, [fp, #-112]
+ 476 0304 033041E0 		sub	r3, r1, r3
+ 477 0308 033082E0 		add	r3, r2, r3
+ 478 030c 0331A0E1 		lsl	r3, r3, #2
+ 479 0310 A0201BE5 		ldr	r2, [fp, #-160]
+ 480 0314 033082E0 		add	r3, r2, r3
+ 481 0318 007AD3ED 		vldr.32	s15, [r3]
+ 482 031c 277A67EE 		vmul.f32	s15, s14, s15
+ 483 0320 097A1BED 		vldr.32	s14, [fp, #-36]
+ 484 0324 277A77EE 		vadd.f32	s15, s14, s15
+ 485 0328 097A4BED 		vstr.32	s15, [fp, #-36]
+ 143:../src/renesas/application/Translator/network.c **** 						{
+ 486              		.loc 1 143 0 discriminator 3
+ 487 032c 20301BE5 		ldr	r3, [fp, #-32]
+ 488 0330 013083E2 		add	r3, r3, #1
+ 489 0334 20300BE5 		str	r3, [fp, #-32]
+ 490              	.L24:
+ 143:../src/renesas/application/Translator/network.c **** 						{
+ 491              		.loc 1 143 0 is_stmt 0 discriminator 1
+ 492 0338 70201BE5 		ldr	r2, [fp, #-112]
+ 493 033c 40301BE5 		ldr	r3, [fp, #-64]
+ 494 0340 033082E0 		add	r3, r2, r3
+ 495 0344 20201BE5 		ldr	r2, [fp, #-32]
+ 496 0348 030052E1 		cmp	r2, r3
+ 497 034c CCFFFFBA 		blt	.L25
+ 141:../src/renesas/application/Translator/network.c **** 					{
+ 498              		.loc 1 141 0 is_stmt 1 discriminator 2
+ 499 0350 1C301BE5 		ldr	r3, [fp, #-28]
+ 500 0354 013083E2 		add	r3, r3, #1
+ 501 0358 1C300BE5 		str	r3, [fp, #-28]
+ 502              	.L23:
+ 141:../src/renesas/application/Translator/network.c **** 					{
+ 503              		.loc 1 141 0 is_stmt 0 discriminator 1
+ 504 035c 6C201BE5 		ldr	r2, [fp, #-108]
+ 505 0360 3C301BE5 		ldr	r3, [fp, #-60]
+ 506 0364 033082E0 		add	r3, r2, r3
+ 507 0368 1C201BE5 		ldr	r2, [fp, #-28]
+ 508 036c 030052E1 		cmp	r2, r3
+ 509 0370 C0FFFFBA 		blt	.L26
+ 139:../src/renesas/application/Translator/network.c **** 				{
+ 510              		.loc 1 139 0 is_stmt 1 discriminator 2
+ 511 0374 18301BE5 		ldr	r3, [fp, #-24]
+ 512 0378 013083E2 		add	r3, r3, #1
+ 513 037c 18300BE5 		str	r3, [fp, #-24]
+ 514              	.L22:
+ 139:../src/renesas/application/Translator/network.c **** 				{
+ 515              		.loc 1 139 0 is_stmt 0 discriminator 1
+ 516 0380 18201BE5 		ldr	r2, [fp, #-24]
+ 517 0384 2C301BE5 		ldr	r3, [fp, #-44]
+ 518 0388 030052E1 		cmp	r2, r3
+ 519 038c B6FFFFBA 		blt	.L27
+ 146:../src/renesas/application/Translator/network.c **** 						}
+ 147:../src/renesas/application/Translator/network.c **** 					}
+ 148:../src/renesas/application/Translator/network.c **** 				}
+ 149:../src/renesas/application/Translator/network.c **** 				dOut[(iD1*iF*iHp*iWp)+(iD2*iHp*iWp)+(iD3*iWp)+iD4] = dvalue + dBiases[iD2];	// out = (data*weig
+ 520              		.loc 1 149 0 is_stmt 1 discriminator 2
+ 521 0390 0C301BE5 		ldr	r3, [fp, #-12]
+ 522 0394 0331A0E1 		lsl	r3, r3, #2
+ 523 0398 A4201BE5 		ldr	r2, [fp, #-164]
+ 524 039c 033082E0 		add	r3, r2, r3
+ 525 03a0 007A93ED 		vldr.32	s14, [r3]
+ 526 03a4 08301BE5 		ldr	r3, [fp, #-8]
+ 527 03a8 38201BE5 		ldr	r2, [fp, #-56]
+ 528 03ac 920302E0 		mul	r2, r2, r3
+ 529 03b0 0C301BE5 		ldr	r3, [fp, #-12]
+ 530 03b4 033082E0 		add	r3, r2, r3
+ 531 03b8 44201BE5 		ldr	r2, [fp, #-68]
+ 532 03bc 920302E0 		mul	r2, r2, r3
+ 533 03c0 10301BE5 		ldr	r3, [fp, #-16]
+ 534 03c4 033082E0 		add	r3, r2, r3
+ 535 03c8 48201BE5 		ldr	r2, [fp, #-72]
+ 536 03cc 920302E0 		mul	r2, r2, r3
+ 537 03d0 14301BE5 		ldr	r3, [fp, #-20]
+ 538 03d4 033082E0 		add	r3, r2, r3
+ 539 03d8 0331A0E1 		lsl	r3, r3, #2
+ 540 03dc 04209BE5 		ldr	r2, [fp, #4]
+ 541 03e0 033082E0 		add	r3, r2, r3
+ 542 03e4 097A5BED 		vldr.32	s15, [fp, #-36]
+ 543 03e8 277A77EE 		vadd.f32	s15, s14, s15
+ 544 03ec 007AC3ED 		vstr.32	s15, [r3]
+ 135:../src/renesas/application/Translator/network.c **** 	    		{
+ 545              		.loc 1 135 0 discriminator 2
+ 546 03f0 14301BE5 		ldr	r3, [fp, #-20]
+ 547 03f4 013083E2 		add	r3, r3, #1
+ 548 03f8 14300BE5 		str	r3, [fp, #-20]
+ 549              	.L21:
+ 135:../src/renesas/application/Translator/network.c **** 	    		{
+ 550              		.loc 1 135 0 is_stmt 0 discriminator 1
+ 551 03fc 14201BE5 		ldr	r2, [fp, #-20]
+ 552 0400 48301BE5 		ldr	r3, [fp, #-72]
+ 553 0404 030052E1 		cmp	r2, r3
+ 554 0408 8EFFFFBA 		blt	.L28
+ 132:../src/renesas/application/Translator/network.c **** 	    	{
+ 555              		.loc 1 132 0 is_stmt 1 discriminator 2
+ 556 040c 10301BE5 		ldr	r3, [fp, #-16]
+ 557 0410 013083E2 		add	r3, r3, #1
+ 558 0414 10300BE5 		str	r3, [fp, #-16]
+ 559              	.L20:
+ 132:../src/renesas/application/Translator/network.c **** 	    	{
+ 560              		.loc 1 132 0 is_stmt 0 discriminator 1
+ 561 0418 10201BE5 		ldr	r2, [fp, #-16]
+ 562 041c 44301BE5 		ldr	r3, [fp, #-68]
+ 563 0420 030052E1 		cmp	r2, r3
+ 564 0424 80FFFFBA 		blt	.L29
+ 130:../src/renesas/application/Translator/network.c **** 	    {
+ 565              		.loc 1 130 0 is_stmt 1 discriminator 2
+ 566 0428 0C301BE5 		ldr	r3, [fp, #-12]
+ 567 042c 013083E2 		add	r3, r3, #1
+ 568 0430 0C300BE5 		str	r3, [fp, #-12]
+ 569              	.L19:
+ 130:../src/renesas/application/Translator/network.c **** 	    {
+ 570              		.loc 1 130 0 is_stmt 0 discriminator 1
+ 571 0434 0C201BE5 		ldr	r2, [fp, #-12]
+ 572 0438 38301BE5 		ldr	r3, [fp, #-56]
+ 573 043c 030052E1 		cmp	r2, r3
+ 574 0440 76FFFFBA 		blt	.L30
+ 128:../src/renesas/application/Translator/network.c **** 	{
+ 575              		.loc 1 128 0 is_stmt 1 discriminator 2
+ 576 0444 08301BE5 		ldr	r3, [fp, #-8]
+ 577 0448 013083E2 		add	r3, r3, #1
+ 578 044c 08300BE5 		str	r3, [fp, #-8]
+ 579              	.L18:
+ 128:../src/renesas/application/Translator/network.c **** 	{
+ 580              		.loc 1 128 0 is_stmt 0 discriminator 1
+ 581 0450 08201BE5 		ldr	r2, [fp, #-8]
+ 582 0454 28301BE5 		ldr	r3, [fp, #-40]
+ 583 0458 030052E1 		cmp	r2, r3
+ 584 045c 6CFFFFBA 		blt	.L31
+ 150:../src/renesas/application/Translator/network.c **** 	    		}
+ 151:../src/renesas/application/Translator/network.c **** 	    	}
+ 152:../src/renesas/application/Translator/network.c **** 	    }
+ 153:../src/renesas/application/Translator/network.c **** 	}
+ 154:../src/renesas/application/Translator/network.c **** }
+ 585              		.loc 1 154 0 is_stmt 1
+ 586 0460 00F020E3 		nop
+ 587 0464 04D04BE2 		sub	sp, fp, #4
+ 588              		.cfi_def_cfa 13, 8
+ 589              		@ sp needed
+ 590 0468 0088BDE8 		pop	{fp, pc}
+ 591              		.cfi_endproc
+ 592              	.LFE1:
+ 594              		.section	.text.relu,"ax",%progbits
+ 595              		.align	2
+ 596              		.global	relu
+ 597              		.syntax unified
+ 598              		.arm
+ 599              		.fpu neon
+ 601              	relu:
+ 602              	.LFB2:
+ 155:../src/renesas/application/Translator/network.c **** 
+ 156:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 157:../src/renesas/application/Translator/network.c **** * Function Name: relu
+ 158:../src/renesas/application/Translator/network.c **** * Description  : - Rectified Linear Unit (ReLU)
+ 159:../src/renesas/application/Translator/network.c **** *                - element wise operation and replaces all negative values by zero to introduce non
+ 160:../src/renesas/application/Translator/network.c **** * Arguments    : dData	- Array of input data
+ 161:../src/renesas/application/Translator/network.c **** *                iShapes	- Size of the input array
+ 162:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 163:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 164:../src/renesas/application/Translator/network.c **** void relu(TPrecision *dData, TsInt iShapes )
+ 165:../src/renesas/application/Translator/network.c **** {
+ 603              		.loc 1 165 0
+ 604              		.cfi_startproc
+ 605              		@ args = 0, pretend = 0, frame = 16
+ 606              		@ frame_needed = 1, uses_anonymous_args = 0
+ 607              		@ link register save eliminated.
+ 608 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 609              		.cfi_def_cfa_offset 4
+ 610              		.cfi_offset 11, -4
+ 611 0004 00B08DE2 		add	fp, sp, #0
+ 612              		.cfi_def_cfa_register 11
+ 613 0008 14D04DE2 		sub	sp, sp, #20
+ 614 000c 10000BE5 		str	r0, [fp, #-16]
+ 615 0010 14100BE5 		str	r1, [fp, #-20]
+ 166:../src/renesas/application/Translator/network.c ****     TsInt iRow;
+ 167:../src/renesas/application/Translator/network.c ****     for (iRow=0; iRow<iShapes; iRow++)
+ 616              		.loc 1 167 0
+ 617 0014 0030A0E3 		mov	r3, #0
+ 618 0018 08300BE5 		str	r3, [fp, #-8]
+ 619 001c 100000EA 		b	.L33
+ 620              	.L36:
+ 168:../src/renesas/application/Translator/network.c ****     {
+ 169:../src/renesas/application/Translator/network.c ****         if (dData[iRow] < 0)
+ 621              		.loc 1 169 0
+ 622 0020 08301BE5 		ldr	r3, [fp, #-8]
+ 623 0024 0331A0E1 		lsl	r3, r3, #2
+ 624 0028 10201BE5 		ldr	r2, [fp, #-16]
+ 625 002c 033082E0 		add	r3, r2, r3
+ 626 0030 007AD3ED 		vldr.32	s15, [r3]
+ 627 0034 C07AF5EE 		vcmpe.f32	s15, #0
+ 628 0038 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 629 003c 0500005A 		bpl	.L34
+ 170:../src/renesas/application/Translator/network.c ****         {
+ 171:../src/renesas/application/Translator/network.c ****         	dData[iRow] = 0;
+ 630              		.loc 1 171 0
+ 631 0040 08301BE5 		ldr	r3, [fp, #-8]
+ 632 0044 0331A0E1 		lsl	r3, r3, #2
+ 633 0048 10201BE5 		ldr	r2, [fp, #-16]
+ 634 004c 033082E0 		add	r3, r2, r3
+ 635 0050 0020A0E3 		mov	r2, #0
+ 636 0054 002083E5 		str	r2, [r3]	@ float
+ 637              	.L34:
+ 167:../src/renesas/application/Translator/network.c ****     {
+ 638              		.loc 1 167 0 discriminator 2
+ 639 0058 08301BE5 		ldr	r3, [fp, #-8]
+ 640 005c 013083E2 		add	r3, r3, #1
+ 641 0060 08300BE5 		str	r3, [fp, #-8]
+ 642              	.L33:
+ 167:../src/renesas/application/Translator/network.c ****     {
+ 643              		.loc 1 167 0 is_stmt 0 discriminator 1
+ 644 0064 08201BE5 		ldr	r2, [fp, #-8]
+ 645 0068 14301BE5 		ldr	r3, [fp, #-20]
+ 646 006c 030052E1 		cmp	r2, r3
+ 647 0070 EAFFFFBA 		blt	.L36
+ 172:../src/renesas/application/Translator/network.c ****         }
+ 173:../src/renesas/application/Translator/network.c ****     }
+ 174:../src/renesas/application/Translator/network.c **** }
+ 648              		.loc 1 174 0 is_stmt 1
+ 649 0074 00F020E3 		nop
+ 650 0078 00D08BE2 		add	sp, fp, #0
+ 651              		.cfi_def_cfa_register 13
+ 652              		@ sp needed
+ 653 007c 04B09DE4 		ldr	fp, [sp], #4
+ 654              		.cfi_restore 11
+ 655              		.cfi_def_cfa_offset 0
+ 656 0080 1EFF2FE1 		bx	lr
+ 657              		.cfi_endproc
+ 658              	.LFE2:
+ 660              		.section	.text.average_pooling_without_pad,"ax",%progbits
+ 661              		.align	2
+ 662              		.global	average_pooling_without_pad
+ 663              		.syntax unified
+ 664              		.arm
+ 665              		.fpu neon
+ 667              	average_pooling_without_pad:
+ 668              	.LFB3:
+ 175:../src/renesas/application/Translator/network.c **** 
+ 176:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 177:../src/renesas/application/Translator/network.c **** * Function Name: average_pooling_without_pad
+ 178:../src/renesas/application/Translator/network.c **** * Description  : - AVERAGE pooling layer without padding operation.
+ 179:../src/renesas/application/Translator/network.c **** *				 - Creates a new output matrix where each element is the average of a region in the original i
+ 180:../src/renesas/application/Translator/network.c **** * Arguments    : dData		- Pointer to the input data
+ 181:../src/renesas/application/Translator/network.c **** *				 dOut		- Pointer to the average pooling output
+ 182:../src/renesas/application/Translator/network.c **** *				 iShapes	- Dimensions 
+ 183:../src/renesas/application/Translator/network.c **** *					( N, input channels, input height, input width, output height, output width, pool height, 
+ 184:../src/renesas/application/Translator/network.c **** *					   pool width, stride height, stride width, pooling type)
+ 185:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 186:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 187:../src/renesas/application/Translator/network.c **** void average_pooling_without_pad(TPrecision *dData, TPrecision *dOut, TsInt *iShapes)
+ 188:../src/renesas/application/Translator/network.c **** {
+ 669              		.loc 1 188 0
+ 670              		.cfi_startproc
+ 671              		@ args = 0, pretend = 0, frame = 96
+ 672              		@ frame_needed = 1, uses_anonymous_args = 0
+ 673              		@ link register save eliminated.
+ 674 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 675              		.cfi_def_cfa_offset 4
+ 676              		.cfi_offset 11, -4
+ 677 0004 00B08DE2 		add	fp, sp, #0
+ 678              		.cfi_def_cfa_register 11
+ 679 0008 64D04DE2 		sub	sp, sp, #100
+ 680 000c 58000BE5 		str	r0, [fp, #-88]
+ 681 0010 5C100BE5 		str	r1, [fp, #-92]
+ 682 0014 60200BE5 		str	r2, [fp, #-96]
+ 189:../src/renesas/application/Translator/network.c **** 	TsInt sD1,sD2,sD3,sD4;			// Array dimension
+ 190:../src/renesas/application/Translator/network.c **** 	TsInt sInnerItr,sOuterItr,sOffset;
+ 191:../src/renesas/application/Translator/network.c **** 	TsInt iN = iShapes[0];
+ 683              		.loc 1 191 0
+ 684 0018 60301BE5 		ldr	r3, [fp, #-96]
+ 685 001c 003093E5 		ldr	r3, [r3]
+ 686 0020 24300BE5 		str	r3, [fp, #-36]
+ 192:../src/renesas/application/Translator/network.c **** 	TsInt iC = iShapes[1];			//Input Channels
+ 687              		.loc 1 192 0
+ 688 0024 60301BE5 		ldr	r3, [fp, #-96]
+ 689 0028 043093E5 		ldr	r3, [r3, #4]
+ 690 002c 28300BE5 		str	r3, [fp, #-40]
+ 193:../src/renesas/application/Translator/network.c **** 	TsInt iH = iShapes[2];			// Input data height
+ 691              		.loc 1 193 0
+ 692 0030 60301BE5 		ldr	r3, [fp, #-96]
+ 693 0034 083093E5 		ldr	r3, [r3, #8]
+ 694 0038 2C300BE5 		str	r3, [fp, #-44]
+ 194:../src/renesas/application/Translator/network.c **** 	TsInt iW = iShapes[3];			// Input data width
+ 695              		.loc 1 194 0
+ 696 003c 60301BE5 		ldr	r3, [fp, #-96]
+ 697 0040 0C3093E5 		ldr	r3, [r3, #12]
+ 698 0044 30300BE5 		str	r3, [fp, #-48]
+ 195:../src/renesas/application/Translator/network.c **** 	TsInt iHp = iShapes[4];			// Output data height
+ 699              		.loc 1 195 0
+ 700 0048 60301BE5 		ldr	r3, [fp, #-96]
+ 701 004c 103093E5 		ldr	r3, [r3, #16]
+ 702 0050 34300BE5 		str	r3, [fp, #-52]
+ 196:../src/renesas/application/Translator/network.c **** 	TsInt iWp = iShapes[5];			// Output data width
+ 703              		.loc 1 196 0
+ 704 0054 60301BE5 		ldr	r3, [fp, #-96]
+ 705 0058 143093E5 		ldr	r3, [r3, #20]
+ 706 005c 38300BE5 		str	r3, [fp, #-56]
+ 197:../src/renesas/application/Translator/network.c **** 
+ 198:../src/renesas/application/Translator/network.c **** 	TsInt PH = iShapes[6];			// Pool height
+ 707              		.loc 1 198 0
+ 708 0060 60301BE5 		ldr	r3, [fp, #-96]
+ 709 0064 183093E5 		ldr	r3, [r3, #24]
+ 710 0068 3C300BE5 		str	r3, [fp, #-60]
+ 199:../src/renesas/application/Translator/network.c **** 	TsInt PW = iShapes[7];			// Pool width
+ 711              		.loc 1 199 0
+ 712 006c 60301BE5 		ldr	r3, [fp, #-96]
+ 713 0070 1C3093E5 		ldr	r3, [r3, #28]
+ 714 0074 40300BE5 		str	r3, [fp, #-64]
+ 200:../src/renesas/application/Translator/network.c **** 	TsInt stride_H = iShapes[8];	// Stride height
+ 715              		.loc 1 200 0
+ 716 0078 60301BE5 		ldr	r3, [fp, #-96]
+ 717 007c 203093E5 		ldr	r3, [r3, #32]
+ 718 0080 44300BE5 		str	r3, [fp, #-68]
+ 201:../src/renesas/application/Translator/network.c **** 	TsInt stride_W = iShapes[9];	// Stride width
+ 719              		.loc 1 201 0
+ 720 0084 60301BE5 		ldr	r3, [fp, #-96]
+ 721 0088 243093E5 		ldr	r3, [r3, #36]
+ 722 008c 48300BE5 		str	r3, [fp, #-72]
+ 202:../src/renesas/application/Translator/network.c **** 
+ 203:../src/renesas/application/Translator/network.c **** 	TsInt iWs, iHs;
+ 204:../src/renesas/application/Translator/network.c **** 	TPrecision dAve;
+ 205:../src/renesas/application/Translator/network.c **** 
+ 206:../src/renesas/application/Translator/network.c **** 	// Average pooling operation
+ 207:../src/renesas/application/Translator/network.c **** 	for (sD1=0; sD1<iN; sD1++)
+ 723              		.loc 1 207 0
+ 724 0090 0030A0E3 		mov	r3, #0
+ 725 0094 08300BE5 		str	r3, [fp, #-8]
+ 726 0098 700000EA 		b	.L39
+ 727              	.L50:
+ 208:../src/renesas/application/Translator/network.c **** 	{
+ 209:../src/renesas/application/Translator/network.c **** 	    for (sD2=0; sD2<iC; sD2++)
+ 728              		.loc 1 209 0
+ 729 009c 0030A0E3 		mov	r3, #0
+ 730 00a0 0C300BE5 		str	r3, [fp, #-12]
+ 731 00a4 660000EA 		b	.L40
+ 732              	.L49:
+ 210:../src/renesas/application/Translator/network.c **** 	    {
+ 211:../src/renesas/application/Translator/network.c **** 	    	for (sD3=0; sD3<iHp; sD3++)
+ 733              		.loc 1 211 0
+ 734 00a8 0030A0E3 		mov	r3, #0
+ 735 00ac 10300BE5 		str	r3, [fp, #-16]
+ 736 00b0 5C0000EA 		b	.L41
+ 737              	.L48:
+ 212:../src/renesas/application/Translator/network.c **** 	    	{
+ 213:../src/renesas/application/Translator/network.c **** 	    		iHs = sD3 * stride_H;
+ 738              		.loc 1 213 0
+ 739 00b4 10301BE5 		ldr	r3, [fp, #-16]
+ 740 00b8 44201BE5 		ldr	r2, [fp, #-68]
+ 741 00bc 920303E0 		mul	r3, r2, r3
+ 742 00c0 4C300BE5 		str	r3, [fp, #-76]
+ 214:../src/renesas/application/Translator/network.c **** 	    		for (sD4=0; sD4<iWp; sD4++)
+ 743              		.loc 1 214 0
+ 744 00c4 0030A0E3 		mov	r3, #0
+ 745 00c8 14300BE5 		str	r3, [fp, #-20]
+ 746 00cc 4E0000EA 		b	.L42
+ 747              	.L47:
+ 215:../src/renesas/application/Translator/network.c **** 	    		{
+ 216:../src/renesas/application/Translator/network.c **** 	    			iWs = sD4 * stride_W;
+ 748              		.loc 1 216 0
+ 749 00d0 14301BE5 		ldr	r3, [fp, #-20]
+ 750 00d4 48201BE5 		ldr	r2, [fp, #-72]
+ 751 00d8 920303E0 		mul	r3, r2, r3
+ 752 00dc 50300BE5 		str	r3, [fp, #-80]
+ 217:../src/renesas/application/Translator/network.c ****                                 dAve = 0.0;
+ 753              		.loc 1 217 0
+ 754 00e0 0030A0E3 		mov	r3, #0
+ 755 00e4 20300BE5 		str	r3, [fp, #-32]	@ float
+ 218:../src/renesas/application/Translator/network.c **** 	    			for(sInnerItr=iHs; sInnerItr<(iHs+PH); sInnerItr++)
+ 756              		.loc 1 218 0
+ 757 00e8 4C301BE5 		ldr	r3, [fp, #-76]
+ 758 00ec 18300BE5 		str	r3, [fp, #-24]
+ 759 00f0 240000EA 		b	.L43
+ 760              	.L46:
+ 219:../src/renesas/application/Translator/network.c **** 	    			{
+ 220:../src/renesas/application/Translator/network.c **** 	    				for(sOuterItr=iWs; sOuterItr<(iWs+PW); sOuterItr++)
+ 761              		.loc 1 220 0
+ 762 00f4 50301BE5 		ldr	r3, [fp, #-80]
+ 763 00f8 1C300BE5 		str	r3, [fp, #-28]
+ 764 00fc 180000EA 		b	.L44
+ 765              	.L45:
+ 221:../src/renesas/application/Translator/network.c **** 	    				{
+ 222:../src/renesas/application/Translator/network.c **** 	    					sOffset = (sD1*iC*iH*iW)+(sD2*iH*iW)+(sInnerItr*iW)+sOuterItr;
+ 766              		.loc 1 222 0 discriminator 3
+ 767 0100 08301BE5 		ldr	r3, [fp, #-8]
+ 768 0104 28201BE5 		ldr	r2, [fp, #-40]
+ 769 0108 920302E0 		mul	r2, r2, r3
+ 770 010c 0C301BE5 		ldr	r3, [fp, #-12]
+ 771 0110 033082E0 		add	r3, r2, r3
+ 772 0114 2C201BE5 		ldr	r2, [fp, #-44]
+ 773 0118 920302E0 		mul	r2, r2, r3
+ 774 011c 18301BE5 		ldr	r3, [fp, #-24]
+ 775 0120 033082E0 		add	r3, r2, r3
+ 776 0124 30201BE5 		ldr	r2, [fp, #-48]
+ 777 0128 920303E0 		mul	r3, r2, r3
+ 778 012c 1C201BE5 		ldr	r2, [fp, #-28]
+ 779 0130 033082E0 		add	r3, r2, r3
+ 780 0134 54300BE5 		str	r3, [fp, #-84]
+ 223:../src/renesas/application/Translator/network.c **** 	    					dAve += dData[sOffset];
+ 781              		.loc 1 223 0 discriminator 3
+ 782 0138 54301BE5 		ldr	r3, [fp, #-84]
+ 783 013c 0331A0E1 		lsl	r3, r3, #2
+ 784 0140 58201BE5 		ldr	r2, [fp, #-88]
+ 785 0144 033082E0 		add	r3, r2, r3
+ 786 0148 007AD3ED 		vldr.32	s15, [r3]
+ 787 014c 087A1BED 		vldr.32	s14, [fp, #-32]
+ 788 0150 277A77EE 		vadd.f32	s15, s14, s15
+ 789 0154 087A4BED 		vstr.32	s15, [fp, #-32]
+ 220:../src/renesas/application/Translator/network.c **** 	    				{
+ 790              		.loc 1 220 0 discriminator 3
+ 791 0158 1C301BE5 		ldr	r3, [fp, #-28]
+ 792 015c 013083E2 		add	r3, r3, #1
+ 793 0160 1C300BE5 		str	r3, [fp, #-28]
+ 794              	.L44:
+ 220:../src/renesas/application/Translator/network.c **** 	    				{
+ 795              		.loc 1 220 0 is_stmt 0 discriminator 1
+ 796 0164 50201BE5 		ldr	r2, [fp, #-80]
+ 797 0168 40301BE5 		ldr	r3, [fp, #-64]
+ 798 016c 033082E0 		add	r3, r2, r3
+ 799 0170 1C201BE5 		ldr	r2, [fp, #-28]
+ 800 0174 030052E1 		cmp	r2, r3
+ 801 0178 E0FFFFBA 		blt	.L45
+ 218:../src/renesas/application/Translator/network.c **** 	    			{
+ 802              		.loc 1 218 0 is_stmt 1 discriminator 2
+ 803 017c 18301BE5 		ldr	r3, [fp, #-24]
+ 804 0180 013083E2 		add	r3, r3, #1
+ 805 0184 18300BE5 		str	r3, [fp, #-24]
+ 806              	.L43:
+ 218:../src/renesas/application/Translator/network.c **** 	    			{
+ 807              		.loc 1 218 0 is_stmt 0 discriminator 1
+ 808 0188 4C201BE5 		ldr	r2, [fp, #-76]
+ 809 018c 3C301BE5 		ldr	r3, [fp, #-60]
+ 810 0190 033082E0 		add	r3, r2, r3
+ 811 0194 18201BE5 		ldr	r2, [fp, #-24]
+ 812 0198 030052E1 		cmp	r2, r3
+ 813 019c D4FFFFBA 		blt	.L46
+ 224:../src/renesas/application/Translator/network.c **** 	    				}
+ 225:../src/renesas/application/Translator/network.c **** 	    			}
+ 226:../src/renesas/application/Translator/network.c **** 	    			dOut[(sD1*iC*iHp*iWp)+(sD2*iHp*iWp)+(sD3*iWp)+sD4] = dAve/(PH*PW);
+ 814              		.loc 1 226 0 is_stmt 1 discriminator 2
+ 815 01a0 3C301BE5 		ldr	r3, [fp, #-60]
+ 816 01a4 40201BE5 		ldr	r2, [fp, #-64]
+ 817 01a8 920303E0 		mul	r3, r2, r3
+ 818 01ac 903A07EE 		vmov	s15, r3	@ int
+ 819 01b0 E77AB8EE 		vcvt.f32.s32	s14, s15
+ 820 01b4 08301BE5 		ldr	r3, [fp, #-8]
+ 821 01b8 28201BE5 		ldr	r2, [fp, #-40]
+ 822 01bc 920302E0 		mul	r2, r2, r3
+ 823 01c0 0C301BE5 		ldr	r3, [fp, #-12]
+ 824 01c4 033082E0 		add	r3, r2, r3
+ 825 01c8 34201BE5 		ldr	r2, [fp, #-52]
+ 826 01cc 920302E0 		mul	r2, r2, r3
+ 827 01d0 10301BE5 		ldr	r3, [fp, #-16]
+ 828 01d4 033082E0 		add	r3, r2, r3
+ 829 01d8 38201BE5 		ldr	r2, [fp, #-56]
+ 830 01dc 920302E0 		mul	r2, r2, r3
+ 831 01e0 14301BE5 		ldr	r3, [fp, #-20]
+ 832 01e4 033082E0 		add	r3, r2, r3
+ 833 01e8 0331A0E1 		lsl	r3, r3, #2
+ 834 01ec 5C201BE5 		ldr	r2, [fp, #-92]
+ 835 01f0 033082E0 		add	r3, r2, r3
+ 836 01f4 086A5BED 		vldr.32	s13, [fp, #-32]
+ 837 01f8 877AC6EE 		vdiv.f32	s15, s13, s14
+ 838 01fc 007AC3ED 		vstr.32	s15, [r3]
+ 214:../src/renesas/application/Translator/network.c **** 	    		{
+ 839              		.loc 1 214 0 discriminator 2
+ 840 0200 14301BE5 		ldr	r3, [fp, #-20]
+ 841 0204 013083E2 		add	r3, r3, #1
+ 842 0208 14300BE5 		str	r3, [fp, #-20]
+ 843              	.L42:
+ 214:../src/renesas/application/Translator/network.c **** 	    		{
+ 844              		.loc 1 214 0 is_stmt 0 discriminator 1
+ 845 020c 14201BE5 		ldr	r2, [fp, #-20]
+ 846 0210 38301BE5 		ldr	r3, [fp, #-56]
+ 847 0214 030052E1 		cmp	r2, r3
+ 848 0218 ACFFFFBA 		blt	.L47
+ 211:../src/renesas/application/Translator/network.c **** 	    	{
+ 849              		.loc 1 211 0 is_stmt 1 discriminator 2
+ 850 021c 10301BE5 		ldr	r3, [fp, #-16]
+ 851 0220 013083E2 		add	r3, r3, #1
+ 852 0224 10300BE5 		str	r3, [fp, #-16]
+ 853              	.L41:
+ 211:../src/renesas/application/Translator/network.c **** 	    	{
+ 854              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 855 0228 10201BE5 		ldr	r2, [fp, #-16]
+ 856 022c 34301BE5 		ldr	r3, [fp, #-52]
+ 857 0230 030052E1 		cmp	r2, r3
+ 858 0234 9EFFFFBA 		blt	.L48
+ 209:../src/renesas/application/Translator/network.c **** 	    {
+ 859              		.loc 1 209 0 is_stmt 1 discriminator 2
+ 860 0238 0C301BE5 		ldr	r3, [fp, #-12]
+ 861 023c 013083E2 		add	r3, r3, #1
+ 862 0240 0C300BE5 		str	r3, [fp, #-12]
+ 863              	.L40:
+ 209:../src/renesas/application/Translator/network.c **** 	    {
+ 864              		.loc 1 209 0 is_stmt 0 discriminator 1
+ 865 0244 0C201BE5 		ldr	r2, [fp, #-12]
+ 866 0248 28301BE5 		ldr	r3, [fp, #-40]
+ 867 024c 030052E1 		cmp	r2, r3
+ 868 0250 94FFFFBA 		blt	.L49
+ 207:../src/renesas/application/Translator/network.c **** 	{
+ 869              		.loc 1 207 0 is_stmt 1 discriminator 2
+ 870 0254 08301BE5 		ldr	r3, [fp, #-8]
+ 871 0258 013083E2 		add	r3, r3, #1
+ 872 025c 08300BE5 		str	r3, [fp, #-8]
+ 873              	.L39:
+ 207:../src/renesas/application/Translator/network.c **** 	{
+ 874              		.loc 1 207 0 is_stmt 0 discriminator 1
+ 875 0260 08201BE5 		ldr	r2, [fp, #-8]
+ 876 0264 24301BE5 		ldr	r3, [fp, #-36]
+ 877 0268 030052E1 		cmp	r2, r3
+ 878 026c 8AFFFFBA 		blt	.L50
+ 227:../src/renesas/application/Translator/network.c **** 	    		}
+ 228:../src/renesas/application/Translator/network.c **** 	    	}
+ 229:../src/renesas/application/Translator/network.c **** 	    }
+ 230:../src/renesas/application/Translator/network.c **** 	}		
+ 231:../src/renesas/application/Translator/network.c **** }
+ 879              		.loc 1 231 0 is_stmt 1
+ 880 0270 00F020E3 		nop
+ 881 0274 00D08BE2 		add	sp, fp, #0
+ 882              		.cfi_def_cfa_register 13
+ 883              		@ sp needed
+ 884 0278 04B09DE4 		ldr	fp, [sp], #4
+ 885              		.cfi_restore 11
+ 886              		.cfi_def_cfa_offset 0
+ 887 027c 1EFF2FE1 		bx	lr
+ 888              		.cfi_endproc
+ 889              	.LFE3:
+ 891              		.section	.text.max_pooling_without_pad,"ax",%progbits
+ 892              		.align	2
+ 893              		.global	max_pooling_without_pad
+ 894              		.syntax unified
+ 895              		.arm
+ 896              		.fpu neon
+ 898              	max_pooling_without_pad:
+ 899              	.LFB4:
+ 232:../src/renesas/application/Translator/network.c **** 
+ 233:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 234:../src/renesas/application/Translator/network.c **** * Function Name: max_pooling_without_pad
+ 235:../src/renesas/application/Translator/network.c **** * Description  : - MAX Pooling layer without padding operation.
+ 236:../src/renesas/application/Translator/network.c **** *				 - taking the most responsive node of the given TsInterest region
+ 237:../src/renesas/application/Translator/network.c **** *				 - Creates a new output matrix where each element is the max of a region in the original input
+ 238:../src/renesas/application/Translator/network.c **** * Arguments    : dData		- Pointer to the input data
+ 239:../src/renesas/application/Translator/network.c **** *				 dOut		- Pointer to the max pooling output
+ 240:../src/renesas/application/Translator/network.c **** *				 iShapes	- Dimensions 
+ 241:../src/renesas/application/Translator/network.c **** *					( N, input channels, input height, input width, output height, output width, pool height, 
+ 242:../src/renesas/application/Translator/network.c **** *					  pool width, stride height, stride width, pooling type)
+ 243:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 244:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 245:../src/renesas/application/Translator/network.c **** void max_pooling_without_pad(TPrecision *dData, TPrecision *dOut, TsInt *iShapes)
+ 246:../src/renesas/application/Translator/network.c **** {
+ 900              		.loc 1 246 0
+ 901              		.cfi_startproc
+ 902              		@ args = 0, pretend = 0, frame = 104
+ 903              		@ frame_needed = 1, uses_anonymous_args = 0
+ 904              		@ link register save eliminated.
+ 905 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 906              		.cfi_def_cfa_offset 4
+ 907              		.cfi_offset 11, -4
+ 908 0004 00B08DE2 		add	fp, sp, #0
+ 909              		.cfi_def_cfa_register 11
+ 910 0008 6CD04DE2 		sub	sp, sp, #108
+ 911 000c 60000BE5 		str	r0, [fp, #-96]
+ 912 0010 64100BE5 		str	r1, [fp, #-100]
+ 913 0014 68200BE5 		str	r2, [fp, #-104]
+ 247:../src/renesas/application/Translator/network.c **** 	TsInt sD1,sD2,sD3,sD4;			// Array dimension
+ 248:../src/renesas/application/Translator/network.c **** 	TsInt sInnerItr,sOuterItr,sOffset;
+ 249:../src/renesas/application/Translator/network.c **** 	TsInt iN = iShapes[0];
+ 914              		.loc 1 249 0
+ 915 0018 68301BE5 		ldr	r3, [fp, #-104]
+ 916 001c 003093E5 		ldr	r3, [r3]
+ 917 0020 28300BE5 		str	r3, [fp, #-40]
+ 250:../src/renesas/application/Translator/network.c **** 	TsInt iC = iShapes[1];			//Input Channels
+ 918              		.loc 1 250 0
+ 919 0024 68301BE5 		ldr	r3, [fp, #-104]
+ 920 0028 043093E5 		ldr	r3, [r3, #4]
+ 921 002c 2C300BE5 		str	r3, [fp, #-44]
+ 251:../src/renesas/application/Translator/network.c **** 	TsInt iH = iShapes[2];			// Input data height
+ 922              		.loc 1 251 0
+ 923 0030 68301BE5 		ldr	r3, [fp, #-104]
+ 924 0034 083093E5 		ldr	r3, [r3, #8]
+ 925 0038 30300BE5 		str	r3, [fp, #-48]
+ 252:../src/renesas/application/Translator/network.c **** 	TsInt iW = iShapes[3];			// Input data width
+ 926              		.loc 1 252 0
+ 927 003c 68301BE5 		ldr	r3, [fp, #-104]
+ 928 0040 0C3093E5 		ldr	r3, [r3, #12]
+ 929 0044 34300BE5 		str	r3, [fp, #-52]
+ 253:../src/renesas/application/Translator/network.c **** 	TsInt iHp = iShapes[4];			// Output data height
+ 930              		.loc 1 253 0
+ 931 0048 68301BE5 		ldr	r3, [fp, #-104]
+ 932 004c 103093E5 		ldr	r3, [r3, #16]
+ 933 0050 38300BE5 		str	r3, [fp, #-56]
+ 254:../src/renesas/application/Translator/network.c **** 	TsInt iWp = iShapes[5];			// Output data width
+ 934              		.loc 1 254 0
+ 935 0054 68301BE5 		ldr	r3, [fp, #-104]
+ 936 0058 143093E5 		ldr	r3, [r3, #20]
+ 937 005c 3C300BE5 		str	r3, [fp, #-60]
+ 255:../src/renesas/application/Translator/network.c **** 
+ 256:../src/renesas/application/Translator/network.c **** 	TsInt PH = iShapes[6];			// Pool height
+ 938              		.loc 1 256 0
+ 939 0060 68301BE5 		ldr	r3, [fp, #-104]
+ 940 0064 183093E5 		ldr	r3, [r3, #24]
+ 941 0068 40300BE5 		str	r3, [fp, #-64]
+ 257:../src/renesas/application/Translator/network.c **** 	TsInt PW = iShapes[7];			// Pool width
+ 942              		.loc 1 257 0
+ 943 006c 68301BE5 		ldr	r3, [fp, #-104]
+ 944 0070 1C3093E5 		ldr	r3, [r3, #28]
+ 945 0074 44300BE5 		str	r3, [fp, #-68]
+ 258:../src/renesas/application/Translator/network.c **** 	TsInt stride_H = iShapes[8];	// Stride height
+ 946              		.loc 1 258 0
+ 947 0078 68301BE5 		ldr	r3, [fp, #-104]
+ 948 007c 203093E5 		ldr	r3, [r3, #32]
+ 949 0080 48300BE5 		str	r3, [fp, #-72]
+ 259:../src/renesas/application/Translator/network.c **** 	TsInt stride_W = iShapes[9];	// Stride width
+ 950              		.loc 1 259 0
+ 951 0084 68301BE5 		ldr	r3, [fp, #-104]
+ 952 0088 243093E5 		ldr	r3, [r3, #36]
+ 953 008c 4C300BE5 		str	r3, [fp, #-76]
+ 260:../src/renesas/application/Translator/network.c **** 
+ 261:../src/renesas/application/Translator/network.c **** 	TsInt iWs, iHs, flag;
+ 262:../src/renesas/application/Translator/network.c **** 	TPrecision dMax;
+ 263:../src/renesas/application/Translator/network.c **** 
+ 264:../src/renesas/application/Translator/network.c **** 	// MAX pooling operation
+ 265:../src/renesas/application/Translator/network.c **** 	for (sD1=0; sD1<iN; sD1++)
+ 954              		.loc 1 265 0
+ 955 0090 0030A0E3 		mov	r3, #0
+ 956 0094 08300BE5 		str	r3, [fp, #-8]
+ 957 0098 7D0000EA 		b	.L52
+ 958              	.L66:
+ 266:../src/renesas/application/Translator/network.c **** 	{
+ 267:../src/renesas/application/Translator/network.c **** 	    for (sD2=0; sD2<iC; sD2++)
+ 959              		.loc 1 267 0
+ 960 009c 0030A0E3 		mov	r3, #0
+ 961 00a0 0C300BE5 		str	r3, [fp, #-12]
+ 962 00a4 730000EA 		b	.L53
+ 963              	.L65:
+ 268:../src/renesas/application/Translator/network.c **** 	    {
+ 269:../src/renesas/application/Translator/network.c **** 	    	for (sD3=0; sD3<iHp; sD3++)
+ 964              		.loc 1 269 0
+ 965 00a8 0030A0E3 		mov	r3, #0
+ 966 00ac 10300BE5 		str	r3, [fp, #-16]
+ 967 00b0 690000EA 		b	.L54
+ 968              	.L64:
+ 270:../src/renesas/application/Translator/network.c **** 	    	{
+ 271:../src/renesas/application/Translator/network.c **** 	    		iHs = sD3 * stride_H;
+ 969              		.loc 1 271 0
+ 970 00b4 10301BE5 		ldr	r3, [fp, #-16]
+ 971 00b8 48201BE5 		ldr	r2, [fp, #-72]
+ 972 00bc 920303E0 		mul	r3, r2, r3
+ 973 00c0 50300BE5 		str	r3, [fp, #-80]
+ 272:../src/renesas/application/Translator/network.c **** 	    		for (sD4=0; sD4<iWp; sD4++)
+ 974              		.loc 1 272 0
+ 975 00c4 0030A0E3 		mov	r3, #0
+ 976 00c8 14300BE5 		str	r3, [fp, #-20]
+ 977 00cc 5B0000EA 		b	.L55
+ 978              	.L63:
+ 273:../src/renesas/application/Translator/network.c **** 	    		{
+ 274:../src/renesas/application/Translator/network.c **** 	    			iWs = sD4 * stride_W;
+ 979              		.loc 1 274 0
+ 980 00d0 14301BE5 		ldr	r3, [fp, #-20]
+ 981 00d4 4C201BE5 		ldr	r2, [fp, #-76]
+ 982 00d8 920303E0 		mul	r3, r2, r3
+ 983 00dc 54300BE5 		str	r3, [fp, #-84]
+ 275:../src/renesas/application/Translator/network.c **** 	    			flag = 0;
+ 984              		.loc 1 275 0
+ 985 00e0 0030A0E3 		mov	r3, #0
+ 986 00e4 20300BE5 		str	r3, [fp, #-32]
+ 276:../src/renesas/application/Translator/network.c **** 	    			for(sInnerItr=iHs; sInnerItr<(iHs+PH); sInnerItr++)
+ 987              		.loc 1 276 0
+ 988 00e8 50301BE5 		ldr	r3, [fp, #-80]
+ 989 00ec 18300BE5 		str	r3, [fp, #-24]
+ 990 00f0 370000EA 		b	.L56
+ 991              	.L62:
+ 277:../src/renesas/application/Translator/network.c **** 	    			{
+ 278:../src/renesas/application/Translator/network.c **** 	    				for(sOuterItr=iWs; sOuterItr<(iWs+PW); sOuterItr++)
+ 992              		.loc 1 278 0
+ 993 00f4 54301BE5 		ldr	r3, [fp, #-84]
+ 994 00f8 1C300BE5 		str	r3, [fp, #-28]
+ 995 00fc 2B0000EA 		b	.L57
+ 996              	.L61:
+ 279:../src/renesas/application/Translator/network.c **** 	    				{
+ 280:../src/renesas/application/Translator/network.c **** 	    					sOffset = (sD1*iC*iH*iW)+(sD2*iH*iW)+(sInnerItr*iW)+sOuterItr;
+ 997              		.loc 1 280 0
+ 998 0100 08301BE5 		ldr	r3, [fp, #-8]
+ 999 0104 2C201BE5 		ldr	r2, [fp, #-44]
+ 1000 0108 920302E0 		mul	r2, r2, r3
+ 1001 010c 0C301BE5 		ldr	r3, [fp, #-12]
+ 1002 0110 033082E0 		add	r3, r2, r3
+ 1003 0114 30201BE5 		ldr	r2, [fp, #-48]
+ 1004 0118 920302E0 		mul	r2, r2, r3
+ 1005 011c 18301BE5 		ldr	r3, [fp, #-24]
+ 1006 0120 033082E0 		add	r3, r2, r3
+ 1007 0124 34201BE5 		ldr	r2, [fp, #-52]
+ 1008 0128 920303E0 		mul	r3, r2, r3
+ 1009 012c 1C201BE5 		ldr	r2, [fp, #-28]
+ 1010 0130 033082E0 		add	r3, r2, r3
+ 1011 0134 58300BE5 		str	r3, [fp, #-88]
+ 281:../src/renesas/application/Translator/network.c **** 	    					if(flag == 0)
+ 1012              		.loc 1 281 0
+ 1013 0138 20301BE5 		ldr	r3, [fp, #-32]
+ 1014 013c 000053E3 		cmp	r3, #0
+ 1015 0140 0800001A 		bne	.L58
+ 282:../src/renesas/application/Translator/network.c **** 	    					{
+ 283:../src/renesas/application/Translator/network.c **** 	    						dMax=dData[sOffset];
+ 1016              		.loc 1 283 0
+ 1017 0144 58301BE5 		ldr	r3, [fp, #-88]
+ 1018 0148 0331A0E1 		lsl	r3, r3, #2
+ 1019 014c 60201BE5 		ldr	r2, [fp, #-96]
+ 1020 0150 033082E0 		add	r3, r2, r3
+ 1021 0154 003093E5 		ldr	r3, [r3]	@ float
+ 1022 0158 24300BE5 		str	r3, [fp, #-36]	@ float
+ 284:../src/renesas/application/Translator/network.c **** 	    						flag = 1;
+ 1023              		.loc 1 284 0
+ 1024 015c 0130A0E3 		mov	r3, #1
+ 1025 0160 20300BE5 		str	r3, [fp, #-32]
+ 1026 0164 0E0000EA 		b	.L59
+ 1027              	.L58:
+ 285:../src/renesas/application/Translator/network.c **** 	    					}
+ 286:../src/renesas/application/Translator/network.c **** 	    					else
+ 287:../src/renesas/application/Translator/network.c **** 	    					{
+ 288:../src/renesas/application/Translator/network.c **** 	    						if(dMax < dData[sOffset])
+ 1028              		.loc 1 288 0
+ 1029 0168 58301BE5 		ldr	r3, [fp, #-88]
+ 1030 016c 0331A0E1 		lsl	r3, r3, #2
+ 1031 0170 60201BE5 		ldr	r2, [fp, #-96]
+ 1032 0174 033082E0 		add	r3, r2, r3
+ 1033 0178 007AD3ED 		vldr.32	s15, [r3]
+ 1034 017c 097A1BED 		vldr.32	s14, [fp, #-36]
+ 1035 0180 E77AB4EE 		vcmpe.f32	s14, s15
+ 1036 0184 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 1037 0188 0500005A 		bpl	.L59
+ 289:../src/renesas/application/Translator/network.c **** 	    							dMax = dData[sOffset];
+ 1038              		.loc 1 289 0
+ 1039 018c 58301BE5 		ldr	r3, [fp, #-88]
+ 1040 0190 0331A0E1 		lsl	r3, r3, #2
+ 1041 0194 60201BE5 		ldr	r2, [fp, #-96]
+ 1042 0198 033082E0 		add	r3, r2, r3
+ 1043 019c 003093E5 		ldr	r3, [r3]	@ float
+ 1044 01a0 24300BE5 		str	r3, [fp, #-36]	@ float
+ 1045              	.L59:
+ 278:../src/renesas/application/Translator/network.c **** 	    				{
+ 1046              		.loc 1 278 0 discriminator 2
+ 1047 01a4 1C301BE5 		ldr	r3, [fp, #-28]
+ 1048 01a8 013083E2 		add	r3, r3, #1
+ 1049 01ac 1C300BE5 		str	r3, [fp, #-28]
+ 1050              	.L57:
+ 278:../src/renesas/application/Translator/network.c **** 	    				{
+ 1051              		.loc 1 278 0 is_stmt 0 discriminator 1
+ 1052 01b0 54201BE5 		ldr	r2, [fp, #-84]
+ 1053 01b4 44301BE5 		ldr	r3, [fp, #-68]
+ 1054 01b8 033082E0 		add	r3, r2, r3
+ 1055 01bc 1C201BE5 		ldr	r2, [fp, #-28]
+ 1056 01c0 030052E1 		cmp	r2, r3
+ 1057 01c4 CDFFFFBA 		blt	.L61
+ 276:../src/renesas/application/Translator/network.c **** 	    			{
+ 1058              		.loc 1 276 0 is_stmt 1 discriminator 2
+ 1059 01c8 18301BE5 		ldr	r3, [fp, #-24]
+ 1060 01cc 013083E2 		add	r3, r3, #1
+ 1061 01d0 18300BE5 		str	r3, [fp, #-24]
+ 1062              	.L56:
+ 276:../src/renesas/application/Translator/network.c **** 	    			{
+ 1063              		.loc 1 276 0 is_stmt 0 discriminator 1
+ 1064 01d4 50201BE5 		ldr	r2, [fp, #-80]
+ 1065 01d8 40301BE5 		ldr	r3, [fp, #-64]
+ 1066 01dc 033082E0 		add	r3, r2, r3
+ 1067 01e0 18201BE5 		ldr	r2, [fp, #-24]
+ 1068 01e4 030052E1 		cmp	r2, r3
+ 1069 01e8 C1FFFFBA 		blt	.L62
+ 290:../src/renesas/application/Translator/network.c **** 	    					}
+ 291:../src/renesas/application/Translator/network.c **** 	    				}
+ 292:../src/renesas/application/Translator/network.c **** 	    			}
+ 293:../src/renesas/application/Translator/network.c **** 	    			dOut[(sD1*iC*iHp*iWp)+(sD2*iHp*iWp)+(sD3*iWp)+sD4] = dMax;
+ 1070              		.loc 1 293 0 is_stmt 1 discriminator 2
+ 1071 01ec 08301BE5 		ldr	r3, [fp, #-8]
+ 1072 01f0 2C201BE5 		ldr	r2, [fp, #-44]
+ 1073 01f4 920302E0 		mul	r2, r2, r3
+ 1074 01f8 0C301BE5 		ldr	r3, [fp, #-12]
+ 1075 01fc 033082E0 		add	r3, r2, r3
+ 1076 0200 38201BE5 		ldr	r2, [fp, #-56]
+ 1077 0204 920302E0 		mul	r2, r2, r3
+ 1078 0208 10301BE5 		ldr	r3, [fp, #-16]
+ 1079 020c 033082E0 		add	r3, r2, r3
+ 1080 0210 3C201BE5 		ldr	r2, [fp, #-60]
+ 1081 0214 920302E0 		mul	r2, r2, r3
+ 1082 0218 14301BE5 		ldr	r3, [fp, #-20]
+ 1083 021c 033082E0 		add	r3, r2, r3
+ 1084 0220 0331A0E1 		lsl	r3, r3, #2
+ 1085 0224 64201BE5 		ldr	r2, [fp, #-100]
+ 1086 0228 033082E0 		add	r3, r2, r3
+ 1087 022c 24201BE5 		ldr	r2, [fp, #-36]	@ float
+ 1088 0230 002083E5 		str	r2, [r3]	@ float
+ 272:../src/renesas/application/Translator/network.c **** 	    		{
+ 1089              		.loc 1 272 0 discriminator 2
+ 1090 0234 14301BE5 		ldr	r3, [fp, #-20]
+ 1091 0238 013083E2 		add	r3, r3, #1
+ 1092 023c 14300BE5 		str	r3, [fp, #-20]
+ 1093              	.L55:
+ 272:../src/renesas/application/Translator/network.c **** 	    		{
+ 1094              		.loc 1 272 0 is_stmt 0 discriminator 1
+ 1095 0240 14201BE5 		ldr	r2, [fp, #-20]
+ 1096 0244 3C301BE5 		ldr	r3, [fp, #-60]
+ 1097 0248 030052E1 		cmp	r2, r3
+ 1098 024c 9FFFFFBA 		blt	.L63
+ 269:../src/renesas/application/Translator/network.c **** 	    	{
+ 1099              		.loc 1 269 0 is_stmt 1 discriminator 2
+ 1100 0250 10301BE5 		ldr	r3, [fp, #-16]
+ 1101 0254 013083E2 		add	r3, r3, #1
+ 1102 0258 10300BE5 		str	r3, [fp, #-16]
+ 1103              	.L54:
+ 269:../src/renesas/application/Translator/network.c **** 	    	{
+ 1104              		.loc 1 269 0 is_stmt 0 discriminator 1
+ 1105 025c 10201BE5 		ldr	r2, [fp, #-16]
+ 1106 0260 38301BE5 		ldr	r3, [fp, #-56]
+ 1107 0264 030052E1 		cmp	r2, r3
+ 1108 0268 91FFFFBA 		blt	.L64
+ 267:../src/renesas/application/Translator/network.c **** 	    {
+ 1109              		.loc 1 267 0 is_stmt 1 discriminator 2
+ 1110 026c 0C301BE5 		ldr	r3, [fp, #-12]
+ 1111 0270 013083E2 		add	r3, r3, #1
+ 1112 0274 0C300BE5 		str	r3, [fp, #-12]
+ 1113              	.L53:
+ 267:../src/renesas/application/Translator/network.c **** 	    {
+ 1114              		.loc 1 267 0 is_stmt 0 discriminator 1
+ 1115 0278 0C201BE5 		ldr	r2, [fp, #-12]
+ 1116 027c 2C301BE5 		ldr	r3, [fp, #-44]
+ 1117 0280 030052E1 		cmp	r2, r3
+ 1118 0284 87FFFFBA 		blt	.L65
+ 265:../src/renesas/application/Translator/network.c **** 	{
+ 1119              		.loc 1 265 0 is_stmt 1 discriminator 2
+ 1120 0288 08301BE5 		ldr	r3, [fp, #-8]
+ 1121 028c 013083E2 		add	r3, r3, #1
+ 1122 0290 08300BE5 		str	r3, [fp, #-8]
+ 1123              	.L52:
+ 265:../src/renesas/application/Translator/network.c **** 	{
+ 1124              		.loc 1 265 0 is_stmt 0 discriminator 1
+ 1125 0294 08201BE5 		ldr	r2, [fp, #-8]
+ 1126 0298 28301BE5 		ldr	r3, [fp, #-40]
+ 1127 029c 030052E1 		cmp	r2, r3
+ 1128 02a0 7DFFFFBA 		blt	.L66
+ 294:../src/renesas/application/Translator/network.c **** 	    		}
+ 295:../src/renesas/application/Translator/network.c **** 	    	}
+ 296:../src/renesas/application/Translator/network.c **** 	    }
+ 297:../src/renesas/application/Translator/network.c **** 	}		
+ 298:../src/renesas/application/Translator/network.c **** }
+ 1129              		.loc 1 298 0 is_stmt 1
+ 1130 02a4 00F020E3 		nop
+ 1131 02a8 00D08BE2 		add	sp, fp, #0
+ 1132              		.cfi_def_cfa_register 13
+ 1133              		@ sp needed
+ 1134 02ac 04B09DE4 		ldr	fp, [sp], #4
+ 1135              		.cfi_restore 11
+ 1136              		.cfi_def_cfa_offset 0
+ 1137 02b0 1EFF2FE1 		bx	lr
+ 1138              		.cfi_endproc
+ 1139              	.LFE4:
+ 1141              		.section	.text.pooling_without_pad,"ax",%progbits
+ 1142              		.align	2
+ 1143              		.global	pooling_without_pad
+ 1144              		.syntax unified
+ 1145              		.arm
+ 1146              		.fpu neon
+ 1148              	pooling_without_pad:
+ 1149              	.LFB5:
+ 299:../src/renesas/application/Translator/network.c **** 
+ 300:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 301:../src/renesas/application/Translator/network.c **** * Function Name: pooling_without_pad
+ 302:../src/renesas/application/Translator/network.c **** * Description  : - Pooling layer without padding operation.
+ 303:../src/renesas/application/Translator/network.c **** *				 - Creates a new output matrix where each element is filled based on the pooling type
+ 304:../src/renesas/application/Translator/network.c **** *					(either max pooling or average pooling)
+ 305:../src/renesas/application/Translator/network.c **** * Arguments    : dData		- Pointer to the input data
+ 306:../src/renesas/application/Translator/network.c **** *				 dOut		- Pointer to the pooling output
+ 307:../src/renesas/application/Translator/network.c **** *				 iShapes	- Dimensions
+ 308:../src/renesas/application/Translator/network.c **** *					( N, input channels, input height, input width, output height, output width, pool height,
+ 309:../src/renesas/application/Translator/network.c **** *					  pool width, stride height, stride width, pooling type)
+ 310:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 311:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 312:../src/renesas/application/Translator/network.c **** void pooling_without_pad(TPrecision *dData, TPrecision *dOut, TsInt *iShapes)
+ 313:../src/renesas/application/Translator/network.c **** {
+ 1150              		.loc 1 313 0
+ 1151              		.cfi_startproc
+ 1152              		@ args = 0, pretend = 0, frame = 24
+ 1153              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1154 0000 00482DE9 		push	{fp, lr}
+ 1155              		.cfi_def_cfa_offset 8
+ 1156              		.cfi_offset 11, -8
+ 1157              		.cfi_offset 14, -4
+ 1158 0004 04B08DE2 		add	fp, sp, #4
+ 1159              		.cfi_def_cfa 11, 4
+ 1160 0008 18D04DE2 		sub	sp, sp, #24
+ 1161 000c 10000BE5 		str	r0, [fp, #-16]
+ 1162 0010 14100BE5 		str	r1, [fp, #-20]
+ 1163 0014 18200BE5 		str	r2, [fp, #-24]
+ 314:../src/renesas/application/Translator/network.c **** 	TsInt ipool_type = iShapes[10];		//Type of Pooling
+ 1164              		.loc 1 314 0
+ 1165 0018 18301BE5 		ldr	r3, [fp, #-24]
+ 1166 001c 283093E5 		ldr	r3, [r3, #40]
+ 1167 0020 08300BE5 		str	r3, [fp, #-8]
+ 315:../src/renesas/application/Translator/network.c **** 	if (ipool_type == 0){		// MAX pooling
+ 1168              		.loc 1 315 0
+ 1169 0024 08301BE5 		ldr	r3, [fp, #-8]
+ 1170 0028 000053E3 		cmp	r3, #0
+ 1171 002c 0400001A 		bne	.L69
+ 316:../src/renesas/application/Translator/network.c **** 		max_pooling_without_pad(dData, dOut, iShapes);
+ 1172              		.loc 1 316 0
+ 1173 0030 18201BE5 		ldr	r2, [fp, #-24]
+ 1174 0034 14101BE5 		ldr	r1, [fp, #-20]
+ 1175 0038 10001BE5 		ldr	r0, [fp, #-16]
+ 1176 003c FEFFFFEB 		bl	max_pooling_without_pad
+ 317:../src/renesas/application/Translator/network.c **** 	}
+ 318:../src/renesas/application/Translator/network.c **** 	else{						// AVERAGE pooling
+ 319:../src/renesas/application/Translator/network.c **** 		average_pooling_without_pad(dData, dOut, iShapes);
+ 320:../src/renesas/application/Translator/network.c **** 	}
+ 321:../src/renesas/application/Translator/network.c **** }
+ 1177              		.loc 1 321 0
+ 1178 0040 030000EA 		b	.L71
+ 1179              	.L69:
+ 319:../src/renesas/application/Translator/network.c **** 	}
+ 1180              		.loc 1 319 0
+ 1181 0044 18201BE5 		ldr	r2, [fp, #-24]
+ 1182 0048 14101BE5 		ldr	r1, [fp, #-20]
+ 1183 004c 10001BE5 		ldr	r0, [fp, #-16]
+ 1184 0050 FEFFFFEB 		bl	average_pooling_without_pad
+ 1185              	.L71:
+ 1186              		.loc 1 321 0
+ 1187 0054 00F020E3 		nop
+ 1188 0058 04D04BE2 		sub	sp, fp, #4
+ 1189              		.cfi_def_cfa 13, 8
+ 1190              		@ sp needed
+ 1191 005c 0088BDE8 		pop	{fp, pc}
+ 1192              		.cfi_endproc
+ 1193              	.LFE5:
+ 1195              		.section	.text.innerproduct,"ax",%progbits
+ 1196              		.align	2
+ 1197              		.global	innerproduct
+ 1198              		.syntax unified
+ 1199              		.arm
+ 1200              		.fpu neon
+ 1202              	innerproduct:
+ 1203              	.LFB6:
+ 322:../src/renesas/application/Translator/network.c **** 
+ 323:../src/renesas/application/Translator/network.c **** 
+ 324:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 325:../src/renesas/application/Translator/network.c **** * Function Name: innerproduct
+ 326:../src/renesas/application/Translator/network.c **** * Description  : - Fully connected layer
+ 327:../src/renesas/application/Translator/network.c **** *                - Performs dot product of data and weights and add them up with biases
+ 328:../src/renesas/application/Translator/network.c **** *                   (Matrix Multiplication of data and weights and addition of biases)
+ 329:../src/renesas/application/Translator/network.c **** * Arguments    : data           - Array of input data
+ 330:../src/renesas/application/Translator/network.c **** *                weight_trans   - Array of weights (transposed)
+ 331:../src/renesas/application/Translator/network.c **** *                biases 		- Array of biases
+ 332:../src/renesas/application/Translator/network.c **** *                out            - Placeholder for the output
+ 333:../src/renesas/application/Translator/network.c **** *                shapes         - Dimensions of data and weights (N, D, F, D)
+ 334:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 335:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 336:../src/renesas/application/Translator/network.c **** void innerproduct(TPrecision *data, TPrecision *weights, TPrecision *biases,TPrecision *out,TsInt *
+ 1204              		.loc 1 336 0
+ 1205              		.cfi_startproc
+ 1206              		@ args = 4, pretend = 0, frame = 48
+ 1207              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1208              		@ link register save eliminated.
+ 1209 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 1210              		.cfi_def_cfa_offset 4
+ 1211              		.cfi_offset 11, -4
+ 1212 0004 00B08DE2 		add	fp, sp, #0
+ 1213              		.cfi_def_cfa_register 11
+ 1214 0008 34D04DE2 		sub	sp, sp, #52
+ 1215 000c 28000BE5 		str	r0, [fp, #-40]
+ 1216 0010 2C100BE5 		str	r1, [fp, #-44]
+ 1217 0014 30200BE5 		str	r2, [fp, #-48]
+ 1218 0018 34300BE5 		str	r3, [fp, #-52]
+ 337:../src/renesas/application/Translator/network.c **** 		TsInt iRow, iColumn;
+ 338:../src/renesas/application/Translator/network.c **** 		TsInt iInneritr;
+ 339:../src/renesas/application/Translator/network.c **** 		TsInt N = shapes[0];
+ 1219              		.loc 1 339 0
+ 1220 001c 04309BE5 		ldr	r3, [fp, #4]
+ 1221 0020 003093E5 		ldr	r3, [r3]
+ 1222 0024 18300BE5 		str	r3, [fp, #-24]
+ 340:../src/renesas/application/Translator/network.c **** 		TsInt D = shapes[1];
+ 1223              		.loc 1 340 0
+ 1224 0028 04309BE5 		ldr	r3, [fp, #4]
+ 1225 002c 043093E5 		ldr	r3, [r3, #4]
+ 1226 0030 1C300BE5 		str	r3, [fp, #-28]
+ 341:../src/renesas/application/Translator/network.c **** 		TsInt F = shapes[3];
+ 1227              		.loc 1 341 0
+ 1228 0034 04309BE5 		ldr	r3, [fp, #4]
+ 1229 0038 0C3093E5 		ldr	r3, [r3, #12]
+ 1230 003c 20300BE5 		str	r3, [fp, #-32]
+ 342:../src/renesas/application/Translator/network.c **** 		TPrecision dSum = 0;
+ 1231              		.loc 1 342 0
+ 1232 0040 0030A0E3 		mov	r3, #0
+ 1233 0044 14300BE5 		str	r3, [fp, #-20]	@ float
+ 343:../src/renesas/application/Translator/network.c ****         
+ 344:../src/renesas/application/Translator/network.c **** 		for(iRow=0; iRow<N; iRow++)
+ 1234              		.loc 1 344 0
+ 1235 0048 0030A0E3 		mov	r3, #0
+ 1236 004c 08300BE5 		str	r3, [fp, #-8]
+ 1237 0050 3E0000EA 		b	.L73
+ 1238              	.L78:
+ 345:../src/renesas/application/Translator/network.c **** 		{
+ 346:../src/renesas/application/Translator/network.c **** 			for(iColumn=0; iColumn<F; iColumn++)
+ 1239              		.loc 1 346 0
+ 1240 0054 0030A0E3 		mov	r3, #0
+ 1241 0058 0C300BE5 		str	r3, [fp, #-12]
+ 1242 005c 340000EA 		b	.L74
+ 1243              	.L77:
+ 347:../src/renesas/application/Translator/network.c **** 			{
+ 348:../src/renesas/application/Translator/network.c **** 				dSum = 0;
+ 1244              		.loc 1 348 0
+ 1245 0060 0030A0E3 		mov	r3, #0
+ 1246 0064 14300BE5 		str	r3, [fp, #-20]	@ float
+ 349:../src/renesas/application/Translator/network.c **** 				for(iInneritr=0; iInneritr<D;iInneritr++)
+ 1247              		.loc 1 349 0
+ 1248 0068 0030A0E3 		mov	r3, #0
+ 1249 006c 10300BE5 		str	r3, [fp, #-16]
+ 1250 0070 180000EA 		b	.L75
+ 1251              	.L76:
+ 350:../src/renesas/application/Translator/network.c **** 				{
+ 351:../src/renesas/application/Translator/network.c **** 					dSum += data[(iRow*D)+iInneritr] * weights[(iInneritr*F)+iColumn];
+ 1252              		.loc 1 351 0 discriminator 3
+ 1253 0074 08301BE5 		ldr	r3, [fp, #-8]
+ 1254 0078 1C201BE5 		ldr	r2, [fp, #-28]
+ 1255 007c 920302E0 		mul	r2, r2, r3
+ 1256 0080 10301BE5 		ldr	r3, [fp, #-16]
+ 1257 0084 033082E0 		add	r3, r2, r3
+ 1258 0088 0331A0E1 		lsl	r3, r3, #2
+ 1259 008c 28201BE5 		ldr	r2, [fp, #-40]
+ 1260 0090 033082E0 		add	r3, r2, r3
+ 1261 0094 007A93ED 		vldr.32	s14, [r3]
+ 1262 0098 10301BE5 		ldr	r3, [fp, #-16]
+ 1263 009c 20201BE5 		ldr	r2, [fp, #-32]
+ 1264 00a0 920302E0 		mul	r2, r2, r3
+ 1265 00a4 0C301BE5 		ldr	r3, [fp, #-12]
+ 1266 00a8 033082E0 		add	r3, r2, r3
+ 1267 00ac 0331A0E1 		lsl	r3, r3, #2
+ 1268 00b0 2C201BE5 		ldr	r2, [fp, #-44]
+ 1269 00b4 033082E0 		add	r3, r2, r3
+ 1270 00b8 007AD3ED 		vldr.32	s15, [r3]
+ 1271 00bc 277A67EE 		vmul.f32	s15, s14, s15
+ 1272 00c0 057A1BED 		vldr.32	s14, [fp, #-20]
+ 1273 00c4 277A77EE 		vadd.f32	s15, s14, s15
+ 1274 00c8 057A4BED 		vstr.32	s15, [fp, #-20]
+ 349:../src/renesas/application/Translator/network.c **** 				for(iInneritr=0; iInneritr<D;iInneritr++)
+ 1275              		.loc 1 349 0 discriminator 3
+ 1276 00cc 10301BE5 		ldr	r3, [fp, #-16]
+ 1277 00d0 013083E2 		add	r3, r3, #1
+ 1278 00d4 10300BE5 		str	r3, [fp, #-16]
+ 1279              	.L75:
+ 349:../src/renesas/application/Translator/network.c **** 				for(iInneritr=0; iInneritr<D;iInneritr++)
+ 1280              		.loc 1 349 0 is_stmt 0 discriminator 1
+ 1281 00d8 10201BE5 		ldr	r2, [fp, #-16]
+ 1282 00dc 1C301BE5 		ldr	r3, [fp, #-28]
+ 1283 00e0 030052E1 		cmp	r2, r3
+ 1284 00e4 E2FFFFBA 		blt	.L76
+ 352:../src/renesas/application/Translator/network.c **** 				}
+ 353:../src/renesas/application/Translator/network.c **** 				out[(iRow*F)+iColumn] = dSum + biases[iColumn];
+ 1285              		.loc 1 353 0 is_stmt 1 discriminator 2
+ 1286 00e8 0C301BE5 		ldr	r3, [fp, #-12]
+ 1287 00ec 0331A0E1 		lsl	r3, r3, #2
+ 1288 00f0 30201BE5 		ldr	r2, [fp, #-48]
+ 1289 00f4 033082E0 		add	r3, r2, r3
+ 1290 00f8 007A93ED 		vldr.32	s14, [r3]
+ 1291 00fc 08301BE5 		ldr	r3, [fp, #-8]
+ 1292 0100 20201BE5 		ldr	r2, [fp, #-32]
+ 1293 0104 920302E0 		mul	r2, r2, r3
+ 1294 0108 0C301BE5 		ldr	r3, [fp, #-12]
+ 1295 010c 033082E0 		add	r3, r2, r3
+ 1296 0110 0331A0E1 		lsl	r3, r3, #2
+ 1297 0114 34201BE5 		ldr	r2, [fp, #-52]
+ 1298 0118 033082E0 		add	r3, r2, r3
+ 1299 011c 057A5BED 		vldr.32	s15, [fp, #-20]
+ 1300 0120 277A77EE 		vadd.f32	s15, s14, s15
+ 1301 0124 007AC3ED 		vstr.32	s15, [r3]
+ 346:../src/renesas/application/Translator/network.c **** 			{
+ 1302              		.loc 1 346 0 discriminator 2
+ 1303 0128 0C301BE5 		ldr	r3, [fp, #-12]
+ 1304 012c 013083E2 		add	r3, r3, #1
+ 1305 0130 0C300BE5 		str	r3, [fp, #-12]
+ 1306              	.L74:
+ 346:../src/renesas/application/Translator/network.c **** 			{
+ 1307              		.loc 1 346 0 is_stmt 0 discriminator 1
+ 1308 0134 0C201BE5 		ldr	r2, [fp, #-12]
+ 1309 0138 20301BE5 		ldr	r3, [fp, #-32]
+ 1310 013c 030052E1 		cmp	r2, r3
+ 1311 0140 C6FFFFBA 		blt	.L77
+ 344:../src/renesas/application/Translator/network.c **** 		{
+ 1312              		.loc 1 344 0 is_stmt 1 discriminator 2
+ 1313 0144 08301BE5 		ldr	r3, [fp, #-8]
+ 1314 0148 013083E2 		add	r3, r3, #1
+ 1315 014c 08300BE5 		str	r3, [fp, #-8]
+ 1316              	.L73:
+ 344:../src/renesas/application/Translator/network.c **** 		{
+ 1317              		.loc 1 344 0 is_stmt 0 discriminator 1
+ 1318 0150 08201BE5 		ldr	r2, [fp, #-8]
+ 1319 0154 18301BE5 		ldr	r3, [fp, #-24]
+ 1320 0158 030052E1 		cmp	r2, r3
+ 1321 015c BCFFFFBA 		blt	.L78
+ 354:../src/renesas/application/Translator/network.c **** 			}
+ 355:../src/renesas/application/Translator/network.c **** 		}
+ 356:../src/renesas/application/Translator/network.c **** }
+ 1322              		.loc 1 356 0 is_stmt 1
+ 1323 0160 00F020E3 		nop
+ 1324 0164 00D08BE2 		add	sp, fp, #0
+ 1325              		.cfi_def_cfa_register 13
+ 1326              		@ sp needed
+ 1327 0168 04B09DE4 		ldr	fp, [sp], #4
+ 1328              		.cfi_restore 11
+ 1329              		.cfi_def_cfa_offset 0
+ 1330 016c 1EFF2FE1 		bx	lr
+ 1331              		.cfi_endproc
+ 1332              	.LFE6:
+ 1334              		.section	.text.softmax,"ax",%progbits
+ 1335              		.align	2
+ 1336              		.global	softmax
+ 1337              		.syntax unified
+ 1338              		.arm
+ 1339              		.fpu neon
+ 1341              	softmax:
+ 1342              	.LFB7:
+ 357:../src/renesas/application/Translator/network.c **** 
+ 358:../src/renesas/application/Translator/network.c **** /**************************************************************************************************
+ 359:../src/renesas/application/Translator/network.c **** * Function Name: softmax
+ 360:../src/renesas/application/Translator/network.c **** * Description  : - Activation function
+ 361:../src/renesas/application/Translator/network.c **** *                - Squashes an array of arbitrary real values to an array of real values 
+ 362:../src/renesas/application/Translator/network.c **** *                  in the range(0, 1) that add up to 1	
+ 363:../src/renesas/application/Translator/network.c **** * Arguments    : dData      - Array of input data
+ 364:../src/renesas/application/Translator/network.c **** *                iShapes	- Size of the input array
+ 365:../src/renesas/application/Translator/network.c **** * Return Value : no return value
+ 366:../src/renesas/application/Translator/network.c **** ***************************************************************************************************
+ 367:../src/renesas/application/Translator/network.c **** void softmax( TPrecision *dData, TsInt iShapes )
+ 368:../src/renesas/application/Translator/network.c **** {
+ 1343              		.loc 1 368 0
+ 1344              		.cfi_startproc
+ 1345              		@ args = 0, pretend = 0, frame = 24
+ 1346              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1347 0000 00482DE9 		push	{fp, lr}
+ 1348              		.cfi_def_cfa_offset 8
+ 1349              		.cfi_offset 11, -8
+ 1350              		.cfi_offset 14, -4
+ 1351 0004 028B2DED 		vpush.64	{d8}
+ 1352              		.cfi_def_cfa_offset 16
+ 1353              		.cfi_offset 80, -16
+ 1354              		.cfi_offset 81, -12
+ 1355 0008 0CB08DE2 		add	fp, sp, #12
+ 1356              		.cfi_def_cfa 11, 4
+ 1357 000c 18D04DE2 		sub	sp, sp, #24
+ 1358 0010 20000BE5 		str	r0, [fp, #-32]
+ 1359 0014 24100BE5 		str	r1, [fp, #-36]
+ 369:../src/renesas/application/Translator/network.c ****     TPrecision dMax, dSum = 0;
+ 1360              		.loc 1 369 0
+ 1361 0018 0030A0E3 		mov	r3, #0
+ 1362 001c 14300BE5 		str	r3, [fp, #-20]	@ float
+ 370:../src/renesas/application/Translator/network.c ****     TsInt iRow;
+ 371:../src/renesas/application/Translator/network.c **** 
+ 372:../src/renesas/application/Translator/network.c ****     dMax = dData[0];
+ 1363              		.loc 1 372 0
+ 1364 0020 20301BE5 		ldr	r3, [fp, #-32]
+ 1365 0024 003093E5 		ldr	r3, [r3]	@ float
+ 1366 0028 10300BE5 		str	r3, [fp, #-16]	@ float
+ 373:../src/renesas/application/Translator/network.c ****     for (iRow = 1; iRow < iShapes; iRow++)
+ 1367              		.loc 1 373 0
+ 1368 002c 0130A0E3 		mov	r3, #1
+ 1369 0030 18300BE5 		str	r3, [fp, #-24]
+ 1370 0034 110000EA 		b	.L80
+ 1371              	.L83:
+ 374:../src/renesas/application/Translator/network.c ****     {
+ 375:../src/renesas/application/Translator/network.c ****         if (dData[iRow] > dMax)
+ 1372              		.loc 1 375 0
+ 1373 0038 18301BE5 		ldr	r3, [fp, #-24]
+ 1374 003c 0331A0E1 		lsl	r3, r3, #2
+ 1375 0040 20201BE5 		ldr	r2, [fp, #-32]
+ 1376 0044 033082E0 		add	r3, r2, r3
+ 1377 0048 007AD3ED 		vldr.32	s15, [r3]
+ 1378 004c 047A1BED 		vldr.32	s14, [fp, #-16]
+ 1379 0050 E77AB4EE 		vcmpe.f32	s14, s15
+ 1380 0054 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 1381 0058 0500005A 		bpl	.L81
+ 376:../src/renesas/application/Translator/network.c ****         {
+ 377:../src/renesas/application/Translator/network.c ****         	dMax = dData[iRow];
+ 1382              		.loc 1 377 0
+ 1383 005c 18301BE5 		ldr	r3, [fp, #-24]
+ 1384 0060 0331A0E1 		lsl	r3, r3, #2
+ 1385 0064 20201BE5 		ldr	r2, [fp, #-32]
+ 1386 0068 033082E0 		add	r3, r2, r3
+ 1387 006c 003093E5 		ldr	r3, [r3]	@ float
+ 1388 0070 10300BE5 		str	r3, [fp, #-16]	@ float
+ 1389              	.L81:
+ 373:../src/renesas/application/Translator/network.c ****     {
+ 1390              		.loc 1 373 0 discriminator 2
+ 1391 0074 18301BE5 		ldr	r3, [fp, #-24]
+ 1392 0078 013083E2 		add	r3, r3, #1
+ 1393 007c 18300BE5 		str	r3, [fp, #-24]
+ 1394              	.L80:
+ 373:../src/renesas/application/Translator/network.c ****     {
+ 1395              		.loc 1 373 0 is_stmt 0 discriminator 1
+ 1396 0080 18201BE5 		ldr	r2, [fp, #-24]
+ 1397 0084 24301BE5 		ldr	r3, [fp, #-36]
+ 1398 0088 030052E1 		cmp	r2, r3
+ 1399 008c E9FFFFBA 		blt	.L83
+ 378:../src/renesas/application/Translator/network.c ****         }
+ 379:../src/renesas/application/Translator/network.c ****     }
+ 380:../src/renesas/application/Translator/network.c ****     for (iRow = 0; iRow < iShapes; iRow++)
+ 1400              		.loc 1 380 0 is_stmt 1
+ 1401 0090 0030A0E3 		mov	r3, #0
+ 1402 0094 18300BE5 		str	r3, [fp, #-24]
+ 1403 0098 1C0000EA 		b	.L84
+ 1404              	.L85:
+ 381:../src/renesas/application/Translator/network.c ****     {
+ 382:../src/renesas/application/Translator/network.c ****     	dData[iRow] = dData[iRow] - dMax;
+ 1405              		.loc 1 382 0 discriminator 3
+ 1406 009c 18301BE5 		ldr	r3, [fp, #-24]
+ 1407 00a0 0331A0E1 		lsl	r3, r3, #2
+ 1408 00a4 20201BE5 		ldr	r2, [fp, #-32]
+ 1409 00a8 033082E0 		add	r3, r2, r3
+ 1410 00ac 007A93ED 		vldr.32	s14, [r3]
+ 1411 00b0 18301BE5 		ldr	r3, [fp, #-24]
+ 1412 00b4 0331A0E1 		lsl	r3, r3, #2
+ 1413 00b8 20201BE5 		ldr	r2, [fp, #-32]
+ 1414 00bc 033082E0 		add	r3, r2, r3
+ 1415 00c0 047A5BED 		vldr.32	s15, [fp, #-16]
+ 1416 00c4 677A77EE 		vsub.f32	s15, s14, s15
+ 1417 00c8 007AC3ED 		vstr.32	s15, [r3]
+ 383:../src/renesas/application/Translator/network.c ****         dSum = dSum + exp(dData[iRow]);
+ 1418              		.loc 1 383 0 discriminator 3
+ 1419 00cc 057A5BED 		vldr.32	s15, [fp, #-20]
+ 1420 00d0 E78AB7EE 		vcvt.f64.f32	d8, s15
+ 1421 00d4 18301BE5 		ldr	r3, [fp, #-24]
+ 1422 00d8 0331A0E1 		lsl	r3, r3, #2
+ 1423 00dc 20201BE5 		ldr	r2, [fp, #-32]
+ 1424 00e0 033082E0 		add	r3, r2, r3
+ 1425 00e4 007AD3ED 		vldr.32	s15, [r3]
+ 1426 00e8 E70AF7EE 		vcvt.f64.f32	d16, s15
+ 1427 00ec 600BB0EE 		vmov.f64	d0, d16
+ 1428 00f0 FEFFFFEB 		bl	exp
+ 1429 00f4 400BF0EE 		vmov.f64	d16, d0
+ 1430 00f8 200B78EE 		vadd.f64	d16, d8, d16
+ 1431 00fc E07BF7EE 		vcvt.f32.f64	s15, d16
+ 1432 0100 057A4BED 		vstr.32	s15, [fp, #-20]
+ 380:../src/renesas/application/Translator/network.c ****     {
+ 1433              		.loc 1 380 0 discriminator 3
+ 1434 0104 18301BE5 		ldr	r3, [fp, #-24]
+ 1435 0108 013083E2 		add	r3, r3, #1
+ 1436 010c 18300BE5 		str	r3, [fp, #-24]
+ 1437              	.L84:
+ 380:../src/renesas/application/Translator/network.c ****     {
+ 1438              		.loc 1 380 0 is_stmt 0 discriminator 1
+ 1439 0110 18201BE5 		ldr	r2, [fp, #-24]
+ 1440 0114 24301BE5 		ldr	r3, [fp, #-36]
+ 1441 0118 030052E1 		cmp	r2, r3
+ 1442 011c DEFFFFBA 		blt	.L85
+ 384:../src/renesas/application/Translator/network.c ****     }
+ 385:../src/renesas/application/Translator/network.c ****     for (iRow = 0; iRow < iShapes; iRow++)
+ 1443              		.loc 1 385 0 is_stmt 1
+ 1444 0120 0030A0E3 		mov	r3, #0
+ 1445 0124 18300BE5 		str	r3, [fp, #-24]
+ 1446 0128 140000EA 		b	.L86
+ 1447              	.L87:
+ 386:../src/renesas/application/Translator/network.c ****     {
+ 387:../src/renesas/application/Translator/network.c ****     	dData[iRow] = exp(dData[iRow])/dSum;
+ 1448              		.loc 1 387 0 discriminator 3
+ 1449 012c 18301BE5 		ldr	r3, [fp, #-24]
+ 1450 0130 0331A0E1 		lsl	r3, r3, #2
+ 1451 0134 20201BE5 		ldr	r2, [fp, #-32]
+ 1452 0138 033082E0 		add	r3, r2, r3
+ 1453 013c 007AD3ED 		vldr.32	s15, [r3]
+ 1454 0140 E70AF7EE 		vcvt.f64.f32	d16, s15
+ 1455 0144 600BB0EE 		vmov.f64	d0, d16
+ 1456 0148 FEFFFFEB 		bl	exp
+ 1457 014c 402BF0EE 		vmov.f64	d18, d0
+ 1458 0150 057A5BED 		vldr.32	s15, [fp, #-20]
+ 1459 0154 E71AF7EE 		vcvt.f64.f32	d17, s15
+ 1460 0158 A10BC2EE 		vdiv.f64	d16, d18, d17
+ 1461 015c 18301BE5 		ldr	r3, [fp, #-24]
+ 1462 0160 0331A0E1 		lsl	r3, r3, #2
+ 1463 0164 20201BE5 		ldr	r2, [fp, #-32]
+ 1464 0168 033082E0 		add	r3, r2, r3
+ 1465 016c E07BF7EE 		vcvt.f32.f64	s15, d16
+ 1466 0170 007AC3ED 		vstr.32	s15, [r3]
+ 385:../src/renesas/application/Translator/network.c ****     {
+ 1467              		.loc 1 385 0 discriminator 3
+ 1468 0174 18301BE5 		ldr	r3, [fp, #-24]
+ 1469 0178 013083E2 		add	r3, r3, #1
+ 1470 017c 18300BE5 		str	r3, [fp, #-24]
+ 1471              	.L86:
+ 385:../src/renesas/application/Translator/network.c ****     {
+ 1472              		.loc 1 385 0 is_stmt 0 discriminator 1
+ 1473 0180 18201BE5 		ldr	r2, [fp, #-24]
+ 1474 0184 24301BE5 		ldr	r3, [fp, #-36]
+ 1475 0188 030052E1 		cmp	r2, r3
+ 1476 018c E6FFFFBA 		blt	.L87
+ 388:../src/renesas/application/Translator/network.c ****     }
+ 389:../src/renesas/application/Translator/network.c **** }
+ 1477              		.loc 1 389 0 is_stmt 1
+ 1478 0190 00F020E3 		nop
+ 1479 0194 0CD04BE2 		sub	sp, fp, #12
+ 1480              		.cfi_def_cfa 13, 16
+ 1481              		@ sp needed
+ 1482 0198 028BBDEC 		vldm	sp!, {d8}
+ 1483              		.cfi_restore 80
+ 1484              		.cfi_restore 81
+ 1485              		.cfi_def_cfa_offset 8
+ 1486 019c 0088BDE8 		pop	{fp, pc}
+ 1487              		.cfi_endproc
+ 1488              	.LFE7:
+ 1490              		.text
+ 1491              	.Letext0:
+ 1492              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1493              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1494              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 1495              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1496              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1497              		.file 7 "../src/renesas/application/Translator/Typedef.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 network.c
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:17     .text.padding:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:23     .text.padding:00000000 padding
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:216    .text.convolution:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:222    .text.convolution:00000000 convolution
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:595    .text.relu:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:601    .text.relu:00000000 relu
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:661    .text.average_pooling_without_pad:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:667    .text.average_pooling_without_pad:00000000 average_pooling_without_pad
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:892    .text.max_pooling_without_pad:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:898    .text.max_pooling_without_pad:00000000 max_pooling_without_pad
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1142   .text.pooling_without_pad:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1148   .text.pooling_without_pad:00000000 pooling_without_pad
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1196   .text.innerproduct:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1202   .text.innerproduct:00000000 innerproduct
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1335   .text.softmax:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccytJigh.s:1341   .text.softmax:00000000 softmax
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.newlib.h.21.64e14ed41172bf448383d50cbb14725e
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.features.h.22.5cdadbb3efe495d1c9e38350b8c376c7
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+
+UNDEFINED SYMBOLS
+exp

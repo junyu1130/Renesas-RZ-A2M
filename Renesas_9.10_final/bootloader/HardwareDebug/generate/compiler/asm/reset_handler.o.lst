@@ -1,0 +1,256 @@
+   1              	# 1 "../generate/compiler/asm/reset_handler.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : reset_handler.asm
+  25              	@* $Rev: 758 $
+  26              	@* $Date:: 2018-12-07 16:39:53 +0900#$
+  27              	@* Description : Reset handler
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	@ Standard definitions of mode bits and interrupt (I & F) flags in PSRs
+  32              	    .EQU    USR_MODE,   0x10
+  33              	    .EQU    FIQ_MODE,   0x11
+  34              	    .EQU    IRQ_MODE,   0x12
+  35              	    .EQU    SVC_MODE,   0x13
+  36              	    .EQU    ABT_MODE,   0x17
+  37              	    .EQU    UND_MODE,   0x1b
+  38              	    .EQU    SYS_MODE,   0x1f
+  39              	    .EQU    Thum_bit,   0x20            @ CPSR/SPSR Thumb bit
+  40              	
+  41              	@==================================================================
+  42              	@ Entry point for the Reset handler
+  43              	@==================================================================
+  44              	    .section    RESET_HANDLER, #execinstr
+  45              	    .arm
+  46              	
+  47              	    .extern  __svc_stack_end     @ Linker symbol from scatter file
+  48              	
+  49              	    .weak    DTBL_F
+  50              	    .weak    BTBL_F
+  51              	
+  52              	    .weak    DTBL_F2
+  53              	    .weak    BTBL_F2
+  54              	
+  55              	    .extern  vector_table
+  56              	    .extern  R_SC_HardwareSetup
+  57              	    .extern  Enable_VFP
+  58              	    .extern  INITSCT
+  59              	    .extern  __application_base_address
+  60              	    .extern  r_spibsc_setup
+  61              	
+  62              	
+  63              	    .global  reset_handler
+  64              	
+  65              	@******************************************************************************
+  66              	@ Function Name : reset_handler
+  67              	@ Description   : This function is the assembler function executed after reset
+  68              	@               : cancellation. After initial setting for the stack pointer or 
+  69              	@               : the MMU and reset cancellation, executes initial setting for 
+  70              	@               : the minimum required peripheral functions.
+  71              	@******************************************************************************
+  72              	reset_handler:
+  73              	
+  74              	@===================================================================
+  75              	@ Clock Setting
+  76              	@ Set FRQCR.IFC : CPU Clock 1/8(132MHz) -> 1/2(528MHz)
+  77              	@===================================================================
+  78              	    @; Set standby_mode_en of REG15 Power Control Register
+  79 0000 FC009FE5 	    LDR  r0, =0x1F003F80            @;; Address(REG15 Power Control Register)
+  80 0004 0110A0E3 	    LDR  r1, =0x00000001            @;; Setting Value (REG15 Power Control Register)
+  81 0008 001080E5 	    STR  r1, [r0]                   @;; REG15_POWER_CTRL = 0x00000001
+  82 000c 001090E5 	    LDR  r1, [r0]                   @;; dummy read
+  83              	
+  84              	    @; FRQCR = 0x0012 PLL(x88), I:B:P1:P0 = 22:5.5:2.75:1.375
+  85 0010 F0009FE5 	    LDR  r0, =0xFCFE0010            @;; Address(FRQCR Register)
+  86 0014 1210A0E3 	    LDR  r1, =0x0012                @;; Setting Value(FRQCR Register)
+  87 0018 B010C0E1 	    STRH r1, [r0]                   @;; FRQCR = 0x0012
+  88 001c B000D0E1 	    LDRH r0, [r0]                   @;; dummy read
+  89              	
+  90              	@===================================================================
+  91              	@ Set Vector Base Address Register (VBAR) to point to initializer routine
+  92              	@===================================================================
+  93 0020 E4009FE5 	    LDR r0, =vector_table
+  94 0024 100F0CEE 	    MCR p15, 0, r0, c12, c0, 0
+  95              	
+  96              	@==================================================================
+  97              	@ Disable cache and MMU in case it was left enabled from an earlier run
+  98              	@ This does not need to be done from a cold reset 
+  99              	@==================================================================
+ 100 0028 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0      @;; Read CP15 System Control register (SCTLR)
+ 101 002c 020AC0E3 	    BIC  r0, r0, #(0x1 << 13)       @;; Set Low Vectors
+ 102 0030 010AC0E3 	    BIC  r0, r0, #(0x1 << 12)       @;; Clear I bit 12 to disable I Cache
+ 103 0034 0400C0E3 	    BIC  r0, r0, #(0x1 <<  2)       @;; Clear C bit  2 to disable D Cache
+ 104 0038 0100C0E3 	    BIC  r0, r0, #0x1               @;; Clear M bit  0 to disable MMU
+ 105 003c 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0      @;; Write value back to CP15 System Control register
+ 106              	
+ 107              	@==================================================================
+ 108              	@ Setting up Stack Area (SVC)
+ 109              	@==================================================================
+ 110 0040 130002F1 	    CPS  #SVC_MODE                  @;; SVC Mode
+ 111 0044 C4D09FE5 	    LDR  sp, =__svc_stack_end
+ 112              	
+ 113              	
+ 114              	@==================================================================
+ 115              	@ Section initialize for r_spibsc_setup
+ 116              	@==================================================================
+ 117 0048 C4009FE5 	    LDR  r0, =DTBL_F2                @;; ROM to RAM table for r_spibsc_setup
+ 118 004c C4109FE5 	    LDR  r1, =BTBL_F2                @;; RAM zero fill table for r_spibsc_setup
+ 119 0050 C4C09FE5 	    LDR  r12,=INITSCT                @;; Function for Initialize sections
+ 120 0054 3CFF2FE1 	    BLX  r12                         @;; Call
+ 121              	
+ 122              	
+ 123              	@==================================================================
+ 124              	@ Hardware initialize
+ 125              	@ Initialize SPIBSC (16.5MHz, )
+ 126              	@==================================================================
+ 127 0058 C0C09FE5 	    LDR  r12,=r_spibsc_setup       @;; Save this in register for possible long jump
+ 128 005c 3CFF2FE1 	    BLX  r12                       @;; Hardware Initialize
+ 129              	
+ 130              	
+ 131              	
+ 132              	
+ 133              	@==================================================================
+ 134              	@ Section initialize for R_SC_HardwareSetup
+ 135              	@==================================================================
+ 136 0060 BC009FE5 	    LDR  r0, =DTBL_F                @;; ROM to RAM table for R_SC_HardwareSetup
+ 137 0064 BC109FE5 	    LDR  r1, =BTBL_F                @;; RAM zero fill table for R_SC_HardwareSetup
+ 138 0068 ACC09FE5 	    LDR  r12,=INITSCT               @;; Function for Initialize sections
+ 139 006c 3CFF2FE1 	    BLX  r12                        @;; Call
+ 140              	
+ 141              	#if defined(__ARM_FP) || defined(__ARM_NEON_FP)
+ 142              	@===================================================================
+ 143              	@ Enable the vfp
+ 144              	@===================================================================
+ 145 0070 B4C09FE5 	    LDR  r12,=Enable_VFP            @;; Save this in register for possible long jump
+ 146 0074 3CFF2FE1 	    BLX  r12                        @;; Call to enable the vfp
+ 147              	#endif
+ 148              	
+ 149              	@==================================================================
+ 150              	@ Hardware initialize
+ 151              	@ Initialize CPG, BSC for CS2 and CS3, and enable On-Chip Data-Retention RAM
+ 152              	@==================================================================
+ 153 0078 B0C09FE5 	    LDR  r12,=R_SC_HardwareSetup   @;; Save this in register for possible long jump
+ 154 007c 3CFF2FE1 	    BLX  r12                        @;; Hardware Initialize
+ 155              	
+ 156              	@==================================================================
+ 157              	@ check application signature
+ 158              	@==================================================================
+ 159 0080 010000EB 	    BL   chk_signature
+ 160              	
+ 161              	@==================================================================
+ 162              	@ Jump to application program
+ 163              	@==================================================================
+ 164 0084 A8C09FE5 	    LDR  r12,=__application_base_address
+ 165 0088 1CFF2FE1 	    BX   r12
+ 166              	
+ 167              	@==================================================================
+ 168              	@ Subroutine for check application signature
+ 169              	@==================================================================
+ 170              	chk_signature:
+ 171 008c A0009FE5 	    LDR r0, =__application_base_address
+ 172 0090 A0109FE5 	    LDR r1, =signature1
+ 173 0094 200080E2 	    ADD r0, r0, #0x20               ;@ signature offset = vector + 0x0020
+ 174 0098 042091E4 	    LDR r2, [r1], #4
+ 175 009c 043090E4 	    LDR r3, [r0], #4
+ 176 00a0 030052E1 	    CMP r2, r3
+ 177 00a4 04209104 	    LDREQ r2, [r1], #4
+ 178 00a8 04309004 	    LDREQ r3, [r0], #4
+ 179 00ac 03005201 	    CMPEQ r2, r3
+ 180 00b0 04209104 	    LDREQ r2, [r1], #4
+ 181 00b4 04309004 	    LDREQ r3, [r0], #4
+ 182 00b8 03005201 	    CMPEQ r2, r3
+ 183 00bc 04209104 	    LDREQ r2, [r1], #4
+ 184 00c0 04309004 	    LDREQ r3, [r0], #4
+ 185 00c4 03005201 	    CMPEQ r2, r3
+ 186 00c8 6C109F05 	    LDREQ r1, =signature2
+ 187 00cc 04209104 	    LDREQ r2, [r1], #4
+ 188 00d0 04309004 	    LDREQ r3, [r0], #4
+ 189 00d4 03005201 	    CMPEQ r2, r3
+ 190 00d8 04209104 	    LDREQ r2, [r1], #4
+ 191 00dc 04309004 	    LDREQ r3, [r0], #4
+ 192 00e0 03005201 	    CMPEQ r2, r3
+ 193 00e4 04209104 	    LDREQ r2, [r1], #4
+ 194 00e8 04309004 	    LDREQ r3, [r0], #4
+ 195 00ec 03005201 	    CMPEQ r2, r3
+ 196 00f0 04209104 	    LDREQ r2, [r1], #4
+ 197 00f4 04309004 	    LDREQ r3, [r0], #4
+ 198 00f8 03005201 	    CMPEQ r2, r3
+ 199 00fc 1EFF2F01 	    BXEQ  lr
+ 200              	1:
+ 201 0100 FEFFFFEA 	    B   1b
+ 202              	
+ 203              	
+ 204              	@==================================================================
+ 205              	@ application validation signature
+ 206              	@==================================================================
+ 207              	    .section .rodata.signature_fragment
+ 208              	    .align 2
+ 209              	signature2:
+ 210 0000 726F6772 	    .ascii "rogramTest.     "
+ 210      616D5465 
+ 210      73742E20 
+ 210      20202020 
+ 211              	    .align 2
+ 212              	signature1:
+ 213 0010 2E426F6F 	    .ascii ".BootLoad_ValidP"
+ 213      744C6F61 
+ 213      645F5661 
+ 213      6C696450 
+ 214              	    .align 2
+ 215              	
+ 216              	
+ 217              	    .END
+DEFINED SYMBOLS
+../generate/compiler/asm/reset_handler.asm:32     *ABS*:00000010 USR_MODE
+../generate/compiler/asm/reset_handler.asm:33     *ABS*:00000011 FIQ_MODE
+../generate/compiler/asm/reset_handler.asm:34     *ABS*:00000012 IRQ_MODE
+../generate/compiler/asm/reset_handler.asm:35     *ABS*:00000013 SVC_MODE
+../generate/compiler/asm/reset_handler.asm:36     *ABS*:00000017 ABT_MODE
+../generate/compiler/asm/reset_handler.asm:37     *ABS*:0000001b UND_MODE
+../generate/compiler/asm/reset_handler.asm:38     *ABS*:0000001f SYS_MODE
+../generate/compiler/asm/reset_handler.asm:39     *ABS*:00000020 Thum_bit
+../generate/compiler/asm/reset_handler.asm:72     RESET_HANDLER:00000000 reset_handler
+../generate/compiler/asm/reset_handler.asm:79     RESET_HANDLER:00000000 $a
+../generate/compiler/asm/reset_handler.asm:170    RESET_HANDLER:0000008c chk_signature
+../generate/compiler/asm/reset_handler.asm:212    .rodata.signature_fragment:00000010 signature1
+../generate/compiler/asm/reset_handler.asm:209    .rodata.signature_fragment:00000000 signature2
+../generate/compiler/asm/reset_handler.asm:208    .rodata.signature_fragment:00000000 $d
+../generate/compiler/asm/reset_handler.asm:217    RESET_HANDLER:00000104 $d
+
+UNDEFINED SYMBOLS
+DTBL_F
+BTBL_F
+DTBL_F2
+BTBL_F2
+vector_table
+__svc_stack_end
+INITSCT
+r_spibsc_setup
+Enable_VFP
+R_SC_HardwareSetup
+__application_base_address

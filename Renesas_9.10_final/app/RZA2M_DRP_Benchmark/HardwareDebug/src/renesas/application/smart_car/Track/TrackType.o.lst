@@ -1,0 +1,3271 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"TrackType.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.rodata.s_sc_cpg_xtal_frequency_khz_config,"a",%progbits
+  17              		.align	3
+  20              	s_sc_cpg_xtal_frequency_khz_config:
+  21 0000 00000000 		.word	0
+  22 0004 0070D740 		.word	1087860736
+  23              		.section	.rodata.s_sc_cpg_main_clock_config,"a",%progbits
+  24              		.align	3
+  27              	s_sc_cpg_main_clock_config:
+  28 0000 00       		.byte	0
+  29 0001 00000000 		.space	7
+  29      000000
+  30 0008 00000000 		.word	0
+  31 000c 001D3041 		.word	1093672192
+  32              		.section	.rodata.s_sc_cpg_sub_clock_div_config,"a",%progbits
+  33              		.align	3
+  36              	s_sc_cpg_sub_clock_div_config:
+  37 0000 00       		.byte	0
+  38 0001 00000000 		.space	7
+  38      000000
+  39 0008 00000000 		.word	0
+  40 000c 001D2041 		.word	1092623616
+  41 0010 01       		.byte	1
+  42 0011 00000000 		.space	7
+  42      000000
+  43 0018 00000000 		.word	0
+  44 001c 001D0041 		.word	1090526464
+  45 0020 02       		.byte	2
+  46 0021 00000000 		.space	7
+  46      000000
+  47 0028 00000000 		.word	0
+  48 002c 001DF040 		.word	1089477888
+  49              		.section	.rodata.s_sc_cpg_sub_clock_src_config,"a",%progbits
+  50              		.align	2
+  53              	s_sc_cpg_sub_clock_src_config:
+  54 0000 00       		.byte	0
+  55 0001 00       		.byte	0
+  56 0002 01       		.byte	1
+  57 0003 02       		.byte	2
+  58 0004 02       		.byte	2
+  59 0005 02       		.byte	2
+  60 0006 03       		.byte	3
+  61 0007 00       		.byte	0
+  62              		.section	.rodata.s_sc_cpg_ext_clk_config,"a",%progbits
+  63              		.align	2
+  66              	s_sc_cpg_ext_clk_config:
+  67 0000 04       		.byte	4
+  68              		.section	.rodata.GPIO_SC_TABLE_INIT,"a",%progbits
+  69              		.align	2
+  72              	GPIO_SC_TABLE_INIT:
+  73 0000 0108     		.short	2049
+  74 0002 02       		.byte	2
+  75 0003 01       		.byte	1
+  76 0004 05       		.byte	5
+  77 0005 00       		.space	1
+  78 0006 0000     		.short	0
+  79 0008 02       		.byte	2
+  80 0009 01       		.byte	1
+  81 000a 05       		.byte	5
+  82 000b 00       		.space	1
+  83              		.section	.rodata.GPIO_SC_TABLE_MANUAL,"a",%progbits
+  84              		.align	2
+  87              	GPIO_SC_TABLE_MANUAL:
+  88 0000 0004     		.short	1024
+  89 0002 08       		.byte	8
+  90 0003 01       		.byte	1
+  91 0004 04       		.byte	4
+  92 0005 00       		.space	1
+  93 0006 0104     		.short	1025
+  94 0008 08       		.byte	8
+  95 0009 01       		.byte	1
+  96 000a 04       		.byte	4
+  97 000b 00       		.space	1
+  98 000c 0204     		.short	1026
+  99 000e 08       		.byte	8
+ 100 000f 01       		.byte	1
+ 101 0010 04       		.byte	4
+ 102 0011 00       		.space	1
+ 103 0012 0304     		.short	1027
+ 104 0014 08       		.byte	8
+ 105 0015 01       		.byte	1
+ 106 0016 04       		.byte	4
+ 107 0017 00       		.space	1
+ 108 0018 0404     		.short	1028
+ 109 001a 08       		.byte	8
+ 110 001b 01       		.byte	1
+ 111 001c 04       		.byte	4
+ 112 001d 00       		.space	1
+ 113 001e 0504     		.short	1029
+ 114 0020 08       		.byte	8
+ 115 0021 01       		.byte	1
+ 116 0022 04       		.byte	4
+ 117 0023 00       		.space	1
+ 118 0024 0604     		.short	1030
+ 119 0026 08       		.byte	8
+ 120 0027 01       		.byte	1
+ 121 0028 04       		.byte	4
+ 122 0029 00       		.space	1
+ 123 002a 0704     		.short	1031
+ 124 002c 08       		.byte	8
+ 125 002d 01       		.byte	1
+ 126 002e 04       		.byte	4
+ 127 002f 00       		.space	1
+ 128 0030 0006     		.short	1536
+ 129 0032 04       		.byte	4
+ 130 0033 01       		.byte	1
+ 131 0034 04       		.byte	4
+ 132 0035 00       		.space	1
+ 133 0036 0106     		.short	1537
+ 134 0038 08       		.byte	8
+ 135 0039 01       		.byte	1
+ 136 003a 05       		.byte	5
+ 137 003b 00       		.space	1
+ 138 003c 0206     		.short	1538
+ 139 003e 08       		.byte	8
+ 140 003f 01       		.byte	1
+ 141 0040 05       		.byte	5
+ 142 0041 00       		.space	1
+ 143 0042 0306     		.short	1539
+ 144 0044 08       		.byte	8
+ 145 0045 01       		.byte	1
+ 146 0046 05       		.byte	5
+ 147 0047 00       		.space	1
+ 148 0048 0406     		.short	1540
+ 149 004a 04       		.byte	4
+ 150 004b 01       		.byte	1
+ 151 004c 04       		.byte	4
+ 152 004d 00       		.space	1
+ 153 004e 0506     		.short	1541
+ 154 0050 04       		.byte	4
+ 155 0051 01       		.byte	1
+ 156 0052 04       		.byte	4
+ 157 0053 00       		.space	1
+ 158 0054 0606     		.short	1542
+ 159 0056 04       		.byte	4
+ 160 0057 01       		.byte	1
+ 161 0058 04       		.byte	4
+ 162 0059 00       		.space	1
+ 163 005a 0706     		.short	1543
+ 164 005c 04       		.byte	4
+ 165 005d 01       		.byte	1
+ 166 005e 04       		.byte	4
+ 167 005f 00       		.space	1
+ 168 0060 0007     		.short	1792
+ 169 0062 04       		.byte	4
+ 170 0063 01       		.byte	1
+ 171 0064 04       		.byte	4
+ 172 0065 00       		.space	1
+ 173 0066 0107     		.short	1793
+ 174 0068 04       		.byte	4
+ 175 0069 01       		.byte	1
+ 176 006a 04       		.byte	4
+ 177 006b 00       		.space	1
+ 178 006c 0307     		.short	1795
+ 179 006e 04       		.byte	4
+ 180 006f 01       		.byte	1
+ 181 0070 04       		.byte	4
+ 182 0071 00       		.space	1
+ 183 0072 0407     		.short	1796
+ 184 0074 04       		.byte	4
+ 185 0075 01       		.byte	1
+ 186 0076 04       		.byte	4
+ 187 0077 00       		.space	1
+ 188 0078 0507     		.short	1797
+ 189 007a 04       		.byte	4
+ 190 007b 01       		.byte	1
+ 191 007c 04       		.byte	4
+ 192 007d 00       		.space	1
+ 193 007e 0308     		.short	2051
+ 194 0080 04       		.byte	4
+ 195 0081 01       		.byte	1
+ 196 0082 04       		.byte	4
+ 197 0083 00       		.space	1
+ 198 0084 0408     		.short	2052
+ 199 0086 04       		.byte	4
+ 200 0087 01       		.byte	1
+ 201 0088 04       		.byte	4
+ 202 0089 00       		.space	1
+ 203 008a 0508     		.short	2053
+ 204 008c 04       		.byte	4
+ 205 008d 01       		.byte	1
+ 206 008e 04       		.byte	4
+ 207 008f 00       		.space	1
+ 208 0090 0608     		.short	2054
+ 209 0092 04       		.byte	4
+ 210 0093 01       		.byte	1
+ 211 0094 04       		.byte	4
+ 212 0095 00       		.space	1
+ 213 0096 0409     		.short	2308
+ 214 0098 04       		.byte	4
+ 215 0099 01       		.byte	1
+ 216 009a 04       		.byte	4
+ 217 009b 00       		.space	1
+ 218 009c 0509     		.short	2309
+ 219 009e 04       		.byte	4
+ 220 009f 01       		.byte	1
+ 221 00a0 04       		.byte	4
+ 222 00a1 00       		.space	1
+ 223 00a2 0609     		.short	2310
+ 224 00a4 04       		.byte	4
+ 225 00a5 01       		.byte	1
+ 226 00a6 04       		.byte	4
+ 227 00a7 00       		.space	1
+ 228 00a8 0709     		.short	2311
+ 229 00aa 04       		.byte	4
+ 230 00ab 01       		.byte	1
+ 231 00ac 04       		.byte	4
+ 232 00ad 00       		.space	1
+ 233 00ae 0707     		.short	1799
+ 234 00b0 09       		.byte	9
+ 235 00b1 01       		.byte	1
+ 236 00b2 04       		.byte	4
+ 237 00b3 00       		.space	1
+ 238 00b4 0008     		.short	2048
+ 239 00b6 09       		.byte	9
+ 240 00b7 01       		.byte	1
+ 241 00b8 04       		.byte	4
+ 242 00b9 00       		.space	1
+ 243 00ba 000A     		.short	2560
+ 244 00bc 09       		.byte	9
+ 245 00bd 01       		.byte	1
+ 246 00be 04       		.byte	4
+ 247 00bf 00       		.space	1
+ 248 00c0 010A     		.short	2561
+ 249 00c2 09       		.byte	9
+ 250 00c3 01       		.byte	1
+ 251 00c4 04       		.byte	4
+ 252 00c5 00       		.space	1
+ 253 00c6 020A     		.short	2562
+ 254 00c8 09       		.byte	9
+ 255 00c9 01       		.byte	1
+ 256 00ca 04       		.byte	4
+ 257 00cb 00       		.space	1
+ 258 00cc 030A     		.short	2563
+ 259 00ce 09       		.byte	9
+ 260 00cf 01       		.byte	1
+ 261 00d0 04       		.byte	4
+ 262 00d1 00       		.space	1
+ 263 00d2 040A     		.short	2564
+ 264 00d4 09       		.byte	9
+ 265 00d5 01       		.byte	1
+ 266 00d6 04       		.byte	4
+ 267 00d7 00       		.space	1
+ 268 00d8 050A     		.short	2565
+ 269 00da 09       		.byte	9
+ 270 00db 01       		.byte	1
+ 271 00dc 04       		.byte	4
+ 272 00dd 00       		.space	1
+ 273 00de 060A     		.short	2566
+ 274 00e0 09       		.byte	9
+ 275 00e1 01       		.byte	1
+ 276 00e2 04       		.byte	4
+ 277 00e3 00       		.space	1
+ 278 00e4 070A     		.short	2567
+ 279 00e6 09       		.byte	9
+ 280 00e7 01       		.byte	1
+ 281 00e8 04       		.byte	4
+ 282 00e9 00       		.space	1
+ 283 00ea 000B     		.short	2816
+ 284 00ec 09       		.byte	9
+ 285 00ed 01       		.byte	1
+ 286 00ee 04       		.byte	4
+ 287 00ef 00       		.space	1
+ 288 00f0 010B     		.short	2817
+ 289 00f2 09       		.byte	9
+ 290 00f3 01       		.byte	1
+ 291 00f4 04       		.byte	4
+ 292 00f5 00       		.space	1
+ 293 00f6 020B     		.short	2818
+ 294 00f8 09       		.byte	9
+ 295 00f9 01       		.byte	1
+ 296 00fa 04       		.byte	4
+ 297 00fb 00       		.space	1
+ 298 00fc 030B     		.short	2819
+ 299 00fe 09       		.byte	9
+ 300 00ff 01       		.byte	1
+ 301 0100 04       		.byte	4
+ 302 0101 00       		.space	1
+ 303 0102 040B     		.short	2820
+ 304 0104 09       		.byte	9
+ 305 0105 01       		.byte	1
+ 306 0106 04       		.byte	4
+ 307 0107 00       		.space	1
+ 308 0108 050B     		.short	2821
+ 309 010a 09       		.byte	9
+ 310 010b 01       		.byte	1
+ 311 010c 04       		.byte	4
+ 312 010d 00       		.space	1
+ 313 010e 030C     		.short	3075
+ 314 0110 0B       		.byte	11
+ 315 0111 01       		.byte	1
+ 316 0112 04       		.byte	4
+ 317 0113 00       		.space	1
+ 318 0114 040C     		.short	3076
+ 319 0116 0B       		.byte	11
+ 320 0117 01       		.byte	1
+ 321 0118 04       		.byte	4
+ 322 0119 00       		.space	1
+ 323 011a 010E     		.short	3585
+ 324 011c 08       		.byte	8
+ 325 011d 01       		.byte	1
+ 326 011e 05       		.byte	5
+ 327 011f 00       		.space	1
+ 328 0120 020E     		.short	3586
+ 329 0122 08       		.byte	8
+ 330 0123 01       		.byte	1
+ 331 0124 05       		.byte	5
+ 332 0125 00       		.space	1
+ 333 0126 030E     		.short	3587
+ 334 0128 08       		.byte	8
+ 335 0129 01       		.byte	1
+ 336 012a 05       		.byte	5
+ 337 012b 00       		.space	1
+ 338 012c 040E     		.short	3588
+ 339 012e 08       		.byte	8
+ 340 012f 01       		.byte	1
+ 341 0130 05       		.byte	5
+ 342 0131 00       		.space	1
+ 343 0132 050E     		.short	3589
+ 344 0134 08       		.byte	8
+ 345 0135 01       		.byte	1
+ 346 0136 05       		.byte	5
+ 347 0137 00       		.space	1
+ 348 0138 060E     		.short	3590
+ 349 013a 08       		.byte	8
+ 350 013b 01       		.byte	1
+ 351 013c 05       		.byte	5
+ 352 013d 00       		.space	1
+ 353 013e 000F     		.short	3840
+ 354 0140 09       		.byte	9
+ 355 0141 01       		.byte	1
+ 356 0142 04       		.byte	4
+ 357 0143 00       		.space	1
+ 358 0144 010F     		.short	3841
+ 359 0146 09       		.byte	9
+ 360 0147 01       		.byte	1
+ 361 0148 04       		.byte	4
+ 362 0149 00       		.space	1
+ 363 014a 020F     		.short	3842
+ 364 014c 09       		.byte	9
+ 365 014d 01       		.byte	1
+ 366 014e 04       		.byte	4
+ 367 014f 00       		.space	1
+ 368 0150 030F     		.short	3843
+ 369 0152 09       		.byte	9
+ 370 0153 01       		.byte	1
+ 371 0154 04       		.byte	4
+ 372 0155 00       		.space	1
+ 373 0156 040F     		.short	3844
+ 374 0158 09       		.byte	9
+ 375 0159 01       		.byte	1
+ 376 015a 04       		.byte	4
+ 377 015b 00       		.space	1
+ 378 015c 050F     		.short	3845
+ 379 015e 09       		.byte	9
+ 380 015f 01       		.byte	1
+ 381 0160 04       		.byte	4
+ 382 0161 00       		.space	1
+ 383 0162 060F     		.short	3846
+ 384 0164 09       		.byte	9
+ 385 0165 01       		.byte	1
+ 386 0166 04       		.byte	4
+ 387 0167 00       		.space	1
+ 388 0168 070F     		.short	3847
+ 389 016a 09       		.byte	9
+ 390 016b 01       		.byte	1
+ 391 016c 04       		.byte	4
+ 392 016d 00       		.space	1
+ 393 016e 0011     		.short	4352
+ 394 0170 08       		.byte	8
+ 395 0171 01       		.byte	1
+ 396 0172 05       		.byte	5
+ 397 0173 00       		.space	1
+ 398 0174 0111     		.short	4353
+ 399 0176 08       		.byte	8
+ 400 0177 01       		.byte	1
+ 401 0178 05       		.byte	5
+ 402 0179 00       		.space	1
+ 403 017a 0211     		.short	4354
+ 404 017c 09       		.byte	9
+ 405 017d 01       		.byte	1
+ 406 017e 04       		.byte	4
+ 407 017f 00       		.space	1
+ 408 0180 0612     		.short	4614
+ 409 0182 09       		.byte	9
+ 410 0183 01       		.byte	1
+ 411 0184 02       		.byte	2
+ 412 0185 00       		.space	1
+ 413 0186 0712     		.short	4615
+ 414 0188 09       		.byte	9
+ 415 0189 01       		.byte	1
+ 416 018a 05       		.byte	5
+ 417 018b 00       		.space	1
+ 418              		.section	.rodata.GPIO_SC_TABLE_riic2,"a",%progbits
+ 419              		.align	2
+ 422              	GPIO_SC_TABLE_riic2:
+ 423 0000 040D     		.short	3332
+ 424 0002 07       		.byte	7
+ 425 0003 01       		.byte	1
+ 426 0004 05       		.byte	5
+ 427 0005 00       		.space	1
+ 428 0006 050D     		.short	3333
+ 429 0008 07       		.byte	7
+ 430 0009 01       		.byte	1
+ 431 000a 05       		.byte	5
+ 432 000b 00       		.space	1
+ 433              		.section	.rodata.GPIO_SC_TABLE_riic3,"a",%progbits
+ 434              		.align	2
+ 437              	GPIO_SC_TABLE_riic3:
+ 438 0000 060D     		.short	3334
+ 439 0002 07       		.byte	7
+ 440 0003 01       		.byte	1
+ 441 0004 05       		.byte	5
+ 442 0005 00       		.space	1
+ 443 0006 070D     		.short	3335
+ 444 0008 07       		.byte	7
+ 445 0009 01       		.byte	1
+ 446 000a 05       		.byte	5
+ 447 000b 00       		.space	1
+ 448              		.section	.rodata.GPIO_SC_TABLE_scifa4,"a",%progbits
+ 449              		.align	2
+ 452              	GPIO_SC_TABLE_scifa4:
+ 453 0000 0009     		.short	2304
+ 454 0002 0A       		.byte	10
+ 455 0003 01       		.byte	1
+ 456 0004 04       		.byte	4
+ 457 0005 00       		.space	1
+ 458 0006 0109     		.short	2305
+ 459 0008 0A       		.byte	10
+ 460 0009 01       		.byte	1
+ 461 000a 05       		.byte	5
+ 462 000b 00       		.space	1
+ 463              		.section	.rodata.GPIO_SC_TABLE_BSC,"a",%progbits
+ 464              		.align	2
+ 467              	GPIO_SC_TABLE_BSC:
+ 468 0000 0000     		.short	0
+ 469 0002 07       		.byte	7
+ 470 0003 01       		.byte	1
+ 471 0004 04       		.byte	4
+ 472 0005 00       		.space	1
+ 473 0006 0100     		.short	1
+ 474 0008 07       		.byte	7
+ 475 0009 01       		.byte	1
+ 476 000a 04       		.byte	4
+ 477 000b 00       		.space	1
+ 478 000c 0200     		.short	2
+ 479 000e 07       		.byte	7
+ 480 000f 01       		.byte	1
+ 481 0010 04       		.byte	4
+ 482 0011 00       		.space	1
+ 483 0012 0300     		.short	3
+ 484 0014 07       		.byte	7
+ 485 0015 01       		.byte	1
+ 486 0016 04       		.byte	4
+ 487 0017 00       		.space	1
+ 488 0018 0400     		.short	4
+ 489 001a 07       		.byte	7
+ 490 001b 01       		.byte	1
+ 491 001c 04       		.byte	4
+ 492 001d 00       		.space	1
+ 493 001e 0500     		.short	5
+ 494 0020 07       		.byte	7
+ 495 0021 01       		.byte	1
+ 496 0022 04       		.byte	4
+ 497 0023 00       		.space	1
+ 498 0024 0600     		.short	6
+ 499 0026 07       		.byte	7
+ 500 0027 01       		.byte	1
+ 501 0028 04       		.byte	4
+ 502 0029 00       		.space	1
+ 503 002a 0001     		.short	256
+ 504 002c 07       		.byte	7
+ 505 002d 01       		.byte	1
+ 506 002e 04       		.byte	4
+ 507 002f 00       		.space	1
+ 508 0030 0101     		.short	257
+ 509 0032 07       		.byte	7
+ 510 0033 01       		.byte	1
+ 511 0034 04       		.byte	4
+ 512 0035 00       		.space	1
+ 513 0036 0201     		.short	258
+ 514 0038 07       		.byte	7
+ 515 0039 01       		.byte	1
+ 516 003a 04       		.byte	4
+ 517 003b 00       		.space	1
+ 518 003c 0301     		.short	259
+ 519 003e 07       		.byte	7
+ 520 003f 01       		.byte	1
+ 521 0040 04       		.byte	4
+ 522 0041 00       		.space	1
+ 523 0042 0401     		.short	260
+ 524 0044 07       		.byte	7
+ 525 0045 01       		.byte	1
+ 526 0046 04       		.byte	4
+ 527 0047 00       		.space	1
+ 528 0048 0002     		.short	512
+ 529 004a 07       		.byte	7
+ 530 004b 01       		.byte	1
+ 531 004c 04       		.byte	4
+ 532 004d 00       		.space	1
+ 533 004e 0102     		.short	513
+ 534 0050 07       		.byte	7
+ 535 0051 01       		.byte	1
+ 536 0052 04       		.byte	4
+ 537 0053 00       		.space	1
+ 538 0054 0202     		.short	514
+ 539 0056 07       		.byte	7
+ 540 0057 01       		.byte	1
+ 541 0058 04       		.byte	4
+ 542 0059 00       		.space	1
+ 543 005a 0302     		.short	515
+ 544 005c 07       		.byte	7
+ 545 005d 01       		.byte	1
+ 546 005e 04       		.byte	4
+ 547 005f 00       		.space	1
+ 548 0060 0007     		.short	1792
+ 549 0062 07       		.byte	7
+ 550 0063 01       		.byte	1
+ 551 0064 04       		.byte	4
+ 552 0065 00       		.space	1
+ 553 0066 0107     		.short	1793
+ 554 0068 07       		.byte	7
+ 555 0069 01       		.byte	1
+ 556 006a 04       		.byte	4
+ 557 006b 00       		.space	1
+ 558 006c 0307     		.short	1795
+ 559 006e 07       		.byte	7
+ 560 006f 01       		.byte	1
+ 561 0070 04       		.byte	4
+ 562 0071 00       		.space	1
+ 563 0072 0407     		.short	1796
+ 564 0074 07       		.byte	7
+ 565 0075 01       		.byte	1
+ 566 0076 04       		.byte	4
+ 567 0077 00       		.space	1
+ 568 0078 0507     		.short	1797
+ 569 007a 07       		.byte	7
+ 570 007b 01       		.byte	1
+ 571 007c 04       		.byte	4
+ 572 007d 00       		.space	1
+ 573 007e 0108     		.short	2049
+ 574 0080 07       		.byte	7
+ 575 0081 01       		.byte	1
+ 576 0082 04       		.byte	4
+ 577 0083 00       		.space	1
+ 578 0084 0208     		.short	2050
+ 579 0086 07       		.byte	7
+ 580 0087 01       		.byte	1
+ 581 0088 04       		.byte	4
+ 582 0089 00       		.space	1
+ 583 008a 0308     		.short	2051
+ 584 008c 07       		.byte	7
+ 585 008d 01       		.byte	1
+ 586 008e 04       		.byte	4
+ 587 008f 00       		.space	1
+ 588 0090 0408     		.short	2052
+ 589 0092 07       		.byte	7
+ 590 0093 01       		.byte	1
+ 591 0094 04       		.byte	4
+ 592 0095 00       		.space	1
+ 593 0096 0508     		.short	2053
+ 594 0098 07       		.byte	7
+ 595 0099 01       		.byte	1
+ 596 009a 04       		.byte	4
+ 597 009b 00       		.space	1
+ 598 009c 0608     		.short	2054
+ 599 009e 07       		.byte	7
+ 600 009f 01       		.byte	1
+ 601 00a0 04       		.byte	4
+ 602 00a1 00       		.space	1
+ 603 00a2 0708     		.short	2055
+ 604 00a4 07       		.byte	7
+ 605 00a5 01       		.byte	1
+ 606 00a6 04       		.byte	4
+ 607 00a7 00       		.space	1
+ 608 00a8 0009     		.short	2304
+ 609 00aa 07       		.byte	7
+ 610 00ab 01       		.byte	1
+ 611 00ac 04       		.byte	4
+ 612 00ad 00       		.space	1
+ 613 00ae 0109     		.short	2305
+ 614 00b0 07       		.byte	7
+ 615 00b1 01       		.byte	1
+ 616 00b2 04       		.byte	4
+ 617 00b3 00       		.space	1
+ 618 00b4 0209     		.short	2306
+ 619 00b6 07       		.byte	7
+ 620 00b7 01       		.byte	1
+ 621 00b8 04       		.byte	4
+ 622 00b9 00       		.space	1
+ 623 00ba 0309     		.short	2307
+ 624 00bc 07       		.byte	7
+ 625 00bd 01       		.byte	1
+ 626 00be 04       		.byte	4
+ 627 00bf 00       		.space	1
+ 628 00c0 0409     		.short	2308
+ 629 00c2 07       		.byte	7
+ 630 00c3 01       		.byte	1
+ 631 00c4 04       		.byte	4
+ 632 00c5 00       		.space	1
+ 633 00c6 0509     		.short	2309
+ 634 00c8 07       		.byte	7
+ 635 00c9 01       		.byte	1
+ 636 00ca 04       		.byte	4
+ 637 00cb 00       		.space	1
+ 638 00cc 0609     		.short	2310
+ 639 00ce 07       		.byte	7
+ 640 00cf 01       		.byte	1
+ 641 00d0 04       		.byte	4
+ 642 00d1 00       		.space	1
+ 643 00d2 0709     		.short	2311
+ 644 00d4 07       		.byte	7
+ 645 00d5 01       		.byte	1
+ 646 00d6 04       		.byte	4
+ 647 00d7 00       		.space	1
+ 648              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified0,"a",%progbits
+ 649              		.align	2
+ 652              	GPIO_SC_TABLE_sdhi_simplified0:
+ 653 0000 0005     		.short	1280
+ 654 0002 09       		.byte	9
+ 655 0003 01       		.byte	1
+ 656 0004 05       		.byte	5
+ 657 0005 00       		.space	1
+ 658 0006 0105     		.short	1281
+ 659 0008 09       		.byte	9
+ 660 0009 01       		.byte	1
+ 661 000a 05       		.byte	5
+ 662 000b 00       		.space	1
+ 663              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified1,"a",%progbits
+ 664              		.align	2
+ 667              	GPIO_SC_TABLE_sdhi_simplified1:
+ 668 0000 0405     		.short	1284
+ 669 0002 09       		.byte	9
+ 670 0003 01       		.byte	1
+ 671 0004 05       		.byte	5
+ 672 0005 00       		.space	1
+ 673 0006 0505     		.short	1285
+ 674 0008 09       		.byte	9
+ 675 0009 01       		.byte	1
+ 676 000a 05       		.byte	5
+ 677 000b 00       		.space	1
+ 678              		.section	.rodata.MMU_SC_TABLE,"a",%progbits
+ 679              		.align	2
+ 682              	MMU_SC_TABLE:
+ 683 0000 00000000 		.word	0
+ 684 0004 00000000 		.word	0
+ 685 0008 0010     		.short	4096
+ 686 000a 0000     		.space	2
+ 687 000c F20D0800 		.word	527858
+ 688 0010 00000000 		.word	0
+ 689 0014 00000000 		.word	0
+ 690 0018 4000     		.short	64
+ 691 001a 0000     		.space	2
+ 692 001c F20D0800 		.word	527858
+ 693 0020 00000004 		.word	67108864
+ 694 0024 00000004 		.word	67108864
+ 695 0028 4000     		.short	64
+ 696 002a 0000     		.space	2
+ 697 002c F20D0800 		.word	527858
+ 698 0030 00000008 		.word	134217728
+ 699 0034 00000008 		.word	134217728
+ 700 0038 4000     		.short	64
+ 701 003a 0000     		.space	2
+ 702 003c F20D0800 		.word	527858
+ 703 0040 0000000C 		.word	201326592
+ 704 0044 0000000C 		.word	201326592
+ 705 0048 4000     		.short	64
+ 706 004a 0000     		.space	2
+ 707 004c EE1D0800 		.word	531950
+ 708 0050 00000010 		.word	268435456
+ 709 0054 00000010 		.word	268435456
+ 710 0058 4000     		.short	64
+ 711 005a 0000     		.space	2
+ 712 005c F20D0800 		.word	527858
+ 713 0060 00000014 		.word	335544320
+ 714 0064 00000014 		.word	335544320
+ 715 0068 4000     		.short	64
+ 716 006a 0000     		.space	2
+ 717 006c F20D0800 		.word	527858
+ 718 0070 00000018 		.word	402653184
+ 719 0074 00000018 		.word	402653184
+ 720 0078 7000     		.short	112
+ 721 007a 0000     		.space	2
+ 722 007c F2010800 		.word	524786
+ 723 0080 0000001F 		.word	520093696
+ 724 0084 0000001F 		.word	520093696
+ 725 0088 1000     		.short	16
+ 726 008a 0000     		.space	2
+ 727 008c F20D0000 		.word	3570
+ 728 0090 00000020 		.word	536870912
+ 729 0094 00000020 		.word	536870912
+ 730 0098 0001     		.short	256
+ 731 009a 0000     		.space	2
+ 732 009c EE1D0800 		.word	531950
+ 733 00a0 00000030 		.word	805306368
+ 734 00a4 00000030 		.word	805306368
+ 735 00a8 0001     		.short	256
+ 736 00aa 0000     		.space	2
+ 737 00ac EE1D0800 		.word	531950
+ 738 00b0 00000040 		.word	1073741824
+ 739 00b4 00000040 		.word	1073741824
+ 740 00b8 0001     		.short	256
+ 741 00ba 0000     		.space	2
+ 742 00bc EE1D0800 		.word	531950
+ 743 00c0 00000050 		.word	1342177280
+ 744 00c4 00000050 		.word	1342177280
+ 745 00c8 0001     		.short	256
+ 746 00ca 0000     		.space	2
+ 747 00cc EE1D0800 		.word	531950
+ 748 00d0 00000060 		.word	1610612736
+ 749 00d4 00000060 		.word	1610612736
+ 750 00d8 0001     		.short	256
+ 751 00da 0000     		.space	2
+ 752 00dc EE1D0800 		.word	531950
+ 753 00e0 00000070 		.word	1879048192
+ 754 00e4 00000020 		.word	536870912
+ 755 00e8 0001     		.short	256
+ 756 00ea 0000     		.space	2
+ 757 00ec E20D0800 		.word	527842
+ 758 00f0 00000080 		.word	-2147483648
+ 759 00f4 00000080 		.word	-2147483648
+ 760 00f8 0400     		.short	4
+ 761 00fa 0000     		.space	2
+ 762 00fc E64D0800 		.word	544230
+ 763 0100 00004080 		.word	-2143289344
+ 764 0104 00004080 		.word	-2143289344
+ 765 0108 1C00     		.short	28
+ 766 010a 0000     		.space	2
+ 767 010c F2010800 		.word	524786
+ 768 0110 00000082 		.word	-2113929216
+ 769 0114 00000080 		.word	-2147483648
+ 770 0118 0400     		.short	4
+ 771 011a 0000     		.space	2
+ 772 011c E24D0800 		.word	544226
+ 773 0120 00004082 		.word	-2109734912
+ 774 0124 00004082 		.word	-2109734912
+ 775 0128 5C00     		.short	92
+ 776 012a 0000     		.space	2
+ 777 012c F2010800 		.word	524786
+ 778 0130 00000088 		.word	-2013265920
+ 779 0134 00000000 		.word	0
+ 780 0138 4000     		.short	64
+ 781 013a 0000     		.space	2
+ 782 013c F20D0800 		.word	527858
+ 783 0140 0000008C 		.word	-1946157056
+ 784 0144 00000004 		.word	67108864
+ 785 0148 4000     		.short	64
+ 786 014a 0000     		.space	2
+ 787 014c F20D0800 		.word	527858
+ 788 0150 00000090 		.word	-1879048192
+ 789 0154 00000008 		.word	134217728
+ 790 0158 4000     		.short	64
+ 791 015a 0000     		.space	2
+ 792 015c F20D0800 		.word	527858
+ 793 0160 00000094 		.word	-1811939328
+ 794 0164 0000000C 		.word	201326592
+ 795 0168 4000     		.short	64
+ 796 016a 0000     		.space	2
+ 797 016c E24D0800 		.word	544226
+ 798 0170 00000098 		.word	-1744830464
+ 799 0174 00000010 		.word	268435456
+ 800 0178 4000     		.short	64
+ 801 017a 0000     		.space	2
+ 802 017c F20D0800 		.word	527858
+ 803 0180 0000009C 		.word	-1677721600
+ 804 0184 00000014 		.word	335544320
+ 805 0188 4000     		.short	64
+ 806 018a 0000     		.space	2
+ 807 018c F20D0800 		.word	527858
+ 808 0190 000000A0 		.word	-1610612736
+ 809 0194 00000030 		.word	805306368
+ 810 0198 0001     		.short	256
+ 811 019a 0000     		.space	2
+ 812 019c E20D0800 		.word	527842
+ 813 01a0 000000B0 		.word	-1342177280
+ 814 01a4 00000040 		.word	1073741824
+ 815 01a8 0001     		.short	256
+ 816 01aa 0000     		.space	2
+ 817 01ac E24D0800 		.word	544226
+ 818 01b0 000000C0 		.word	-1073741824
+ 819 01b4 00000050 		.word	1342177280
+ 820 01b8 0001     		.short	256
+ 821 01ba 0000     		.space	2
+ 822 01bc E20D0800 		.word	527842
+ 823 01c0 000000D0 		.word	-805306368
+ 824 01c4 00000060 		.word	1610612736
+ 825 01c8 0001     		.short	256
+ 826 01ca 0000     		.space	2
+ 827 01cc E24D0800 		.word	544226
+ 828 01d0 000000E0 		.word	-536870912
+ 829 01d4 000000E0 		.word	-536870912
+ 830 01d8 8000     		.short	128
+ 831 01da 0000     		.space	2
+ 832 01dc F2010800 		.word	524786
+ 833 01e0 000000E8 		.word	-402653184
+ 834 01e4 000000E8 		.word	-402653184
+ 835 01e8 8001     		.short	384
+ 836 01ea 0000     		.space	2
+ 837 01ec F20D0000 		.word	3570
+ 838              		.section	.rodata.SCIFA_SC_TABLE,"a",%progbits
+ 839              		.align	2
+ 842              	SCIFA_SC_TABLE:
+ 843 0000 04000000 		.word	4
+ 844 0004 00       		.byte	0
+ 845 0005 000000   		.space	3
+ 846 0008 80250000 		.word	9600
+ 847 000c 00       		.byte	0
+ 848 000d 00       		.byte	0
+ 849 000e 00       		.byte	0
+ 850 000f 00       		.byte	0
+ 851 0010 01       		.byte	1
+ 852 0011 00       		.byte	0
+ 853 0012 00       		.byte	0
+ 854 0013 00       		.byte	0
+ 855 0014 00       		.byte	0
+ 856 0015 00       		.byte	0
+ 857 0016 00       		.byte	0
+ 858 0017 0F       		.byte	15
+ 859 0018 01       		.byte	1
+ 860 0019 01       		.byte	1
+ 861 001a 01       		.byte	1
+ 862 001b 01       		.byte	1
+ 863 001c 01       		.byte	1
+ 864 001d 02       		.byte	2
+ 865 001e 02       		.byte	2
+ 866 001f 00       		.byte	0
+ 867 0020 1E       		.byte	30
+ 868 0021 1E       		.byte	30
+ 869 0022 00       		.byte	0
+ 870 0023 00       		.space	1
+ 871 0024 00000000 		.word	GPIO_SC_TABLE_scifa4
+ 872 0028 02000000 		.word	2
+ 873 002c 00000000 		.space	4
+ 874              		.section	.rodata.SDHI_SC_TABLE,"a",%progbits
+ 875              		.align	2
+ 878              	SDHI_SC_TABLE:
+ 879 0000 00000000 		.word	0
+ 880 0004 00       		.byte	0
+ 881 0005 01       		.byte	1
+ 882 0006 01       		.byte	1
+ 883 0007 00       		.space	1
+ 884 0008 00000000 		.word	fat_sample_cd_int_cb_function
+ 885 000c 00000000 		.word	GPIO_SC_TABLE_sdhi_simplified0
+ 886 0010 02000000 		.word	2
+ 887 0014 00000000 		.space	4
+ 888 0018 01000000 		.word	1
+ 889 001c 00       		.byte	0
+ 890 001d 00       		.byte	0
+ 891 001e 00       		.byte	0
+ 892 001f 00       		.space	1
+ 893 0020 00000000 		.word	0
+ 894 0024 00000000 		.word	GPIO_SC_TABLE_sdhi_simplified1
+ 895 0028 02000000 		.word	2
+ 896 002c 00000000 		.space	4
+ 897              		.comm	InflectionPointL,6,4
+ 898              		.comm	InflectionPointR,6,4
+ 899              		.comm	Cross,3,4
+ 900              		.global	RCross_flag
+ 901              		.section	.bss.RCross_flag,"aw",%nobits
+ 904              	RCross_flag:
+ 905 0000 00       		.space	1
+ 906              		.global	LCross_flag
+ 907              		.section	.bss.LCross_flag,"aw",%nobits
+ 910              	LCross_flag:
+ 911 0000 00       		.space	1
+ 912              		.global	LRCross_flag
+ 913              		.section	.bss.LRCross_flag,"aw",%nobits
+ 916              	LRCross_flag:
+ 917 0000 00       		.space	1
+ 918              		.global	turn_flag
+ 919              		.section	.bss.turn_flag,"aw",%nobits
+ 922              	turn_flag:
+ 923 0000 00       		.space	1
+ 924              		.global	count
+ 925              		.section	.bss.count,"aw",%nobits
+ 926              		.align	2
+ 929              	count:
+ 930 0000 00000000 		.space	4
+ 931              		.global	sign
+ 932              		.section	.bss.sign,"aw",%nobits
+ 935              	sign:
+ 936 0000 00       		.space	1
+ 937              		.comm	LeftScanCol,160,4
+ 938              		.comm	RightScanCol,160,4
+ 939              		.global	traffic_en
+ 940              		.section	.bss.traffic_en,"aw",%nobits
+ 943              	traffic_en:
+ 944 0000 00       		.space	1
+ 945              		.section	.text.FindInflectionPointR,"ax",%progbits
+ 946              		.align	2
+ 947              		.syntax unified
+ 948              		.arm
+ 949              		.fpu neon
+ 951              	FindInflectionPointR:
+ 952              	.LFB3:
+ 953              		.file 1 "../src/renesas/application/smart_car/Track/TrackType.c"
+   1:../src/renesas/application/smart_car/Track/TrackType.c **** #include "TrackType.h"
+   2:../src/renesas/application/smart_car/Track/TrackType.c **** #include "stdio.h"
+   3:../src/renesas/application/smart_car/Track/TrackType.c **** 
+   4:../src/renesas/application/smart_car/Track/TrackType.c **** InflectionPoint  InflectionPointL;//建立左边拐点结构体变量
+   5:../src/renesas/application/smart_car/Track/TrackType.c **** InflectionPoint  InflectionPointR;//建立右边拐点结构体变量
+   6:../src/renesas/application/smart_car/Track/TrackType.c **** 
+   7:../src/renesas/application/smart_car/Track/TrackType.c **** CrossType Cross;//建立十字结构体变量
+   8:../src/renesas/application/smart_car/Track/TrackType.c **** 
+   9:../src/renesas/application/smart_car/Track/TrackType.c **** //十字用到的变量
+  10:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t RCross_flag = 0;
+  11:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t LCross_flag = 0;
+  12:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t LRCross_flag = 0;
+  13:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t turn_flag = 0;
+  14:../src/renesas/application/smart_car/Track/TrackType.c **** int count = 0;
+  15:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t sign = 0;
+  16:../src/renesas/application/smart_car/Track/TrackType.c **** unsigned char LeftScanCol[COL];
+  17:../src/renesas/application/smart_car/Track/TrackType.c **** unsigned char RightScanCol[COL];
+  18:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t traffic_en = 0;
+  19:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  20:../src/renesas/application/smart_car/Track/TrackType.c **** //对右边线进行操作，如果存在多个拐点寻找最近的拐点
+  21:../src/renesas/application/smart_car/Track/TrackType.c **** //prt:传入一个结构体变量的地址
+  22:../src/renesas/application/smart_car/Track/TrackType.c **** //Start：扫描的起始行
+  23:../src/renesas/application/smart_car/Track/TrackType.c **** //End ：扫描的结束行
+  24:../src/renesas/application/smart_car/Track/TrackType.c **** static void FindInflectionPointR(InflectionPoint *prt,unsigned char Start,unsigned char End )
+  25:../src/renesas/application/smart_car/Track/TrackType.c **** {
+ 954              		.loc 1 25 0
+ 955              		.cfi_startproc
+ 956              		@ args = 0, pretend = 0, frame = 16
+ 957              		@ frame_needed = 1, uses_anonymous_args = 0
+ 958              		@ link register save eliminated.
+ 959 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 960              		.cfi_def_cfa_offset 4
+ 961              		.cfi_offset 11, -4
+ 962 0004 00B08DE2 		add	fp, sp, #0
+ 963              		.cfi_def_cfa_register 11
+ 964 0008 14D04DE2 		sub	sp, sp, #20
+ 965 000c 10000BE5 		str	r0, [fp, #-16]
+ 966 0010 0130A0E1 		mov	r3, r1
+ 967 0014 11304BE5 		strb	r3, [fp, #-17]
+ 968 0018 0230A0E1 		mov	r3, r2
+ 969 001c 12304BE5 		strb	r3, [fp, #-18]
+  26:../src/renesas/application/smart_car/Track/TrackType.c ****     int i;
+  27:../src/renesas/application/smart_car/Track/TrackType.c ****     //初始化结构体变量
+  28:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->ScanInflectionPointStart=Start;//设置扫描的起始行
+ 970              		.loc 1 28 0
+ 971 0020 10301BE5 		ldr	r3, [fp, #-16]
+ 972 0024 11205BE5 		ldrb	r2, [fp, #-17]
+ 973 0028 0320C3E5 		strb	r2, [r3, #3]
+  29:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->ScanInflectionPointEnd=End;//设置扫描的结束行
+ 974              		.loc 1 29 0
+ 975 002c 10301BE5 		ldr	r3, [fp, #-16]
+ 976 0030 12205BE5 		ldrb	r2, [fp, #-18]
+ 977 0034 0420C3E5 		strb	r2, [r3, #4]
+  30:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointRow=0;
+ 978              		.loc 1 30 0
+ 979 0038 10301BE5 		ldr	r3, [fp, #-16]
+ 980 003c 0020A0E3 		mov	r2, #0
+ 981 0040 0020C3E5 		strb	r2, [r3]
+  31:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointCol=0;
+ 982              		.loc 1 31 0
+ 983 0044 10301BE5 		ldr	r3, [fp, #-16]
+ 984 0048 0020A0E3 		mov	r2, #0
+ 985 004c 0120C3E5 		strb	r2, [r3, #1]
+  32:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointFlag=0;
+ 986              		.loc 1 32 0
+ 987 0050 10301BE5 		ldr	r3, [fp, #-16]
+ 988 0054 0020A0E3 		mov	r2, #0
+ 989 0058 0220C3E5 		strb	r2, [r3, #2]
+  33:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  34:../src/renesas/application/smart_car/Track/TrackType.c ****     for(i=prt->ScanInflectionPointStart; i>=prt->ScanInflectionPointEnd; i--) //不能扫描太远�
+ 990              		.loc 1 34 0
+ 991 005c 10301BE5 		ldr	r3, [fp, #-16]
+ 992 0060 0330D3E5 		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 993 0064 08300BE5 		str	r3, [fp, #-8]
+ 994 0068 5A0000EA 		b	.L2
+ 995              	.L5:
+  35:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+  36:../src/renesas/application/smart_car/Track/TrackType.c ****         if(RightEdge[i]!=COL-1&&RightEdge[i+1]!=COL-1)
+ 996              		.loc 1 36 0
+ 997 006c 003000E3 		movw	r3, #:lower16:RightEdge
+ 998 0070 003040E3 		movt	r3, #:upper16:RightEdge
+ 999 0074 08201BE5 		ldr	r2, [fp, #-8]
+ 1000 0078 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1001 007c 9F0053E3 		cmp	r3, #159
+ 1002 0080 5100000A 		beq	.L3
+ 1003              		.loc 1 36 0 is_stmt 0 discriminator 1
+ 1004 0084 08301BE5 		ldr	r3, [fp, #-8]
+ 1005 0088 012083E2 		add	r2, r3, #1
+ 1006 008c 003000E3 		movw	r3, #:lower16:RightEdge
+ 1007 0090 003040E3 		movt	r3, #:upper16:RightEdge
+ 1008 0094 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1009 0098 9F0053E3 		cmp	r3, #159
+ 1010 009c 4A00000A 		beq	.L3
+  37:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+  38:../src/renesas/application/smart_car/Track/TrackType.c ****             if((RightEdge[i]-RightEdge[i+1]<=0)
+ 1011              		.loc 1 38 0 is_stmt 1
+ 1012 00a0 003000E3 		movw	r3, #:lower16:RightEdge
+ 1013 00a4 003040E3 		movt	r3, #:upper16:RightEdge
+ 1014 00a8 08201BE5 		ldr	r2, [fp, #-8]
+ 1015 00ac 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1016 00b0 08301BE5 		ldr	r3, [fp, #-8]
+ 1017 00b4 011083E2 		add	r1, r3, #1
+ 1018 00b8 003000E3 		movw	r3, #:lower16:RightEdge
+ 1019 00bc 003040E3 		movt	r3, #:upper16:RightEdge
+ 1020 00c0 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1021 00c4 033042E0 		sub	r3, r2, r3
+ 1022 00c8 000053E3 		cmp	r3, #0
+ 1023 00cc 3E0000CA 		bgt	.L3
+  39:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(RightEdge[i-1]-RightEdge[i]>=1)
+ 1024              		.loc 1 39 0
+ 1025 00d0 08301BE5 		ldr	r3, [fp, #-8]
+ 1026 00d4 012043E2 		sub	r2, r3, #1
+ 1027 00d8 003000E3 		movw	r3, #:lower16:RightEdge
+ 1028 00dc 003040E3 		movt	r3, #:upper16:RightEdge
+ 1029 00e0 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1030 00e4 003000E3 		movw	r3, #:lower16:RightEdge
+ 1031 00e8 003040E3 		movt	r3, #:upper16:RightEdge
+ 1032 00ec 08101BE5 		ldr	r1, [fp, #-8]
+ 1033 00f0 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1034 00f4 033042E0 		sub	r3, r2, r3
+ 1035 00f8 000053E3 		cmp	r3, #0
+ 1036 00fc 320000DA 		ble	.L3
+  40:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(RightEdge[i-2]-RightEdge[i]>=2)
+ 1037              		.loc 1 40 0
+ 1038 0100 08301BE5 		ldr	r3, [fp, #-8]
+ 1039 0104 022043E2 		sub	r2, r3, #2
+ 1040 0108 003000E3 		movw	r3, #:lower16:RightEdge
+ 1041 010c 003040E3 		movt	r3, #:upper16:RightEdge
+ 1042 0110 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1043 0114 003000E3 		movw	r3, #:lower16:RightEdge
+ 1044 0118 003040E3 		movt	r3, #:upper16:RightEdge
+ 1045 011c 08101BE5 		ldr	r1, [fp, #-8]
+ 1046 0120 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1047 0124 033042E0 		sub	r3, r2, r3
+ 1048 0128 010053E3 		cmp	r3, #1
+ 1049 012c 260000DA 		ble	.L3
+  41:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(RightEdge[i-3]-RightEdge[i]>=4)
+ 1050              		.loc 1 41 0
+ 1051 0130 08301BE5 		ldr	r3, [fp, #-8]
+ 1052 0134 032043E2 		sub	r2, r3, #3
+ 1053 0138 003000E3 		movw	r3, #:lower16:RightEdge
+ 1054 013c 003040E3 		movt	r3, #:upper16:RightEdge
+ 1055 0140 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1056 0144 003000E3 		movw	r3, #:lower16:RightEdge
+ 1057 0148 003040E3 		movt	r3, #:upper16:RightEdge
+ 1058 014c 08101BE5 		ldr	r1, [fp, #-8]
+ 1059 0150 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1060 0154 033042E0 		sub	r3, r2, r3
+ 1061 0158 030053E3 		cmp	r3, #3
+ 1062 015c 1A0000DA 		ble	.L3
+  42:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(RightEdge[i]<=143)
+ 1063              		.loc 1 42 0
+ 1064 0160 003000E3 		movw	r3, #:lower16:RightEdge
+ 1065 0164 003040E3 		movt	r3, #:upper16:RightEdge
+ 1066 0168 08201BE5 		ldr	r2, [fp, #-8]
+ 1067 016c 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1068 0170 8F0053E3 		cmp	r3, #143
+ 1069 0174 140000CA 		bgt	.L3
+  43:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(RightEdge[i]>=121))//找到右边线有拐点
+ 1070              		.loc 1 43 0
+ 1071 0178 003000E3 		movw	r3, #:lower16:RightEdge
+ 1072 017c 003040E3 		movt	r3, #:upper16:RightEdge
+ 1073 0180 08201BE5 		ldr	r2, [fp, #-8]
+ 1074 0184 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1075 0188 780053E3 		cmp	r3, #120
+ 1076 018c 0E0000DA 		ble	.L3
+  44:../src/renesas/application/smart_car/Track/TrackType.c ****             {
+  45:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointRow=i;//记录拐点的行
+ 1077              		.loc 1 45 0
+ 1078 0190 08301BE5 		ldr	r3, [fp, #-8]
+ 1079 0194 7320EFE6 		uxtb	r2, r3
+ 1080 0198 10301BE5 		ldr	r3, [fp, #-16]
+ 1081 019c 0020C3E5 		strb	r2, [r3]
+  46:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointCol=RightEdge[i];//记录拐点的列
+ 1082              		.loc 1 46 0
+ 1083 01a0 003000E3 		movw	r3, #:lower16:RightEdge
+ 1084 01a4 003040E3 		movt	r3, #:upper16:RightEdge
+ 1085 01a8 08201BE5 		ldr	r2, [fp, #-8]
+ 1086 01ac 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1087 01b0 7320EFE6 		uxtb	r2, r3
+ 1088 01b4 10301BE5 		ldr	r3, [fp, #-16]
+ 1089 01b8 0120C3E5 		strb	r2, [r3, #1]
+  47:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointFlag=1;//标记找到右拐点
+ 1090              		.loc 1 47 0
+ 1091 01bc 10301BE5 		ldr	r3, [fp, #-16]
+ 1092 01c0 0120A0E3 		mov	r2, #1
+ 1093 01c4 0220C3E5 		strb	r2, [r3, #2]
+  48:../src/renesas/application/smart_car/Track/TrackType.c ****                 break;//退出for
+ 1094              		.loc 1 48 0
+ 1095 01c8 080000EA 		b	.L4
+ 1096              	.L3:
+  34:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1097              		.loc 1 34 0 discriminator 2
+ 1098 01cc 08301BE5 		ldr	r3, [fp, #-8]
+ 1099 01d0 013043E2 		sub	r3, r3, #1
+ 1100 01d4 08300BE5 		str	r3, [fp, #-8]
+ 1101              	.L2:
+  34:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1102              		.loc 1 34 0 is_stmt 0 discriminator 1
+ 1103 01d8 10301BE5 		ldr	r3, [fp, #-16]
+ 1104 01dc 0430D3E5 		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1105 01e0 0320A0E1 		mov	r2, r3
+ 1106 01e4 08301BE5 		ldr	r3, [fp, #-8]
+ 1107 01e8 020053E1 		cmp	r3, r2
+ 1108 01ec 9EFFFFAA 		bge	.L5
+ 1109              	.L4:
+  49:../src/renesas/application/smart_car/Track/TrackType.c ****             }
+  50:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+  51:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+  52:../src/renesas/application/smart_car/Track/TrackType.c **** }
+ 1110              		.loc 1 52 0 is_stmt 1
+ 1111 01f0 00F020E3 		nop
+ 1112 01f4 00D08BE2 		add	sp, fp, #0
+ 1113              		.cfi_def_cfa_register 13
+ 1114              		@ sp needed
+ 1115 01f8 04B09DE4 		ldr	fp, [sp], #4
+ 1116              		.cfi_restore 11
+ 1117              		.cfi_def_cfa_offset 0
+ 1118 01fc 1EFF2FE1 		bx	lr
+ 1119              		.cfi_endproc
+ 1120              	.LFE3:
+ 1122              		.section	.text.FindInflectionPointL,"ax",%progbits
+ 1123              		.align	2
+ 1124              		.syntax unified
+ 1125              		.arm
+ 1126              		.fpu neon
+ 1128              	FindInflectionPointL:
+ 1129              	.LFB4:
+  53:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  54:../src/renesas/application/smart_car/Track/TrackType.c **** //对左边线进行操作，如果存在多个拐点寻找最近的拐点
+  55:../src/renesas/application/smart_car/Track/TrackType.c **** //prt:传入一个结构体变量的地址
+  56:../src/renesas/application/smart_car/Track/TrackType.c **** //Start：扫描的起始行
+  57:../src/renesas/application/smart_car/Track/TrackType.c **** //End ：扫描的结束行
+  58:../src/renesas/application/smart_car/Track/TrackType.c **** static void FindInflectionPointL(InflectionPoint *prt,unsigned char Start,unsigned char End )
+  59:../src/renesas/application/smart_car/Track/TrackType.c **** {
+ 1130              		.loc 1 59 0
+ 1131              		.cfi_startproc
+ 1132              		@ args = 0, pretend = 0, frame = 16
+ 1133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1134              		@ link register save eliminated.
+ 1135 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 1136              		.cfi_def_cfa_offset 4
+ 1137              		.cfi_offset 11, -4
+ 1138 0004 00B08DE2 		add	fp, sp, #0
+ 1139              		.cfi_def_cfa_register 11
+ 1140 0008 14D04DE2 		sub	sp, sp, #20
+ 1141 000c 10000BE5 		str	r0, [fp, #-16]
+ 1142 0010 0130A0E1 		mov	r3, r1
+ 1143 0014 11304BE5 		strb	r3, [fp, #-17]
+ 1144 0018 0230A0E1 		mov	r3, r2
+ 1145 001c 12304BE5 		strb	r3, [fp, #-18]
+  60:../src/renesas/application/smart_car/Track/TrackType.c ****     int i;
+  61:../src/renesas/application/smart_car/Track/TrackType.c ****     //初始化结构体变量
+  62:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->ScanInflectionPointStart=Start;//设置扫描的起始行
+ 1146              		.loc 1 62 0
+ 1147 0020 10301BE5 		ldr	r3, [fp, #-16]
+ 1148 0024 11205BE5 		ldrb	r2, [fp, #-17]
+ 1149 0028 0320C3E5 		strb	r2, [r3, #3]
+  63:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->ScanInflectionPointEnd=End;//设置扫描的结束行
+ 1150              		.loc 1 63 0
+ 1151 002c 10301BE5 		ldr	r3, [fp, #-16]
+ 1152 0030 12205BE5 		ldrb	r2, [fp, #-18]
+ 1153 0034 0420C3E5 		strb	r2, [r3, #4]
+  64:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointRow=0;
+ 1154              		.loc 1 64 0
+ 1155 0038 10301BE5 		ldr	r3, [fp, #-16]
+ 1156 003c 0020A0E3 		mov	r2, #0
+ 1157 0040 0020C3E5 		strb	r2, [r3]
+  65:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointCol=0;
+ 1158              		.loc 1 65 0
+ 1159 0044 10301BE5 		ldr	r3, [fp, #-16]
+ 1160 0048 0020A0E3 		mov	r2, #0
+ 1161 004c 0120C3E5 		strb	r2, [r3, #1]
+  66:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->InflectionPointFlag=0;
+ 1162              		.loc 1 66 0
+ 1163 0050 10301BE5 		ldr	r3, [fp, #-16]
+ 1164 0054 0020A0E3 		mov	r2, #0
+ 1165 0058 0220C3E5 		strb	r2, [r3, #2]
+  67:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  68:../src/renesas/application/smart_car/Track/TrackType.c ****     //左拐点
+  69:../src/renesas/application/smart_car/Track/TrackType.c ****     for(i= prt->ScanInflectionPointStart; i>prt->ScanInflectionPointEnd; i--)
+ 1166              		.loc 1 69 0
+ 1167 005c 10301BE5 		ldr	r3, [fp, #-16]
+ 1168 0060 0330D3E5 		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 1169 0064 08300BE5 		str	r3, [fp, #-8]
+ 1170 0068 5A0000EA 		b	.L7
+ 1171              	.L10:
+  70:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+  71:../src/renesas/application/smart_car/Track/TrackType.c ****         if(LeftEdge[i]!=0&&LeftEdge[i+1]!=0)
+ 1172              		.loc 1 71 0
+ 1173 006c 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1174 0070 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1175 0074 08201BE5 		ldr	r2, [fp, #-8]
+ 1176 0078 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1177 007c 000053E3 		cmp	r3, #0
+ 1178 0080 5100000A 		beq	.L8
+ 1179              		.loc 1 71 0 is_stmt 0 discriminator 1
+ 1180 0084 08301BE5 		ldr	r3, [fp, #-8]
+ 1181 0088 012083E2 		add	r2, r3, #1
+ 1182 008c 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1183 0090 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1184 0094 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1185 0098 000053E3 		cmp	r3, #0
+ 1186 009c 4A00000A 		beq	.L8
+  72:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+  73:../src/renesas/application/smart_car/Track/TrackType.c ****             if((LeftEdge[i]-LeftEdge[i+1]>=0)
+ 1187              		.loc 1 73 0 is_stmt 1
+ 1188 00a0 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1189 00a4 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1190 00a8 08201BE5 		ldr	r2, [fp, #-8]
+ 1191 00ac 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1192 00b0 08301BE5 		ldr	r3, [fp, #-8]
+ 1193 00b4 011083E2 		add	r1, r3, #1
+ 1194 00b8 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1195 00bc 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1196 00c0 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1197 00c4 033042E0 		sub	r3, r2, r3
+ 1198 00c8 000053E3 		cmp	r3, #0
+ 1199 00cc 3E0000BA 		blt	.L8
+  74:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(LeftEdge[i]-LeftEdge[i-1]>=1)
+ 1200              		.loc 1 74 0
+ 1201 00d0 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1202 00d4 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1203 00d8 08201BE5 		ldr	r2, [fp, #-8]
+ 1204 00dc 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1205 00e0 08301BE5 		ldr	r3, [fp, #-8]
+ 1206 00e4 011043E2 		sub	r1, r3, #1
+ 1207 00e8 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1208 00ec 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1209 00f0 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1210 00f4 033042E0 		sub	r3, r2, r3
+ 1211 00f8 000053E3 		cmp	r3, #0
+ 1212 00fc 320000DA 		ble	.L8
+  75:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(LeftEdge[i]-LeftEdge[i-2]>=2)
+ 1213              		.loc 1 75 0
+ 1214 0100 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1215 0104 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1216 0108 08201BE5 		ldr	r2, [fp, #-8]
+ 1217 010c 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1218 0110 08301BE5 		ldr	r3, [fp, #-8]
+ 1219 0114 021043E2 		sub	r1, r3, #2
+ 1220 0118 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1221 011c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1222 0120 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1223 0124 033042E0 		sub	r3, r2, r3
+ 1224 0128 010053E3 		cmp	r3, #1
+ 1225 012c 260000DA 		ble	.L8
+  76:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(LeftEdge[i]-LeftEdge[i-3]>=4)
+ 1226              		.loc 1 76 0
+ 1227 0130 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1228 0134 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1229 0138 08201BE5 		ldr	r2, [fp, #-8]
+ 1230 013c 022193E7 		ldr	r2, [r3, r2, lsl #2]
+ 1231 0140 08301BE5 		ldr	r3, [fp, #-8]
+ 1232 0144 031043E2 		sub	r1, r3, #3
+ 1233 0148 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1234 014c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1235 0150 013193E7 		ldr	r3, [r3, r1, lsl #2]
+ 1236 0154 033042E0 		sub	r3, r2, r3
+ 1237 0158 030053E3 		cmp	r3, #3
+ 1238 015c 1A0000DA 		ble	.L8
+  77:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(LeftEdge[i]>=22)
+ 1239              		.loc 1 77 0
+ 1240 0160 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1241 0164 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1242 0168 08201BE5 		ldr	r2, [fp, #-8]
+ 1243 016c 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1244 0170 150053E3 		cmp	r3, #21
+ 1245 0174 140000DA 		ble	.L8
+  78:../src/renesas/application/smart_car/Track/TrackType.c ****               &&(LeftEdge[i]<=44))//找到拐点
+ 1246              		.loc 1 78 0
+ 1247 0178 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1248 017c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1249 0180 08201BE5 		ldr	r2, [fp, #-8]
+ 1250 0184 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1251 0188 2C0053E3 		cmp	r3, #44
+ 1252 018c 0E0000CA 		bgt	.L8
+  79:../src/renesas/application/smart_car/Track/TrackType.c ****             {
+  80:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointRow=i;//记录该拐点的行
+ 1253              		.loc 1 80 0
+ 1254 0190 08301BE5 		ldr	r3, [fp, #-8]
+ 1255 0194 7320EFE6 		uxtb	r2, r3
+ 1256 0198 10301BE5 		ldr	r3, [fp, #-16]
+ 1257 019c 0020C3E5 		strb	r2, [r3]
+  81:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointCol=LeftEdge[i];//记录该拐点的列
+ 1258              		.loc 1 81 0
+ 1259 01a0 003000E3 		movw	r3, #:lower16:LeftEdge
+ 1260 01a4 003040E3 		movt	r3, #:upper16:LeftEdge
+ 1261 01a8 08201BE5 		ldr	r2, [fp, #-8]
+ 1262 01ac 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 1263 01b0 7320EFE6 		uxtb	r2, r3
+ 1264 01b4 10301BE5 		ldr	r3, [fp, #-16]
+ 1265 01b8 0120C3E5 		strb	r2, [r3, #1]
+  82:../src/renesas/application/smart_car/Track/TrackType.c ****                 prt->InflectionPointFlag=1;//标记找到左拐点
+ 1266              		.loc 1 82 0
+ 1267 01bc 10301BE5 		ldr	r3, [fp, #-16]
+ 1268 01c0 0120A0E3 		mov	r2, #1
+ 1269 01c4 0220C3E5 		strb	r2, [r3, #2]
+  83:../src/renesas/application/smart_car/Track/TrackType.c ****                 break;//找到退出
+ 1270              		.loc 1 83 0
+ 1271 01c8 080000EA 		b	.L9
+ 1272              	.L8:
+  69:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1273              		.loc 1 69 0 discriminator 2
+ 1274 01cc 08301BE5 		ldr	r3, [fp, #-8]
+ 1275 01d0 013043E2 		sub	r3, r3, #1
+ 1276 01d4 08300BE5 		str	r3, [fp, #-8]
+ 1277              	.L7:
+  69:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1278              		.loc 1 69 0 is_stmt 0 discriminator 1
+ 1279 01d8 10301BE5 		ldr	r3, [fp, #-16]
+ 1280 01dc 0430D3E5 		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1281 01e0 0320A0E1 		mov	r2, r3
+ 1282 01e4 08301BE5 		ldr	r3, [fp, #-8]
+ 1283 01e8 020053E1 		cmp	r3, r2
+ 1284 01ec 9EFFFFCA 		bgt	.L10
+ 1285              	.L9:
+  84:../src/renesas/application/smart_car/Track/TrackType.c ****             }
+  85:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+  86:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+  87:../src/renesas/application/smart_car/Track/TrackType.c **** }
+ 1286              		.loc 1 87 0 is_stmt 1
+ 1287 01f0 00F020E3 		nop
+ 1288 01f4 00D08BE2 		add	sp, fp, #0
+ 1289              		.cfi_def_cfa_register 13
+ 1290              		@ sp needed
+ 1291 01f8 04B09DE4 		ldr	fp, [sp], #4
+ 1292              		.cfi_restore 11
+ 1293              		.cfi_def_cfa_offset 0
+ 1294 01fc 1EFF2FE1 		bx	lr
+ 1295              		.cfi_endproc
+ 1296              	.LFE4:
+ 1298              		.section	.text.CrossRecognition,"ax",%progbits
+ 1299              		.align	2
+ 1300              		.syntax unified
+ 1301              		.arm
+ 1302              		.fpu neon
+ 1304              	CrossRecognition:
+ 1305              	.LFB5:
+  88:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  89:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  90:../src/renesas/application/smart_car/Track/TrackType.c **** static void CrossRecognition(CrossType *prt)
+  91:../src/renesas/application/smart_car/Track/TrackType.c **** {
+ 1306              		.loc 1 91 0
+ 1307              		.cfi_startproc
+ 1308              		@ args = 0, pretend = 0, frame = 8
+ 1309              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1310 0000 00482DE9 		push	{fp, lr}
+ 1311              		.cfi_def_cfa_offset 8
+ 1312              		.cfi_offset 11, -8
+ 1313              		.cfi_offset 14, -4
+ 1314 0004 04B08DE2 		add	fp, sp, #4
+ 1315              		.cfi_def_cfa 11, 4
+ 1316 0008 08D04DE2 		sub	sp, sp, #8
+ 1317 000c 08000BE5 		str	r0, [fp, #-8]
+  92:../src/renesas/application/smart_car/Track/TrackType.c ****     //初始化变量
+  93:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->CrossLR=0;
+ 1318              		.loc 1 93 0
+ 1319 0010 08301BE5 		ldr	r3, [fp, #-8]
+ 1320 0014 0020A0E3 		mov	r2, #0
+ 1321 0018 0020C3E5 		strb	r2, [r3]
+  94:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->CrossL=0;
+ 1322              		.loc 1 94 0
+ 1323 001c 08301BE5 		ldr	r3, [fp, #-8]
+ 1324 0020 0020A0E3 		mov	r2, #0
+ 1325 0024 0120C3E5 		strb	r2, [r3, #1]
+  95:../src/renesas/application/smart_car/Track/TrackType.c ****     prt->CrossR=0;
+ 1326              		.loc 1 95 0
+ 1327 0028 08301BE5 		ldr	r3, [fp, #-8]
+ 1328 002c 0020A0E3 		mov	r2, #0
+ 1329 0030 0220C3E5 		strb	r2, [r3, #2]
+  96:../src/renesas/application/smart_car/Track/TrackType.c **** 
+  97:../src/renesas/application/smart_car/Track/TrackType.c ****     //寻找左右拐点
+  98:../src/renesas/application/smart_car/Track/TrackType.c ****     FindInflectionPointR(&InflectionPointR,StartRow-1,80);
+ 1330              		.loc 1 98 0
+ 1331 0034 5020A0E3 		mov	r2, #80
+ 1332 0038 7410A0E3 		mov	r1, #116
+ 1333 003c 000000E3 		movw	r0, #:lower16:InflectionPointR
+ 1334 0040 000040E3 		movt	r0, #:upper16:InflectionPointR
+ 1335 0044 FEFFFFEB 		bl	FindInflectionPointR
+  99:../src/renesas/application/smart_car/Track/TrackType.c ****     FindInflectionPointL(&InflectionPointL,StartRow-1,80);
+ 1336              		.loc 1 99 0
+ 1337 0048 5020A0E3 		mov	r2, #80
+ 1338 004c 7410A0E3 		mov	r1, #116
+ 1339 0050 000000E3 		movw	r0, #:lower16:InflectionPointL
+ 1340 0054 000040E3 		movt	r0, #:upper16:InflectionPointL
+ 1341 0058 FEFFFFEB 		bl	FindInflectionPointL
+ 100:../src/renesas/application/smart_car/Track/TrackType.c ****     //如果左边界和右边界同时丢线大于5行，就认为遇到了十字
+ 101:../src/renesas/application/smart_car/Track/TrackType.c ****     if( InflectionPointR.InflectionPointFlag
+ 1342              		.loc 1 101 0
+ 1343 005c 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1344 0060 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1345 0064 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1346 0068 000053E3 		cmp	r3, #0
+ 1347 006c 1B00000A 		beq	.L12
+ 102:../src/renesas/application/smart_car/Track/TrackType.c ****         &&InflectionPointL.InflectionPointFlag
+ 1348              		.loc 1 102 0
+ 1349 0070 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1350 0074 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1351 0078 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1352 007c 000053E3 		cmp	r3, #0
+ 1353 0080 1600000A 		beq	.L12
+ 103:../src/renesas/application/smart_car/Track/TrackType.c ****         &&(AllLose>=5 || (LeftLose>=5&&RightLose>=5)))
+ 1354              		.loc 1 103 0
+ 1355 0084 003000E3 		movw	r3, #:lower16:AllLose
+ 1356 0088 003040E3 		movt	r3, #:upper16:AllLose
+ 1357 008c 003093E5 		ldr	r3, [r3]
+ 1358 0090 040053E3 		cmp	r3, #4
+ 1359 0094 090000CA 		bgt	.L13
+ 1360              		.loc 1 103 0 is_stmt 0 discriminator 1
+ 1361 0098 003000E3 		movw	r3, #:lower16:LeftLose
+ 1362 009c 003040E3 		movt	r3, #:upper16:LeftLose
+ 1363 00a0 003093E5 		ldr	r3, [r3]
+ 1364 00a4 040053E3 		cmp	r3, #4
+ 1365 00a8 0C0000DA 		ble	.L12
+ 1366              		.loc 1 103 0 discriminator 2
+ 1367 00ac 003000E3 		movw	r3, #:lower16:RightLose
+ 1368 00b0 003040E3 		movt	r3, #:upper16:RightLose
+ 1369 00b4 003093E5 		ldr	r3, [r3]
+ 1370 00b8 040053E3 		cmp	r3, #4
+ 1371 00bc 070000DA 		ble	.L12
+ 1372              	.L13:
+ 104:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 105:../src/renesas/application/smart_car/Track/TrackType.c ****         prt->CrossLR=1;//十字
+ 1373              		.loc 1 105 0 is_stmt 1
+ 1374 00c0 08301BE5 		ldr	r3, [fp, #-8]
+ 1375 00c4 0120A0E3 		mov	r2, #1
+ 1376 00c8 0020C3E5 		strb	r2, [r3]
+ 106:../src/renesas/application/smart_car/Track/TrackType.c ****         traffic_en = 1;
+ 1377              		.loc 1 106 0
+ 1378 00cc 003000E3 		movw	r3, #:lower16:traffic_en
+ 1379 00d0 003040E3 		movt	r3, #:upper16:traffic_en
+ 1380 00d4 0120A0E3 		mov	r2, #1
+ 1381 00d8 0020C3E5 		strb	r2, [r3]
+ 1382 00dc 370000EA 		b	.L14
+ 1383              	.L12:
+ 107:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 108:../src/renesas/application/smart_car/Track/TrackType.c ****     //判断右分岔路
+ 109:../src/renesas/application/smart_car/Track/TrackType.c ****     else if(InflectionPointR.InflectionPointFlag //存在右边拐点
+ 1384              		.loc 1 109 0
+ 1385 00e0 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1386 00e4 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1387 00e8 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1388 00ec 000053E3 		cmp	r3, #0
+ 1389 00f0 1600000A 		beq	.L15
+ 110:../src/renesas/application/smart_car/Track/TrackType.c ****             &&RightLose>=5&&LeftLose<3&&AllLose<3)
+ 1390              		.loc 1 110 0
+ 1391 00f4 003000E3 		movw	r3, #:lower16:RightLose
+ 1392 00f8 003040E3 		movt	r3, #:upper16:RightLose
+ 1393 00fc 003093E5 		ldr	r3, [r3]
+ 1394 0100 040053E3 		cmp	r3, #4
+ 1395 0104 110000DA 		ble	.L15
+ 1396              		.loc 1 110 0 is_stmt 0 discriminator 1
+ 1397 0108 003000E3 		movw	r3, #:lower16:LeftLose
+ 1398 010c 003040E3 		movt	r3, #:upper16:LeftLose
+ 1399 0110 003093E5 		ldr	r3, [r3]
+ 1400 0114 020053E3 		cmp	r3, #2
+ 1401 0118 0C0000CA 		bgt	.L15
+ 1402              		.loc 1 110 0 discriminator 2
+ 1403 011c 003000E3 		movw	r3, #:lower16:AllLose
+ 1404 0120 003040E3 		movt	r3, #:upper16:AllLose
+ 1405 0124 003093E5 		ldr	r3, [r3]
+ 1406 0128 020053E3 		cmp	r3, #2
+ 1407 012c 070000CA 		bgt	.L15
+ 111:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 112:../src/renesas/application/smart_car/Track/TrackType.c ****         prt->CrossR=1;//标志右岔路
+ 1408              		.loc 1 112 0 is_stmt 1
+ 1409 0130 08301BE5 		ldr	r3, [fp, #-8]
+ 1410 0134 0120A0E3 		mov	r2, #1
+ 1411 0138 0220C3E5 		strb	r2, [r3, #2]
+ 113:../src/renesas/application/smart_car/Track/TrackType.c ****         traffic_en = 1;
+ 1412              		.loc 1 113 0
+ 1413 013c 003000E3 		movw	r3, #:lower16:traffic_en
+ 1414 0140 003040E3 		movt	r3, #:upper16:traffic_en
+ 1415 0144 0120A0E3 		mov	r2, #1
+ 1416 0148 0020C3E5 		strb	r2, [r3]
+ 1417 014c 1B0000EA 		b	.L14
+ 1418              	.L15:
+ 114:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 115:../src/renesas/application/smart_car/Track/TrackType.c ****     //判断左分岔路
+ 116:../src/renesas/application/smart_car/Track/TrackType.c ****     else if(InflectionPointL.InflectionPointFlag//存在左边拐点
+ 1419              		.loc 1 116 0
+ 1420 0150 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1421 0154 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1422 0158 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1423 015c 000053E3 		cmp	r3, #0
+ 1424 0160 1600000A 		beq	.L16
+ 117:../src/renesas/application/smart_car/Track/TrackType.c ****             &&LeftLose>=5&&RightLose<3&&AllLose<3)
+ 1425              		.loc 1 117 0
+ 1426 0164 003000E3 		movw	r3, #:lower16:LeftLose
+ 1427 0168 003040E3 		movt	r3, #:upper16:LeftLose
+ 1428 016c 003093E5 		ldr	r3, [r3]
+ 1429 0170 040053E3 		cmp	r3, #4
+ 1430 0174 110000DA 		ble	.L16
+ 1431              		.loc 1 117 0 is_stmt 0 discriminator 1
+ 1432 0178 003000E3 		movw	r3, #:lower16:RightLose
+ 1433 017c 003040E3 		movt	r3, #:upper16:RightLose
+ 1434 0180 003093E5 		ldr	r3, [r3]
+ 1435 0184 020053E3 		cmp	r3, #2
+ 1436 0188 0C0000CA 		bgt	.L16
+ 1437              		.loc 1 117 0 discriminator 2
+ 1438 018c 003000E3 		movw	r3, #:lower16:AllLose
+ 1439 0190 003040E3 		movt	r3, #:upper16:AllLose
+ 1440 0194 003093E5 		ldr	r3, [r3]
+ 1441 0198 020053E3 		cmp	r3, #2
+ 1442 019c 070000CA 		bgt	.L16
+ 118:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 119:../src/renesas/application/smart_car/Track/TrackType.c ****         prt->CrossL=1;//标志左岔路
+ 1443              		.loc 1 119 0 is_stmt 1
+ 1444 01a0 08301BE5 		ldr	r3, [fp, #-8]
+ 1445 01a4 0120A0E3 		mov	r2, #1
+ 1446 01a8 0120C3E5 		strb	r2, [r3, #1]
+ 120:../src/renesas/application/smart_car/Track/TrackType.c ****         traffic_en = 1;
+ 1447              		.loc 1 120 0
+ 1448 01ac 003000E3 		movw	r3, #:lower16:traffic_en
+ 1449 01b0 003040E3 		movt	r3, #:upper16:traffic_en
+ 1450 01b4 0120A0E3 		mov	r2, #1
+ 1451 01b8 0020C3E5 		strb	r2, [r3]
+ 121:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 122:../src/renesas/application/smart_car/Track/TrackType.c **** }
+ 1452              		.loc 1 122 0
+ 1453 01bc FFFFFFEA 		b	.L16
+ 1454              	.L14:
+ 1455              	.L16:
+ 1456 01c0 00F020E3 		nop
+ 1457 01c4 04D04BE2 		sub	sp, fp, #4
+ 1458              		.cfi_def_cfa 13, 8
+ 1459              		@ sp needed
+ 1460 01c8 0088BDE8 		pop	{fp, pc}
+ 1461              		.cfi_endproc
+ 1462              	.LFE5:
+ 1464              		.global	send_flag
+ 1465              		.section	.bss.send_flag,"aw",%nobits
+ 1468              	send_flag:
+ 1469 0000 00       		.space	1
+ 1470              		.global	normal_flag
+ 1471              		.section	.bss.normal_flag,"aw",%nobits
+ 1474              	normal_flag:
+ 1475 0000 00       		.space	1
+ 1476              		.global	cross_flag
+ 1477              		.section	.data.cross_flag,"aw",%progbits
+ 1480              	cross_flag:
+ 1481 0000 01       		.byte	1
+ 1482              		.section	.text.Crossflag,"ax",%progbits
+ 1483              		.align	2
+ 1484              		.syntax unified
+ 1485              		.arm
+ 1486              		.fpu neon
+ 1488              	Crossflag:
+ 1489              	.LFB6:
+ 123:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 124:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t send_flag = 0;
+ 125:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t normal_flag = 0;
+ 126:../src/renesas/application/smart_car/Track/TrackType.c **** uint8_t cross_flag = 1;
+ 127:../src/renesas/application/smart_car/Track/TrackType.c **** //uint8_t signCnt = 0;
+ 128:../src/renesas/application/smart_car/Track/TrackType.c **** //static uint8_t signal_flag[11] = {
+ 129:../src/renesas/application/smart_car/Track/TrackType.c **** //	5,5,4,4,3,5,5,4,4
+ 130:../src/renesas/application/smart_car/Track/TrackType.c **** //};
+ 131:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 132:../src/renesas/application/smart_car/Track/TrackType.c **** //得到十字类型的相关标志作为控制标志位
+ 133:../src/renesas/application/smart_car/Track/TrackType.c **** static void Crossflag(void)
+ 134:../src/renesas/application/smart_car/Track/TrackType.c **** {
+ 1490              		.loc 1 134 0
+ 1491              		.cfi_startproc
+ 1492              		@ args = 0, pretend = 0, frame = 0
+ 1493              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1494              		@ link register save eliminated.
+ 1495 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 1496              		.cfi_def_cfa_offset 4
+ 1497              		.cfi_offset 11, -4
+ 1498 0004 00B08DE2 		add	fp, sp, #0
+ 1499              		.cfi_def_cfa_register 11
+ 135:../src/renesas/application/smart_car/Track/TrackType.c **** //	if(sign==0&&cross_flag)
+ 136:../src/renesas/application/smart_car/Track/TrackType.c **** //	{
+ 137:../src/renesas/application/smart_car/Track/TrackType.c **** //		sign = signal_flag[signCnt];
+ 138:../src/renesas/application/smart_car/Track/TrackType.c **** //		signCnt++;
+ 139:../src/renesas/application/smart_car/Track/TrackType.c **** //		cross_flag = 0;
+ 140:../src/renesas/application/smart_car/Track/TrackType.c **** //	}
+ 141:../src/renesas/application/smart_car/Track/TrackType.c ****     if(Cross.CrossLR)//十字
+ 1500              		.loc 1 141 0
+ 1501 0008 003000E3 		movw	r3, #:lower16:Cross
+ 1502 000c 003040E3 		movt	r3, #:upper16:Cross
+ 1503 0010 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1504 0014 000053E3 		cmp	r3, #0
+ 1505 0018 3500000A 		beq	.L18
+ 142:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 143:../src/renesas/application/smart_car/Track/TrackType.c ****         //printf("CrossLR\r\n");
+ 144:../src/renesas/application/smart_car/Track/TrackType.c ****         if(sign==sign_straight)
+ 1506              		.loc 1 144 0
+ 1507 001c 003000E3 		movw	r3, #:lower16:sign
+ 1508 0020 003040E3 		movt	r3, #:upper16:sign
+ 1509 0024 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1510 0028 030053E3 		cmp	r3, #3
+ 1511 002c 0C00001A 		bne	.L19
+ 145:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 146:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossLR straight\r\n");
+ 147:../src/renesas/application/smart_car/Track/TrackType.c ****             LRCross_flag = sign_straight;
+ 1512              		.loc 1 147 0
+ 1513 0030 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1514 0034 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1515 0038 0320A0E3 		mov	r2, #3
+ 1516 003c 0020C3E5 		strb	r2, [r3]
+ 148:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1517              		.loc 1 148 0
+ 1518 0040 003000E3 		movw	r3, #:lower16:sign
+ 1519 0044 003040E3 		movt	r3, #:upper16:sign
+ 1520 0048 0020A0E3 		mov	r2, #0
+ 1521 004c 0020C3E5 		strb	r2, [r3]
+ 149:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1522              		.loc 1 149 0
+ 1523 0050 003000E3 		movw	r3, #:lower16:send_flag
+ 1524 0054 003040E3 		movt	r3, #:upper16:send_flag
+ 1525 0058 0120A0E3 		mov	r2, #1
+ 1526 005c 0020C3E5 		strb	r2, [r3]
+ 150:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 151:../src/renesas/application/smart_car/Track/TrackType.c ****         else if(sign==sign_right)//右转信号
+ 152:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 153:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossLR right\r\n");
+ 154:../src/renesas/application/smart_car/Track/TrackType.c ****             LRCross_flag = sign_right;
+ 155:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 156:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 157:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 158:../src/renesas/application/smart_car/Track/TrackType.c ****         else if(sign==sign_left)//左转信号
+ 159:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 160:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossLR left\r\n");
+ 161:../src/renesas/application/smart_car/Track/TrackType.c ****             LRCross_flag = sign_left;
+ 162:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 163:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 164:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 165:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 166:../src/renesas/application/smart_car/Track/TrackType.c ****     else if(Cross.CrossR)//右分叉
+ 167:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 168:../src/renesas/application/smart_car/Track/TrackType.c ****         //printf("CrossR\r\n");
+ 169:../src/renesas/application/smart_car/Track/TrackType.c ****         if(sign==sign_straight)//直行信号
+ 170:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 171:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossR straight\r\n");
+ 172:../src/renesas/application/smart_car/Track/TrackType.c ****             RCross_flag = sign_straight;
+ 173:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 174:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 175:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 176:../src/renesas/application/smart_car/Track/TrackType.c ****         else if(sign==sign_right)//右转信号
+ 177:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 178:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossR right\r\n");
+ 179:../src/renesas/application/smart_car/Track/TrackType.c ****             RCross_flag = sign_right;
+ 180:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 181:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 182:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 183:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 184:../src/renesas/application/smart_car/Track/TrackType.c ****     else if(Cross.CrossL)//左分叉
+ 185:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 186:../src/renesas/application/smart_car/Track/TrackType.c ****         //printf("CrossL\r\n");
+ 187:../src/renesas/application/smart_car/Track/TrackType.c ****         if(sign==sign_straight)//直行信号
+ 188:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 189:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossL straight\r\n");
+ 190:../src/renesas/application/smart_car/Track/TrackType.c ****             LCross_flag = sign_straight;
+ 191:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 192:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 193:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 194:../src/renesas/application/smart_car/Track/TrackType.c ****         else if(sign==sign_left)//左转信号
+ 195:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 196:../src/renesas/application/smart_car/Track/TrackType.c ****             //printf("CrossL left\r\n");
+ 197:../src/renesas/application/smart_car/Track/TrackType.c ****             LCross_flag = sign_left;
+ 198:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 199:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 200:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 201:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 202:../src/renesas/application/smart_car/Track/TrackType.c **** }
+ 1527              		.loc 1 202 0
+ 1528 0060 740000EA 		b	.L27
+ 1529              	.L19:
+ 151:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1530              		.loc 1 151 0
+ 1531 0064 003000E3 		movw	r3, #:lower16:sign
+ 1532 0068 003040E3 		movt	r3, #:upper16:sign
+ 1533 006c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1534 0070 040053E3 		cmp	r3, #4
+ 1535 0074 0C00001A 		bne	.L21
+ 154:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1536              		.loc 1 154 0
+ 1537 0078 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1538 007c 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1539 0080 0420A0E3 		mov	r2, #4
+ 1540 0084 0020C3E5 		strb	r2, [r3]
+ 155:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1541              		.loc 1 155 0
+ 1542 0088 003000E3 		movw	r3, #:lower16:sign
+ 1543 008c 003040E3 		movt	r3, #:upper16:sign
+ 1544 0090 0020A0E3 		mov	r2, #0
+ 1545 0094 0020C3E5 		strb	r2, [r3]
+ 156:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1546              		.loc 1 156 0
+ 1547 0098 003000E3 		movw	r3, #:lower16:send_flag
+ 1548 009c 003040E3 		movt	r3, #:upper16:send_flag
+ 1549 00a0 0120A0E3 		mov	r2, #1
+ 1550 00a4 0020C3E5 		strb	r2, [r3]
+ 1551              		.loc 1 202 0
+ 1552 00a8 620000EA 		b	.L27
+ 1553              	.L21:
+ 158:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1554              		.loc 1 158 0
+ 1555 00ac 003000E3 		movw	r3, #:lower16:sign
+ 1556 00b0 003040E3 		movt	r3, #:upper16:sign
+ 1557 00b4 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1558 00b8 050053E3 		cmp	r3, #5
+ 1559 00bc 5D00001A 		bne	.L27
+ 161:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1560              		.loc 1 161 0
+ 1561 00c0 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1562 00c4 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1563 00c8 0520A0E3 		mov	r2, #5
+ 1564 00cc 0020C3E5 		strb	r2, [r3]
+ 162:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1565              		.loc 1 162 0
+ 1566 00d0 003000E3 		movw	r3, #:lower16:sign
+ 1567 00d4 003040E3 		movt	r3, #:upper16:sign
+ 1568 00d8 0020A0E3 		mov	r2, #0
+ 1569 00dc 0020C3E5 		strb	r2, [r3]
+ 163:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1570              		.loc 1 163 0
+ 1571 00e0 003000E3 		movw	r3, #:lower16:send_flag
+ 1572 00e4 003040E3 		movt	r3, #:upper16:send_flag
+ 1573 00e8 0120A0E3 		mov	r2, #1
+ 1574 00ec 0020C3E5 		strb	r2, [r3]
+ 1575              		.loc 1 202 0
+ 1576 00f0 500000EA 		b	.L27
+ 1577              	.L18:
+ 166:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1578              		.loc 1 166 0
+ 1579 00f4 003000E3 		movw	r3, #:lower16:Cross
+ 1580 00f8 003040E3 		movt	r3, #:upper16:Cross
+ 1581 00fc 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1582 0100 000053E3 		cmp	r3, #0
+ 1583 0104 2300000A 		beq	.L23
+ 169:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1584              		.loc 1 169 0
+ 1585 0108 003000E3 		movw	r3, #:lower16:sign
+ 1586 010c 003040E3 		movt	r3, #:upper16:sign
+ 1587 0110 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1588 0114 030053E3 		cmp	r3, #3
+ 1589 0118 0C00001A 		bne	.L24
+ 172:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1590              		.loc 1 172 0
+ 1591 011c 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1592 0120 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1593 0124 0320A0E3 		mov	r2, #3
+ 1594 0128 0020C3E5 		strb	r2, [r3]
+ 173:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1595              		.loc 1 173 0
+ 1596 012c 003000E3 		movw	r3, #:lower16:sign
+ 1597 0130 003040E3 		movt	r3, #:upper16:sign
+ 1598 0134 0020A0E3 		mov	r2, #0
+ 1599 0138 0020C3E5 		strb	r2, [r3]
+ 174:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1600              		.loc 1 174 0
+ 1601 013c 003000E3 		movw	r3, #:lower16:send_flag
+ 1602 0140 003040E3 		movt	r3, #:upper16:send_flag
+ 1603 0144 0120A0E3 		mov	r2, #1
+ 1604 0148 0020C3E5 		strb	r2, [r3]
+ 1605              		.loc 1 202 0
+ 1606 014c 390000EA 		b	.L27
+ 1607              	.L24:
+ 176:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1608              		.loc 1 176 0
+ 1609 0150 003000E3 		movw	r3, #:lower16:sign
+ 1610 0154 003040E3 		movt	r3, #:upper16:sign
+ 1611 0158 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1612 015c 040053E3 		cmp	r3, #4
+ 1613 0160 3400001A 		bne	.L27
+ 179:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1614              		.loc 1 179 0
+ 1615 0164 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1616 0168 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1617 016c 0420A0E3 		mov	r2, #4
+ 1618 0170 0020C3E5 		strb	r2, [r3]
+ 180:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1619              		.loc 1 180 0
+ 1620 0174 003000E3 		movw	r3, #:lower16:sign
+ 1621 0178 003040E3 		movt	r3, #:upper16:sign
+ 1622 017c 0020A0E3 		mov	r2, #0
+ 1623 0180 0020C3E5 		strb	r2, [r3]
+ 181:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1624              		.loc 1 181 0
+ 1625 0184 003000E3 		movw	r3, #:lower16:send_flag
+ 1626 0188 003040E3 		movt	r3, #:upper16:send_flag
+ 1627 018c 0120A0E3 		mov	r2, #1
+ 1628 0190 0020C3E5 		strb	r2, [r3]
+ 1629              		.loc 1 202 0
+ 1630 0194 270000EA 		b	.L27
+ 1631              	.L23:
+ 184:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 1632              		.loc 1 184 0
+ 1633 0198 003000E3 		movw	r3, #:lower16:Cross
+ 1634 019c 003040E3 		movt	r3, #:upper16:Cross
+ 1635 01a0 0130D3E5 		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 1636 01a4 000053E3 		cmp	r3, #0
+ 1637 01a8 2200000A 		beq	.L27
+ 187:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1638              		.loc 1 187 0
+ 1639 01ac 003000E3 		movw	r3, #:lower16:sign
+ 1640 01b0 003040E3 		movt	r3, #:upper16:sign
+ 1641 01b4 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1642 01b8 030053E3 		cmp	r3, #3
+ 1643 01bc 0C00001A 		bne	.L26
+ 190:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1644              		.loc 1 190 0
+ 1645 01c0 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1646 01c4 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1647 01c8 0320A0E3 		mov	r2, #3
+ 1648 01cc 0020C3E5 		strb	r2, [r3]
+ 191:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1649              		.loc 1 191 0
+ 1650 01d0 003000E3 		movw	r3, #:lower16:sign
+ 1651 01d4 003040E3 		movt	r3, #:upper16:sign
+ 1652 01d8 0020A0E3 		mov	r2, #0
+ 1653 01dc 0020C3E5 		strb	r2, [r3]
+ 192:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1654              		.loc 1 192 0
+ 1655 01e0 003000E3 		movw	r3, #:lower16:send_flag
+ 1656 01e4 003040E3 		movt	r3, #:upper16:send_flag
+ 1657 01e8 0120A0E3 		mov	r2, #1
+ 1658 01ec 0020C3E5 		strb	r2, [r3]
+ 1659              		.loc 1 202 0
+ 1660 01f0 100000EA 		b	.L27
+ 1661              	.L26:
+ 194:../src/renesas/application/smart_car/Track/TrackType.c ****         {
+ 1662              		.loc 1 194 0
+ 1663 01f4 003000E3 		movw	r3, #:lower16:sign
+ 1664 01f8 003040E3 		movt	r3, #:upper16:sign
+ 1665 01fc 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1666 0200 050053E3 		cmp	r3, #5
+ 1667 0204 0B00001A 		bne	.L27
+ 197:../src/renesas/application/smart_car/Track/TrackType.c ****             sign = 0;
+ 1668              		.loc 1 197 0
+ 1669 0208 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1670 020c 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1671 0210 0520A0E3 		mov	r2, #5
+ 1672 0214 0020C3E5 		strb	r2, [r3]
+ 198:../src/renesas/application/smart_car/Track/TrackType.c ****             send_flag = 1;
+ 1673              		.loc 1 198 0
+ 1674 0218 003000E3 		movw	r3, #:lower16:sign
+ 1675 021c 003040E3 		movt	r3, #:upper16:sign
+ 1676 0220 0020A0E3 		mov	r2, #0
+ 1677 0224 0020C3E5 		strb	r2, [r3]
+ 199:../src/renesas/application/smart_car/Track/TrackType.c ****         }
+ 1678              		.loc 1 199 0
+ 1679 0228 003000E3 		movw	r3, #:lower16:send_flag
+ 1680 022c 003040E3 		movt	r3, #:upper16:send_flag
+ 1681 0230 0120A0E3 		mov	r2, #1
+ 1682 0234 0020C3E5 		strb	r2, [r3]
+ 1683              	.L27:
+ 1684              		.loc 1 202 0
+ 1685 0238 00F020E3 		nop
+ 1686 023c 00D08BE2 		add	sp, fp, #0
+ 1687              		.cfi_def_cfa_register 13
+ 1688              		@ sp needed
+ 1689 0240 04B09DE4 		ldr	fp, [sp], #4
+ 1690              		.cfi_restore 11
+ 1691              		.cfi_def_cfa_offset 0
+ 1692 0244 1EFF2FE1 		bx	lr
+ 1693              		.cfi_endproc
+ 1694              	.LFE6:
+ 1696              		.section	.text.CrossProcess,"ax",%progbits
+ 1697              		.align	2
+ 1698              		.global	CrossProcess
+ 1699              		.syntax unified
+ 1700              		.arm
+ 1701              		.fpu neon
+ 1703              	CrossProcess:
+ 1704              	.LFB7:
+ 203:../src/renesas/application/smart_car/Track/TrackType.c **** extern uint8_t send_en;
+ 204:../src/renesas/application/smart_car/Track/TrackType.c **** //对分叉进行处理，得出舵机的控制中线
+ 205:../src/renesas/application/smart_car/Track/TrackType.c **** void CrossProcess(void)
+ 206:../src/renesas/application/smart_car/Track/TrackType.c **** {
+ 1705              		.loc 1 206 0
+ 1706              		.cfi_startproc
+ 1707              		@ args = 0, pretend = 0, frame = 0
+ 1708              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1709 0000 00482DE9 		push	{fp, lr}
+ 1710              		.cfi_def_cfa_offset 8
+ 1711              		.cfi_offset 11, -8
+ 1712              		.cfi_offset 14, -4
+ 1713 0004 04B08DE2 		add	fp, sp, #4
+ 1714              		.cfi_def_cfa 11, 4
+ 207:../src/renesas/application/smart_car/Track/TrackType.c ****     turn_flag = 0;
+ 1715              		.loc 1 207 0
+ 1716 0008 003000E3 		movw	r3, #:lower16:turn_flag
+ 1717 000c 003040E3 		movt	r3, #:upper16:turn_flag
+ 1718 0010 0020A0E3 		mov	r2, #0
+ 1719 0014 0020C3E5 		strb	r2, [r3]
+ 208:../src/renesas/application/smart_car/Track/TrackType.c ****     CrossRecognition(&Cross);//识别岔路
+ 1720              		.loc 1 208 0
+ 1721 0018 000000E3 		movw	r0, #:lower16:Cross
+ 1722 001c 000040E3 		movt	r0, #:upper16:Cross
+ 1723 0020 FEFFFFEB 		bl	CrossRecognition
+ 209:../src/renesas/application/smart_car/Track/TrackType.c ****     if(LRCross_flag==0&&RCross_flag==0&&LCross_flag==0)//未识别到岔路
+ 1724              		.loc 1 209 0
+ 1725 0024 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1726 0028 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1727 002c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1728 0030 000053E3 		cmp	r3, #0
+ 1729 0034 0A00001A 		bne	.L29
+ 1730              		.loc 1 209 0 is_stmt 0 discriminator 1
+ 1731 0038 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1732 003c 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1733 0040 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1734 0044 000053E3 		cmp	r3, #0
+ 1735 0048 0500001A 		bne	.L29
+ 1736              		.loc 1 209 0 discriminator 2
+ 1737 004c 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1738 0050 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1739 0054 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1740 0058 000053E3 		cmp	r3, #0
+ 1741 005c 0000001A 		bne	.L29
+ 210:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 211:../src/renesas/application/smart_car/Track/TrackType.c ****     	Crossflag();
+ 1742              		.loc 1 211 0 is_stmt 1
+ 1743 0060 FEFFFFEB 		bl	Crossflag
+ 1744              	.L29:
+ 212:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 213:../src/renesas/application/smart_car/Track/TrackType.c ****     if(LRCross_flag||RCross_flag||LCross_flag)
+ 1745              		.loc 1 213 0
+ 1746 0064 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1747 0068 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1748 006c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1749 0070 000053E3 		cmp	r3, #0
+ 1750 0074 0900001A 		bne	.L30
+ 1751              		.loc 1 213 0 is_stmt 0 discriminator 1
+ 1752 0078 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1753 007c 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1754 0080 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1755 0084 000053E3 		cmp	r3, #0
+ 1756 0088 0400001A 		bne	.L30
+ 1757              		.loc 1 213 0 discriminator 2
+ 1758 008c 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1759 0090 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1760 0094 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1761 0098 000053E3 		cmp	r3, #0
+ 1762 009c F402000A 		beq	.L79
+ 1763              	.L30:
+ 214:../src/renesas/application/smart_car/Track/TrackType.c ****     {
+ 215:../src/renesas/application/smart_car/Track/TrackType.c **** 		//十字
+ 216:../src/renesas/application/smart_car/Track/TrackType.c **** 		if(LRCross_flag==sign_straight) {//直行
+ 1764              		.loc 1 216 0 is_stmt 1
+ 1765 00a0 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1766 00a4 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1767 00a8 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1768 00ac 030053E3 		cmp	r3, #3
+ 1769 00b0 5E00000A 		beq	.L32
+ 217:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 218:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 219:../src/renesas/application/smart_car/Track/TrackType.c **** 		else if(LRCross_flag==sign_right) {//右转
+ 1770              		.loc 1 219 0
+ 1771 00b4 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1772 00b8 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1773 00bc 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1774 00c0 040053E3 		cmp	r3, #4
+ 1775 00c4 2A00001A 		bne	.L33
+ 220:../src/renesas/application/smart_car/Track/TrackType.c **** 			if(count>=2)
+ 1776              		.loc 1 220 0
+ 1777 00c8 003000E3 		movw	r3, #:lower16:count
+ 1778 00cc 003040E3 		movt	r3, #:upper16:count
+ 1779 00d0 003093E5 		ldr	r3, [r3]
+ 1780 00d4 010053E3 		cmp	r3, #1
+ 1781 00d8 040000DA 		ble	.L34
+ 221:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 222:../src/renesas/application/smart_car/Track/TrackType.c **** 				turn_flag = turn_right;
+ 1782              		.loc 1 222 0
+ 1783 00dc 003000E3 		movw	r3, #:lower16:turn_flag
+ 1784 00e0 003040E3 		movt	r3, #:upper16:turn_flag
+ 1785 00e4 0120A0E3 		mov	r2, #1
+ 1786 00e8 0020C3E5 		strb	r2, [r3]
+ 1787 00ec 4F0000EA 		b	.L32
+ 1788              	.L34:
+ 223:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 224:../src/renesas/application/smart_car/Track/TrackType.c **** 			else
+ 225:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 226:../src/renesas/application/smart_car/Track/TrackType.c **** 				if((InflectionPointR.InflectionPointFlag==0&&InflectionPointL.InflectionPointFlag==0)
+ 1789              		.loc 1 226 0
+ 1790 00f0 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1791 00f4 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1792 00f8 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1793 00fc 000053E3 		cmp	r3, #0
+ 1794 0100 1600001A 		bne	.L36
+ 1795              		.loc 1 226 0 is_stmt 0 discriminator 1
+ 1796 0104 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1797 0108 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1798 010c 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1799 0110 000053E3 		cmp	r3, #0
+ 1800 0114 1100001A 		bne	.L36
+ 227:../src/renesas/application/smart_car/Track/TrackType.c **** 				  &&(RightLose>=5||AllLose>=5)) {
+ 1801              		.loc 1 227 0 is_stmt 1
+ 1802 0118 003000E3 		movw	r3, #:lower16:RightLose
+ 1803 011c 003040E3 		movt	r3, #:upper16:RightLose
+ 1804 0120 003093E5 		ldr	r3, [r3]
+ 1805 0124 040053E3 		cmp	r3, #4
+ 1806 0128 040000CA 		bgt	.L37
+ 1807              		.loc 1 227 0 is_stmt 0 discriminator 1
+ 1808 012c 003000E3 		movw	r3, #:lower16:AllLose
+ 1809 0130 003040E3 		movt	r3, #:upper16:AllLose
+ 1810 0134 003093E5 		ldr	r3, [r3]
+ 1811 0138 040053E3 		cmp	r3, #4
+ 1812 013c 070000DA 		ble	.L36
+ 1813              	.L37:
+ 228:../src/renesas/application/smart_car/Track/TrackType.c **** 					count++;
+ 1814              		.loc 1 228 0 is_stmt 1
+ 1815 0140 003000E3 		movw	r3, #:lower16:count
+ 1816 0144 003040E3 		movt	r3, #:upper16:count
+ 1817 0148 003093E5 		ldr	r3, [r3]
+ 1818 014c 012083E2 		add	r2, r3, #1
+ 1819 0150 003000E3 		movw	r3, #:lower16:count
+ 1820 0154 003040E3 		movt	r3, #:upper16:count
+ 1821 0158 002083E5 		str	r2, [r3]
+ 1822 015c 330000EA 		b	.L32
+ 1823              	.L36:
+ 229:../src/renesas/application/smart_car/Track/TrackType.c **** 				} else {
+ 230:../src/renesas/application/smart_car/Track/TrackType.c **** 					count=0;
+ 1824              		.loc 1 230 0
+ 1825 0160 003000E3 		movw	r3, #:lower16:count
+ 1826 0164 003040E3 		movt	r3, #:upper16:count
+ 1827 0168 0020A0E3 		mov	r2, #0
+ 1828 016c 002083E5 		str	r2, [r3]
+ 1829 0170 2E0000EA 		b	.L32
+ 1830              	.L33:
+ 231:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 232:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 233:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 234:../src/renesas/application/smart_car/Track/TrackType.c **** 		else if(LRCross_flag==sign_left) {//左转
+ 1831              		.loc 1 234 0
+ 1832 0174 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 1833 0178 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 1834 017c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1835 0180 050053E3 		cmp	r3, #5
+ 1836 0184 2900001A 		bne	.L32
+ 235:../src/renesas/application/smart_car/Track/TrackType.c **** 			if(count>=2)
+ 1837              		.loc 1 235 0
+ 1838 0188 003000E3 		movw	r3, #:lower16:count
+ 1839 018c 003040E3 		movt	r3, #:upper16:count
+ 1840 0190 003093E5 		ldr	r3, [r3]
+ 1841 0194 010053E3 		cmp	r3, #1
+ 1842 0198 040000DA 		ble	.L38
+ 236:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 237:../src/renesas/application/smart_car/Track/TrackType.c **** 				turn_flag = turn_left;
+ 1843              		.loc 1 237 0
+ 1844 019c 003000E3 		movw	r3, #:lower16:turn_flag
+ 1845 01a0 003040E3 		movt	r3, #:upper16:turn_flag
+ 1846 01a4 0220A0E3 		mov	r2, #2
+ 1847 01a8 0020C3E5 		strb	r2, [r3]
+ 1848 01ac 1F0000EA 		b	.L32
+ 1849              	.L38:
+ 238:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 239:../src/renesas/application/smart_car/Track/TrackType.c **** 			else
+ 240:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 241:../src/renesas/application/smart_car/Track/TrackType.c **** 				if((InflectionPointL.InflectionPointFlag==0&&InflectionPointR.InflectionPointFlag==0)
+ 1850              		.loc 1 241 0
+ 1851 01b0 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1852 01b4 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1853 01b8 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1854 01bc 000053E3 		cmp	r3, #0
+ 1855 01c0 1600001A 		bne	.L39
+ 1856              		.loc 1 241 0 is_stmt 0 discriminator 1
+ 1857 01c4 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1858 01c8 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1859 01cc 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1860 01d0 000053E3 		cmp	r3, #0
+ 1861 01d4 1100001A 		bne	.L39
+ 242:../src/renesas/application/smart_car/Track/TrackType.c **** 				  &&(LeftLose>=5||AllLose>=5))
+ 1862              		.loc 1 242 0 is_stmt 1
+ 1863 01d8 003000E3 		movw	r3, #:lower16:LeftLose
+ 1864 01dc 003040E3 		movt	r3, #:upper16:LeftLose
+ 1865 01e0 003093E5 		ldr	r3, [r3]
+ 1866 01e4 040053E3 		cmp	r3, #4
+ 1867 01e8 040000CA 		bgt	.L40
+ 1868              		.loc 1 242 0 is_stmt 0 discriminator 1
+ 1869 01ec 003000E3 		movw	r3, #:lower16:AllLose
+ 1870 01f0 003040E3 		movt	r3, #:upper16:AllLose
+ 1871 01f4 003093E5 		ldr	r3, [r3]
+ 1872 01f8 040053E3 		cmp	r3, #4
+ 1873 01fc 070000DA 		ble	.L39
+ 1874              	.L40:
+ 243:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 244:../src/renesas/application/smart_car/Track/TrackType.c **** 					count++;
+ 1875              		.loc 1 244 0 is_stmt 1
+ 1876 0200 003000E3 		movw	r3, #:lower16:count
+ 1877 0204 003040E3 		movt	r3, #:upper16:count
+ 1878 0208 003093E5 		ldr	r3, [r3]
+ 1879 020c 012083E2 		add	r2, r3, #1
+ 1880 0210 003000E3 		movw	r3, #:lower16:count
+ 1881 0214 003040E3 		movt	r3, #:upper16:count
+ 1882 0218 002083E5 		str	r2, [r3]
+ 1883 021c 030000EA 		b	.L32
+ 1884              	.L39:
+ 245:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 246:../src/renesas/application/smart_car/Track/TrackType.c **** 				else
+ 247:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 248:../src/renesas/application/smart_car/Track/TrackType.c **** 					count=0;
+ 1885              		.loc 1 248 0
+ 1886 0220 003000E3 		movw	r3, #:lower16:count
+ 1887 0224 003040E3 		movt	r3, #:upper16:count
+ 1888 0228 0020A0E3 		mov	r2, #0
+ 1889 022c 002083E5 		str	r2, [r3]
+ 1890              	.L32:
+ 249:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 250:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 251:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 252:../src/renesas/application/smart_car/Track/TrackType.c **** 		//右岔路
+ 253:../src/renesas/application/smart_car/Track/TrackType.c **** 		if(RCross_flag==sign_straight) {//直行
+ 1891              		.loc 1 253 0
+ 1892 0230 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1893 0234 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1894 0238 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1895 023c 030053E3 		cmp	r3, #3
+ 1896 0240 3300000A 		beq	.L41
+ 254:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 255:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 256:../src/renesas/application/smart_car/Track/TrackType.c **** 		else if(RCross_flag==sign_right) {//右转
+ 1897              		.loc 1 256 0
+ 1898 0244 003000E3 		movw	r3, #:lower16:RCross_flag
+ 1899 0248 003040E3 		movt	r3, #:upper16:RCross_flag
+ 1900 024c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1901 0250 040053E3 		cmp	r3, #4
+ 1902 0254 2E00001A 		bne	.L41
+ 257:../src/renesas/application/smart_car/Track/TrackType.c **** 			if(count>=2)
+ 1903              		.loc 1 257 0
+ 1904 0258 003000E3 		movw	r3, #:lower16:count
+ 1905 025c 003040E3 		movt	r3, #:upper16:count
+ 1906 0260 003093E5 		ldr	r3, [r3]
+ 1907 0264 010053E3 		cmp	r3, #1
+ 1908 0268 040000DA 		ble	.L42
+ 258:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 259:../src/renesas/application/smart_car/Track/TrackType.c **** 				turn_flag = turn_right;
+ 1909              		.loc 1 259 0
+ 1910 026c 003000E3 		movw	r3, #:lower16:turn_flag
+ 1911 0270 003040E3 		movt	r3, #:upper16:turn_flag
+ 1912 0274 0120A0E3 		mov	r2, #1
+ 1913 0278 0020C3E5 		strb	r2, [r3]
+ 1914 027c 240000EA 		b	.L41
+ 1915              	.L42:
+ 260:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 261:../src/renesas/application/smart_car/Track/TrackType.c **** 			else
+ 262:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 263:../src/renesas/application/smart_car/Track/TrackType.c **** 				if((InflectionPointR.InflectionPointFlag==0&&InflectionPointL.InflectionPointFlag==0)
+ 1916              		.loc 1 263 0
+ 1917 0280 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1918 0284 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1919 0288 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1920 028c 000053E3 		cmp	r3, #0
+ 1921 0290 1B00001A 		bne	.L43
+ 1922              		.loc 1 263 0 is_stmt 0 discriminator 1
+ 1923 0294 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1924 0298 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1925 029c 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1926 02a0 000053E3 		cmp	r3, #0
+ 1927 02a4 1600001A 		bne	.L43
+ 264:../src/renesas/application/smart_car/Track/TrackType.c **** 				  &&RightLose>=5&&LeftLose<3&&AllLose<3)
+ 1928              		.loc 1 264 0 is_stmt 1
+ 1929 02a8 003000E3 		movw	r3, #:lower16:RightLose
+ 1930 02ac 003040E3 		movt	r3, #:upper16:RightLose
+ 1931 02b0 003093E5 		ldr	r3, [r3]
+ 1932 02b4 040053E3 		cmp	r3, #4
+ 1933 02b8 110000DA 		ble	.L43
+ 1934              		.loc 1 264 0 is_stmt 0 discriminator 1
+ 1935 02bc 003000E3 		movw	r3, #:lower16:LeftLose
+ 1936 02c0 003040E3 		movt	r3, #:upper16:LeftLose
+ 1937 02c4 003093E5 		ldr	r3, [r3]
+ 1938 02c8 020053E3 		cmp	r3, #2
+ 1939 02cc 0C0000CA 		bgt	.L43
+ 1940              		.loc 1 264 0 discriminator 2
+ 1941 02d0 003000E3 		movw	r3, #:lower16:AllLose
+ 1942 02d4 003040E3 		movt	r3, #:upper16:AllLose
+ 1943 02d8 003093E5 		ldr	r3, [r3]
+ 1944 02dc 020053E3 		cmp	r3, #2
+ 1945 02e0 070000CA 		bgt	.L43
+ 265:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 266:../src/renesas/application/smart_car/Track/TrackType.c **** 					count++;
+ 1946              		.loc 1 266 0 is_stmt 1
+ 1947 02e4 003000E3 		movw	r3, #:lower16:count
+ 1948 02e8 003040E3 		movt	r3, #:upper16:count
+ 1949 02ec 003093E5 		ldr	r3, [r3]
+ 1950 02f0 012083E2 		add	r2, r3, #1
+ 1951 02f4 003000E3 		movw	r3, #:lower16:count
+ 1952 02f8 003040E3 		movt	r3, #:upper16:count
+ 1953 02fc 002083E5 		str	r2, [r3]
+ 1954 0300 030000EA 		b	.L41
+ 1955              	.L43:
+ 267:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 268:../src/renesas/application/smart_car/Track/TrackType.c **** 				else
+ 269:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 270:../src/renesas/application/smart_car/Track/TrackType.c **** 					count=0;
+ 1956              		.loc 1 270 0
+ 1957 0304 003000E3 		movw	r3, #:lower16:count
+ 1958 0308 003040E3 		movt	r3, #:upper16:count
+ 1959 030c 0020A0E3 		mov	r2, #0
+ 1960 0310 002083E5 		str	r2, [r3]
+ 1961              	.L41:
+ 271:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 272:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 273:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 274:../src/renesas/application/smart_car/Track/TrackType.c **** 		//左岔路
+ 275:../src/renesas/application/smart_car/Track/TrackType.c **** 		if(LCross_flag==sign_straight) {//直行
+ 1962              		.loc 1 275 0
+ 1963 0314 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1964 0318 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1965 031c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1966 0320 030053E3 		cmp	r3, #3
+ 1967 0324 3300000A 		beq	.L44
+ 276:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 277:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 278:../src/renesas/application/smart_car/Track/TrackType.c **** 		else if(LCross_flag==sign_left) {//左转
+ 1968              		.loc 1 278 0
+ 1969 0328 003000E3 		movw	r3, #:lower16:LCross_flag
+ 1970 032c 003040E3 		movt	r3, #:upper16:LCross_flag
+ 1971 0330 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1972 0334 050053E3 		cmp	r3, #5
+ 1973 0338 2E00001A 		bne	.L44
+ 279:../src/renesas/application/smart_car/Track/TrackType.c **** 			if(count>=2)//3
+ 1974              		.loc 1 279 0
+ 1975 033c 003000E3 		movw	r3, #:lower16:count
+ 1976 0340 003040E3 		movt	r3, #:upper16:count
+ 1977 0344 003093E5 		ldr	r3, [r3]
+ 1978 0348 010053E3 		cmp	r3, #1
+ 1979 034c 040000DA 		ble	.L45
+ 280:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 281:../src/renesas/application/smart_car/Track/TrackType.c **** 				turn_flag = turn_left;
+ 1980              		.loc 1 281 0
+ 1981 0350 003000E3 		movw	r3, #:lower16:turn_flag
+ 1982 0354 003040E3 		movt	r3, #:upper16:turn_flag
+ 1983 0358 0220A0E3 		mov	r2, #2
+ 1984 035c 0020C3E5 		strb	r2, [r3]
+ 1985 0360 240000EA 		b	.L44
+ 1986              	.L45:
+ 282:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 283:../src/renesas/application/smart_car/Track/TrackType.c **** 			else
+ 284:../src/renesas/application/smart_car/Track/TrackType.c **** 			{
+ 285:../src/renesas/application/smart_car/Track/TrackType.c **** 				if((InflectionPointL.InflectionPointFlag==0&&InflectionPointR.InflectionPointFlag==0)
+ 1987              		.loc 1 285 0
+ 1988 0364 003000E3 		movw	r3, #:lower16:InflectionPointL
+ 1989 0368 003040E3 		movt	r3, #:upper16:InflectionPointL
+ 1990 036c 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1991 0370 000053E3 		cmp	r3, #0
+ 1992 0374 1B00001A 		bne	.L46
+ 1993              		.loc 1 285 0 is_stmt 0 discriminator 1
+ 1994 0378 003000E3 		movw	r3, #:lower16:InflectionPointR
+ 1995 037c 003040E3 		movt	r3, #:upper16:InflectionPointR
+ 1996 0380 0230D3E5 		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1997 0384 000053E3 		cmp	r3, #0
+ 1998 0388 1600001A 		bne	.L46
+ 286:../src/renesas/application/smart_car/Track/TrackType.c **** 				  &&LeftLose>=5&&RightLose<3&&AllLose<3)
+ 1999              		.loc 1 286 0 is_stmt 1
+ 2000 038c 003000E3 		movw	r3, #:lower16:LeftLose
+ 2001 0390 003040E3 		movt	r3, #:upper16:LeftLose
+ 2002 0394 003093E5 		ldr	r3, [r3]
+ 2003 0398 040053E3 		cmp	r3, #4
+ 2004 039c 110000DA 		ble	.L46
+ 2005              		.loc 1 286 0 is_stmt 0 discriminator 1
+ 2006 03a0 003000E3 		movw	r3, #:lower16:RightLose
+ 2007 03a4 003040E3 		movt	r3, #:upper16:RightLose
+ 2008 03a8 003093E5 		ldr	r3, [r3]
+ 2009 03ac 020053E3 		cmp	r3, #2
+ 2010 03b0 0C0000CA 		bgt	.L46
+ 2011              		.loc 1 286 0 discriminator 2
+ 2012 03b4 003000E3 		movw	r3, #:lower16:AllLose
+ 2013 03b8 003040E3 		movt	r3, #:upper16:AllLose
+ 2014 03bc 003093E5 		ldr	r3, [r3]
+ 2015 03c0 020053E3 		cmp	r3, #2
+ 2016 03c4 070000CA 		bgt	.L46
+ 287:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 288:../src/renesas/application/smart_car/Track/TrackType.c **** 					count++;
+ 2017              		.loc 1 288 0 is_stmt 1
+ 2018 03c8 003000E3 		movw	r3, #:lower16:count
+ 2019 03cc 003040E3 		movt	r3, #:upper16:count
+ 2020 03d0 003093E5 		ldr	r3, [r3]
+ 2021 03d4 012083E2 		add	r2, r3, #1
+ 2022 03d8 003000E3 		movw	r3, #:lower16:count
+ 2023 03dc 003040E3 		movt	r3, #:upper16:count
+ 2024 03e0 002083E5 		str	r2, [r3]
+ 2025 03e4 030000EA 		b	.L44
+ 2026              	.L46:
+ 289:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 290:../src/renesas/application/smart_car/Track/TrackType.c **** 				else
+ 291:../src/renesas/application/smart_car/Track/TrackType.c **** 				{
+ 292:../src/renesas/application/smart_car/Track/TrackType.c **** 					count=0;
+ 2027              		.loc 1 292 0
+ 2028 03e8 003000E3 		movw	r3, #:lower16:count
+ 2029 03ec 003040E3 		movt	r3, #:upper16:count
+ 2030 03f0 0020A0E3 		mov	r2, #0
+ 2031 03f4 002083E5 		str	r2, [r3]
+ 2032              	.L44:
+ 293:../src/renesas/application/smart_car/Track/TrackType.c **** 				}
+ 294:../src/renesas/application/smart_car/Track/TrackType.c **** 			}
+ 295:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 296:../src/renesas/application/smart_car/Track/TrackType.c **** 
+ 297:../src/renesas/application/smart_car/Track/TrackType.c **** 		//在图像恢复正常后重置标志位
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 		if(LeftLose<1 && RightLose<1 && AllLose<1
+ 2033              		.loc 1 298 0
+ 2034 03f8 003000E3 		movw	r3, #:lower16:LeftLose
+ 2035 03fc 003040E3 		movt	r3, #:upper16:LeftLose
+ 2036 0400 003093E5 		ldr	r3, [r3]
+ 2037 0404 000053E3 		cmp	r3, #0
+ 2038 0408 190200CA 		bgt	.L79
+ 2039              		.loc 1 298 0 is_stmt 0 discriminator 1
+ 2040 040c 003000E3 		movw	r3, #:lower16:RightLose
+ 2041 0410 003040E3 		movt	r3, #:upper16:RightLose
+ 2042 0414 003093E5 		ldr	r3, [r3]
+ 2043 0418 000053E3 		cmp	r3, #0
+ 2044 041c 140200CA 		bgt	.L79
+ 2045              		.loc 1 298 0 discriminator 2
+ 2046 0420 003000E3 		movw	r3, #:lower16:AllLose
+ 2047 0424 003040E3 		movt	r3, #:upper16:AllLose
+ 2048 0428 003093E5 		ldr	r3, [r3]
+ 2049 042c 000053E3 		cmp	r3, #0
+ 2050 0430 0F0200CA 		bgt	.L79
+ 299:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 300:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(RightEdge[60] - Width[60] / 2 - MidLine) < 20)   || RightEdge[60] ==MidLine)
+ 301:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(LeftEdge[70]  + Width[70] / 2 - MidLine) < 18)   || LeftEdge[70]  ==MidLine)
+ 2051              		.loc 1 301 0 is_stmt 1 discriminator 3
+ 2052 0434 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2053 0438 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2054 043c 182193E5 		ldr	r2, [r3, #280]
+ 2055 0440 003000E3 		movw	r3, #:lower16:Width
+ 2056 0444 003040E3 		movt	r3, #:upper16:Width
+ 2057 0448 183193E5 		ldr	r3, [r3, #280]
+ 2058 044c A31FA0E1 		lsr	r1, r3, #31
+ 2059 0450 033081E0 		add	r3, r1, r3
+ 2060 0454 C330A0E1 		asr	r3, r3, #1
+ 2061 0458 033082E0 		add	r3, r2, r3
+ 2062 045c 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2063              		.loc 1 298 0 discriminator 3
+ 2064 0460 000053E3 		cmp	r3, #0
+ 2065 0464 0D0000DA 		ble	.L47
+ 2066              		.loc 1 301 0
+ 2067 0468 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2068 046c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2069 0470 182193E5 		ldr	r2, [r3, #280]
+ 2070 0474 003000E3 		movw	r3, #:lower16:Width
+ 2071 0478 003040E3 		movt	r3, #:upper16:Width
+ 2072 047c 183193E5 		ldr	r3, [r3, #280]
+ 2073 0480 A31FA0E1 		lsr	r1, r3, #31
+ 2074 0484 033081E0 		add	r3, r1, r3
+ 2075 0488 C330A0E1 		asr	r3, r3, #1
+ 2076 048c 033082E0 		add	r3, r2, r3
+ 2077 0490 523043E2 		sub	r3, r3, #82
+ 2078 0494 110053E3 		cmp	r3, #17
+ 2079 0498 120000DA 		ble	.L48
+ 2080 049c 0C0000EA 		b	.L49
+ 2081              	.L47:
+ 2082 04a0 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2083 04a4 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2084 04a8 182193E5 		ldr	r2, [r3, #280]
+ 2085 04ac 003000E3 		movw	r3, #:lower16:Width
+ 2086 04b0 003040E3 		movt	r3, #:upper16:Width
+ 2087 04b4 183193E5 		ldr	r3, [r3, #280]
+ 2088 04b8 A31FA0E1 		lsr	r1, r3, #31
+ 2089 04bc 033081E0 		add	r3, r1, r3
+ 2090 04c0 C330A0E1 		asr	r3, r3, #1
+ 2091 04c4 033082E0 		add	r3, r2, r3
+ 2092 04c8 523063E2 		rsb	r3, r3, #82
+ 2093 04cc 110053E3 		cmp	r3, #17
+ 2094 04d0 040000DA 		ble	.L48
+ 2095              	.L49:
+ 2096              		.loc 1 301 0 is_stmt 0 discriminator 1
+ 2097 04d4 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2098 04d8 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2099 04dc 183193E5 		ldr	r3, [r3, #280]
+ 2100 04e0 520053E3 		cmp	r3, #82
+ 2101 04e4 E201001A 		bne	.L79
+ 2102              	.L48:
+ 302:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(RightEdge[70] - Width[70] / 2 - MidLine) < 18)   || RightEdge[70] ==MidLine)
+ 2103              		.loc 1 302 0 is_stmt 1
+ 2104 04e8 003000E3 		movw	r3, #:lower16:RightEdge
+ 2105 04ec 003040E3 		movt	r3, #:upper16:RightEdge
+ 2106 04f0 182193E5 		ldr	r2, [r3, #280]
+ 2107 04f4 003000E3 		movw	r3, #:lower16:Width
+ 2108 04f8 003040E3 		movt	r3, #:upper16:Width
+ 2109 04fc 183193E5 		ldr	r3, [r3, #280]
+ 2110 0500 A31FA0E1 		lsr	r1, r3, #31
+ 2111 0504 033081E0 		add	r3, r1, r3
+ 2112 0508 C330A0E1 		asr	r3, r3, #1
+ 2113 050c 003063E2 		rsb	r3, r3, #0
+ 2114 0510 033082E0 		add	r3, r2, r3
+ 2115 0514 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2116              		.loc 1 298 0
+ 2117 0518 000053E3 		cmp	r3, #0
+ 2118 051c 0E0000DA 		ble	.L50
+ 2119              		.loc 1 302 0
+ 2120 0520 003000E3 		movw	r3, #:lower16:RightEdge
+ 2121 0524 003040E3 		movt	r3, #:upper16:RightEdge
+ 2122 0528 182193E5 		ldr	r2, [r3, #280]
+ 2123 052c 003000E3 		movw	r3, #:lower16:Width
+ 2124 0530 003040E3 		movt	r3, #:upper16:Width
+ 2125 0534 183193E5 		ldr	r3, [r3, #280]
+ 2126 0538 A31FA0E1 		lsr	r1, r3, #31
+ 2127 053c 033081E0 		add	r3, r1, r3
+ 2128 0540 C330A0E1 		asr	r3, r3, #1
+ 2129 0544 003063E2 		rsb	r3, r3, #0
+ 2130 0548 033082E0 		add	r3, r2, r3
+ 2131 054c 523043E2 		sub	r3, r3, #82
+ 2132 0550 110053E3 		cmp	r3, #17
+ 2133 0554 130000DA 		ble	.L51
+ 2134 0558 0D0000EA 		b	.L52
+ 2135              	.L50:
+ 2136 055c 003000E3 		movw	r3, #:lower16:RightEdge
+ 2137 0560 003040E3 		movt	r3, #:upper16:RightEdge
+ 2138 0564 182193E5 		ldr	r2, [r3, #280]
+ 2139 0568 003000E3 		movw	r3, #:lower16:Width
+ 2140 056c 003040E3 		movt	r3, #:upper16:Width
+ 2141 0570 183193E5 		ldr	r3, [r3, #280]
+ 2142 0574 A31FA0E1 		lsr	r1, r3, #31
+ 2143 0578 033081E0 		add	r3, r1, r3
+ 2144 057c C330A0E1 		asr	r3, r3, #1
+ 2145 0580 003063E2 		rsb	r3, r3, #0
+ 2146 0584 033082E0 		add	r3, r2, r3
+ 2147 0588 523063E2 		rsb	r3, r3, #82
+ 2148 058c 110053E3 		cmp	r3, #17
+ 2149 0590 040000DA 		ble	.L51
+ 2150              	.L52:
+ 2151              		.loc 1 302 0 is_stmt 0 discriminator 1
+ 2152 0594 003000E3 		movw	r3, #:lower16:RightEdge
+ 2153 0598 003040E3 		movt	r3, #:upper16:RightEdge
+ 2154 059c 183193E5 		ldr	r3, [r3, #280]
+ 2155 05a0 520053E3 		cmp	r3, #82
+ 2156 05a4 B201001A 		bne	.L79
+ 2157              	.L51:
+ 303:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(LeftEdge[80]  + Width[80] / 2 - MidLine) < 18)   || LeftEdge[80]  ==MidLine)
+ 2158              		.loc 1 303 0 is_stmt 1
+ 2159 05a8 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2160 05ac 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2161 05b0 402193E5 		ldr	r2, [r3, #320]
+ 2162 05b4 003000E3 		movw	r3, #:lower16:Width
+ 2163 05b8 003040E3 		movt	r3, #:upper16:Width
+ 2164 05bc 403193E5 		ldr	r3, [r3, #320]
+ 2165 05c0 A31FA0E1 		lsr	r1, r3, #31
+ 2166 05c4 033081E0 		add	r3, r1, r3
+ 2167 05c8 C330A0E1 		asr	r3, r3, #1
+ 2168 05cc 033082E0 		add	r3, r2, r3
+ 2169 05d0 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2170              		.loc 1 298 0
+ 2171 05d4 000053E3 		cmp	r3, #0
+ 2172 05d8 0D0000DA 		ble	.L53
+ 2173              		.loc 1 303 0
+ 2174 05dc 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2175 05e0 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2176 05e4 402193E5 		ldr	r2, [r3, #320]
+ 2177 05e8 003000E3 		movw	r3, #:lower16:Width
+ 2178 05ec 003040E3 		movt	r3, #:upper16:Width
+ 2179 05f0 403193E5 		ldr	r3, [r3, #320]
+ 2180 05f4 A31FA0E1 		lsr	r1, r3, #31
+ 2181 05f8 033081E0 		add	r3, r1, r3
+ 2182 05fc C330A0E1 		asr	r3, r3, #1
+ 2183 0600 033082E0 		add	r3, r2, r3
+ 2184 0604 523043E2 		sub	r3, r3, #82
+ 2185 0608 110053E3 		cmp	r3, #17
+ 2186 060c 120000DA 		ble	.L54
+ 2187 0610 0C0000EA 		b	.L55
+ 2188              	.L53:
+ 2189 0614 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2190 0618 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2191 061c 402193E5 		ldr	r2, [r3, #320]
+ 2192 0620 003000E3 		movw	r3, #:lower16:Width
+ 2193 0624 003040E3 		movt	r3, #:upper16:Width
+ 2194 0628 403193E5 		ldr	r3, [r3, #320]
+ 2195 062c A31FA0E1 		lsr	r1, r3, #31
+ 2196 0630 033081E0 		add	r3, r1, r3
+ 2197 0634 C330A0E1 		asr	r3, r3, #1
+ 2198 0638 033082E0 		add	r3, r2, r3
+ 2199 063c 523063E2 		rsb	r3, r3, #82
+ 2200 0640 110053E3 		cmp	r3, #17
+ 2201 0644 040000DA 		ble	.L54
+ 2202              	.L55:
+ 2203              		.loc 1 303 0 is_stmt 0 discriminator 1
+ 2204 0648 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2205 064c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2206 0650 403193E5 		ldr	r3, [r3, #320]
+ 2207 0654 520053E3 		cmp	r3, #82
+ 2208 0658 8501001A 		bne	.L79
+ 2209              	.L54:
+ 304:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(RightEdge[80] - Width[80] / 2 - MidLine) < 18)   || RightEdge[80] ==MidLine)
+ 2210              		.loc 1 304 0 is_stmt 1
+ 2211 065c 003000E3 		movw	r3, #:lower16:RightEdge
+ 2212 0660 003040E3 		movt	r3, #:upper16:RightEdge
+ 2213 0664 402193E5 		ldr	r2, [r3, #320]
+ 2214 0668 003000E3 		movw	r3, #:lower16:Width
+ 2215 066c 003040E3 		movt	r3, #:upper16:Width
+ 2216 0670 403193E5 		ldr	r3, [r3, #320]
+ 2217 0674 A31FA0E1 		lsr	r1, r3, #31
+ 2218 0678 033081E0 		add	r3, r1, r3
+ 2219 067c C330A0E1 		asr	r3, r3, #1
+ 2220 0680 003063E2 		rsb	r3, r3, #0
+ 2221 0684 033082E0 		add	r3, r2, r3
+ 2222 0688 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2223              		.loc 1 298 0
+ 2224 068c 000053E3 		cmp	r3, #0
+ 2225 0690 0E0000DA 		ble	.L56
+ 2226              		.loc 1 304 0
+ 2227 0694 003000E3 		movw	r3, #:lower16:RightEdge
+ 2228 0698 003040E3 		movt	r3, #:upper16:RightEdge
+ 2229 069c 402193E5 		ldr	r2, [r3, #320]
+ 2230 06a0 003000E3 		movw	r3, #:lower16:Width
+ 2231 06a4 003040E3 		movt	r3, #:upper16:Width
+ 2232 06a8 403193E5 		ldr	r3, [r3, #320]
+ 2233 06ac A31FA0E1 		lsr	r1, r3, #31
+ 2234 06b0 033081E0 		add	r3, r1, r3
+ 2235 06b4 C330A0E1 		asr	r3, r3, #1
+ 2236 06b8 003063E2 		rsb	r3, r3, #0
+ 2237 06bc 033082E0 		add	r3, r2, r3
+ 2238 06c0 523043E2 		sub	r3, r3, #82
+ 2239 06c4 110053E3 		cmp	r3, #17
+ 2240 06c8 130000DA 		ble	.L57
+ 2241 06cc 0D0000EA 		b	.L58
+ 2242              	.L56:
+ 2243 06d0 003000E3 		movw	r3, #:lower16:RightEdge
+ 2244 06d4 003040E3 		movt	r3, #:upper16:RightEdge
+ 2245 06d8 402193E5 		ldr	r2, [r3, #320]
+ 2246 06dc 003000E3 		movw	r3, #:lower16:Width
+ 2247 06e0 003040E3 		movt	r3, #:upper16:Width
+ 2248 06e4 403193E5 		ldr	r3, [r3, #320]
+ 2249 06e8 A31FA0E1 		lsr	r1, r3, #31
+ 2250 06ec 033081E0 		add	r3, r1, r3
+ 2251 06f0 C330A0E1 		asr	r3, r3, #1
+ 2252 06f4 003063E2 		rsb	r3, r3, #0
+ 2253 06f8 033082E0 		add	r3, r2, r3
+ 2254 06fc 523063E2 		rsb	r3, r3, #82
+ 2255 0700 110053E3 		cmp	r3, #17
+ 2256 0704 040000DA 		ble	.L57
+ 2257              	.L58:
+ 2258              		.loc 1 304 0 is_stmt 0 discriminator 1
+ 2259 0708 003000E3 		movw	r3, #:lower16:RightEdge
+ 2260 070c 003040E3 		movt	r3, #:upper16:RightEdge
+ 2261 0710 403193E5 		ldr	r3, [r3, #320]
+ 2262 0714 520053E3 		cmp	r3, #82
+ 2263 0718 5501001A 		bne	.L79
+ 2264              	.L57:
+ 305:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(LeftEdge[90]  + Width[90] / 2 - MidLine) < 18)   || LeftEdge[90]  ==MidLine)
+ 2265              		.loc 1 305 0 is_stmt 1
+ 2266 071c 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2267 0720 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2268 0724 682193E5 		ldr	r2, [r3, #360]
+ 2269 0728 003000E3 		movw	r3, #:lower16:Width
+ 2270 072c 003040E3 		movt	r3, #:upper16:Width
+ 2271 0730 683193E5 		ldr	r3, [r3, #360]
+ 2272 0734 A31FA0E1 		lsr	r1, r3, #31
+ 2273 0738 033081E0 		add	r3, r1, r3
+ 2274 073c C330A0E1 		asr	r3, r3, #1
+ 2275 0740 033082E0 		add	r3, r2, r3
+ 2276 0744 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2277              		.loc 1 298 0
+ 2278 0748 000053E3 		cmp	r3, #0
+ 2279 074c 0D0000DA 		ble	.L59
+ 2280              		.loc 1 305 0
+ 2281 0750 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2282 0754 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2283 0758 682193E5 		ldr	r2, [r3, #360]
+ 2284 075c 003000E3 		movw	r3, #:lower16:Width
+ 2285 0760 003040E3 		movt	r3, #:upper16:Width
+ 2286 0764 683193E5 		ldr	r3, [r3, #360]
+ 2287 0768 A31FA0E1 		lsr	r1, r3, #31
+ 2288 076c 033081E0 		add	r3, r1, r3
+ 2289 0770 C330A0E1 		asr	r3, r3, #1
+ 2290 0774 033082E0 		add	r3, r2, r3
+ 2291 0778 523043E2 		sub	r3, r3, #82
+ 2292 077c 110053E3 		cmp	r3, #17
+ 2293 0780 120000DA 		ble	.L60
+ 2294 0784 0C0000EA 		b	.L61
+ 2295              	.L59:
+ 2296 0788 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2297 078c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2298 0790 682193E5 		ldr	r2, [r3, #360]
+ 2299 0794 003000E3 		movw	r3, #:lower16:Width
+ 2300 0798 003040E3 		movt	r3, #:upper16:Width
+ 2301 079c 683193E5 		ldr	r3, [r3, #360]
+ 2302 07a0 A31FA0E1 		lsr	r1, r3, #31
+ 2303 07a4 033081E0 		add	r3, r1, r3
+ 2304 07a8 C330A0E1 		asr	r3, r3, #1
+ 2305 07ac 033082E0 		add	r3, r2, r3
+ 2306 07b0 523063E2 		rsb	r3, r3, #82
+ 2307 07b4 110053E3 		cmp	r3, #17
+ 2308 07b8 040000DA 		ble	.L60
+ 2309              	.L61:
+ 2310              		.loc 1 305 0 is_stmt 0 discriminator 1
+ 2311 07bc 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2312 07c0 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2313 07c4 683193E5 		ldr	r3, [r3, #360]
+ 2314 07c8 520053E3 		cmp	r3, #82
+ 2315 07cc 2801001A 		bne	.L79
+ 2316              	.L60:
+ 306:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(RightEdge[90] - Width[90] / 2 - MidLine) < 18)   || RightEdge[90] ==MidLine)
+ 2317              		.loc 1 306 0 is_stmt 1
+ 2318 07d0 003000E3 		movw	r3, #:lower16:RightEdge
+ 2319 07d4 003040E3 		movt	r3, #:upper16:RightEdge
+ 2320 07d8 682193E5 		ldr	r2, [r3, #360]
+ 2321 07dc 003000E3 		movw	r3, #:lower16:Width
+ 2322 07e0 003040E3 		movt	r3, #:upper16:Width
+ 2323 07e4 683193E5 		ldr	r3, [r3, #360]
+ 2324 07e8 A31FA0E1 		lsr	r1, r3, #31
+ 2325 07ec 033081E0 		add	r3, r1, r3
+ 2326 07f0 C330A0E1 		asr	r3, r3, #1
+ 2327 07f4 003063E2 		rsb	r3, r3, #0
+ 2328 07f8 033082E0 		add	r3, r2, r3
+ 2329 07fc 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2330              		.loc 1 298 0
+ 2331 0800 000053E3 		cmp	r3, #0
+ 2332 0804 0E0000DA 		ble	.L62
+ 2333              		.loc 1 306 0
+ 2334 0808 003000E3 		movw	r3, #:lower16:RightEdge
+ 2335 080c 003040E3 		movt	r3, #:upper16:RightEdge
+ 2336 0810 682193E5 		ldr	r2, [r3, #360]
+ 2337 0814 003000E3 		movw	r3, #:lower16:Width
+ 2338 0818 003040E3 		movt	r3, #:upper16:Width
+ 2339 081c 683193E5 		ldr	r3, [r3, #360]
+ 2340 0820 A31FA0E1 		lsr	r1, r3, #31
+ 2341 0824 033081E0 		add	r3, r1, r3
+ 2342 0828 C330A0E1 		asr	r3, r3, #1
+ 2343 082c 003063E2 		rsb	r3, r3, #0
+ 2344 0830 033082E0 		add	r3, r2, r3
+ 2345 0834 523043E2 		sub	r3, r3, #82
+ 2346 0838 110053E3 		cmp	r3, #17
+ 2347 083c 130000DA 		ble	.L63
+ 2348 0840 0D0000EA 		b	.L64
+ 2349              	.L62:
+ 2350 0844 003000E3 		movw	r3, #:lower16:RightEdge
+ 2351 0848 003040E3 		movt	r3, #:upper16:RightEdge
+ 2352 084c 682193E5 		ldr	r2, [r3, #360]
+ 2353 0850 003000E3 		movw	r3, #:lower16:Width
+ 2354 0854 003040E3 		movt	r3, #:upper16:Width
+ 2355 0858 683193E5 		ldr	r3, [r3, #360]
+ 2356 085c A31FA0E1 		lsr	r1, r3, #31
+ 2357 0860 033081E0 		add	r3, r1, r3
+ 2358 0864 C330A0E1 		asr	r3, r3, #1
+ 2359 0868 003063E2 		rsb	r3, r3, #0
+ 2360 086c 033082E0 		add	r3, r2, r3
+ 2361 0870 523063E2 		rsb	r3, r3, #82
+ 2362 0874 110053E3 		cmp	r3, #17
+ 2363 0878 040000DA 		ble	.L63
+ 2364              	.L64:
+ 2365              		.loc 1 306 0 is_stmt 0 discriminator 1
+ 2366 087c 003000E3 		movw	r3, #:lower16:RightEdge
+ 2367 0880 003040E3 		movt	r3, #:upper16:RightEdge
+ 2368 0884 683193E5 		ldr	r3, [r3, #360]
+ 2369 0888 520053E3 		cmp	r3, #82
+ 2370 088c F800001A 		bne	.L79
+ 2371              	.L63:
+ 307:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(LeftEdge[100]  + Width[100] / 2 - MidLine) < 18)   || LeftEdge[100]  ==MidLine)
+ 2372              		.loc 1 307 0 is_stmt 1
+ 2373 0890 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2374 0894 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2375 0898 902193E5 		ldr	r2, [r3, #400]
+ 2376 089c 003000E3 		movw	r3, #:lower16:Width
+ 2377 08a0 003040E3 		movt	r3, #:upper16:Width
+ 2378 08a4 903193E5 		ldr	r3, [r3, #400]
+ 2379 08a8 A31FA0E1 		lsr	r1, r3, #31
+ 2380 08ac 033081E0 		add	r3, r1, r3
+ 2381 08b0 C330A0E1 		asr	r3, r3, #1
+ 2382 08b4 033082E0 		add	r3, r2, r3
+ 2383 08b8 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2384              		.loc 1 298 0
+ 2385 08bc 000053E3 		cmp	r3, #0
+ 2386 08c0 0D0000DA 		ble	.L65
+ 2387              		.loc 1 307 0
+ 2388 08c4 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2389 08c8 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2390 08cc 902193E5 		ldr	r2, [r3, #400]
+ 2391 08d0 003000E3 		movw	r3, #:lower16:Width
+ 2392 08d4 003040E3 		movt	r3, #:upper16:Width
+ 2393 08d8 903193E5 		ldr	r3, [r3, #400]
+ 2394 08dc A31FA0E1 		lsr	r1, r3, #31
+ 2395 08e0 033081E0 		add	r3, r1, r3
+ 2396 08e4 C330A0E1 		asr	r3, r3, #1
+ 2397 08e8 033082E0 		add	r3, r2, r3
+ 2398 08ec 523043E2 		sub	r3, r3, #82
+ 2399 08f0 110053E3 		cmp	r3, #17
+ 2400 08f4 120000DA 		ble	.L66
+ 2401 08f8 0C0000EA 		b	.L67
+ 2402              	.L65:
+ 2403 08fc 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2404 0900 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2405 0904 902193E5 		ldr	r2, [r3, #400]
+ 2406 0908 003000E3 		movw	r3, #:lower16:Width
+ 2407 090c 003040E3 		movt	r3, #:upper16:Width
+ 2408 0910 903193E5 		ldr	r3, [r3, #400]
+ 2409 0914 A31FA0E1 		lsr	r1, r3, #31
+ 2410 0918 033081E0 		add	r3, r1, r3
+ 2411 091c C330A0E1 		asr	r3, r3, #1
+ 2412 0920 033082E0 		add	r3, r2, r3
+ 2413 0924 523063E2 		rsb	r3, r3, #82
+ 2414 0928 110053E3 		cmp	r3, #17
+ 2415 092c 040000DA 		ble	.L66
+ 2416              	.L67:
+ 2417              		.loc 1 307 0 is_stmt 0 discriminator 1
+ 2418 0930 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2419 0934 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2420 0938 903193E5 		ldr	r3, [r3, #400]
+ 2421 093c 520053E3 		cmp	r3, #82
+ 2422 0940 CB00001A 		bne	.L79
+ 2423              	.L66:
+ 308:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(RightEdge[100] - Width[100] / 2 - MidLine) < 18)   || RightEdge[100] ==MidLine)
+ 2424              		.loc 1 308 0 is_stmt 1
+ 2425 0944 003000E3 		movw	r3, #:lower16:RightEdge
+ 2426 0948 003040E3 		movt	r3, #:upper16:RightEdge
+ 2427 094c 902193E5 		ldr	r2, [r3, #400]
+ 2428 0950 003000E3 		movw	r3, #:lower16:Width
+ 2429 0954 003040E3 		movt	r3, #:upper16:Width
+ 2430 0958 903193E5 		ldr	r3, [r3, #400]
+ 2431 095c A31FA0E1 		lsr	r1, r3, #31
+ 2432 0960 033081E0 		add	r3, r1, r3
+ 2433 0964 C330A0E1 		asr	r3, r3, #1
+ 2434 0968 003063E2 		rsb	r3, r3, #0
+ 2435 096c 033082E0 		add	r3, r2, r3
+ 2436 0970 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2437              		.loc 1 298 0
+ 2438 0974 000053E3 		cmp	r3, #0
+ 2439 0978 0E0000DA 		ble	.L68
+ 2440              		.loc 1 308 0
+ 2441 097c 003000E3 		movw	r3, #:lower16:RightEdge
+ 2442 0980 003040E3 		movt	r3, #:upper16:RightEdge
+ 2443 0984 902193E5 		ldr	r2, [r3, #400]
+ 2444 0988 003000E3 		movw	r3, #:lower16:Width
+ 2445 098c 003040E3 		movt	r3, #:upper16:Width
+ 2446 0990 903193E5 		ldr	r3, [r3, #400]
+ 2447 0994 A31FA0E1 		lsr	r1, r3, #31
+ 2448 0998 033081E0 		add	r3, r1, r3
+ 2449 099c C330A0E1 		asr	r3, r3, #1
+ 2450 09a0 003063E2 		rsb	r3, r3, #0
+ 2451 09a4 033082E0 		add	r3, r2, r3
+ 2452 09a8 523043E2 		sub	r3, r3, #82
+ 2453 09ac 110053E3 		cmp	r3, #17
+ 2454 09b0 130000DA 		ble	.L69
+ 2455 09b4 0D0000EA 		b	.L70
+ 2456              	.L68:
+ 2457 09b8 003000E3 		movw	r3, #:lower16:RightEdge
+ 2458 09bc 003040E3 		movt	r3, #:upper16:RightEdge
+ 2459 09c0 902193E5 		ldr	r2, [r3, #400]
+ 2460 09c4 003000E3 		movw	r3, #:lower16:Width
+ 2461 09c8 003040E3 		movt	r3, #:upper16:Width
+ 2462 09cc 903193E5 		ldr	r3, [r3, #400]
+ 2463 09d0 A31FA0E1 		lsr	r1, r3, #31
+ 2464 09d4 033081E0 		add	r3, r1, r3
+ 2465 09d8 C330A0E1 		asr	r3, r3, #1
+ 2466 09dc 003063E2 		rsb	r3, r3, #0
+ 2467 09e0 033082E0 		add	r3, r2, r3
+ 2468 09e4 523063E2 		rsb	r3, r3, #82
+ 2469 09e8 110053E3 		cmp	r3, #17
+ 2470 09ec 040000DA 		ble	.L69
+ 2471              	.L70:
+ 2472              		.loc 1 308 0 is_stmt 0 discriminator 1
+ 2473 09f0 003000E3 		movw	r3, #:lower16:RightEdge
+ 2474 09f4 003040E3 		movt	r3, #:upper16:RightEdge
+ 2475 09f8 903193E5 		ldr	r3, [r3, #400]
+ 2476 09fc 520053E3 		cmp	r3, #82
+ 2477 0a00 9B00001A 		bne	.L79
+ 2478              	.L69:
+ 309:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(LeftEdge[110]  + Width[110] / 2 - MidLine) < 18)   || LeftEdge[110]  ==MidLine)
+ 2479              		.loc 1 309 0 is_stmt 1
+ 2480 0a04 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2481 0a08 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2482 0a0c B82193E5 		ldr	r2, [r3, #440]
+ 2483 0a10 003000E3 		movw	r3, #:lower16:Width
+ 2484 0a14 003040E3 		movt	r3, #:upper16:Width
+ 2485 0a18 B83193E5 		ldr	r3, [r3, #440]
+ 2486 0a1c A31FA0E1 		lsr	r1, r3, #31
+ 2487 0a20 033081E0 		add	r3, r1, r3
+ 2488 0a24 C330A0E1 		asr	r3, r3, #1
+ 2489 0a28 033082E0 		add	r3, r2, r3
+ 2490 0a2c 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2491              		.loc 1 298 0
+ 2492 0a30 000053E3 		cmp	r3, #0
+ 2493 0a34 0D0000DA 		ble	.L71
+ 2494              		.loc 1 309 0
+ 2495 0a38 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2496 0a3c 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2497 0a40 B82193E5 		ldr	r2, [r3, #440]
+ 2498 0a44 003000E3 		movw	r3, #:lower16:Width
+ 2499 0a48 003040E3 		movt	r3, #:upper16:Width
+ 2500 0a4c B83193E5 		ldr	r3, [r3, #440]
+ 2501 0a50 A31FA0E1 		lsr	r1, r3, #31
+ 2502 0a54 033081E0 		add	r3, r1, r3
+ 2503 0a58 C330A0E1 		asr	r3, r3, #1
+ 2504 0a5c 033082E0 		add	r3, r2, r3
+ 2505 0a60 523043E2 		sub	r3, r3, #82
+ 2506 0a64 110053E3 		cmp	r3, #17
+ 2507 0a68 120000DA 		ble	.L72
+ 2508 0a6c 0C0000EA 		b	.L73
+ 2509              	.L71:
+ 2510 0a70 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2511 0a74 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2512 0a78 B82193E5 		ldr	r2, [r3, #440]
+ 2513 0a7c 003000E3 		movw	r3, #:lower16:Width
+ 2514 0a80 003040E3 		movt	r3, #:upper16:Width
+ 2515 0a84 B83193E5 		ldr	r3, [r3, #440]
+ 2516 0a88 A31FA0E1 		lsr	r1, r3, #31
+ 2517 0a8c 033081E0 		add	r3, r1, r3
+ 2518 0a90 C330A0E1 		asr	r3, r3, #1
+ 2519 0a94 033082E0 		add	r3, r2, r3
+ 2520 0a98 523063E2 		rsb	r3, r3, #82
+ 2521 0a9c 110053E3 		cmp	r3, #17
+ 2522 0aa0 040000DA 		ble	.L72
+ 2523              	.L73:
+ 2524              		.loc 1 309 0 is_stmt 0 discriminator 1
+ 2525 0aa4 003000E3 		movw	r3, #:lower16:LeftEdge
+ 2526 0aa8 003040E3 		movt	r3, #:upper16:LeftEdge
+ 2527 0aac B83193E5 		ldr	r3, [r3, #440]
+ 2528 0ab0 520053E3 		cmp	r3, #82
+ 2529 0ab4 6E00001A 		bne	.L79
+ 2530              	.L72:
+ 310:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((ABS(RightEdge[110] - Width[110] / 2 - MidLine) < 18)   || RightEdge[110] ==MidLine)
+ 2531              		.loc 1 310 0 is_stmt 1
+ 2532 0ab8 003000E3 		movw	r3, #:lower16:RightEdge
+ 2533 0abc 003040E3 		movt	r3, #:upper16:RightEdge
+ 2534 0ac0 B82193E5 		ldr	r2, [r3, #440]
+ 2535 0ac4 003000E3 		movw	r3, #:lower16:Width
+ 2536 0ac8 003040E3 		movt	r3, #:upper16:Width
+ 2537 0acc B83193E5 		ldr	r3, [r3, #440]
+ 2538 0ad0 A31FA0E1 		lsr	r1, r3, #31
+ 2539 0ad4 033081E0 		add	r3, r1, r3
+ 2540 0ad8 C330A0E1 		asr	r3, r3, #1
+ 2541 0adc 003063E2 		rsb	r3, r3, #0
+ 2542 0ae0 033082E0 		add	r3, r2, r3
+ 2543 0ae4 523043E2 		sub	r3, r3, #82
+ 298:../src/renesas/application/smart_car/Track/TrackType.c **** 	//	  && ((ABS(LeftEdge[60]  + Width[60] / 2 - MidLine) < 20)   || LeftEdge[60]  ==MidLine)
+ 2544              		.loc 1 298 0
+ 2545 0ae8 000053E3 		cmp	r3, #0
+ 2546 0aec 0E0000DA 		ble	.L74
+ 2547              		.loc 1 310 0
+ 2548 0af0 003000E3 		movw	r3, #:lower16:RightEdge
+ 2549 0af4 003040E3 		movt	r3, #:upper16:RightEdge
+ 2550 0af8 B82193E5 		ldr	r2, [r3, #440]
+ 2551 0afc 003000E3 		movw	r3, #:lower16:Width
+ 2552 0b00 003040E3 		movt	r3, #:upper16:Width
+ 2553 0b04 B83193E5 		ldr	r3, [r3, #440]
+ 2554 0b08 A31FA0E1 		lsr	r1, r3, #31
+ 2555 0b0c 033081E0 		add	r3, r1, r3
+ 2556 0b10 C330A0E1 		asr	r3, r3, #1
+ 2557 0b14 003063E2 		rsb	r3, r3, #0
+ 2558 0b18 033082E0 		add	r3, r2, r3
+ 2559 0b1c 523043E2 		sub	r3, r3, #82
+ 2560 0b20 110053E3 		cmp	r3, #17
+ 2561 0b24 130000DA 		ble	.L75
+ 2562 0b28 0D0000EA 		b	.L76
+ 2563              	.L74:
+ 2564 0b2c 003000E3 		movw	r3, #:lower16:RightEdge
+ 2565 0b30 003040E3 		movt	r3, #:upper16:RightEdge
+ 2566 0b34 B82193E5 		ldr	r2, [r3, #440]
+ 2567 0b38 003000E3 		movw	r3, #:lower16:Width
+ 2568 0b3c 003040E3 		movt	r3, #:upper16:Width
+ 2569 0b40 B83193E5 		ldr	r3, [r3, #440]
+ 2570 0b44 A31FA0E1 		lsr	r1, r3, #31
+ 2571 0b48 033081E0 		add	r3, r1, r3
+ 2572 0b4c C330A0E1 		asr	r3, r3, #1
+ 2573 0b50 003063E2 		rsb	r3, r3, #0
+ 2574 0b54 033082E0 		add	r3, r2, r3
+ 2575 0b58 523063E2 		rsb	r3, r3, #82
+ 2576 0b5c 110053E3 		cmp	r3, #17
+ 2577 0b60 040000DA 		ble	.L75
+ 2578              	.L76:
+ 2579              		.loc 1 310 0 is_stmt 0 discriminator 1
+ 2580 0b64 003000E3 		movw	r3, #:lower16:RightEdge
+ 2581 0b68 003040E3 		movt	r3, #:upper16:RightEdge
+ 2582 0b6c B83193E5 		ldr	r3, [r3, #440]
+ 2583 0b70 520053E3 		cmp	r3, #82
+ 2584 0b74 3E00001A 		bne	.L79
+ 2585              	.L75:
+ 311:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && (RCross_flag||LCross_flag||LRCross_flag)
+ 2586              		.loc 1 311 0 is_stmt 1
+ 2587 0b78 003000E3 		movw	r3, #:lower16:RCross_flag
+ 2588 0b7c 003040E3 		movt	r3, #:upper16:RCross_flag
+ 2589 0b80 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2590 0b84 000053E3 		cmp	r3, #0
+ 2591 0b88 0900001A 		bne	.L77
+ 2592              		.loc 1 311 0 is_stmt 0 discriminator 1
+ 2593 0b8c 003000E3 		movw	r3, #:lower16:LCross_flag
+ 2594 0b90 003040E3 		movt	r3, #:upper16:LCross_flag
+ 2595 0b94 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2596 0b98 000053E3 		cmp	r3, #0
+ 2597 0b9c 0400001A 		bne	.L77
+ 2598              		.loc 1 311 0 discriminator 2
+ 2599 0ba0 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 2600 0ba4 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 2601 0ba8 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2602 0bac 000053E3 		cmp	r3, #0
+ 2603 0bb0 2F00000A 		beq	.L79
+ 2604              	.L77:
+ 312:../src/renesas/application/smart_car/Track/TrackType.c **** 		  && ((RCross_flag==sign_straight||LCross_flag==sign_straight||LRCross_flag==sign_straight)||turn
+ 2605              		.loc 1 312 0 is_stmt 1
+ 2606 0bb4 003000E3 		movw	r3, #:lower16:RCross_flag
+ 2607 0bb8 003040E3 		movt	r3, #:upper16:RCross_flag
+ 2608 0bbc 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2609 0bc0 030053E3 		cmp	r3, #3
+ 2610 0bc4 0E00000A 		beq	.L78
+ 2611              		.loc 1 312 0 is_stmt 0 discriminator 1
+ 2612 0bc8 003000E3 		movw	r3, #:lower16:LCross_flag
+ 2613 0bcc 003040E3 		movt	r3, #:upper16:LCross_flag
+ 2614 0bd0 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2615 0bd4 030053E3 		cmp	r3, #3
+ 2616 0bd8 0900000A 		beq	.L78
+ 2617              		.loc 1 312 0 discriminator 2
+ 2618 0bdc 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 2619 0be0 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 2620 0be4 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2621 0be8 030053E3 		cmp	r3, #3
+ 2622 0bec 0400000A 		beq	.L78
+ 2623              		.loc 1 312 0 discriminator 3
+ 2624 0bf0 003000E3 		movw	r3, #:lower16:turn_flag
+ 2625 0bf4 003040E3 		movt	r3, #:upper16:turn_flag
+ 2626 0bf8 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2627 0bfc 000053E3 		cmp	r3, #0
+ 2628 0c00 1B00000A 		beq	.L79
+ 2629              	.L78:
+ 313:../src/renesas/application/smart_car/Track/TrackType.c **** 		{
+ 314:../src/renesas/application/smart_car/Track/TrackType.c **** 			RCross_flag = 0; LCross_flag = 0; LRCross_flag = 0;
+ 2630              		.loc 1 314 0 is_stmt 1
+ 2631 0c04 003000E3 		movw	r3, #:lower16:RCross_flag
+ 2632 0c08 003040E3 		movt	r3, #:upper16:RCross_flag
+ 2633 0c0c 0020A0E3 		mov	r2, #0
+ 2634 0c10 0020C3E5 		strb	r2, [r3]
+ 2635 0c14 003000E3 		movw	r3, #:lower16:LCross_flag
+ 2636 0c18 003040E3 		movt	r3, #:upper16:LCross_flag
+ 2637 0c1c 0020A0E3 		mov	r2, #0
+ 2638 0c20 0020C3E5 		strb	r2, [r3]
+ 2639 0c24 003000E3 		movw	r3, #:lower16:LRCross_flag
+ 2640 0c28 003040E3 		movt	r3, #:upper16:LRCross_flag
+ 2641 0c2c 0020A0E3 		mov	r2, #0
+ 2642 0c30 0020C3E5 		strb	r2, [r3]
+ 315:../src/renesas/application/smart_car/Track/TrackType.c **** 			count = 0;
+ 2643              		.loc 1 315 0
+ 2644 0c34 003000E3 		movw	r3, #:lower16:count
+ 2645 0c38 003040E3 		movt	r3, #:upper16:count
+ 2646 0c3c 0020A0E3 		mov	r2, #0
+ 2647 0c40 002083E5 		str	r2, [r3]
+ 316:../src/renesas/application/smart_car/Track/TrackType.c **** 			normal_flag = 1;
+ 2648              		.loc 1 316 0
+ 2649 0c44 003000E3 		movw	r3, #:lower16:normal_flag
+ 2650 0c48 003040E3 		movt	r3, #:upper16:normal_flag
+ 2651 0c4c 0120A0E3 		mov	r2, #1
+ 2652 0c50 0020C3E5 		strb	r2, [r3]
+ 317:../src/renesas/application/smart_car/Track/TrackType.c **** 			cross_flag = 1;
+ 2653              		.loc 1 317 0
+ 2654 0c54 003000E3 		movw	r3, #:lower16:cross_flag
+ 2655 0c58 003040E3 		movt	r3, #:upper16:cross_flag
+ 2656 0c5c 0120A0E3 		mov	r2, #1
+ 2657 0c60 0020C3E5 		strb	r2, [r3]
+ 318:../src/renesas/application/smart_car/Track/TrackType.c **** 			traffic_en = 0;
+ 2658              		.loc 1 318 0
+ 2659 0c64 003000E3 		movw	r3, #:lower16:traffic_en
+ 2660 0c68 003040E3 		movt	r3, #:upper16:traffic_en
+ 2661 0c6c 0020A0E3 		mov	r2, #0
+ 2662 0c70 0020C3E5 		strb	r2, [r3]
+ 2663              	.L79:
+ 319:../src/renesas/application/smart_car/Track/TrackType.c **** //			send_en = 1;
+ 320:../src/renesas/application/smart_car/Track/TrackType.c **** 			//printf("reset\r\n");
+ 321:../src/renesas/application/smart_car/Track/TrackType.c **** 		}
+ 322:../src/renesas/application/smart_car/Track/TrackType.c ****     }
+ 323:../src/renesas/application/smart_car/Track/TrackType.c **** }
+ 2664              		.loc 1 323 0
+ 2665 0c74 00F020E3 		nop
+ 2666 0c78 0088BDE8 		pop	{fp, pc}
+ 2667              		.cfi_endproc
+ 2668              	.LFE7:
+ 2670              		.text
+ 2671              	.Letext0:
+ 2672              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2673              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2674              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2675              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2676              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 2677              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2678              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2679              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 2680              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2681              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2682              		.file 12 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2683              		.file 13 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2684              		.file 14 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2685              		.file 15 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2686              		.file 16 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2687              		.file 17 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2688              		.file 18 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2689              		.file 19 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2690              		.file 20 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2691              		.file 21 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2692              		.file 22 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2693              		.file 23 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2694              		.file 24 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2695              		.file 25 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2696              		.file 26 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2697              		.file 27 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2698              		.file 28 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\app\\RZA2M_DRP_Benchmark
+ 2699              		.file 29 "../src/renesas/application/smart_car/Track/TrackType.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 TrackType.c
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:17     .rodata.s_sc_cpg_xtal_frequency_khz_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:20     .rodata.s_sc_cpg_xtal_frequency_khz_config:00000000 s_sc_cpg_xtal_frequency_khz_config
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:24     .rodata.s_sc_cpg_main_clock_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:27     .rodata.s_sc_cpg_main_clock_config:00000000 s_sc_cpg_main_clock_config
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:33     .rodata.s_sc_cpg_sub_clock_div_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:36     .rodata.s_sc_cpg_sub_clock_div_config:00000000 s_sc_cpg_sub_clock_div_config
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:50     .rodata.s_sc_cpg_sub_clock_src_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:53     .rodata.s_sc_cpg_sub_clock_src_config:00000000 s_sc_cpg_sub_clock_src_config
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:63     .rodata.s_sc_cpg_ext_clk_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:66     .rodata.s_sc_cpg_ext_clk_config:00000000 s_sc_cpg_ext_clk_config
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:69     .rodata.GPIO_SC_TABLE_INIT:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:72     .rodata.GPIO_SC_TABLE_INIT:00000000 GPIO_SC_TABLE_INIT
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:84     .rodata.GPIO_SC_TABLE_MANUAL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:87     .rodata.GPIO_SC_TABLE_MANUAL:00000000 GPIO_SC_TABLE_MANUAL
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:419    .rodata.GPIO_SC_TABLE_riic2:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:422    .rodata.GPIO_SC_TABLE_riic2:00000000 GPIO_SC_TABLE_riic2
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:434    .rodata.GPIO_SC_TABLE_riic3:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:437    .rodata.GPIO_SC_TABLE_riic3:00000000 GPIO_SC_TABLE_riic3
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:449    .rodata.GPIO_SC_TABLE_scifa4:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:452    .rodata.GPIO_SC_TABLE_scifa4:00000000 GPIO_SC_TABLE_scifa4
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:464    .rodata.GPIO_SC_TABLE_BSC:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:467    .rodata.GPIO_SC_TABLE_BSC:00000000 GPIO_SC_TABLE_BSC
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:649    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:652    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 GPIO_SC_TABLE_sdhi_simplified0
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:664    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:667    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 GPIO_SC_TABLE_sdhi_simplified1
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:679    .rodata.MMU_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:682    .rodata.MMU_SC_TABLE:00000000 MMU_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:839    .rodata.SCIFA_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:842    .rodata.SCIFA_SC_TABLE:00000000 SCIFA_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:875    .rodata.SDHI_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:878    .rodata.SDHI_SC_TABLE:00000000 SDHI_SC_TABLE
+                            *COM*:00000006 InflectionPointL
+                            *COM*:00000006 InflectionPointR
+                            *COM*:00000003 Cross
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:904    .bss.RCross_flag:00000000 RCross_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:905    .bss.RCross_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:910    .bss.LCross_flag:00000000 LCross_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:911    .bss.LCross_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:916    .bss.LRCross_flag:00000000 LRCross_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:917    .bss.LRCross_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:922    .bss.turn_flag:00000000 turn_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:923    .bss.turn_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:929    .bss.count:00000000 count
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:926    .bss.count:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:935    .bss.sign:00000000 sign
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:936    .bss.sign:00000000 $d
+                            *COM*:000000a0 LeftScanCol
+                            *COM*:000000a0 RightScanCol
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:943    .bss.traffic_en:00000000 traffic_en
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:944    .bss.traffic_en:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:946    .text.FindInflectionPointR:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:951    .text.FindInflectionPointR:00000000 FindInflectionPointR
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1123   .text.FindInflectionPointL:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1128   .text.FindInflectionPointL:00000000 FindInflectionPointL
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1299   .text.CrossRecognition:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1304   .text.CrossRecognition:00000000 CrossRecognition
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1468   .bss.send_flag:00000000 send_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1469   .bss.send_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1474   .bss.normal_flag:00000000 normal_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1475   .bss.normal_flag:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1480   .data.cross_flag:00000000 cross_flag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1483   .text.Crossflag:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1488   .text.Crossflag:00000000 Crossflag
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1697   .text.CrossProcess:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccnd4TPh.s:1703   .text.CrossProcess:00000000 CrossProcess
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.mcu_board_select.h.31.7f7a1c962a4ca00898aa17751bce3853
+                           .group:00000000 wm4.iobitmask.h.29.773e8f8428b0c21e1206a8c47a6d3927
+                           .group:00000000 wm4.adc_iobitmask.h.29.48ba2821c8a4fc20022447ad9316d399
+                           .group:00000000 wm4.bsc_iobitmask.h.29.115d15c4ad4b48e00598dcd62d33c637
+                           .group:00000000 wm4.ceu_iobitmask.h.29.413b5b68bb3c2148786493166a57173e
+                           .group:00000000 wm4.cpg_iobitmask.h.29.58382d682aa9abf69ab653ac5fe9149b
+                           .group:00000000 wm4.csi2link_iobitmask.h.29.701c130cb17627664fe7c147084057cf
+                           .group:00000000 wm4.dmac_iobitmask.h.29.98850e876107975c53dc0bb8ebb53eb5
+                           .group:00000000 wm4.drpk_iobitmask.h.29.167e7cf6b1feb4d38b8903a46d8c35ac
+                           .group:00000000 wm4.drw_iobitmask.h.29.71d46f2244f6e7ae6117fe6c41c5567d
+                           .group:00000000 wm4.edmac_iobitmask.h.29.4e406d859155ba914663e1cf61cad89a
+                           .group:00000000 wm4.eptpc_iobitmask.h.29.64bcd0a67db3a886572992ae6da8898c
+                           .group:00000000 wm4.etherc_iobitmask.h.29.07b13cb10c426023658e5c51f952b6de
+                           .group:00000000 wm4.gpio_iobitmask.h.29.ea8c1464682eb61f2d0763b97ed530f9
+                           .group:00000000 wm4.gpt_iobitmask.h.29.94173800a704c5ba32e348ba97cd23cf
+                           .group:00000000 wm4.hyper_iobitmask.h.29.f09febbc7b835674abe34ae75f3c700d
+                           .group:00000000 wm4.imr2_iobitmask.h.29.90b834f92ca4d39c49dda81fe096b5f0
+                           .group:00000000 wm4.intc_iobitmask.h.29.6d3be2e47bf3d7eb7e91eeddcab863af
+                           .group:00000000 wm4.irda_iobitmask.h.29.6f43dde454e599a1d4a8be2978ac9459
+                           .group:00000000 wm4.jcu_iobitmask.h.29.9fd48851a81ff31733aa19b29e4846ad
+                           .group:00000000 wm4.lvds_iobitmask.h.29.4a6f69c8911426fa05f0b05eab5f5e15
+                           .group:00000000 wm4.mtu_iobitmask.h.29.7a98ba20f3fb30f35d72abcc74524cc2
+                           .group:00000000 wm4.nandc_iobitmask.h.29.a3a0f4ae99fdf814aa6f25f430186b14
+                           .group:00000000 wm4.octa_iobitmask.h.29.88d29c353902045cc5df621720d36632
+                           .group:00000000 wm4.ostm_iobitmask.h.29.38ee9f4e1711e17bd3f38545ba631cde
+                           .group:00000000 wm4.pl310_iobitmask.h.29.c1ef5625c0a9d67f24e89fe2fd7e4886
+                           .group:00000000 wm4.pmg_iobitmask.h.29.d20cb8352080a58cf6cbf526935d968e
+                           .group:00000000 wm4.poe3_iobitmask.h.29.3a3444cc2dbf606e2370573e16d57254
+                           .group:00000000 wm4.poeg_iobitmask.h.29.5601eb8cf1161926d683c0720340f85d
+                           .group:00000000 wm4.prr_iobitmask.h.29.52f8479a52e2236c122b5956e4bdbfce
+                           .group:00000000 wm4.ptpedmac_iobitmask.h.29.494dcb2240ebba7fa20d0c2ab02007f7
+                           .group:00000000 wm4.rcanfd_iobitmask.h.29.4376b1b7ff587ba618a622f2c4029df7
+                           .group:00000000 wm4.rcan_iobitmask.h.29.c6f8b9b62e8fdc007f8b5f40c1f7e95d
+                           .group:00000000 wm4.riic_iobitmask.h.29.b6e4a30b4a750b93bf8b54b204e41e8e
+                           .group:00000000 wm4.rspi_iobitmask.h.29.2e257f44186c83ca40dbb0db2548623b
+                           .group:00000000 wm4.rtc_iobitmask.h.29.83f9de1730e532ab7dfce6a57bb996ea
+                           .group:00000000 wm4.scifa_iobitmask.h.29.c7af830569e0d6a26f3d66e3adc293d7
+                           .group:00000000 wm4.scim_iobitmask.h.29.3b5e9d8b03a11c94acd93de96d2037f6
+                           .group:00000000 wm4.sdmmc_iobitmask.h.29.023cb9ff953a162569769cc98970f23e
+                           .group:00000000 wm4.spdif_iobitmask.h.29.c16f83f628828ab24aa2b72615b93e69
+                           .group:00000000 wm4.spibsc_iobitmask.h.29.8ade4a581f57cd5b82569a69eb5f0d67
+                           .group:00000000 wm4.sprite_iobitmask.h.29.82888597faf7ebb3bc86b5f1018a2253
+                           .group:00000000 wm4.ssif_iobitmask.h.29.482529b431f1ad627a02168620c61eee
+                           .group:00000000 wm4.usb_iobitmask.h.29.aae4dfd463dfdd120bf5855c9dc97483
+                           .group:00000000 wm4.vdc6_iobitmask.h.29.3ce0a3f9d2209ce71e4fec48b4ecb79a
+                           .group:00000000 wm4.vin_iobitmask.h.29.576a1d6e4b2cf6cbd353044865e437f2
+                           .group:00000000 wm4.wdt_iobitmask.h.29.c612db09eac33fb3da8d8aaee67287a9
+                           .group:00000000 wm4.rza_io_regrw.h.46.8ffd34a4c69bd0fad4b7b3d6d30a6855
+                           .group:00000000 wm4.r_cache_lld_rza2m.h.49.8943c30e0d78454ab1bac47fcdc61a41
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.7fe5132a77561580dbf35c71e690474f
+                           .group:00000000 wm4.r_cpg_drv_api.h.38.b40a52cab6e6adb0f168c573c5a31ec8
+                           .group:00000000 wm4.r_intc_lld_rza2m.h.46.7dc7c9a114da565f71778e91111dd70b
+                           .group:00000000 wm4.r_mmu_lld_rza2m.h.41.3e841c712e0b350b02dd41ff0093d85d
+                           .group:00000000 wm4.r_stb_lld_rza2m.h.46.c1a1fce253cc34cd49049ab15104e0d0
+                           .group:00000000 wm4.r_bsc_lld_rza2m.h.30.db8a1463b905452b1ec96ad2e3da18a4
+                           .group:00000000 wm4.r_ceu_user.h.38.140474eca4ac6a909fdcd22019c567ca
+                           .group:00000000 wm4.stdbool.h.29.07dce69c3b78884144b7f7bd19483461
+                           .group:00000000 wm4.r_dk2_if.h.53.04a09603c8426576ee9c3b06e8b8dd44
+                           .group:00000000 wm4.rz_co_typedef.h.33.48214617b2167869e276cdf9b5e605d8
+                           .group:00000000 wm4.r_jcu_typedef.h.62.f28b2736609f230013d899023f2d5a54
+                           .group:00000000 wm4.r_mipi_user.h.41.904962207e45a5581bdc399e4d770943
+                           .group:00000000 wm4.r_rza2m_riic_lld_cfg.h.40.1a5f6c5ea695a369eafb519f9773c77d
+                           .group:00000000 wm4.r_rza2m_riic_lld_api.h.37.76c059981812ab1c27bbe073398fe70a
+                           .group:00000000 wm4.r_riic_drv_api.h.77.d3e88cefd960d5349156344e20f8969e
+                           .group:00000000 wm4.r_vdc_user.h.49.5060b5b77fe69e4e595de8fadc36e78b
+                           .group:00000000 wm4.r_vdc.h.48.a14f484516009cb4cb3742c0c9b79bbd
+                           .group:00000000 wm4.r_rvapi_vdc.h.73.5f3535c567d3af3dccdafb254b48c817
+                           .group:00000000 wm4.r_spea.h.48.b9ed4fd711365d515684299152d7899f
+                           .group:00000000 wm4.r_rza2_scifa_lld_cfg.h.37.7a46a4beb27e120eb804765fbf41c7ce
+                           .group:00000000 wm4.r_scifa_lld_rza2m_api.h.42.bf3348f1877be2a35daaf7307d1083ab
+                           .group:00000000 wm4.r_scifa_drv_api.h.90.7ad2e6f1bf099aca54e367524f538022
+                           .group:00000000 wm4.r_rza2_scifa_lld.h.73.d0daf7287239025b54ce272d1f179bc4
+                           .group:00000000 wm4.r_sd_cfg.h.37.c020fda203b6091ea9a05c044d112f48
+                           .group:00000000 wm4.r_sdif.h.39.e8128497d2cbef5623d9f8b71f13fd2c
+                           .group:00000000 wm4.trace.h.67.bddc4e225b6f150c649875384d686fa0
+                           .group:00000000 wm4.os_port_config.h.30.dc2a07b0b1ef27f5072d53aadb97c22f
+                           .group:00000000 wm4.inttypes.h.14.b28deb26920e51e0da310220ef0f9003
+                           .group:00000000 wm4.inttypes.h.28.c3e61b48c6ae3a7cb62609add2dd53d1
+                           .group:00000000 wm4.compiler_port.h.55.df9c2dc6e7c3c8d2023a60d359d51c90
+                           .group:00000000 wm4.os_port.h.35.121ef70496ec9ebb6ac3975f75ae8477
+                           .group:00000000 wm4.FreeRTOSConfig.h.29.57d7ee2ca1fa56012ddbf298eb71a67e
+                           .group:00000000 wm4.projdefs.h.29.3472c8470d131a5f474bc7437ea94609
+                           .group:00000000 wm4.portmacro.h.71.5aaa521454bf5c46feaeb3600165fe21
+                           .group:00000000 wm4.portable.h.64.00b423ba030e23bed354b037664af7a6
+                           .group:00000000 wm4.mpu_wrappers.h.29.c427bcb47cdbc76126df163ed8d718ae
+                           .group:00000000 wm4.freertos.h.66.8cf20fb8e5505a32acad25b15f03255e
+                           .group:00000000 wm4.list.h.61.5c5a38f6bc6687eed6d893e57dabd8e6
+                           .group:00000000 wm4.task.h.46.3ef9a27c775afa221d5872c3a27e24ba
+                           .group:00000000 wm4.queue.h.65.c672d4100a726c23d437015b36fefeae
+                           .group:00000000 wm4.semphr.h.39.340b671c07db4901cda8217ed0bf5efe
+                           .group:00000000 wm4.freertos_cli.h.44.d2b0c6a5d95d64df83dde78f17a38854
+                           .group:00000000 wm4.os_port_freertos.h.42.927b913f954bdc6c1595c3cbdcc26b35
+                           .group:00000000 wm4.os_port.h.105.486b9c4d7fa5ba92a137fc779addadcb
+                           .group:00000000 wm4.r_task_priority.h.42.5f9d7a8c6eb031adfea4722ebab12dd4
+                           .group:00000000 wm4.r_os_abstraction_api.h.52.f52c5f8a865f19209d200bd66fbd6702
+                           .group:00000000 wm4.smart_car.h.17.df616b04c6a5780319cfa38e272f1adf
+
+UNDEFINED SYMBOLS
+fat_sample_cd_int_cb_function
+RightEdge
+LeftEdge
+AllLose
+LeftLose
+RightLose
+Width

@@ -1,0 +1,105 @@
+   1              	# 1 "../src/renesas/compiler/asm/irq.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : irq.asm
+  25              	@* $Rev: 438 $
+  26              	@* $Date:: 2018-06-28 21:28:02 +0900#$
+  27              	@* Description : enable/disable irq
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	@******************************************************************************
+  32              	@ Function Name : __disable_irq
+  33              	@ Description   : Disable IRQ
+  34              	@******************************************************************************
+  35              	    .section .text.__disable_irq
+  36              	    .global __disable_irq
+  38              	    .func   __disable_irq
+  39              	__disable_irq:
+  40 0000 00000FE1 	    MRS     r0,APSR             @ formerly CPSR
+  41 0004 800000E2 	    AND     r0,r0,#0x80
+  42 0008 80000CF1 	    CPSID   I
+  43 000c 1EFF2FE1 	    BX      LR
+  44              	
+  45              	    .endfunc
+  46              	
+  47              	@******************************************************************************
+  48              	@ Function Name : __enable_irq
+  49              	@ Description   : Enable IRQ
+  50              	@******************************************************************************
+  51              	    .section .text.__enable_irq
+  52              	    .global __enable_irq
+  54              	    .func   __enable_irq
+  55              	
+  56              	__enable_irq:
+  57 0000 800008F1 	    CPSIE   I
+  58 0004 1EFF2FE1 	    BX      LR
+  59              	
+  60              	    .endfunc
+  61              	
+  62              	@******************************************************************************
+  63              	@ Function Name : __disable_fiq
+  64              	@ Description   : Disable FIQ
+  65              	@******************************************************************************
+  66              	    .section .text.__disable_fiq
+  67              	    .global __disable_fiq
+  69              	    .func   __disable_fiq
+  70              	
+  71              	__disable_fiq:
+  72 0000 40000CF1 	    CPSID   F
+  73 0004 1EFF2FE1 	    BX      LR
+  74              	
+  75              	    .endfunc
+  76              	
+  77              	@******************************************************************************
+  78              	@ Function Name : __enable_fiq
+  79              	@ Description   : Enable FIQ
+  80              	@******************************************************************************
+  81              	    .section .text.__enable_fiq
+  82              	    .global __enable_fiq
+  84              	    .func   __enable_fiq
+  85              	
+  86              	__enable_fiq:
+  87 0000 400008F1 	    CPSIE   F
+  88 0004 1EFF2FE1 	    BX      LR
+  89              	
+  90              	
+  91              	    .endfunc
+  92              	
+  93              	
+  94              	    .END
+DEFINED SYMBOLS
+../src/renesas/compiler/asm/irq.asm:39     .text.__disable_irq:00000000 __disable_irq
+../src/renesas/compiler/asm/irq.asm:40     .text.__disable_irq:00000000 $a
+../src/renesas/compiler/asm/irq.asm:56     .text.__enable_irq:00000000 __enable_irq
+../src/renesas/compiler/asm/irq.asm:57     .text.__enable_irq:00000000 $a
+../src/renesas/compiler/asm/irq.asm:71     .text.__disable_fiq:00000000 __disable_fiq
+../src/renesas/compiler/asm/irq.asm:72     .text.__disable_fiq:00000000 $a
+../src/renesas/compiler/asm/irq.asm:86     .text.__enable_fiq:00000000 __enable_fiq
+../src/renesas/compiler/asm/irq.asm:87     .text.__enable_fiq:00000000 $a
+
+NO UNDEFINED SYMBOLS

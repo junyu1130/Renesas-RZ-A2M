@@ -1,0 +1,677 @@
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"r_cpg_drv_api.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.cpg_close,"ax",%progbits
+  17              		.align	2
+  18              		.arch armv7-a
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	cpg_close:
+  24              	.LVL0:
+  25              	.LFB4:
+  26              		.file 1 "../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c"
+   1:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*******************************************************************************
+   2:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * DISCLAIMER
+   3:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * This software is supplied by Renesas Electronics Corporation and is only
+   4:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * intended for use with Renesas products. No other uses are authorized. This
+   5:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * software is owned by Renesas Electronics Corporation and is protected under
+   6:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * all applicable laws, including copyright laws.
+   7:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Renesas reserves the right, without notice, to make changes to this software
+  17:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * and to discontinue the availability of this software. By using this software,
+  18:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * you agree to the additional terms and conditions found by accessing the
+  19:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * following link:
+  20:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * http://www.renesas.com/disclaimer
+  21:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Copyright (C) 2012 - 2014 Renesas Electronics Corporation. All rights reserved.
+  22:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  *******************************************************************************/
+  23:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*******************************************************************************
+  24:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * File Name   : r_cpg_drv_api.c
+  25:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Description : Clock Pulse Generator high layer driver
+  26:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  *******************************************************************************/
+  27:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  28:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  29:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Includes   <System Includes> , "Project Includes"
+  30:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  31:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #include <string.h>
+  32:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #include "r_cpg_drv_link.h"
+  33:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #include "r_cpg_hld_api.h"
+  34:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #include "r_cpg_drv_api.h"
+  35:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #include "r_cpg_drv_sc_cfg.h"
+  36:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  37:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  38:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Typedef definitions
+  39:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  40:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  41:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  42:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Macro definitions
+  43:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  44:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /* List channels supported */
+  45:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #define R_CFG_CPG_CHANNELS_SUPPORTED         (0)
+  46:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  47:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /* Maximum number of modules that can be granted simultaneous access to this driver  */
+  48:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** #define  R_CFG_CPG_DRV_MAXIMUM_ACCESS_PRV    (1)
+  49:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  50:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  51:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Enumerated Types
+  52:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  53:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  54:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  55:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Typedefs
+  56:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  57:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** typedef struct r_drvcpg
+  58:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  59:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     uint32_t access_handles_available;
+  60:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     uint8_t  drv_free;
+  61:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** } st_r_drv_res_map_t;
+  62:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  63:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** typedef struct
+  64:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  65:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     uint16_t gs_channel_open;
+  66:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** } st_internal_configuration_t;
+  67:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  68:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*****************************************************************************
+  69:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Function Prototypes
+  70:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  71:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_open (st_stream_ptr_t stream_ptr);
+  72:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static void cpg_close (st_stream_ptr_t stream_ptr);
+  73:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_control (st_stream_ptr_t stream_ptr, uint32_t ctrl_code, void *ctrl_ptr);
+  74:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_get_version (st_stream_ptr_t stream_ptr, st_ver_info_t *pVerInfo);
+  75:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*****************************************************************************
+  76:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Constant Data
+  77:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  78:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  79:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+  80:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Private global variables and functions
+  81:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+  82:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*! Version Information */
+  83:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static const st_drv_info_t gs_hld_info =
+  84:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  85:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** { ((STDIO_CPG_RZ_HLD_VERSION_MAJOR << 16) + STDIO_CPG_RZ_HLD_VERSION_MINOR) },
+  86:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** STDIO_CPG_RZ_HLD_BUILD_NUM,
+  87:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** STDIO_CPG_RZ_HLD_DRV_NAME };
+  88:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  89:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static bool_t gs_drv_cpg_is_initialized = false;
+  90:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static st_internal_configuration_t s_drv_config =
+  91:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** { 0 /* R_CFG_CPG_DRV_MAXIMUM_ACCESS_PRV */
+  92:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** };
+  93:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+  94:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /* Define the driver function table for this implementation */
+  95:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /* GSCE Warning (global variable 'g_cpg_Driver' not declared static [9.3a])
+  96:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * can be safely ignored */
+  97:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** const st_r_driver_t g_cpg_driver =
+  98:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  99:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /* st_r_driver_t p_device */
+ 100:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** "CPG Device Driver", cpg_open, cpg_close, no_dev_read, no_dev_write, cpg_control, cpg_get_version }
+ 101:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 102:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 103:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Function Name: cpg_open
+ 104:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Description:   Function to open the CPG device driver
+ 105:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Arguments:     IN  stream_ptr - Pointer to the file stream
+ 106:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Return value:  DRV_SUCCESS : Success when attempting to initialise CPG
+ 107:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  *              DRV_ERROR   : Failure to initialise CPG
+ 108:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 109:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_open (st_stream_ptr_t stream_ptr)
+ 110:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+ 111:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t ret = DRV_SUCCESS;
+ 112:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 113:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     if ( false == gs_drv_cpg_is_initialized)
+ 114:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 115:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         gs_drv_cpg_is_initialized = true;
+ 116:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         R_CPG_InitialiseHwIf();
+ 117:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 118:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     if (s_drv_config.gs_channel_open < R_CFG_CPG_DRV_MAXIMUM_ACCESS_PRV)
+ 120:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 121:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         /* driver already opened, just store the reference count */
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         s_drv_config.gs_channel_open++;
+ 123:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 124:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     else
+ 125:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 126:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         /* return DRV_ERROR when too many references to the driver are attempted */
+ 127:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         ret = DRV_ERROR;
+ 128:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 129:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 130:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     return (ret);
+ 131:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** }
+ 132:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 133:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  End of function  cpg_open
+ 134:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 135:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 136:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 137:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Function Name: cpg_close
+ 138:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Description:   Function to close the standard IN driver. All open devices
+ 139:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  connected to the led are closed.
+ 140:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Arguments:     IN  stream_ptr - Pointer to the file stream
+ 141:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Return value:  none
+ 142:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 143:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static void cpg_close (st_stream_ptr_t stream_ptr)
+ 144:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  27              		.loc 1 144 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 145:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     /* unused argument, kept to maintain defined api */
+ 146:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     (void) stream_ptr;
+  32              		.loc 1 146 5 view .LVU1
+ 147:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 148:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     if (0 != s_drv_config.gs_channel_open)
+  33              		.loc 1 148 5 view .LVU2
+  34              		.loc 1 148 26 is_stmt 0 view .LVU3
+  35 0000 10209FE5 		ldr	r2, .L6
+  36 0004 B030D2E1 		ldrh	r3, [r2]
+  37              		.loc 1 148 8 view .LVU4
+  38 0008 000053E3 		cmp	r3, #0
+ 149:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 150:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         s_drv_config.gs_channel_open--;
+  39              		.loc 1 150 9 is_stmt 1 view .LVU5
+  40              		.loc 1 150 37 is_stmt 0 view .LVU6
+  41 000c 01304312 		subne	r3, r3, #1
+  42 0010 B030C211 		strhne	r3, [r2]	@ movhi
+ 151:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 152:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** }
+  43              		.loc 1 152 1 view .LVU7
+  44 0014 1EFF2FE1 		bx	lr
+  45              	.L7:
+  46              		.align	2
+  47              	.L6:
+  48 0018 00000000 		.word	.LANCHOR0
+  49              		.cfi_endproc
+  50              	.LFE4:
+  52              		.section	.rodata.cpg_get_version.str1.1,"aMS",%progbits,1
+  53              	.LC0:
+  54 0000 484C4420 		.ascii	"HLD CPG\000"
+  54      43504700 
+  55              		.section	.text.cpg_get_version,"ax",%progbits
+  56              		.align	2
+  57              		.syntax unified
+  58              		.arm
+  59              		.fpu neon
+  61              	cpg_get_version:
+  62              	.LVL1:
+  63              	.LFB6:
+ 153:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 154:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  End of function  cpg_close
+ 155:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 156:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 157:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 158:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Function Name: cpg_control
+ 159:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Description:   Function to handle custom controls for the standard IN device
+ 160:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Arguments:     IN  stream_ptr - Pointer to the file stream
+ 161:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  IN  ctrl_code - The custom control code
+ 162:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  IN  ctrl_ptr - Pointer to the custom control structure
+ 163:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  Return value:  0 for success -1 on error
+ 164:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 165:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_control (st_stream_ptr_t stream_ptr, uint32_t ctrl_code, void *ctrl_ptr)
+ 166:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+ 167:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t retval = DRV_ERROR;
+ 168:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 169:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     /* fail if the channel is not open */
+ 170:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     if (0 == s_drv_config.gs_channel_open)
+ 171:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 172:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         return (retval);
+ 173:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 174:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 175:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     switch (ctrl_code)
+ 176:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 177:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         case CTL_CPG_SET_XTAL_KHZ :
+ 178:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 179:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             retval = R_CPG_SetXtalClock(*(float64_t *) ctrl_ptr);
+ 180:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 181:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 182:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 183:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         case CTL_CPG_SET_MAIN_CLK :
+ 184:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 185:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 186:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****                 /* set input clock */
+ 187:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****                 retval = R_CPG_SetMainClock((st_r_drv_cpg_set_main_t *) ctrl_ptr);
+ 188:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 189:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 190:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 191:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         case CTL_CPG_SET_SUB_CLK :
+ 192:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 193:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****                 retval = R_CPG_SetSubClockDividers((st_r_drv_cpg_set_sub_t *) ctrl_ptr, 1);
+ 194:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 195:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 196:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 197:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         case CTL_CPG_SET_CLK_SRC :
+ 198:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 199:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****                 retval = R_CPG_SetSubClockSource((st_r_drv_cpg_set_src_t *) ctrl_ptr, 1);
+ 200:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 201:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 202:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 203:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         case CTL_CPG_SET_EXT_CLK :
+ 204:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 205:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****                 retval = R_CPG_ConfigExtClockPin((st_r_drv_cpg_ext_clk_t *) ctrl_ptr);
+ 206:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 207:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 208:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 209:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         default :
+ 210:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         {
+ 211:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 212:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         }
+ 213:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 214:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 215:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     return (retval);
+ 216:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** }
+ 217:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 218:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  End of function  cpg_control
+ 219:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 220:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 221:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /*******************************************************************************
+ 222:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Function Name: cpg_get_version
+ 223:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Description  : Provides build information even if driver fails to open
+ 224:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  *                version information is updated by developer
+ 225:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Arguments    : none
+ 226:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  * Return Value : 0 (never fails)
+ 227:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****  ******************************************************************************/
+ 228:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** static int_t cpg_get_version (st_stream_ptr_t stream_ptr, st_ver_info_t *pVerInfo)
+ 229:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+  64              		.loc 1 229 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+ 230:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.version.sub.major = gs_hld_info.version.sub.major;
+  69              		.loc 1 230 5 view .LVU9
+ 231:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.version.sub.minor = gs_hld_info.version.sub.minor;
+  70              		.loc 1 231 5 view .LVU10
+ 232:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.build = gs_hld_info.build;
+  71              		.loc 1 232 5 view .LVU11
+ 231:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.version.sub.minor = gs_hld_info.version.sub.minor;
+  72              		.loc 1 231 37 is_stmt 0 view .LVU12
+  73 0000 0138A0E3 		mov	r3, #65536
+ 229:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.version.sub.major = gs_hld_info.version.sub.major;
+  74              		.loc 1 229 1 view .LVU13
+  75 0004 0100A0E1 		mov	r0, r1
+  76              	.LVL2:
+ 231:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.version.sub.minor = gs_hld_info.version.sub.minor;
+  77              		.loc 1 231 37 view .LVU14
+  78 0008 003081E5 		str	r3, [r1]
+  79              		.loc 1 232 25 view .LVU15
+  80 000c 0030A0E3 		mov	r3, #0
+  81 0010 043081E5 		str	r3, [r1, #4]
+ 233:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     pVerInfo->hld.p_szdriver_name = gs_hld_info.p_szdriver_name;
+  82              		.loc 1 233 5 is_stmt 1 view .LVU16
+  83              		.loc 1 233 35 is_stmt 0 view .LVU17
+  84 0014 04309FE5 		ldr	r3, .L9
+  85 0018 083081E5 		str	r3, [r1, #8]
+ 234:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 235:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     /* Obtain version information from Low layer Driver */
+ 236:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     return (R_CPG_GetVersion(pVerInfo));
+  86              		.loc 1 236 5 is_stmt 1 view .LVU18
+  87              		.loc 1 236 13 is_stmt 0 view .LVU19
+  88 001c FEFFFFEA 		b	R_CPG_GetVersion
+  89              	.LVL3:
+  90              	.L10:
+  91              		.loc 1 236 13 view .LVU20
+  92              		.align	2
+  93              	.L9:
+  94 0020 00000000 		.word	.LC0
+  95              		.cfi_endproc
+  96              	.LFE6:
+  98              		.section	.text.cpg_open,"ax",%progbits
+  99              		.align	2
+ 100              		.syntax unified
+ 101              		.arm
+ 102              		.fpu neon
+ 104              	cpg_open:
+ 105              	.LVL4:
+ 106              	.LFB3:
+ 110:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t ret = DRV_SUCCESS;
+ 107              		.loc 1 110 1 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 111              		.loc 1 111 5 view .LVU22
+ 113:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 112              		.loc 1 113 5 view .LVU23
+ 113:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 113              		.loc 1 113 16 is_stmt 0 view .LVU24
+ 114 0000 50309FE5 		ldr	r3, .L22
+ 113:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 115              		.loc 1 113 8 view .LVU25
+ 116 0004 002093E5 		ldr	r2, [r3]
+ 117 0008 000052E3 		cmp	r2, #0
+ 118 000c 0A00001A 		bne	.L16
+ 115:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         R_CPG_InitialiseHwIf();
+ 119              		.loc 1 115 9 is_stmt 1 view .LVU26
+ 115:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         R_CPG_InitialiseHwIf();
+ 120              		.loc 1 115 35 is_stmt 0 view .LVU27
+ 121 0010 0120A0E3 		mov	r2, #1
+ 110:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t ret = DRV_SUCCESS;
+ 122              		.loc 1 110 1 view .LVU28
+ 123 0014 10402DE9 		push	{r4, lr}
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 4, -8
+ 126              		.cfi_offset 14, -4
+ 115:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****         R_CPG_InitialiseHwIf();
+ 127              		.loc 1 115 35 view .LVU29
+ 128 0018 002083E5 		str	r2, [r3]
+ 116:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 129              		.loc 1 116 9 is_stmt 1 view .LVU30
+ 130 001c FEFFFFEB 		bl	R_CPG_InitialiseHwIf
+ 131              	.LVL5:
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 132              		.loc 1 119 5 view .LVU31
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 133              		.loc 1 119 21 is_stmt 0 view .LVU32
+ 134 0020 34309FE5 		ldr	r3, .L22+4
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 135              		.loc 1 119 8 view .LVU33
+ 136 0024 B000D3E1 		ldrh	r0, [r3]
+ 137 0028 000050E3 		cmp	r0, #0
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 138              		.loc 1 122 9 is_stmt 1 view .LVU34
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 139              		.loc 1 122 37 is_stmt 0 view .LVU35
+ 140 002c 0120A003 		moveq	r2, #1
+ 127:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 141              		.loc 1 127 13 view .LVU36
+ 142 0030 0000E013 		mvnne	r0, #0
+ 143              	.LVL6:
+ 130:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** }
+ 144              		.loc 1 130 5 is_stmt 1 view .LVU37
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 145              		.loc 1 122 37 is_stmt 0 view .LVU38
+ 146 0034 B020C301 		strheq	r2, [r3]	@ movhi
+ 131:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 147              		.loc 1 131 1 view .LVU39
+ 148 0038 1080BDE8 		pop	{r4, pc}
+ 149              	.LVL7:
+ 150              	.L16:
+ 151              		.cfi_def_cfa_offset 0
+ 152              		.cfi_restore 4
+ 153              		.cfi_restore 14
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 154              		.loc 1 119 5 is_stmt 1 view .LVU40
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 155              		.loc 1 119 21 is_stmt 0 view .LVU41
+ 156 003c 18309FE5 		ldr	r3, .L22+4
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 157              		.loc 1 119 8 view .LVU42
+ 158 0040 B000D3E1 		ldrh	r0, [r3]
+ 159              	.LVL8:
+ 119:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 160              		.loc 1 119 8 view .LVU43
+ 161 0044 000050E3 		cmp	r0, #0
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 162              		.loc 1 122 9 is_stmt 1 view .LVU44
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 163              		.loc 1 122 37 is_stmt 0 view .LVU45
+ 164 0048 0120A003 		moveq	r2, #1
+ 127:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 165              		.loc 1 127 13 view .LVU46
+ 166 004c 0000E013 		mvnne	r0, #0
+ 167              	.LVL9:
+ 130:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** }
+ 168              		.loc 1 130 5 is_stmt 1 view .LVU47
+ 122:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     }
+ 169              		.loc 1 122 37 is_stmt 0 view .LVU48
+ 170 0050 B020C301 		strheq	r2, [r3]	@ movhi
+ 131:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 171              		.loc 1 131 1 view .LVU49
+ 172 0054 1EFF2FE1 		bx	lr
+ 173              	.L23:
+ 174              		.align	2
+ 175              	.L22:
+ 176 0058 00000000 		.word	.LANCHOR1
+ 177 005c 00000000 		.word	.LANCHOR0
+ 178              		.cfi_endproc
+ 179              	.LFE3:
+ 181              		.section	.text.cpg_control,"ax",%progbits
+ 182              		.align	2
+ 183              		.syntax unified
+ 184              		.arm
+ 185              		.fpu neon
+ 187              	cpg_control:
+ 188              	.LVL10:
+ 189              	.LFB5:
+ 166:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t retval = DRV_ERROR;
+ 190              		.loc 1 166 1 is_stmt 1 view -0
+ 191              		.cfi_startproc
+ 192              		@ args = 0, pretend = 0, frame = 0
+ 193              		@ frame_needed = 0, uses_anonymous_args = 0
+ 194              		@ link register save eliminated.
+ 167:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** 
+ 195              		.loc 1 167 5 view .LVU51
+ 170:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 196              		.loc 1 170 5 view .LVU52
+ 170:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 197              		.loc 1 170 26 is_stmt 0 view .LVU53
+ 198 0000 58309FE5 		ldr	r3, .L35
+ 166:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     int_t retval = DRV_ERROR;
+ 199              		.loc 1 166 1 view .LVU54
+ 200 0004 0200A0E1 		mov	r0, r2
+ 201              	.LVL11:
+ 170:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 202              		.loc 1 170 8 view .LVU55
+ 203 0008 B030D3E1 		ldrh	r3, [r3]
+ 204 000c 000053E3 		cmp	r3, #0
+ 205 0010 1000000A 		beq	.L24
+ 175:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 206              		.loc 1 175 5 is_stmt 1 view .LVU56
+ 207 0014 011041E2 		sub	r1, r1, #1
+ 208              	.LVL12:
+ 175:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****     {
+ 209              		.loc 1 175 5 is_stmt 0 view .LVU57
+ 210 0018 040051E3 		cmp	r1, #4
+ 211 001c 01F19F97 		ldrls	pc, [pc, r1, asl #2]
+ 212 0020 0C0000EA 		b	.L24
+ 213              	.L27:
+ 214 0024 38000000 		.word	.L31
+ 215 0028 40000000 		.word	.L30
+ 216 002c 44000000 		.word	.L29
+ 217 0030 4C000000 		.word	.L28
+ 218 0034 54000000 		.word	.L26
+ 219              	.L31:
+ 220              	.LVL13:
+ 221              	.LBB4:
+ 222              	.LBI4:
+ 165:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** {
+ 223              		.loc 1 165 14 is_stmt 1 view .LVU58
+ 224              	.LBB5:
+ 179:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 225              		.loc 1 179 13 view .LVU59
+ 179:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 226              		.loc 1 179 22 is_stmt 0 view .LVU60
+ 227 0038 000B92ED 		vldr.64	d0, [r2]
+ 228 003c FEFFFFEA 		b	R_CPG_SetXtalClock
+ 229              	.LVL14:
+ 230              	.L30:
+ 179:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 231              		.loc 1 179 22 view .LVU61
+ 232              	.LBE5:
+ 233              	.LBE4:
+ 187:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 234              		.loc 1 187 17 is_stmt 1 view .LVU62
+ 187:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 235              		.loc 1 187 26 is_stmt 0 view .LVU63
+ 236 0040 FEFFFFEA 		b	R_CPG_SetMainClock
+ 237              	.LVL15:
+ 238              	.L29:
+ 193:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 239              		.loc 1 193 17 is_stmt 1 view .LVU64
+ 193:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 240              		.loc 1 193 26 is_stmt 0 view .LVU65
+ 241 0044 0110A0E3 		mov	r1, #1
+ 242 0048 FEFFFFEA 		b	R_CPG_SetSubClockDividers
+ 243              	.LVL16:
+ 244              	.L28:
+ 199:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 245              		.loc 1 199 17 is_stmt 1 view .LVU66
+ 199:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 246              		.loc 1 199 26 is_stmt 0 view .LVU67
+ 247 004c 0110A0E3 		mov	r1, #1
+ 248 0050 FEFFFFEA 		b	R_CPG_SetSubClockSource
+ 249              	.LVL17:
+ 250              	.L26:
+ 205:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 251              		.loc 1 205 17 is_stmt 1 view .LVU68
+ 205:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c ****             break;
+ 252              		.loc 1 205 26 is_stmt 0 view .LVU69
+ 253 0054 FEFFFFEA 		b	R_CPG_ConfigExtClockPin
+ 254              	.LVL18:
+ 255              	.L24:
+ 216:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 256              		.loc 1 216 1 view .LVU70
+ 257 0058 0000E0E3 		mvn	r0, #0
+ 258              	.LVL19:
+ 216:../generate/drivers/r_cpg/src/hld/r_cpg_drv_api.c **** /******************************************************************************
+ 259              		.loc 1 216 1 view .LVU71
+ 260 005c 1EFF2FE1 		bx	lr
+ 261              	.L36:
+ 262              		.align	2
+ 263              	.L35:
+ 264 0060 00000000 		.word	.LANCHOR0
+ 265              		.cfi_endproc
+ 266              	.LFE5:
+ 268              		.global	g_cpg_driver
+ 269              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 270              	.LC1:
+ 271 0000 43504720 		.ascii	"CPG Device Driver\000"
+ 271      44657669 
+ 271      63652044 
+ 271      72697665 
+ 271      7200
+ 272              		.section	.bss.gs_drv_cpg_is_initialized,"aw",%nobits
+ 273              		.align	2
+ 274              		.set	.LANCHOR1,. + 0
+ 277              	gs_drv_cpg_is_initialized:
+ 278 0000 00000000 		.space	4
+ 279              		.section	.bss.s_drv_config,"aw",%nobits
+ 280              		.align	1
+ 281              		.set	.LANCHOR0,. + 0
+ 284              	s_drv_config:
+ 285 0000 0000     		.space	2
+ 286              		.section	.rodata.g_cpg_driver,"a"
+ 287              		.align	2
+ 290              	g_cpg_driver:
+ 291 0000 00000000 		.word	.LC1
+ 292 0004 00000000 		.word	cpg_open
+ 293 0008 00000000 		.word	cpg_close
+ 294 000c 00000000 		.word	no_dev_read
+ 295 0010 00000000 		.word	no_dev_write
+ 296 0014 00000000 		.word	cpg_control
+ 297 0018 00000000 		.word	cpg_get_version
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\lib\\gcc\\arm-none
+ 301              		.file 3 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 302              		.file 4 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 303              		.file 5 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 304              		.file 6 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 305              		.file 7 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 306              		.file 8 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 307              		.file 9 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/ge
+ 308              		.file 10 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\in
+ 309              		.file 11 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\in
+ 310              		.file 12 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+ 311              		.file 13 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+ 312              		.file 14 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+ 313              		.file 15 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+DEFINED SYMBOLS
+                            *ABS*:00000000 r_cpg_drv_api.c
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:17     .text.cpg_close:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:23     .text.cpg_close:00000000 cpg_close
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:48     .text.cpg_close:00000018 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:56     .text.cpg_get_version:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:61     .text.cpg_get_version:00000000 cpg_get_version
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:94     .text.cpg_get_version:00000020 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:99     .text.cpg_open:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:104    .text.cpg_open:00000000 cpg_open
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:176    .text.cpg_open:00000058 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:182    .text.cpg_control:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:187    .text.cpg_control:00000000 cpg_control
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:214    .text.cpg_control:00000024 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:227    .text.cpg_control:00000038 $a
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:264    .text.cpg_control:00000060 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:290    .rodata.g_cpg_driver:00000000 g_cpg_driver
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:273    .bss.gs_drv_cpg_is_initialized:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:277    .bss.gs_drv_cpg_is_initialized:00000000 gs_drv_cpg_is_initialized
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:280    .bss.s_drv_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:284    .bss.s_drv_config:00000000 s_drv_config
+C:\Users\Y\AppData\Local\Temp\cctI509h.s:287    .rodata.g_cpg_driver:00000000 $d
+                           .group:00000000 wm4.0.58582867dec117551e3c8e9255733210
+                           .group:00000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
+                           .group:00000000 wm4.newlib.h.18.1c9fedb6b3cd797cff253cc0fd593ef2
+                           .group:00000000 wm4.ieeefp.h.77.3f06799abf5dd88bdddee084775a1223
+                           .group:00000000 wm4.features.h.22.fad1cec3bc7ff06488171438dbdcfd02
+                           .group:00000000 wm4.config.h.224.c701144a7b0518c6ee9b9b5465b79f81
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4.stddef.h.39.144cf5ddcd53cbfdac30259dc1a6c87f
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.155.3588ebfdd1e8c7ede80509bb9c3b8009
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4._types.h.127.34941de1b2539d59d5cac00e0dd27a45
+                           .group:00000000 wm4.reent.h.17.e292bf8b0bec6c96e131a54347145a30
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.77.dcd6129ff07fe81bd5636db29abe53b2
+                           .group:00000000 wm4.cdefs.h.49.6260d97adb8d27534cbdc0f868b8ea87
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.155.ba788add86a0e365f264484f110c3c29
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.math.h.13.97100c05caf9f40dd9f5a3cda48ccc01
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.8b6acba56cefbb11746718204edc8f5e
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.32.bec3221fa7a9bb0bdde696c9c57e47d2
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.19.97ca6fd0c752a0f3b6719fd314d361e6
+                           .group:00000000 wm4.types.h.51.5571ec98f267d17d3c670b7a3ba33afa
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.f4862cfbf4363a1db01842d5bdf72c18
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.791f38f41eee7843f224ce48f47caa9b
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.e44726f8f6b03ec08e4e0835a2fcc2b7
+                           .group:00000000 wm4.stat.h.54.5a9b823658423102e7a8de4ed089eedc
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.77.0700439a69a80a9acf3c1705a4c37926
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.64cbac6cc01576ca10b0fa4399792cde
+                           .group:00000000 wm4.r_cpg_drv_api.h.38.b40a52cab6e6adb0f168c573c5a31ec8
+
+UNDEFINED SYMBOLS
+R_CPG_GetVersion
+R_CPG_InitialiseHwIf
+R_CPG_SetXtalClock
+R_CPG_SetMainClock
+R_CPG_SetSubClockDividers
+R_CPG_SetSubClockSource
+R_CPG_ConfigExtClockPin
+no_dev_read
+no_dev_write

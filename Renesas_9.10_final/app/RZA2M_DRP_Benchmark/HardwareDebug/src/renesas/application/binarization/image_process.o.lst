@@ -1,0 +1,295 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"image_process.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.Ostu,"ax",%progbits
+  17              		.align	2
+  18              		.global	Ostu
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	Ostu:
+  24              	.LFB0:
+  25              		.file 1 "../src/renesas/application/binarization/image_process.c"
+   1:../src/renesas/application/binarization/image_process.c **** /*****************************************************
+   2:../src/renesas/application/binarization/image_process.c ****                图像处理部分
+   3:../src/renesas/application/binarization/image_process.c **** *****************************************************/
+   4:../src/renesas/application/binarization/image_process.c **** 
+   5:../src/renesas/application/binarization/image_process.c **** #include "image_process.h"
+   6:../src/renesas/application/binarization/image_process.c **** 
+   7:../src/renesas/application/binarization/image_process.c **** //uint8_t bin_image[ROW][COL];
+   8:../src/renesas/application/binarization/image_process.c **** 
+   9:../src/renesas/application/binarization/image_process.c **** //static uint8_t BinArray[256];
+  10:../src/renesas/application/binarization/image_process.c **** 
+  11:../src/renesas/application/binarization/image_process.c **** //大津法取阈值ֵ
+  12:../src/renesas/application/binarization/image_process.c **** uint8_t Ostu(uint8_t *p_image)
+  13:../src/renesas/application/binarization/image_process.c **** {
+  26              		.loc 1 13 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 1024
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  32 0000 01DB4DE2 		sub	sp, sp, #1024
+  33              		.cfi_def_cfa_offset 1024
+  34              	.LVL1:
+  14:../src/renesas/application/binarization/image_process.c ****     float histogram[256];
+  15:../src/renesas/application/binarization/image_process.c ****     int size = ROW * COL;
+  16:../src/renesas/application/binarization/image_process.c ****     int i;
+  17:../src/renesas/application/binarization/image_process.c ****     float t;
+  18:../src/renesas/application/binarization/image_process.c ****     float variance;
+  19:../src/renesas/application/binarization/image_process.c ****     float maxVariance = 0, w0 = 0, avgValue = 0;
+  20:../src/renesas/application/binarization/image_process.c ****     float u = 0;// 整幅图的平均灰度
+  21:../src/renesas/application/binarization/image_process.c ****     uint8_t Ostu_Threshold = 0;
+  22:../src/renesas/application/binarization/image_process.c ****     //清空灰度数组
+  23:../src/renesas/application/binarization/image_process.c ****     for(i = 0; i < 256; i++)
+  35              		.loc 1 23 0
+  36 0004 0030A0E3 		mov	r3, #0
+  37 0008 030000EA 		b	.L2
+  38              	.LVL2:
+  39              	.L3:
+  24:../src/renesas/application/binarization/image_process.c ****     {
+  25:../src/renesas/application/binarization/image_process.c ****         histogram[i] = 0;
+  40              		.loc 1 25 0 discriminator 3
+  41 000c 03218DE0 		add	r2, sp, r3, lsl #2
+  42 0010 0010A0E3 		mov	r1, #0
+  43 0014 001082E5 		str	r1, [r2]	@ float
+  23:../src/renesas/application/binarization/image_process.c ****     {
+  44              		.loc 1 23 0 discriminator 3
+  45 0018 013083E2 		add	r3, r3, #1
+  46              	.LVL3:
+  47              	.L2:
+  23:../src/renesas/application/binarization/image_process.c ****     {
+  48              		.loc 1 23 0 is_stmt 0 discriminator 1
+  49 001c FF0053E3 		cmp	r3, #255
+  50 0020 F9FFFFDA 		ble	.L3
+  26:../src/renesas/application/binarization/image_process.c ****     }
+  27:../src/renesas/application/binarization/image_process.c ****     //生成灰度直方图
+  28:../src/renesas/application/binarization/image_process.c ****    // uint8_t *p_image = &image[0][1];
+  29:../src/renesas/application/binarization/image_process.c ****     for (i = 0; i < ROW; ++i)
+  51              		.loc 1 29 0 is_stmt 1
+  52 0024 0010A0E3 		mov	r1, #0
+  53 0028 0A0000EA 		b	.L4
+  54              	.LVL4:
+  55              	.L5:
+  56              	.LBB2:
+  30:../src/renesas/application/binarization/image_process.c ****     {
+  31:../src/renesas/application/binarization/image_process.c ****         for (int j = 0; j < COL; ++j)
+  32:../src/renesas/application/binarization/image_process.c ****         {   //44-374
+  33:../src/renesas/application/binarization/image_process.c ****             ++histogram[*p_image];
+  57              		.loc 1 33 0 discriminator 3
+  58 002c 0130D0E4 		ldrb	r3, [r0], #1	@ zero_extendqisi2
+  59              	.LVL5:
+  60 0030 03318DE0 		add	r3, sp, r3, lsl #2
+  61 0034 007AD3ED 		vldr.32	s15, [r3]
+  62 0038 007AB7EE 		vmov.f32	s14, #1.0e+0
+  63 003c 877A77EE 		vadd.f32	s15, s15, s14
+  64 0040 007AC3ED 		vstr.32	s15, [r3]
+  65              	.LVL6:
+  31:../src/renesas/application/binarization/image_process.c ****         {   //44-374
+  66              		.loc 1 31 0 discriminator 3
+  67 0044 012082E2 		add	r2, r2, #1
+  68              	.LVL7:
+  69              	.L6:
+  31:../src/renesas/application/binarization/image_process.c ****         {   //44-374
+  70              		.loc 1 31 0 is_stmt 0 discriminator 1
+  71 0048 0A0D52E3 		cmp	r2, #640
+  72 004c F6FFFFBA 		blt	.L5
+  73              	.LBE2:
+  34:../src/renesas/application/binarization/image_process.c ****             p_image++;
+  35:../src/renesas/application/binarization/image_process.c ****         }
+  36:../src/renesas/application/binarization/image_process.c ****         p_image += 2;
+  74              		.loc 1 36 0 is_stmt 1 discriminator 2
+  75 0050 020080E2 		add	r0, r0, #2
+  76              	.LVL8:
+  29:../src/renesas/application/binarization/image_process.c ****     {
+  77              		.loc 1 29 0 discriminator 2
+  78 0054 011081E2 		add	r1, r1, #1
+  79              	.LVL9:
+  80              	.L4:
+  29:../src/renesas/application/binarization/image_process.c ****     {
+  81              		.loc 1 29 0 is_stmt 0 discriminator 1
+  82 0058 1E0E51E3 		cmp	r1, #480
+  83              	.LBB3:
+  31:../src/renesas/application/binarization/image_process.c ****         {   //44-374
+  84              		.loc 1 31 0 is_stmt 1
+  85 005c 0020A0B3 		movlt	r2, #0
+  86 0060 F8FFFFBA 		blt	.L6
+  87              	.L16:
+  88              	.LBE3:
+  20:../src/renesas/application/binarization/image_process.c ****     uint8_t Ostu_Threshold = 0;
+  89              		.loc 1 20 0
+  90 0064 295ADFED 		vldr.32	s11, .L18
+  37:../src/renesas/application/binarization/image_process.c ****     }
+  38:../src/renesas/application/binarization/image_process.c **** 
+  39:../src/renesas/application/binarization/image_process.c ****     for (i = 0; i < 256; ++i)//归一化
+  91              		.loc 1 39 0
+  92 0068 0030A0E3 		mov	r3, #0
+  93 006c 080000EA 		b	.L7
+  94              	.LVL10:
+  95              	.L8:
+  40:../src/renesas/application/binarization/image_process.c ****     {
+  41:../src/renesas/application/binarization/image_process.c ****         histogram[i] = histogram[i] / size;
+  96              		.loc 1 41 0 discriminator 3
+  97 0070 03218DE0 		add	r2, sp, r3, lsl #2
+  98 0074 006AD2ED 		vldr.32	s13, [r2]
+  99 0078 257A9FED 		vldr.32	s14, .L18+4
+ 100 007c 877AC6EE 		vdiv.f32	s15, s13, s14
+ 101 0080 007AC2ED 		vstr.32	s15, [r2]
+  42:../src/renesas/application/binarization/image_process.c ****         u += i * histogram[i];
+ 102              		.loc 1 42 0 discriminator 3
+ 103 0084 103A07EE 		vmov	s14, r3	@ int
+ 104 0088 C77AB8EE 		vcvt.f32.s32	s14, s14
+ 105 008c 275A47EE 		vmla.f32	s11, s14, s15
+ 106              	.LVL11:
+  39:../src/renesas/application/binarization/image_process.c ****     {
+ 107              		.loc 1 39 0 discriminator 3
+ 108 0090 013083E2 		add	r3, r3, #1
+ 109              	.LVL12:
+ 110              	.L7:
+  39:../src/renesas/application/binarization/image_process.c ****     {
+ 111              		.loc 1 39 0 is_stmt 0 discriminator 1
+ 112 0094 FF0053E3 		cmp	r3, #255
+ 113 0098 F4FFFFDA 		ble	.L8
+  21:../src/renesas/application/binarization/image_process.c ****     //清空灰度数组
+ 114              		.loc 1 21 0 is_stmt 1
+ 115 009c 0000A0E3 		mov	r0, #0
+ 116              	.LVL13:
+  19:../src/renesas/application/binarization/image_process.c ****     float u = 0;// 整幅图的平均灰度
+ 117              		.loc 1 19 0
+ 118 00a0 1A6A9FED 		vldr.32	s12, .L18
+ 119 00a4 467AB0EE 		vmov.f32	s14, s12
+ 120 00a8 464AF0EE 		vmov.f32	s9, s12
+  43:../src/renesas/application/binarization/image_process.c ****     }
+  44:../src/renesas/application/binarization/image_process.c **** 
+  45:../src/renesas/application/binarization/image_process.c ****     for (i = 0; i < 256; ++i)
+ 121              		.loc 1 45 0
+ 122 00ac 0030A0E1 		mov	r3, r0
+ 123              	.LVL14:
+ 124 00b0 000000EA 		b	.L9
+ 125              	.LVL15:
+ 126              	.L10:
+ 127              		.loc 1 45 0 is_stmt 0 discriminator 2
+ 128 00b4 013083E2 		add	r3, r3, #1
+ 129              	.LVL16:
+ 130              	.L9:
+ 131              		.loc 1 45 0 discriminator 1
+ 132 00b8 FF0053E3 		cmp	r3, #255
+ 133 00bc 110000CA 		bgt	.L17
+  46:../src/renesas/application/binarization/image_process.c ****     {
+  47:../src/renesas/application/binarization/image_process.c ****         w0 += histogram[i];  //前景灰度
+ 134              		.loc 1 47 0 is_stmt 1
+ 135 00c0 03218DE0 		add	r2, sp, r3, lsl #2
+ 136 00c4 007AD2ED 		vldr.32	s15, [r2]
+ 137 00c8 277A37EE 		vadd.f32	s14, s14, s15
+ 138              	.LVL17:
+  48:../src/renesas/application/binarization/image_process.c ****         avgValue += i * histogram[i];
+ 139              		.loc 1 48 0
+ 140 00cc 903A06EE 		vmov	s13, r3	@ int
+ 141 00d0 E66AF8EE 		vcvt.f32.s32	s13, s13
+ 142 00d4 A76A06EE 		vmla.f32	s12, s13, s15
+ 143              	.LVL18:
+  49:../src/renesas/application/binarization/image_process.c ****         t = avgValue / w0 - u;
+ 144              		.loc 1 49 0
+ 145 00d8 077AC6EE 		vdiv.f32	s15, s12, s14
+ 146 00dc E57A77EE 		vsub.f32	s15, s15, s11
+ 147              	.LVL19:
+  50:../src/renesas/application/binarization/image_process.c ****         variance = t * t * w0 / (1 - w0); // g = w0/(1-w0)*(u0-u1)^2
+ 148              		.loc 1 50 0
+ 149 00e0 A77A67EE 		vmul.f32	s15, s15, s15
+ 150              	.LVL20:
+ 151 00e4 877A67EE 		vmul.f32	s15, s15, s14
+ 152 00e8 006AF7EE 		vmov.f32	s13, #1.0e+0
+ 153 00ec C76A76EE 		vsub.f32	s13, s13, s14
+ 154 00f0 A65A87EE 		vdiv.f32	s10, s15, s13
+ 155              	.LVL21:
+  51:../src/renesas/application/binarization/image_process.c ****         if (variance > maxVariance)
+ 156              		.loc 1 51 0
+ 157 00f4 C54AF4EE 		vcmpe.f32	s9, s10
+ 158 00f8 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 159              	.LVL22:
+  52:../src/renesas/application/binarization/image_process.c ****         {   //找到使灰度差最大的值,为阈值ֵ
+  53:../src/renesas/application/binarization/image_process.c ****             maxVariance = variance;
+  54:../src/renesas/application/binarization/image_process.c ****             Ostu_Threshold = i;
+ 160              		.loc 1 54 0
+ 161 00fc 7300EF46 		uxtbmi	r0, r3
+ 162              	.LVL23:
+  53:../src/renesas/application/binarization/image_process.c ****             Ostu_Threshold = i;
+ 163              		.loc 1 53 0
+ 164 0100 454AF04E 		vmovmi.f32	s9, s10
+ 165 0104 EAFFFFEA 		b	.L10
+ 166              	.LVL24:
+ 167              	.L17:
+  55:../src/renesas/application/binarization/image_process.c ****         }
+  56:../src/renesas/application/binarization/image_process.c ****     }
+  57:../src/renesas/application/binarization/image_process.c ****     //printf("Ostu_Threshold = %d\r\n" , Ostu_Threshold);
+  58:../src/renesas/application/binarization/image_process.c **** //    for (i = Ostu_Threshold; i < 256; i++)
+  59:../src/renesas/application/binarization/image_process.c **** //    {   //生成阈值数组，用于二值化加速
+  60:../src/renesas/application/binarization/image_process.c **** //        *(BinArray + i) = 1;
+  61:../src/renesas/application/binarization/image_process.c **** //    }
+  62:../src/renesas/application/binarization/image_process.c **** //    for (i = 0; i < Ostu_Threshold; i++)
+  63:../src/renesas/application/binarization/image_process.c **** //    {   // 生成阈值数组，用于二值化加速
+  64:../src/renesas/application/binarization/image_process.c **** //        *(BinArray + i) = 0;
+  65:../src/renesas/application/binarization/image_process.c **** //    }
+  66:../src/renesas/application/binarization/image_process.c ****     return Ostu_Threshold;
+  67:../src/renesas/application/binarization/image_process.c **** }
+ 168              		.loc 1 67 0
+ 169 0108 01DB8DE2 		add	sp, sp, #1024
+ 170              		.cfi_def_cfa_offset 0
+ 171              		@ sp needed
+ 172 010c 1EFF2FE1 		bx	lr
+ 173              	.L19:
+ 174              		.align	2
+ 175              	.L18:
+ 176 0110 00000000 		.word	0
+ 177 0114 00009648 		.word	1217789952
+ 178              		.cfi_endproc
+ 179              	.LFE0:
+ 181              		.text
+ 182              	.Letext0:
+ 183              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 184              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 185              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 186              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 187              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 188              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 189              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+DEFINED SYMBOLS
+                            *ABS*:00000000 image_process.c
+C:\Users\10094\AppData\Local\Temp\ccN6bi2G.s:17     .text.Ostu:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccN6bi2G.s:23     .text.Ostu:00000000 Ostu
+C:\Users\10094\AppData\Local\Temp\ccN6bi2G.s:176    .text.Ostu:00000110 $d
+                           .group:00000000 wm4.0.9054d66a5fa2dfc330cdb37bfcae7de2
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.image_process.h.6.5b84f8edfca62e1193bc4f209b35a17b
+
+NO UNDEFINED SYMBOLS

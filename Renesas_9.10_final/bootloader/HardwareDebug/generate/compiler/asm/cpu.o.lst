@@ -1,0 +1,214 @@
+   1              	# 1 "../generate/compiler/asm/cpu.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : cpu.asm
+  25              	@* $Rev: 536 $
+  26              	@* $Date:: 2018-08-09 19:15:33 +0900#$
+  27              	@* Description : cpu c15 sccess, etc
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	    .arm
+  32              	
+  33              	@******************************************************************************
+  34              	@ Function Name : __set_sctlr
+  35              	@ Description   : Set SCTLR register
+  36              	@******************************************************************************
+  37              	    .section .text.__set_sctlr
+  38              	    .global __set_sctlr
+  40              	    .func   __set_sctlr
+  41              	__set_sctlr:
+  42 0000 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0      @;; SCTLR
+  43 0004 1EFF2FE1 	    BX  LR
+  44              	
+  45              	    .endfunc
+  46              	
+  47              	
+  48              	@******************************************************************************
+  49              	@ Function Name : __get_sctlr
+  50              	@ Description   : Get SCTLR register
+  51              	@******************************************************************************
+  52              	    .section .text.__get_sctlr
+  53              	    .global __get_sctlr
+  55              	    .func   __get_sctlr
+  56              	__get_sctlr:
+  57 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0      @;; SCTLR
+  58 0004 1EFF2FE1 	    BX  LR
+  59              	
+  60              	    .endfunc
+  61              	
+  62              	@******************************************************************************
+  63              	@ Function Name : __set_cpsr
+  64              	@ Description   : Set CPSR register
+  65              	@******************************************************************************
+  66              	    .section .text.__set_cpsr
+  67              	    .global __set_cpsr
+  69              	    .func   __set_cpsr
+  70              	__set_cpsr:
+  71 0000 00F029E1 	    MSR  cpsr, r0
+  72 0004 1EFF2FE1 	    BX  LR
+  73              	
+  74              	    .endfunc
+  75              	
+  76              	@******************************************************************************
+  77              	@ Function Name : __get_cpsr
+  78              	@ Description   : Get CPSR register
+  79              	@******************************************************************************
+  80              	    .section .text.__get_cpsr
+  81              	    .global __get_cpsr
+  83              	    .func   __get_cpsr
+  84              	__get_cpsr:
+  85 0000 00000FE1 	    MRS  r0, cpsr
+  86 0004 1EFF2FE1 	    BX  LR
+  87              	
+  88              	    .endfunc
+  89              	
+  90              	@******************************************************************************
+  91              	@ Function Name : __set_vbar
+  92              	@ Description   : Set VBAR register
+  93              	@******************************************************************************
+  94              	    .section .text.__set_vbar
+  95              	    .global __set_vbar
+  97              	    .func   __set_vbar
+  98              	__set_vbar:
+  99 0000 100F0CEE 	    MCR  p15, 0, r0, c12, c0, 0      @;; VBAR
+ 100 0004 1EFF2FE1 	    BX  LR
+ 101              	
+ 102              	    .endfunc
+ 103              	
+ 104              	@******************************************************************************
+ 105              	@ Function Name : __get_vbar
+ 106              	@ Description   : Get VBAR register
+ 107              	@******************************************************************************
+ 108              	    .section .text.__get_vbar
+ 109              	    .global __get_vbar
+ 111              	    .func   __get_vbar
+ 112              	
+ 113              	__get_vbar:
+ 114 0000 100F1CEE 	    MRC  p15, 0, r0, c12, c0, 0      @;; VBAR
+ 115 0004 1EFF2FE1 	    BX  LR
+ 116              	
+ 117              	    .endfunc
+ 118              	
+ 119              	@******************************************************************************
+ 120              	@ Function Name : __wfi
+ 121              	@ Description   : WFI
+ 122              	@******************************************************************************
+ 123              	    .section .text.__wfi
+ 124              	    .global __wfi
+ 126              	    .func   __wfi
+ 127              	    
+ 128              	__wfi:
+ 129 0000 03F020E3 	    WFI
+ 130 0004 1EFF2FE1 	    BX  LR
+ 131              	
+ 132              	    .endfunc
+ 133              	
+ 134              	@******************************************************************************
+ 135              	@ Function Name : __isb
+ 136              	@ Description   : ISB
+ 137              	@******************************************************************************
+ 138              	    .section .text.__isb
+ 139              	    .global __isb
+ 141              	    .func   __isb
+ 142              	
+ 143              	__isb:
+ 144 0000 6FF07FF5 	    ISB
+ 145 0004 1EFF2FE1 	    BX  LR
+ 146              	
+ 147              	    .endfunc
+ 148              	
+ 149              	@******************************************************************************
+ 150              	@ Function Name : __dsb
+ 151              	@ Description   : DSB
+ 152              	@******************************************************************************
+ 153              	    .section .text.__dsb
+ 154              	    .global __dsb
+ 156              	    .func   __dsb
+ 157              	
+ 158              	__dsb:
+ 159 0000 4FF07FF5 	    DSB
+ 160 0004 1EFF2FE1 	    BX  LR
+ 161              	
+ 162              	    .endfunc
+ 163              	
+ 164              	@******************************************************************************
+ 165              	@ Function Name : __dmb
+ 166              	@ Description   : DMB
+ 167              	@******************************************************************************
+ 168              	    .section .text.__dmb
+ 169              	    .global __dmb
+ 171              	    .func   __dmb
+ 172              	
+ 173              	__dmb:
+ 174 0000 5FF07FF5 	    DMB
+ 175 0004 1EFF2FE1 	    BX  LR
+ 176              	
+ 177              	    .endfunc
+ 178              	
+ 179              	@******************************************************************************
+ 180              	@ Function Name : R_SoftwareDelay
+ 181              	@ Description   : delay loop
+ 182              	@******************************************************************************
+ 183              	    .section .text.R_SoftwareDelay
+ 184              	    .global R_SoftwareDelay
+ 186              	R_SoftwareDelay:
+ 187              	    .fnstart
+ 188 0000 000050E3 	    CMP r0, #0
+ 189 0004 1EFF2F01 	1:  BXEQ  LR
+ 190 0008 010050E2 	    SUBS  r0, r0, #1
+ 191 000c FCFFFFEA 	    B     1b
+ 193              	    .cantunwind
+ 194              	    .fnend
+ 195              	
+ 196              	    .end
+DEFINED SYMBOLS
+../generate/compiler/asm/cpu.asm:41     .text.__set_sctlr:00000000 __set_sctlr
+../generate/compiler/asm/cpu.asm:42     .text.__set_sctlr:00000000 $a
+../generate/compiler/asm/cpu.asm:56     .text.__get_sctlr:00000000 __get_sctlr
+../generate/compiler/asm/cpu.asm:57     .text.__get_sctlr:00000000 $a
+../generate/compiler/asm/cpu.asm:70     .text.__set_cpsr:00000000 __set_cpsr
+../generate/compiler/asm/cpu.asm:71     .text.__set_cpsr:00000000 $a
+../generate/compiler/asm/cpu.asm:84     .text.__get_cpsr:00000000 __get_cpsr
+../generate/compiler/asm/cpu.asm:85     .text.__get_cpsr:00000000 $a
+../generate/compiler/asm/cpu.asm:98     .text.__set_vbar:00000000 __set_vbar
+../generate/compiler/asm/cpu.asm:99     .text.__set_vbar:00000000 $a
+../generate/compiler/asm/cpu.asm:113    .text.__get_vbar:00000000 __get_vbar
+../generate/compiler/asm/cpu.asm:114    .text.__get_vbar:00000000 $a
+../generate/compiler/asm/cpu.asm:128    .text.__wfi:00000000 __wfi
+../generate/compiler/asm/cpu.asm:129    .text.__wfi:00000000 $a
+../generate/compiler/asm/cpu.asm:143    .text.__isb:00000000 __isb
+../generate/compiler/asm/cpu.asm:144    .text.__isb:00000000 $a
+../generate/compiler/asm/cpu.asm:158    .text.__dsb:00000000 __dsb
+../generate/compiler/asm/cpu.asm:159    .text.__dsb:00000000 $a
+../generate/compiler/asm/cpu.asm:173    .text.__dmb:00000000 __dmb
+../generate/compiler/asm/cpu.asm:174    .text.__dmb:00000000 $a
+../generate/compiler/asm/cpu.asm:186    .text.R_SoftwareDelay:00000000 R_SoftwareDelay
+../generate/compiler/asm/cpu.asm:188    .text.R_SoftwareDelay:00000000 $a
+  .ARM.exidx.text.R_SoftwareDelay:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,545 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"FindTrack.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.findTrack,"ax",%progbits
+  17              		.align	2
+  18              		.global	findTrack
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	findTrack:
+  24              	.LFB5:
+  25              		.file 1 "../src/renesas/application/smart_car/Tracker/FindTrack.c"
+   1:../src/renesas/application/smart_car/Tracker/FindTrack.c **** #include "FindTrack.h"
+   2:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+   3:../src/renesas/application/smart_car/Tracker/FindTrack.c **** /*********define for SearchCenterBLACK_CARline**********/
+   4:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+   5:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   MiddleLine[ROW];
+   6:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   RightEdge[ROW];
+   7:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   LeftEdge[ROW];
+   8:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   Width[ROW];//动态路宽
+   9:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+  10:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   MidPri         = MidLine;
+  11:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   LeftLose       = 0;
+  12:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   RightLose      = 0;
+  13:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   AllLose        = 0;
+  14:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   signalFlag_row = 0;
+  15:../src/renesas/application/smart_car/Tracker/FindTrack.c **** int   signalFlag_frame = 0;
+  16:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+  17:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //设置中线，左线，右线的初始化值
+  18:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //设置每一行对应的赛道宽度
+  19:../src/renesas/application/smart_car/Tracker/FindTrack.c **** static void SetInitVal(void)
+  20:../src/renesas/application/smart_car/Tracker/FindTrack.c **** {
+  21:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     int i;
+  22:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+  23:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     for(i=0; i<ROW; i++)//赋初值
+  24:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     {
+  25:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         RightEdge[i]  = COL - 1;
+  26:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         LeftEdge[i]   = 0;
+  27:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         MiddleLine[i] = MidPri;
+  28:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         Width[i]  = 39.372 + 1.0405*i;     //动态路宽
+  29:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     }
+  30:../src/renesas/application/smart_car/Tracker/FindTrack.c **** }
+  31:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //全行扫描和边缘结合提取赛道的中线
+  32:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //前十行全行扫描
+  33:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //后面54行，根据上一行的寻线情况来决定当前行的寻线方式和起点
+  34:../src/renesas/application/smart_car/Tracker/FindTrack.c **** static void SearchCenterBLACK_CARline( uint8_t* bin_image)
+  35:../src/renesas/application/smart_car/Tracker/FindTrack.c **** {
+  36:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     int16 i         = 0;
+  37:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     int16 j         = 0;
+  38:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     uint8 jj        = 0;
+  39:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+  40:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     LeftLose        = 0;//变量清零
+  41:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     RightLose       = 0;
+  42:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     AllLose         = 0;
+  43:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     SetInitVal();
+  44:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     //前十行，采用从中间往两边扫描的方法
+  45:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     for(i=ROW-1; i>=ROW-10; i--) //首先找前十行，全行扫描
+  46:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     {
+  47:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         signalFlag_row = 0;
+  48:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(i == ROW-1)//首行就以图像中心作为扫描起点
+  49:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  50:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MidPri;
+  51:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  52:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else
+  53:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  54:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1];//否则就以上一行中点的位置作为本行扫描起点
+  55:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  56:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(j <= effective_left)
+  57:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  58:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = effective_left;
+  59:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  60:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         while(j >= effective_left)//j>=effective_left有效范围内进行搜寻
+  61:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  62:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j-1]==BLACK_CAR \
+  63:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             		&& bin_image[i*COL+j-2]==BLACK_CAR)//从右向左找到白黑黑跳变
+  64:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+  65:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 LeftEdge[i] = j;//找到则赋值 找不到保持原值0
+  66:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 break;//跳出本行寻线
+  67:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+  68:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j--;//列数往左移动
+  69:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  70:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(i==ROW-1) //再找右边界
+  71:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  72:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MidPri;//如果首行，从图像中心开始搜寻
+  73:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  74:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else
+  75:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  76:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1];//否则从上一行中心位置开始搜寻
+  77:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  78:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(j >= effective_right)//有效范围内搜寻右线
+  79:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  80:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = effective_right;
+  81:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  82:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         while(j <= effective_right)
+  83:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+  84:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j+1]==BLACK_CAR && bin_image[i*COL+
+  85:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+  86:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 RightEdge[i] = j;//找到则赋值   找不到保持原值
+  87:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 break;//跳出本行寻线
+  88:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+  89:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j++;//列数往右移动
+  90:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  91:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if (LeftEdge[i] > 72) {
+  92:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           LeftEdge[i] = 0;//标志物影响边界，直接判定为丢线
+  93:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_row = 1;
+  94:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_frame = 1;
+  95:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+  96:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if (RightEdge[i] < 110) {
+  97:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           RightEdge[i] = COL - 1;
+  98:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_row = 1;
+  99:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_frame = 1;
+ 100:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 101:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(LeftEdge[i]>=effective_left && RightEdge[i]<=effective_right)//中线判断，没有丢�
+ 102:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 103:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             MiddleLine[i] = (LeftEdge[i] + RightEdge[i])/2;
+ 104:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 105:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i]>=effective_left && RightEdge[i]>effective_right)//丢了右线,没有�
+ 106:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 107:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if (!signalFlag_row)
+ 108:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 109:../src/renesas/application/smart_car/Tracker/FindTrack.c ****               RightLose++;
+ 110:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 111:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             //如果当行的
+ 112:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(i!=ROW-1 && ((RightEdge[i]-LeftEdge[i]) >= (RightEdge[i+1]-LeftEdge[i+1]+5)))//突�
+ 113:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 114:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = MiddleLine[i+1];
+ 115:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 116:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else
+ 117:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 118:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = LeftEdge[i] + Width[i]/2;//正常的话就用半宽补
+ 119:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 120:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 121:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i]<effective_left && RightEdge[i]<=effective_right)//丢了左线
+ 122:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 123:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if (!signalFlag_row)
+ 124:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 125:../src/renesas/application/smart_car/Tracker/FindTrack.c ****               LeftLose++;
+ 126:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 127:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(i!=ROW-1 && (RightEdge[i]-LeftEdge[i]) >= (RightEdge[i+1]-LeftEdge[i+1]+5))//突变
+ 128:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 129:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = MiddleLine[i+1];
+ 130:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 131:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else
+ 132:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 133:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = RightEdge[i] - Width[i]/2;//线宽
+ 134:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 135:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 136:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i]<effective_left && RightEdge[i]>effective_right)//两边都丢了的话
+ 137:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 138:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if (!signalFlag_row)
+ 139:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 140:../src/renesas/application/smart_car/Tracker/FindTrack.c ****               AllLose++;
+ 141:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 142:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(i == ROW-1)//如果是首行就以图像中心作为中点
+ 143:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 144:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = MidPri;
+ 145:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 146:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else
+ 147:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 148:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = MiddleLine[i+1];//如果不是首行就用上一行的中线作为�
+ 149:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 150:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 151:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+ 152:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(MiddleLine[ROW-1] >= effective_right)
+ 153:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 154:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             MidPri = effective_right;
+ 155:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 156:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(MiddleLine[ROW-1] <= effective_left)
+ 157:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 158:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             MidPri = effective_left;
+ 159:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 160:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else
+ 161:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 162:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             MidPri = MiddleLine[ROW-1];//记录本帧图像第63行的中线值，作为下一幅�
+ 163:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 164:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     }
+ 165:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     for(i=ROW-11; i>=25; i--)//查找剩余行
+ 166:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     {
+ 167:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         signalFlag_row = 0;
+ 168:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(LeftEdge[i+1]>=effective_left && RightEdge[i+1]<=effective_right) //上一行两边都�
+ 169:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 170:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = ((LeftEdge[i+1]+10) > effective_right)? effective_right:(LeftEdge[i+1]+10);//先找
+ 171:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             jj = ((LeftEdge[i+1]-5) < effective_left)? effective_left:(LeftEdge[i+1]-5);
+ 172:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j >= jj)
+ 173:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 174:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j-1]==BLACK_CAR && bin_image[i*
+ 175:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 176:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     LeftEdge[i] = j;
+ 177:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 178:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 179:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j--;
+ 180:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 181:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = ((RightEdge[i+1]-10) < effective_left)? effective_left:(RightEdge[i+1]-10); //在�
+ 182:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             jj = ((RightEdge[i+1]+5) > effective_right)? effective_right:(RightEdge[i+1]+5);
+ 183:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j <= jj)
+ 184:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 185:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j+1]==BLACK_CAR && bin_image[i*
+ 186:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 187:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     RightEdge[i] = j;
+ 188:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 189:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 190:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j++;
+ 191:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 192:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 193:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i+1]>=effective_left && RightEdge[i+1]>effective_right)//上一行只找�
+ 194:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 195:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j  = ((LeftEdge[i+1]+10) > effective_right)? effective_right:(LeftEdge[i+1]+10);//左�
+ 196:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             jj = ((LeftEdge[i+1]-5) < effective_left)? effective_left:(LeftEdge[i+1]-5);
+ 197:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j >= jj)
+ 198:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 199:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j-1]==BLACK_CAR && bin_image[i*
+ 200:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 201:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     LeftEdge[i] = j;
+ 202:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 203:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 204:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j--;
+ 205:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 206:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1];//上一行丢了右边界用全行扫描
+ 207:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(j >= effective_right)
+ 208:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 209:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j = effective_right;
+ 210:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 211:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j <= effective_right)
+ 212:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 213:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j+1]==BLACK_CAR && bin_image[i*
+ 214:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 215:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     RightEdge[i] = j;
+ 216:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 217:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 218:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j++;
+ 219:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 220:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 221:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i+1]<effective_left && RightEdge[i+1]<=effective_right) //上一行只找�
+ 222:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 223:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = ((RightEdge[i+1]-10) < effective_left)? effective_left:(RightEdge[i+1]-10);//边缘
+ 224:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             jj = ((RightEdge[i+1]+5) > effective_right)? effective_right:(RightEdge[i+1]+5);
+ 225:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j <= jj)
+ 226:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 227:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR&&bin_image[i*COL+j+1]==BLACK_CAR&&bin_image[i*COL+
+ 228:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 229:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     RightEdge[i] = j;
+ 230:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 231:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 232:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j++;
+ 233:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 234:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1]; //全行扫描找左边界
+ 235:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(j < effective_left)
+ 236:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 237:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j = effective_left;
+ 238:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 239:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j >= effective_left)
+ 240:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 241:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j-1]==BLACK_CAR && bin_image[i*
+ 242:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 243:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     LeftEdge[i] = j;
+ 244:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 245:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 246:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j--;
+ 247:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 248:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 249:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else if(LeftEdge[i+1]<effective_left && RightEdge[i+1]>effective_right)  //上一行没找�
+ 250:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 251:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1];   //全行找左边界
+ 252:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j >= effective_left)
+ 253:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 254:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR && bin_image[i*COL+j-1]==BLACK_CAR && bin_image[i*
+ 255:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 256:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     LeftEdge[i] = j;
+ 257:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 258:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 259:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j--;
+ 260:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 261:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             j = MiddleLine[i+1];   //全行找右边界
+ 262:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             while(j<=effective_right)
+ 263:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 264:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(bin_image[i*COL+j]==WHITE_CAR&&bin_image[i*COL+j+1]==BLACK_CAR&&bin_image[i*COL+
+ 265:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 266:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     RightEdge[i] = j;
+ 267:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     break;
+ 268:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 269:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 j++;
+ 270:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 271:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 272:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if (LeftEdge[i] > 72) {
+ 273:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           LeftEdge[i] = 0;//标志物影响边界，直接判定为丢线
+ 274:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_row = 1;
+ 275:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 276:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if (RightEdge[i] < 110) {
+ 277:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           RightEdge[i] = COL - 1;
+ 278:../src/renesas/application/smart_car/Tracker/FindTrack.c ****           signalFlag_row = 1;
+ 279:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 280:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if( (RightEdge[i]-LeftEdge[i]) >= (RightEdge[i+1]-LeftEdge[i+1]+5) )//突变
+ 281:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 282:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             MiddleLine[i] = MiddleLine[i+1];//用上一行
+ 283:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 284:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         else
+ 285:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 286:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             if(LeftEdge[i]>=effective_left && RightEdge[i]<=effective_right)//不丢线
+ 287:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 288:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = (LeftEdge[i] + RightEdge[i])/2;
+ 289:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 290:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else if(LeftEdge[i]>=effective_left && RightEdge[i]>effective_right)//lose right
+ 291:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 292:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if (!signalFlag_row)
+ 293:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 294:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                   RightLose++;
+ 295:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 296:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 
+ 297:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(LeftEdge[i+1] >= effective_left)
+ 298:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 299:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     MiddleLine[i] = MiddleLine[i+1]+LeftEdge[i]-LeftEdge[i+1];
+ 300:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 301:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 else
+ 302:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 303:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     MiddleLine[i]  = LeftEdge[i] + Width[i]/2;
+ 304:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 305:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 306:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else if(LeftEdge[i]<effective_left && RightEdge[i]<=effective_right)//lose left
+ 307:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 308:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if (!signalFlag_row)
+ 309:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 310:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                   LeftLose++;
+ 311:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 312:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if(RightEdge[i+1] <= effective_right)
+ 313:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 314:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     MiddleLine[i] = MiddleLine[i+1]+RightEdge[i]-RightEdge[i+1];
+ 315:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 316:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 else
+ 317:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 318:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                     MiddleLine[i] = RightEdge[i] - Width[i]/2;
+ 319:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 320:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 321:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             else if(LeftEdge[i]<effective_left && RightEdge[i]>effective_right)//两边丢线
+ 322:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             {
+ 323:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 if (!signalFlag_row)
+ 324:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 {
+ 325:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                   AllLose++;
+ 326:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 }
+ 327:../src/renesas/application/smart_car/Tracker/FindTrack.c ****                 MiddleLine[i] = MiddleLine[i+1];
+ 328:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             }
+ 329:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 330:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         uint16_t m = MiddleLine[i];
+ 331:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(m < effective_left)
+ 332:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 333:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             m = effective_left;
+ 334:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 335:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         if(m > effective_right)
+ 336:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         {
+ 337:../src/renesas/application/smart_car/Tracker/FindTrack.c ****             m = effective_right;
+ 338:../src/renesas/application/smart_car/Tracker/FindTrack.c ****         }
+ 339:../src/renesas/application/smart_car/Tracker/FindTrack.c ****     }
+ 340:../src/renesas/application/smart_car/Tracker/FindTrack.c **** }
+ 341:../src/renesas/application/smart_car/Tracker/FindTrack.c **** 
+ 342:../src/renesas/application/smart_car/Tracker/FindTrack.c **** void findTrack(void)
+ 343:../src/renesas/application/smart_car/Tracker/FindTrack.c **** {
+  26              		.loc 1 343 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+ 344:../src/renesas/application/smart_car/Tracker/FindTrack.c **** //    SearchCenterBLACK_CARline();//提取赛道的中线
+ 345:../src/renesas/application/smart_car/Tracker/FindTrack.c **** }
+  31              		.loc 1 345 0
+  32 0000 1EFF2FE1 		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE5:
+  36              		.global	signalFlag_frame
+  37              		.global	signalFlag_row
+  38              		.global	AllLose
+  39              		.global	RightLose
+  40              		.global	LeftLose
+  41              		.global	MidPri
+  42              		.comm	Width,480,4
+  43              		.comm	LeftEdge,480,4
+  44              		.comm	RightEdge,480,4
+  45              		.comm	MiddleLine,480,4
+  46              		.section	.bss.AllLose,"aw",%nobits
+  47              		.align	2
+  50              	AllLose:
+  51 0000 00000000 		.space	4
+  52              		.section	.bss.LeftLose,"aw",%nobits
+  53              		.align	2
+  56              	LeftLose:
+  57 0000 00000000 		.space	4
+  58              		.section	.bss.RightLose,"aw",%nobits
+  59              		.align	2
+  62              	RightLose:
+  63 0000 00000000 		.space	4
+  64              		.section	.bss.signalFlag_frame,"aw",%nobits
+  65              		.align	2
+  68              	signalFlag_frame:
+  69 0000 00000000 		.space	4
+  70              		.section	.bss.signalFlag_row,"aw",%nobits
+  71              		.align	2
+  74              	signalFlag_row:
+  75 0000 00000000 		.space	4
+  76              		.section	.data.MidPri,"aw",%progbits
+  77              		.align	2
+  80              	MidPri:
+  81 0000 59000000 		.word	89
+  82              		.text
+  83              	.Letext0:
+  84              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  85              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  86              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  87              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  88              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+  89              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  90              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  91              		.file 9 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0.
+  92              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+  93              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+  94              		.file 12 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+  95              		.file 13 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+  96              		.file 14 "D:\\Project\\e2_studio\\workspace2\\RZA2M_DRP_Benchmark_V1.0.0\\RZA2M_DRP_Benchmark_V1.0
+  97              		.file 15 "../src/renesas/application/smart_car/Tracker/FindTrack.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 FindTrack.c
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:17     .text.findTrack:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:23     .text.findTrack:00000000 findTrack
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:68     .bss.signalFlag_frame:00000000 signalFlag_frame
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:74     .bss.signalFlag_row:00000000 signalFlag_row
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:50     .bss.AllLose:00000000 AllLose
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:62     .bss.RightLose:00000000 RightLose
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:56     .bss.LeftLose:00000000 LeftLose
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:80     .data.MidPri:00000000 MidPri
+                            *COM*:000001e0 Width
+                            *COM*:000001e0 LeftEdge
+                            *COM*:000001e0 RightEdge
+                            *COM*:000001e0 MiddleLine
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:47     .bss.AllLose:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:53     .bss.LeftLose:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:59     .bss.RightLose:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:65     .bss.signalFlag_frame:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:71     .bss.signalFlag_row:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccc4P5Z5.s:77     .data.MidPri:00000000 $d
+                           .group:00000000 wm4.0.9054d66a5fa2dfc330cdb37bfcae7de2
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.smart_car.h.16.ee7c5a3dcaa581356366dfda614812ff
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,133 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"sections.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.global	DTBL
+  17              		.section	.rodata.DTBL,"a",%progbits
+  18              		.align	2
+  21              	DTBL:
+  22 0000 00000000 		.word	__vect_load_start
+  23 0004 00000000 		.word	__vect_load_end
+  24 0008 00000000 		.word	__vect_exec_start
+  25 000c 00000000 		.word	__fastcode_load_start
+  26 0010 00000000 		.word	__fastcode_load_end
+  27 0014 00000000 		.word	__fastcode_exec_start
+  28 0018 00000000 		.word	__data_load_start
+  29 001c 00000000 		.word	__data_load_end
+  30 0020 00000000 		.word	__data_exec_start
+  31 0024 00000000 		.word	__data2_load_start
+  32 0028 00000000 		.word	__data2_load_end
+  33 002c 00000000 		.word	__data2_exec_start
+  34 0030 00000000 		.word	__uncached_RAM2_load_start
+  35 0034 00000000 		.word	__uncached_RAM2_load_end
+  36 0038 00000000 		.word	__uncached_RAM2_exec_start
+  37 003c 00000000 		.word	0
+  38 0040 00000000 		.word	0
+  39 0044 00000000 		.word	0
+  40              		.global	BTBL
+  41              		.section	.rodata.BTBL,"a",%progbits
+  42              		.align	2
+  45              	BTBL:
+  46 0000 00000000 		.word	__bss_start
+  47 0004 00000000 		.word	__bss_end
+  48 0008 00000000 		.word	__bss2_start
+  49 000c 00000000 		.word	__bss2_end
+  50 0010 00000000 		.word	__uncached_RAM_start
+  51 0014 00000000 		.word	__uncached_RAM_end
+  52 0018 00000000 		.word	0
+  53 001c 00000000 		.word	0
+  54              		.global	DTBL_F
+  55              		.section	.rodata.DTBL_F,"a",%progbits
+  56              		.align	2
+  59              	DTBL_F:
+  60 0000 00000000 		.word	__module2_load_start
+  61 0004 00000000 		.word	__module2_load_end
+  62 0008 00000000 		.word	__module2_exec_start
+  63 000c 00000000 		.word	0
+  64 0010 00000000 		.word	0
+  65 0014 00000000 		.word	0
+  66              		.global	BTBL_F
+  67              		.section	.rodata.BTBL_F,"a",%progbits
+  68              		.align	2
+  71              	BTBL_F:
+  72 0000 00000000 		.word	__module3_exec_start
+  73 0004 00000000 		.word	__module3_exec_end
+  74 0008 00000000 		.word	0
+  75 000c 00000000 		.word	0
+  76              		.text
+  77              	.Letext0:
+  78              		.file 1 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  79              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  80              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+  81              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  82              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  83              		.file 6 "../src/renesas/compiler/init/sections.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 sections.c
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:21     .rodata.DTBL:00000000 DTBL
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:18     .rodata.DTBL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:45     .rodata.BTBL:00000000 BTBL
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:42     .rodata.BTBL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:59     .rodata.DTBL_F:00000000 DTBL_F
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:56     .rodata.DTBL_F:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:71     .rodata.BTBL_F:00000000 BTBL_F
+C:\Users\Y\AppData\Local\Temp\ccvkHvNj.s:68     .rodata.BTBL_F:00000000 $d
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+
+UNDEFINED SYMBOLS
+__vect_load_start
+__vect_load_end
+__vect_exec_start
+__fastcode_load_start
+__fastcode_load_end
+__fastcode_exec_start
+__data_load_start
+__data_load_end
+__data_exec_start
+__data2_load_start
+__data2_load_end
+__data2_exec_start
+__uncached_RAM2_load_start
+__uncached_RAM2_load_end
+__uncached_RAM2_exec_start
+__bss_start
+__bss_end
+__bss2_start
+__bss2_end
+__uncached_RAM_start
+__uncached_RAM_end
+__module2_load_start
+__module2_load_end
+__module2_exec_start
+__module3_exec_start
+__module3_exec_end

@@ -1,0 +1,166 @@
+   1              	# 1 "../src/renesas/compiler/asm/irqfiq_handler.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : irqfiq_handler.asm
+  25              	@* $Rev: 607 $
+  26              	@* $Date:: 2018-09-05 18:41:22 +0900#$
+  27              	@* Description : IRQ, FIQ handler
+  28              	@*******************************************************************************/
+  29              	
+  30              	@ Standard definitions of mode bits and interrupt (I & F) flags in PSRs
+  31              	    .EQU    SYS_MODE, 0x1f
+  32              	
+  33              	@ INTC_GICC_IAR register address
+  34              	    .EQU    INTC_GICC_IAR_ADDR,  0xE822200C
+  35              	@ INTC_GICC_EOIR register address
+  36              	    .EQU    INTC_GICC_EOIR_ADDR, 0xE8222010
+  37              	@ INTC_GICD_ISACTIVER0 register address
+  38              	    .EQU    INTC_GICD_ISACTIVER0_ADDR, 0xE8221300
+  39              	@ INTC_GICD_IPRIORITYR0 register address
+  40              	    .EQU    INTC_GICD_IPRIORITYR0_ADDR, 0xE8221400
+  41              	@ INTC_GICC_HPPIR register address
+  42              	    .EQU    INTC_GICC_HPPIR_ADDR, 0xE8222018
+  43              	
+  44              	@==================================================================
+  45              	@ Entry point for the FIQ handler
+  46              	@==================================================================
+  47              	    .section    IRQ_FIQ_HANDLER, #execinstr
+  48              	    .arm
+  49              	
+  50              	    .extern  NMI_Handler_Interrupt
+  51              	    .extern  INTC_Handler_Interrupt
+  52              	
+  53              	    .global  irq_handler
+  54              	    .global  fiq_handler
+  55              	
+  56              	
+  57              	@******************************************************************************
+  58              	@ Function Name : fiq_handler
+  59              	@ Description   : This function is the assembler function executed when the FIQ
+  60              	@               : interrupt is generated.
+  61              	@******************************************************************************
+  62              	fiq_handler:
+  63 0000 04E04EE2 	    SUB     lr, lr, #4
+  64 0004 1F056DF9 	    SRSDB   sp!, #SYS_MODE              @;; Store LR_fiq and SPSR_fiq in system mode stack
+  65 0008 1F0002F1 	    CPS     #SYS_MODE                   @;; Switch to system mode
+  66 000c 0F102DE9 	    PUSH    {r0-r3, r12}                @;; Store other AAPCS registers
+  67 0010 0D10A0E1 	    MOV     r1, sp                      @;;
+  68 0014 041001E2 	    AND     r1, r1, #4                  @;; Make alignment for stack
+  69 0018 01D04DE0 	    SUB     sp, sp, r1                  @;;
+  70 001c 02402DE9 	    PUSH    {r1, lr}
+  71 0020 FEFFFFEB 	    BL      NMI_Handler_Interrupt       @;; Call NMI Handler
+  72 0024 0240BDE8 	    POP     {r1, lr}
+  73 0028 01D08DE0 	    ADD     sp, sp, r1
+  74 002c 0F10BDE8 	    POP     {r0-r3, r12}                @;; Restore registers
+  75 0030 000ABDF8 	    RFEIA   sp!                         @;; Return from system mode stack using RFE
+  76              	
+  77              	
+  78              	@******************************************************************************
+  79              	@ Function Name : irq_handler
+  80              	@ Description   : This function is the assembler function executed when the IRQ
+  81              	@               : interrupt is generated. After saving the stack pointer and
+  82              	@               : the stack for general registers and obtaining the INTC interrupt
+  83              	@               : source ID, calls the IntcIrqHandler_interrupt function written
+  84              	@               : in C language to execute the processing for the INTC interrupt
+  85              	@               : handler corresponding to the interrupt source ID.
+  86              	@               : After the INTC interrupt handler processing, restores
+  87              	@               : the stack pointer and the general registers from the stack and
+  88              	@               : returns from the IRQ interrupt processing.
+  89              	@******************************************************************************
+  90              	irq_handler:
+  91 0034 04E04EE2 	    SUB     lr, lr, #4
+  92 0038 1F056DF9 	    SRSDB   sp!, #SYS_MODE              @;; Store LR_irq and SPSR_irq in system mode stack
+  93 003c 1F0002F1 	    CPS     #SYS_MODE                   @;; Switch to system mode
+  94 0040 0F102DE9 	    PUSH    {r0-r3, r12}                @;; Store other AAPCS registers
+  95 0044 7C109FE5 	    LDR     r1, =INTC_GICC_HPPIR_ADDR
+  96 0048 003091E5 	    LDR     r3, [r1]
+  97 004c 78209FE5 	    LDR     r2, =INTC_GICC_IAR_ADDR
+  98 0050 000092E5 	    LDR     r0, [r2]                    @;; Read INTC_GICC_IAR_ADDR
+  99 0054 74209FE5 	    LDR     r2, =0x000003FF
+ 100 0058 023000E0 	    AND     r3, r0, r2
+ 101 005c 70109FE5 	    LDR     r1, =0x000003FE
+ 102 0060 010053E1 	    CMP     r3, r1
+ 103 0064 1300005A 	    BPL     int_not_active
+ 104 0068 000053E3 	    CMP     r3, #0
+ 105 006c 0C00000A 	    BEQ     int_check
+ 106              	int_active:
+ 107 0070 04002DE5 	    PUSH    {r0}
+ 108 0074 0D10A0E1 	    MOV     r1, sp                      @;;
+ 109 0078 041001E2 	    AND     r1, r1, #4                  @;; Make alignment for stack
+ 110 007c 01D04DE0 	    SUB     sp, sp, r1                  @;;
+ 111 0080 02402DE9 	    PUSH    {r1, lr}
+ 112 0084 FEFFFFEB 	    BL      INTC_Handler_Interrupt      @;; First argument(r0) = GICC_IAR_ADDR read value
+ 113 0088 0240BDE8 	    POP     {r1, lr}
+ 114 008c 01D08DE0 	    ADD     sp, sp, r1
+ 115 0090 04009DE4 	    POP     {r0}
+ 116 0094 3C209FE5 	    LDR     r2, =INTC_GICC_EOIR_ADDR
+ 117 0098 000082E5 	    STR     r0, [r2]                    @;; Write GICC_EOIR
+ 118              	end_of_handler:
+ 119 009c 0F10BDE8 	    POP     {r0-r3, r12}                @;; Restore registers
+ 120 00a0 000ABDF8 	    RFEIA   sp!                         @;; Return from system mode stack using RFE
+ 121              	
+ 122              	int_check:
+ 123 00a4 30209FE5 	    LDR     r2, =INTC_GICD_ISACTIVER0_ADDR
+ 124 00a8 003092E5 	    LDR     r3, [r2]
+ 125 00ac 013003E2 	    AND     r3, r3, #0x00000001
+ 126 00b0 000053E3 	    CMP     r3, #0
+ 127 00b4 EDFFFF1A 	    BNE     int_active
+ 128              	int_not_active:
+ 129 00b8 20209FE5 	    LDR     r2, =INTC_GICD_IPRIORITYR0_ADDR
+ 130 00bc 003092E5 	    LDR     r3, [r2]
+ 131 00c0 003082E5 	    STR     r3, [r2]
+ 132 00c4 F4FFFFEA 	    B       end_of_handler
+ 133              	
+ 134              	Literals3:
+ 135 00c8 182022E8 	    .LTORG
+ 135      0C2022E8 
+ 135      FF030000 
+ 135      FE030000 
+ 135      102022E8 
+ 136              	
+ 137              	
+ 138              	    .END
+DEFINED SYMBOLS
+../src/renesas/compiler/asm/irqfiq_handler.asm:31     *ABS*:0000001f SYS_MODE
+../src/renesas/compiler/asm/irqfiq_handler.asm:34     *ABS*:e822200c INTC_GICC_IAR_ADDR
+../src/renesas/compiler/asm/irqfiq_handler.asm:36     *ABS*:e8222010 INTC_GICC_EOIR_ADDR
+../src/renesas/compiler/asm/irqfiq_handler.asm:38     *ABS*:e8221300 INTC_GICD_ISACTIVER0_ADDR
+../src/renesas/compiler/asm/irqfiq_handler.asm:40     *ABS*:e8221400 INTC_GICD_IPRIORITYR0_ADDR
+../src/renesas/compiler/asm/irqfiq_handler.asm:42     *ABS*:e8222018 INTC_GICC_HPPIR_ADDR
+../src/renesas/compiler/asm/irqfiq_handler.asm:90     IRQ_FIQ_HANDLER:00000034 irq_handler
+../src/renesas/compiler/asm/irqfiq_handler.asm:62     IRQ_FIQ_HANDLER:00000000 fiq_handler
+../src/renesas/compiler/asm/irqfiq_handler.asm:63     IRQ_FIQ_HANDLER:00000000 $a
+../src/renesas/compiler/asm/irqfiq_handler.asm:128    IRQ_FIQ_HANDLER:000000b8 int_not_active
+../src/renesas/compiler/asm/irqfiq_handler.asm:122    IRQ_FIQ_HANDLER:000000a4 int_check
+../src/renesas/compiler/asm/irqfiq_handler.asm:106    IRQ_FIQ_HANDLER:00000070 int_active
+../src/renesas/compiler/asm/irqfiq_handler.asm:118    IRQ_FIQ_HANDLER:0000009c end_of_handler
+../src/renesas/compiler/asm/irqfiq_handler.asm:134    IRQ_FIQ_HANDLER:000000c8 Literals3
+../src/renesas/compiler/asm/irqfiq_handler.asm:135    IRQ_FIQ_HANDLER:000000c8 $d
+
+UNDEFINED SYMBOLS
+NMI_Handler_Interrupt
+INTC_Handler_Interrupt

@@ -1,0 +1,1293 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"camera_mipi_imx219_b.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.rodata.GPIO_SC_TABLE_INIT,"a",%progbits
+  17              		.align	2
+  20              	GPIO_SC_TABLE_INIT:
+  21 0000 0108     		.short	2049
+  22 0002 02       		.byte	2
+  23 0003 01       		.byte	1
+  24 0004 05       		.byte	5
+  25 0005 00       		.space	1
+  26 0006 0000     		.short	0
+  27 0008 02       		.byte	2
+  28 0009 01       		.byte	1
+  29 000a 05       		.byte	5
+  30 000b 00       		.space	1
+  31              		.section	.rodata.GPIO_SC_TABLE_MANUAL,"a",%progbits
+  32              		.align	2
+  35              	GPIO_SC_TABLE_MANUAL:
+  36 0000 0004     		.short	1024
+  37 0002 08       		.byte	8
+  38 0003 01       		.byte	1
+  39 0004 04       		.byte	4
+  40 0005 00       		.space	1
+  41 0006 0104     		.short	1025
+  42 0008 08       		.byte	8
+  43 0009 01       		.byte	1
+  44 000a 04       		.byte	4
+  45 000b 00       		.space	1
+  46 000c 0204     		.short	1026
+  47 000e 08       		.byte	8
+  48 000f 01       		.byte	1
+  49 0010 04       		.byte	4
+  50 0011 00       		.space	1
+  51 0012 0304     		.short	1027
+  52 0014 08       		.byte	8
+  53 0015 01       		.byte	1
+  54 0016 04       		.byte	4
+  55 0017 00       		.space	1
+  56 0018 0404     		.short	1028
+  57 001a 08       		.byte	8
+  58 001b 01       		.byte	1
+  59 001c 04       		.byte	4
+  60 001d 00       		.space	1
+  61 001e 0504     		.short	1029
+  62 0020 08       		.byte	8
+  63 0021 01       		.byte	1
+  64 0022 04       		.byte	4
+  65 0023 00       		.space	1
+  66 0024 0604     		.short	1030
+  67 0026 08       		.byte	8
+  68 0027 01       		.byte	1
+  69 0028 04       		.byte	4
+  70 0029 00       		.space	1
+  71 002a 0704     		.short	1031
+  72 002c 08       		.byte	8
+  73 002d 01       		.byte	1
+  74 002e 04       		.byte	4
+  75 002f 00       		.space	1
+  76 0030 0006     		.short	1536
+  77 0032 04       		.byte	4
+  78 0033 01       		.byte	1
+  79 0034 04       		.byte	4
+  80 0035 00       		.space	1
+  81 0036 0106     		.short	1537
+  82 0038 08       		.byte	8
+  83 0039 01       		.byte	1
+  84 003a 05       		.byte	5
+  85 003b 00       		.space	1
+  86 003c 0206     		.short	1538
+  87 003e 08       		.byte	8
+  88 003f 01       		.byte	1
+  89 0040 05       		.byte	5
+  90 0041 00       		.space	1
+  91 0042 0306     		.short	1539
+  92 0044 08       		.byte	8
+  93 0045 01       		.byte	1
+  94 0046 05       		.byte	5
+  95 0047 00       		.space	1
+  96 0048 0406     		.short	1540
+  97 004a 04       		.byte	4
+  98 004b 01       		.byte	1
+  99 004c 04       		.byte	4
+ 100 004d 00       		.space	1
+ 101 004e 0506     		.short	1541
+ 102 0050 04       		.byte	4
+ 103 0051 01       		.byte	1
+ 104 0052 04       		.byte	4
+ 105 0053 00       		.space	1
+ 106 0054 0606     		.short	1542
+ 107 0056 04       		.byte	4
+ 108 0057 01       		.byte	1
+ 109 0058 04       		.byte	4
+ 110 0059 00       		.space	1
+ 111 005a 0706     		.short	1543
+ 112 005c 04       		.byte	4
+ 113 005d 01       		.byte	1
+ 114 005e 04       		.byte	4
+ 115 005f 00       		.space	1
+ 116 0060 0007     		.short	1792
+ 117 0062 04       		.byte	4
+ 118 0063 01       		.byte	1
+ 119 0064 04       		.byte	4
+ 120 0065 00       		.space	1
+ 121 0066 0107     		.short	1793
+ 122 0068 04       		.byte	4
+ 123 0069 01       		.byte	1
+ 124 006a 04       		.byte	4
+ 125 006b 00       		.space	1
+ 126 006c 0307     		.short	1795
+ 127 006e 04       		.byte	4
+ 128 006f 01       		.byte	1
+ 129 0070 04       		.byte	4
+ 130 0071 00       		.space	1
+ 131 0072 0407     		.short	1796
+ 132 0074 04       		.byte	4
+ 133 0075 01       		.byte	1
+ 134 0076 04       		.byte	4
+ 135 0077 00       		.space	1
+ 136 0078 0507     		.short	1797
+ 137 007a 04       		.byte	4
+ 138 007b 01       		.byte	1
+ 139 007c 04       		.byte	4
+ 140 007d 00       		.space	1
+ 141 007e 0308     		.short	2051
+ 142 0080 04       		.byte	4
+ 143 0081 01       		.byte	1
+ 144 0082 04       		.byte	4
+ 145 0083 00       		.space	1
+ 146 0084 0408     		.short	2052
+ 147 0086 04       		.byte	4
+ 148 0087 01       		.byte	1
+ 149 0088 04       		.byte	4
+ 150 0089 00       		.space	1
+ 151 008a 0508     		.short	2053
+ 152 008c 04       		.byte	4
+ 153 008d 01       		.byte	1
+ 154 008e 04       		.byte	4
+ 155 008f 00       		.space	1
+ 156 0090 0608     		.short	2054
+ 157 0092 04       		.byte	4
+ 158 0093 01       		.byte	1
+ 159 0094 04       		.byte	4
+ 160 0095 00       		.space	1
+ 161 0096 0409     		.short	2308
+ 162 0098 04       		.byte	4
+ 163 0099 01       		.byte	1
+ 164 009a 04       		.byte	4
+ 165 009b 00       		.space	1
+ 166 009c 0509     		.short	2309
+ 167 009e 04       		.byte	4
+ 168 009f 01       		.byte	1
+ 169 00a0 04       		.byte	4
+ 170 00a1 00       		.space	1
+ 171 00a2 0609     		.short	2310
+ 172 00a4 04       		.byte	4
+ 173 00a5 01       		.byte	1
+ 174 00a6 04       		.byte	4
+ 175 00a7 00       		.space	1
+ 176 00a8 0709     		.short	2311
+ 177 00aa 04       		.byte	4
+ 178 00ab 01       		.byte	1
+ 179 00ac 04       		.byte	4
+ 180 00ad 00       		.space	1
+ 181 00ae 0707     		.short	1799
+ 182 00b0 09       		.byte	9
+ 183 00b1 01       		.byte	1
+ 184 00b2 04       		.byte	4
+ 185 00b3 00       		.space	1
+ 186 00b4 0008     		.short	2048
+ 187 00b6 09       		.byte	9
+ 188 00b7 01       		.byte	1
+ 189 00b8 04       		.byte	4
+ 190 00b9 00       		.space	1
+ 191 00ba 000A     		.short	2560
+ 192 00bc 09       		.byte	9
+ 193 00bd 01       		.byte	1
+ 194 00be 04       		.byte	4
+ 195 00bf 00       		.space	1
+ 196 00c0 010A     		.short	2561
+ 197 00c2 09       		.byte	9
+ 198 00c3 01       		.byte	1
+ 199 00c4 04       		.byte	4
+ 200 00c5 00       		.space	1
+ 201 00c6 020A     		.short	2562
+ 202 00c8 09       		.byte	9
+ 203 00c9 01       		.byte	1
+ 204 00ca 04       		.byte	4
+ 205 00cb 00       		.space	1
+ 206 00cc 030A     		.short	2563
+ 207 00ce 09       		.byte	9
+ 208 00cf 01       		.byte	1
+ 209 00d0 04       		.byte	4
+ 210 00d1 00       		.space	1
+ 211 00d2 040A     		.short	2564
+ 212 00d4 09       		.byte	9
+ 213 00d5 01       		.byte	1
+ 214 00d6 04       		.byte	4
+ 215 00d7 00       		.space	1
+ 216 00d8 050A     		.short	2565
+ 217 00da 09       		.byte	9
+ 218 00db 01       		.byte	1
+ 219 00dc 04       		.byte	4
+ 220 00dd 00       		.space	1
+ 221 00de 060A     		.short	2566
+ 222 00e0 09       		.byte	9
+ 223 00e1 01       		.byte	1
+ 224 00e2 04       		.byte	4
+ 225 00e3 00       		.space	1
+ 226 00e4 070A     		.short	2567
+ 227 00e6 09       		.byte	9
+ 228 00e7 01       		.byte	1
+ 229 00e8 04       		.byte	4
+ 230 00e9 00       		.space	1
+ 231 00ea 000B     		.short	2816
+ 232 00ec 09       		.byte	9
+ 233 00ed 01       		.byte	1
+ 234 00ee 04       		.byte	4
+ 235 00ef 00       		.space	1
+ 236 00f0 010B     		.short	2817
+ 237 00f2 09       		.byte	9
+ 238 00f3 01       		.byte	1
+ 239 00f4 04       		.byte	4
+ 240 00f5 00       		.space	1
+ 241 00f6 020B     		.short	2818
+ 242 00f8 09       		.byte	9
+ 243 00f9 01       		.byte	1
+ 244 00fa 04       		.byte	4
+ 245 00fb 00       		.space	1
+ 246 00fc 030B     		.short	2819
+ 247 00fe 09       		.byte	9
+ 248 00ff 01       		.byte	1
+ 249 0100 04       		.byte	4
+ 250 0101 00       		.space	1
+ 251 0102 040B     		.short	2820
+ 252 0104 09       		.byte	9
+ 253 0105 01       		.byte	1
+ 254 0106 04       		.byte	4
+ 255 0107 00       		.space	1
+ 256 0108 050B     		.short	2821
+ 257 010a 09       		.byte	9
+ 258 010b 01       		.byte	1
+ 259 010c 04       		.byte	4
+ 260 010d 00       		.space	1
+ 261 010e 030C     		.short	3075
+ 262 0110 0B       		.byte	11
+ 263 0111 01       		.byte	1
+ 264 0112 04       		.byte	4
+ 265 0113 00       		.space	1
+ 266 0114 040C     		.short	3076
+ 267 0116 0B       		.byte	11
+ 268 0117 01       		.byte	1
+ 269 0118 04       		.byte	4
+ 270 0119 00       		.space	1
+ 271 011a 010E     		.short	3585
+ 272 011c 08       		.byte	8
+ 273 011d 01       		.byte	1
+ 274 011e 05       		.byte	5
+ 275 011f 00       		.space	1
+ 276 0120 020E     		.short	3586
+ 277 0122 08       		.byte	8
+ 278 0123 01       		.byte	1
+ 279 0124 05       		.byte	5
+ 280 0125 00       		.space	1
+ 281 0126 030E     		.short	3587
+ 282 0128 08       		.byte	8
+ 283 0129 01       		.byte	1
+ 284 012a 05       		.byte	5
+ 285 012b 00       		.space	1
+ 286 012c 040E     		.short	3588
+ 287 012e 08       		.byte	8
+ 288 012f 01       		.byte	1
+ 289 0130 05       		.byte	5
+ 290 0131 00       		.space	1
+ 291 0132 050E     		.short	3589
+ 292 0134 08       		.byte	8
+ 293 0135 01       		.byte	1
+ 294 0136 05       		.byte	5
+ 295 0137 00       		.space	1
+ 296 0138 060E     		.short	3590
+ 297 013a 08       		.byte	8
+ 298 013b 01       		.byte	1
+ 299 013c 05       		.byte	5
+ 300 013d 00       		.space	1
+ 301 013e 000F     		.short	3840
+ 302 0140 09       		.byte	9
+ 303 0141 01       		.byte	1
+ 304 0142 04       		.byte	4
+ 305 0143 00       		.space	1
+ 306 0144 010F     		.short	3841
+ 307 0146 09       		.byte	9
+ 308 0147 01       		.byte	1
+ 309 0148 04       		.byte	4
+ 310 0149 00       		.space	1
+ 311 014a 020F     		.short	3842
+ 312 014c 09       		.byte	9
+ 313 014d 01       		.byte	1
+ 314 014e 04       		.byte	4
+ 315 014f 00       		.space	1
+ 316 0150 030F     		.short	3843
+ 317 0152 09       		.byte	9
+ 318 0153 01       		.byte	1
+ 319 0154 04       		.byte	4
+ 320 0155 00       		.space	1
+ 321 0156 040F     		.short	3844
+ 322 0158 09       		.byte	9
+ 323 0159 01       		.byte	1
+ 324 015a 04       		.byte	4
+ 325 015b 00       		.space	1
+ 326 015c 050F     		.short	3845
+ 327 015e 09       		.byte	9
+ 328 015f 01       		.byte	1
+ 329 0160 04       		.byte	4
+ 330 0161 00       		.space	1
+ 331 0162 060F     		.short	3846
+ 332 0164 09       		.byte	9
+ 333 0165 01       		.byte	1
+ 334 0166 04       		.byte	4
+ 335 0167 00       		.space	1
+ 336 0168 070F     		.short	3847
+ 337 016a 09       		.byte	9
+ 338 016b 01       		.byte	1
+ 339 016c 04       		.byte	4
+ 340 016d 00       		.space	1
+ 341 016e 0011     		.short	4352
+ 342 0170 08       		.byte	8
+ 343 0171 01       		.byte	1
+ 344 0172 05       		.byte	5
+ 345 0173 00       		.space	1
+ 346 0174 0111     		.short	4353
+ 347 0176 08       		.byte	8
+ 348 0177 01       		.byte	1
+ 349 0178 05       		.byte	5
+ 350 0179 00       		.space	1
+ 351 017a 0211     		.short	4354
+ 352 017c 09       		.byte	9
+ 353 017d 01       		.byte	1
+ 354 017e 04       		.byte	4
+ 355 017f 00       		.space	1
+ 356 0180 0612     		.short	4614
+ 357 0182 09       		.byte	9
+ 358 0183 01       		.byte	1
+ 359 0184 02       		.byte	2
+ 360 0185 00       		.space	1
+ 361 0186 0712     		.short	4615
+ 362 0188 09       		.byte	9
+ 363 0189 01       		.byte	1
+ 364 018a 05       		.byte	5
+ 365 018b 00       		.space	1
+ 366              		.section	.rodata.GPIO_SC_TABLE_riic2,"a",%progbits
+ 367              		.align	2
+ 370              	GPIO_SC_TABLE_riic2:
+ 371 0000 040D     		.short	3332
+ 372 0002 07       		.byte	7
+ 373 0003 01       		.byte	1
+ 374 0004 05       		.byte	5
+ 375 0005 00       		.space	1
+ 376 0006 050D     		.short	3333
+ 377 0008 07       		.byte	7
+ 378 0009 01       		.byte	1
+ 379 000a 05       		.byte	5
+ 380 000b 00       		.space	1
+ 381              		.section	.rodata.GPIO_SC_TABLE_riic3,"a",%progbits
+ 382              		.align	2
+ 385              	GPIO_SC_TABLE_riic3:
+ 386 0000 060D     		.short	3334
+ 387 0002 07       		.byte	7
+ 388 0003 01       		.byte	1
+ 389 0004 05       		.byte	5
+ 390 0005 00       		.space	1
+ 391 0006 070D     		.short	3335
+ 392 0008 07       		.byte	7
+ 393 0009 01       		.byte	1
+ 394 000a 05       		.byte	5
+ 395 000b 00       		.space	1
+ 396              		.section	.rodata.GPIO_SC_TABLE_scifa4,"a",%progbits
+ 397              		.align	2
+ 400              	GPIO_SC_TABLE_scifa4:
+ 401 0000 0009     		.short	2304
+ 402 0002 0A       		.byte	10
+ 403 0003 01       		.byte	1
+ 404 0004 04       		.byte	4
+ 405 0005 00       		.space	1
+ 406 0006 0109     		.short	2305
+ 407 0008 0A       		.byte	10
+ 408 0009 01       		.byte	1
+ 409 000a 05       		.byte	5
+ 410 000b 00       		.space	1
+ 411              		.section	.rodata.GPIO_SC_TABLE_BSC,"a",%progbits
+ 412              		.align	2
+ 415              	GPIO_SC_TABLE_BSC:
+ 416 0000 0000     		.short	0
+ 417 0002 07       		.byte	7
+ 418 0003 01       		.byte	1
+ 419 0004 04       		.byte	4
+ 420 0005 00       		.space	1
+ 421 0006 0100     		.short	1
+ 422 0008 07       		.byte	7
+ 423 0009 01       		.byte	1
+ 424 000a 04       		.byte	4
+ 425 000b 00       		.space	1
+ 426 000c 0200     		.short	2
+ 427 000e 07       		.byte	7
+ 428 000f 01       		.byte	1
+ 429 0010 04       		.byte	4
+ 430 0011 00       		.space	1
+ 431 0012 0300     		.short	3
+ 432 0014 07       		.byte	7
+ 433 0015 01       		.byte	1
+ 434 0016 04       		.byte	4
+ 435 0017 00       		.space	1
+ 436 0018 0400     		.short	4
+ 437 001a 07       		.byte	7
+ 438 001b 01       		.byte	1
+ 439 001c 04       		.byte	4
+ 440 001d 00       		.space	1
+ 441 001e 0500     		.short	5
+ 442 0020 07       		.byte	7
+ 443 0021 01       		.byte	1
+ 444 0022 04       		.byte	4
+ 445 0023 00       		.space	1
+ 446 0024 0600     		.short	6
+ 447 0026 07       		.byte	7
+ 448 0027 01       		.byte	1
+ 449 0028 04       		.byte	4
+ 450 0029 00       		.space	1
+ 451 002a 0001     		.short	256
+ 452 002c 07       		.byte	7
+ 453 002d 01       		.byte	1
+ 454 002e 04       		.byte	4
+ 455 002f 00       		.space	1
+ 456 0030 0101     		.short	257
+ 457 0032 07       		.byte	7
+ 458 0033 01       		.byte	1
+ 459 0034 04       		.byte	4
+ 460 0035 00       		.space	1
+ 461 0036 0201     		.short	258
+ 462 0038 07       		.byte	7
+ 463 0039 01       		.byte	1
+ 464 003a 04       		.byte	4
+ 465 003b 00       		.space	1
+ 466 003c 0301     		.short	259
+ 467 003e 07       		.byte	7
+ 468 003f 01       		.byte	1
+ 469 0040 04       		.byte	4
+ 470 0041 00       		.space	1
+ 471 0042 0401     		.short	260
+ 472 0044 07       		.byte	7
+ 473 0045 01       		.byte	1
+ 474 0046 04       		.byte	4
+ 475 0047 00       		.space	1
+ 476 0048 0002     		.short	512
+ 477 004a 07       		.byte	7
+ 478 004b 01       		.byte	1
+ 479 004c 04       		.byte	4
+ 480 004d 00       		.space	1
+ 481 004e 0102     		.short	513
+ 482 0050 07       		.byte	7
+ 483 0051 01       		.byte	1
+ 484 0052 04       		.byte	4
+ 485 0053 00       		.space	1
+ 486 0054 0202     		.short	514
+ 487 0056 07       		.byte	7
+ 488 0057 01       		.byte	1
+ 489 0058 04       		.byte	4
+ 490 0059 00       		.space	1
+ 491 005a 0302     		.short	515
+ 492 005c 07       		.byte	7
+ 493 005d 01       		.byte	1
+ 494 005e 04       		.byte	4
+ 495 005f 00       		.space	1
+ 496 0060 0007     		.short	1792
+ 497 0062 07       		.byte	7
+ 498 0063 01       		.byte	1
+ 499 0064 04       		.byte	4
+ 500 0065 00       		.space	1
+ 501 0066 0107     		.short	1793
+ 502 0068 07       		.byte	7
+ 503 0069 01       		.byte	1
+ 504 006a 04       		.byte	4
+ 505 006b 00       		.space	1
+ 506 006c 0307     		.short	1795
+ 507 006e 07       		.byte	7
+ 508 006f 01       		.byte	1
+ 509 0070 04       		.byte	4
+ 510 0071 00       		.space	1
+ 511 0072 0407     		.short	1796
+ 512 0074 07       		.byte	7
+ 513 0075 01       		.byte	1
+ 514 0076 04       		.byte	4
+ 515 0077 00       		.space	1
+ 516 0078 0507     		.short	1797
+ 517 007a 07       		.byte	7
+ 518 007b 01       		.byte	1
+ 519 007c 04       		.byte	4
+ 520 007d 00       		.space	1
+ 521 007e 0108     		.short	2049
+ 522 0080 07       		.byte	7
+ 523 0081 01       		.byte	1
+ 524 0082 04       		.byte	4
+ 525 0083 00       		.space	1
+ 526 0084 0208     		.short	2050
+ 527 0086 07       		.byte	7
+ 528 0087 01       		.byte	1
+ 529 0088 04       		.byte	4
+ 530 0089 00       		.space	1
+ 531 008a 0308     		.short	2051
+ 532 008c 07       		.byte	7
+ 533 008d 01       		.byte	1
+ 534 008e 04       		.byte	4
+ 535 008f 00       		.space	1
+ 536 0090 0408     		.short	2052
+ 537 0092 07       		.byte	7
+ 538 0093 01       		.byte	1
+ 539 0094 04       		.byte	4
+ 540 0095 00       		.space	1
+ 541 0096 0508     		.short	2053
+ 542 0098 07       		.byte	7
+ 543 0099 01       		.byte	1
+ 544 009a 04       		.byte	4
+ 545 009b 00       		.space	1
+ 546 009c 0608     		.short	2054
+ 547 009e 07       		.byte	7
+ 548 009f 01       		.byte	1
+ 549 00a0 04       		.byte	4
+ 550 00a1 00       		.space	1
+ 551 00a2 0708     		.short	2055
+ 552 00a4 07       		.byte	7
+ 553 00a5 01       		.byte	1
+ 554 00a6 04       		.byte	4
+ 555 00a7 00       		.space	1
+ 556 00a8 0009     		.short	2304
+ 557 00aa 07       		.byte	7
+ 558 00ab 01       		.byte	1
+ 559 00ac 04       		.byte	4
+ 560 00ad 00       		.space	1
+ 561 00ae 0109     		.short	2305
+ 562 00b0 07       		.byte	7
+ 563 00b1 01       		.byte	1
+ 564 00b2 04       		.byte	4
+ 565 00b3 00       		.space	1
+ 566 00b4 0209     		.short	2306
+ 567 00b6 07       		.byte	7
+ 568 00b7 01       		.byte	1
+ 569 00b8 04       		.byte	4
+ 570 00b9 00       		.space	1
+ 571 00ba 0309     		.short	2307
+ 572 00bc 07       		.byte	7
+ 573 00bd 01       		.byte	1
+ 574 00be 04       		.byte	4
+ 575 00bf 00       		.space	1
+ 576 00c0 0409     		.short	2308
+ 577 00c2 07       		.byte	7
+ 578 00c3 01       		.byte	1
+ 579 00c4 04       		.byte	4
+ 580 00c5 00       		.space	1
+ 581 00c6 0509     		.short	2309
+ 582 00c8 07       		.byte	7
+ 583 00c9 01       		.byte	1
+ 584 00ca 04       		.byte	4
+ 585 00cb 00       		.space	1
+ 586 00cc 0609     		.short	2310
+ 587 00ce 07       		.byte	7
+ 588 00cf 01       		.byte	1
+ 589 00d0 04       		.byte	4
+ 590 00d1 00       		.space	1
+ 591 00d2 0709     		.short	2311
+ 592 00d4 07       		.byte	7
+ 593 00d5 01       		.byte	1
+ 594 00d6 04       		.byte	4
+ 595 00d7 00       		.space	1
+ 596              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified0,"a",%progbits
+ 597              		.align	2
+ 600              	GPIO_SC_TABLE_sdhi_simplified0:
+ 601 0000 0005     		.short	1280
+ 602 0002 09       		.byte	9
+ 603 0003 01       		.byte	1
+ 604 0004 05       		.byte	5
+ 605 0005 00       		.space	1
+ 606 0006 0105     		.short	1281
+ 607 0008 09       		.byte	9
+ 608 0009 01       		.byte	1
+ 609 000a 05       		.byte	5
+ 610 000b 00       		.space	1
+ 611              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified1,"a",%progbits
+ 612              		.align	2
+ 615              	GPIO_SC_TABLE_sdhi_simplified1:
+ 616 0000 0405     		.short	1284
+ 617 0002 09       		.byte	9
+ 618 0003 01       		.byte	1
+ 619 0004 05       		.byte	5
+ 620 0005 00       		.space	1
+ 621 0006 0505     		.short	1285
+ 622 0008 09       		.byte	9
+ 623 0009 01       		.byte	1
+ 624 000a 05       		.byte	5
+ 625 000b 00       		.space	1
+ 626              		.section	.rodata.RIIC_SC_TABLE,"a",%progbits
+ 627              		.align	2
+ 630              	RIIC_SC_TABLE:
+ 631 0000 02000000 		.word	2
+ 632 0004 00       		.byte	0
+ 633 0005 000000   		.space	3
+ 634 0008 01000000 		.word	1
+ 635 000c 01000000 		.word	1
+ 636 0010 01000000 		.word	1
+ 637 0014 0100     		.short	1
+ 638 0016 0100     		.short	1
+ 639 0018 0100     		.short	1
+ 640 001a 00       		.byte	0
+ 641 001b 00       		.byte	0
+ 642 001c 00       		.byte	0
+ 643 001d 00       		.byte	0
+ 644 001e 04       		.byte	4
+ 645 001f 00       		.space	1
+ 646 0020 00000000 		.word	0
+ 647 0024 00000000 		.word	0
+ 648 0028 00       		.byte	0
+ 649 0029 00       		.byte	0
+ 650 002a 00       		.byte	0
+ 651 002b 00       		.space	1
+ 652 002c 01000000 		.word	1
+ 653 0030 09       		.byte	9
+ 654 0031 09       		.byte	9
+ 655 0032 09       		.byte	9
+ 656 0033 09       		.byte	9
+ 657 0034 09       		.byte	9
+ 658 0035 09       		.byte	9
+ 659 0036 09       		.byte	9
+ 660 0037 09       		.byte	9
+ 661 0038 00000000 		.word	GPIO_SC_TABLE_riic2
+ 662 003c 02000000 		.word	2
+ 663 0040 00000000 		.space	4
+ 664 0044 03000000 		.word	3
+ 665 0048 00       		.byte	0
+ 666 0049 000000   		.space	3
+ 667 004c 01000000 		.word	1
+ 668 0050 01000000 		.word	1
+ 669 0054 01000000 		.word	1
+ 670 0058 0100     		.short	1
+ 671 005a 0100     		.short	1
+ 672 005c 0100     		.short	1
+ 673 005e 00       		.byte	0
+ 674 005f 00       		.byte	0
+ 675 0060 00       		.byte	0
+ 676 0061 00       		.byte	0
+ 677 0062 04       		.byte	4
+ 678 0063 00       		.space	1
+ 679 0064 00000000 		.word	0
+ 680 0068 00000000 		.word	0
+ 681 006c 00       		.byte	0
+ 682 006d 00       		.byte	0
+ 683 006e 00       		.byte	0
+ 684 006f 00       		.space	1
+ 685 0070 01000000 		.word	1
+ 686 0074 09       		.byte	9
+ 687 0075 09       		.byte	9
+ 688 0076 09       		.byte	9
+ 689 0077 09       		.byte	9
+ 690 0078 09       		.byte	9
+ 691 0079 09       		.byte	9
+ 692 007a 09       		.byte	9
+ 693 007b 09       		.byte	9
+ 694 007c 00000000 		.word	GPIO_SC_TABLE_riic3
+ 695 0080 02000000 		.word	2
+ 696 0084 00000000 		.space	4
+ 697              		.global	hi2c2
+ 698              		.section	.data.hi2c2,"aw",%progbits
+ 699              		.align	2
+ 702              	hi2c2:
+ 703 0000 FFFFFFFF 		.word	-1
+ 704              		.section	.rodata
+ 705              		.align	2
+ 706              	.LC2:
+ 707 0000 5C5C2E5C 		.ascii	"\\\\.\\riic2\000"
+ 707      72696963 
+ 707      3200
+ 708 000a 0000     		.align	2
+ 709              	.LC0:
+ 710 000c 01       		.byte	1
+ 711 000d 03       		.byte	3
+ 712 000e 01       		.byte	1
+ 713              		.section	.text.Init_Camera,"ax",%progbits
+ 714              		.align	2
+ 715              		.global	Init_Camera
+ 716              		.syntax unified
+ 717              		.arm
+ 718              		.fpu neon
+ 720              	Init_Camera:
+ 721              	.LFB3:
+ 722              		.file 1 "../src/renesas/application/common/camera/camera_mipi_imx219_b.c"
+   1:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /*******************************************************************************
+   2:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * DISCLAIMER
+   3:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * all applicable laws, including copyright laws.
+   7:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * following link:
+  20:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * http://www.renesas.com/disclaimer*
+  21:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** *******************************************************************************/
+  23:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /**************************************************************************//**
+  24:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @file         camera_mipi_imx219_b.c
+  25:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @version      0.01
+  26:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @brief        MIPI Camera Register Setting
+  27:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  28:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  29:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  30:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Includes   <System Includes> , "Project Includes"
+  31:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  32:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "mipi_camera.h"
+  33:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #if (CAM_MIPI == CAM_IMX219_B)
+  34:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    <stdio.h>
+  35:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    <iodefine.h>
+  36:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "r_mipi_api.h"
+  37:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "r_mmu_drv_api.h"
+  38:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "r_riic_drv_api.h"
+  39:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "camera_mipi_imx219_b_regdata.h"
+  40:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "r_devlink_wrapper.h"
+  41:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #include    "r_riic_drv_sc_cfg.h"
+  42:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  43:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  44:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Macro definitions
+  45:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  46:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** #define MIPI_CAMERA_SUBADD    0x20
+  47:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  48:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  49:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Typedef definitions
+  50:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  51:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  52:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  53:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Imported global variables and functions (from other files)
+  54:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  55:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  56:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  57:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Exported global variables (to be accessed by other files)
+  58:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  59:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  60:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+  61:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** Private global variables and functions
+  62:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  63:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** int_t hi2c2 = ( -1);
+  64:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  65:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /**************************************************************************//**
+  66:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @brief       Init_Camera
+  67:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @param[in]   None
+  68:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @retval      None
+  69:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+  70:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** void Init_Camera(void)
+  71:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** {
+ 723              		.loc 1 71 0
+ 724              		.cfi_startproc
+ 725              		@ args = 0, pretend = 0, frame = 16
+ 726              		@ frame_needed = 1, uses_anonymous_args = 0
+ 727 0000 00482DE9 		push	{fp, lr}
+ 728              		.cfi_def_cfa_offset 8
+ 729              		.cfi_offset 11, -8
+ 730              		.cfi_offset 14, -4
+ 731 0004 04B08DE2 		add	fp, sp, #4
+ 732              		.cfi_def_cfa 11, 4
+ 733 0008 10D04DE2 		sub	sp, sp, #16
+  72:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     volatile uint32_t count;
+  73:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     uint8_t  reg_sw_standby_in[3] = {0x01,0x00,0x00};    /* Software standby in setting */
+ 734              		.loc 1 73 0
+ 735 000c 0130A0E3 		mov	r3, #1
+ 736 0010 10304BE5 		strb	r3, [fp, #-16]
+ 737 0014 0030A0E3 		mov	r3, #0
+ 738 0018 0F304BE5 		strb	r3, [fp, #-15]
+ 739 001c 0030A0E3 		mov	r3, #0
+ 740 0020 0E304BE5 		strb	r3, [fp, #-14]
+  74:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     uint8_t  reg_sw_reset[3]      = {0x01,0x03,0x01};    /* Software reset setting */
+ 741              		.loc 1 74 0
+ 742 0024 002000E3 		movw	r2, #:lower16:.LC0
+ 743 0028 002040E3 		movt	r2, #:upper16:.LC0
+ 744 002c 14304BE2 		sub	r3, fp, #20
+ 745 0030 002092E5 		ldr	r2, [r2]
+ 746 0034 B020C3E1 		strh	r2, [r3]	@ movhi
+ 747 0038 023083E2 		add	r3, r3, #2
+ 748 003c 2228A0E1 		lsr	r2, r2, #16
+ 749 0040 0020C3E5 		strb	r2, [r3]
+  75:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     int_t    ret;
+  76:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  77:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* open RIIC */
+  78:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     ret = open(DEVICE_INDENTIFIER "riic2", O_RDWR);
+ 750              		.loc 1 78 0
+ 751 0044 0210A0E3 		mov	r1, #2
+ 752 0048 000000E3 		movw	r0, #:lower16:.LC2
+ 753 004c 000040E3 		movt	r0, #:upper16:.LC2
+ 754 0050 FEFFFFEB 		bl	open
+ 755 0054 08000BE5 		str	r0, [fp, #-8]
+  79:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  80:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     if (ret >= 0)
+ 756              		.loc 1 80 0
+ 757 0058 08301BE5 		ldr	r3, [fp, #-8]
+ 758 005c 000053E3 		cmp	r3, #0
+ 759 0060 030000BA 		blt	.L2
+  81:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     {
+  82:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****         hi2c2 = ret;
+ 760              		.loc 1 82 0
+ 761 0064 003000E3 		movw	r3, #:lower16:hi2c2
+ 762 0068 003040E3 		movt	r3, #:upper16:hi2c2
+ 763 006c 08201BE5 		ldr	r2, [fp, #-8]
+ 764 0070 002083E5 		str	r2, [r3]
+ 765              	.L2:
+  83:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     }
+  84:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  85:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* SW standby */
+  86:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     RIIC_MipiWrite(MIPI_CAMERA_SUBADD,
+  87:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_standby_in[0],
+ 766              		.loc 1 87 0
+ 767 0074 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+  86:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_standby_in[0],
+ 768              		.loc 1 86 0
+ 769 0078 0310A0E1 		mov	r1, r3
+  88:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_standby_in[1],
+ 770              		.loc 1 88 0
+ 771 007c 0F305BE5 		ldrb	r3, [fp, #-15]	@ zero_extendqisi2
+  86:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_standby_in[0],
+ 772              		.loc 1 86 0
+ 773 0080 0320A0E1 		mov	r2, r3
+  89:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_standby_in[2]);
+ 774              		.loc 1 89 0
+ 775 0084 0E305BE5 		ldrb	r3, [fp, #-14]	@ zero_extendqisi2
+  86:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_standby_in[0],
+ 776              		.loc 1 86 0
+ 777 0088 2000A0E3 		mov	r0, #32
+ 778 008c FEFFFFEB 		bl	RIIC_MipiWrite
+  90:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  91:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* SW Reset */
+  92:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     RIIC_MipiWrite(MIPI_CAMERA_SUBADD,
+  93:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_reset[0],
+ 779              		.loc 1 93 0
+ 780 0090 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+  92:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_reset[0],
+ 781              		.loc 1 92 0
+ 782 0094 0310A0E1 		mov	r1, r3
+  94:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_reset[1],
+ 783              		.loc 1 94 0
+ 784 0098 13305BE5 		ldrb	r3, [fp, #-19]	@ zero_extendqisi2
+  92:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_reset[0],
+ 785              		.loc 1 92 0
+ 786 009c 0320A0E1 		mov	r2, r3
+  95:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_reset[2]);
+ 787              		.loc 1 95 0
+ 788 00a0 12305BE5 		ldrb	r3, [fp, #-18]	@ zero_extendqisi2
+  92:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     			   reg_sw_reset[0],
+ 789              		.loc 1 92 0
+ 790 00a4 2000A0E3 		mov	r0, #32
+ 791 00a8 FEFFFFEB 		bl	RIIC_MipiWrite
+  96:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+  97:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* Have to wait Camera ready */
+  98:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     for (count = (528 * 2000); count > 0; count--) /* CPU Clock = 528MHz, 528 clock is needed to wa
+ 792              		.loc 1 98 0
+ 793 00ac 1D3CA0E3 		mov	r3, #7424
+ 794 00b0 103040E3 		movt	r3, 16
+ 795 00b4 0C300BE5 		str	r3, [fp, #-12]
+ 796 00b8 020000EA 		b	.L3
+ 797              	.L4:
+ 798              		.loc 1 98 0 is_stmt 0 discriminator 3
+ 799 00bc 0C301BE5 		ldr	r3, [fp, #-12]
+ 800 00c0 013043E2 		sub	r3, r3, #1
+ 801 00c4 0C300BE5 		str	r3, [fp, #-12]
+ 802              	.L3:
+ 803              		.loc 1 98 0 discriminator 1
+ 804 00c8 0C301BE5 		ldr	r3, [fp, #-12]
+ 805 00cc 000053E3 		cmp	r3, #0
+ 806 00d0 F9FFFF1A 		bne	.L4
+  99:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     {
+ 100:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****         /* Do nothing 2ms(2000us) wait*/
+ 101:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     }
+ 102:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 103:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* MIPI Camera Init */
+ 104:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     for(count = 0; count < INIT_REG_NUM_MIPI; count++)
+ 807              		.loc 1 104 0 is_stmt 1
+ 808 00d4 0030A0E3 		mov	r3, #0
+ 809 00d8 0C300BE5 		str	r3, [fp, #-12]
+ 810 00dc 220000EA 		b	.L5
+ 811              	.L6:
+ 105:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     {
+ 106:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****         RIIC_MipiWrite(MIPI_CAMERA_SUBADD,
+ 107:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].reg_add_upper,
+ 812              		.loc 1 107 0 discriminator 3
+ 813 00e0 0C101BE5 		ldr	r1, [fp, #-12]
+ 814 00e4 002000E3 		movw	r2, #:lower16:g_mipi_reg_init_table
+ 815 00e8 002040E3 		movt	r2, #:upper16:g_mipi_reg_init_table
+ 816 00ec 0130A0E1 		mov	r3, r1
+ 817 00f0 8330A0E1 		lsl	r3, r3, #1
+ 818 00f4 013083E0 		add	r3, r3, r1
+ 819 00f8 033082E0 		add	r3, r2, r3
+ 820 00fc 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 106:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].reg_add_upper,
+ 821              		.loc 1 106 0 discriminator 3
+ 822 0100 0300A0E1 		mov	r0, r3
+ 108:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].reg_add_lower,
+ 823              		.loc 1 108 0 discriminator 3
+ 824 0104 0C101BE5 		ldr	r1, [fp, #-12]
+ 825 0108 002000E3 		movw	r2, #:lower16:g_mipi_reg_init_table
+ 826 010c 002040E3 		movt	r2, #:upper16:g_mipi_reg_init_table
+ 827 0110 0130A0E1 		mov	r3, r1
+ 828 0114 8330A0E1 		lsl	r3, r3, #1
+ 829 0118 013083E0 		add	r3, r3, r1
+ 830 011c 033082E0 		add	r3, r2, r3
+ 831 0120 013083E2 		add	r3, r3, #1
+ 832 0124 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 106:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].reg_add_upper,
+ 833              		.loc 1 106 0 discriminator 3
+ 834 0128 03C0A0E1 		mov	ip, r3
+ 109:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].value);
+ 835              		.loc 1 109 0 discriminator 3
+ 836 012c 0C101BE5 		ldr	r1, [fp, #-12]
+ 837 0130 002000E3 		movw	r2, #:lower16:g_mipi_reg_init_table
+ 838 0134 002040E3 		movt	r2, #:upper16:g_mipi_reg_init_table
+ 839 0138 0130A0E1 		mov	r3, r1
+ 840 013c 8330A0E1 		lsl	r3, r3, #1
+ 841 0140 013083E0 		add	r3, r3, r1
+ 842 0144 033082E0 		add	r3, r2, r3
+ 843 0148 023083E2 		add	r3, r3, #2
+ 844 014c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 106:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****                        g_mipi_reg_init_table[count].reg_add_upper,
+ 845              		.loc 1 106 0 discriminator 3
+ 846 0150 0C20A0E1 		mov	r2, ip
+ 847 0154 0010A0E1 		mov	r1, r0
+ 848 0158 2000A0E3 		mov	r0, #32
+ 849 015c FEFFFFEB 		bl	RIIC_MipiWrite
+ 104:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     {
+ 850              		.loc 1 104 0 discriminator 3
+ 851 0160 0C301BE5 		ldr	r3, [fp, #-12]
+ 852 0164 013083E2 		add	r3, r3, #1
+ 853 0168 0C300BE5 		str	r3, [fp, #-12]
+ 854              	.L5:
+ 104:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     {
+ 855              		.loc 1 104 0 is_stmt 0 discriminator 1
+ 856 016c 0C301BE5 		ldr	r3, [fp, #-12]
+ 857 0170 240053E3 		cmp	r3, #36
+ 858 0174 D9FFFF9A 		bls	.L6
+ 110:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     }
+ 111:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** }
+ 859              		.loc 1 111 0 is_stmt 1
+ 860 0178 00F020E3 		nop
+ 861 017c 04D04BE2 		sub	sp, fp, #4
+ 862              		.cfi_def_cfa 13, 8
+ 863              		@ sp needed
+ 864 0180 0088BDE8 		pop	{fp, pc}
+ 865              		.cfi_endproc
+ 866              	.LFE3:
+ 868              		.section	.rodata
+ 869 000f 00       		.align	2
+ 870              	.LC1:
+ 871 0010 01       		.byte	1
+ 872 0011 00       		.byte	0
+ 873 0012 01       		.byte	1
+ 874              		.section	.text.Start_Camera,"ax",%progbits
+ 875              		.align	2
+ 876              		.global	Start_Camera
+ 877              		.syntax unified
+ 878              		.arm
+ 879              		.fpu neon
+ 881              	Start_Camera:
+ 882              	.LFB4:
+ 112:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 113:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /**************************************************************************//**
+ 114:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @brief       Start_Camera
+ 115:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @param[in]   None
+ 116:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****  * @retval      None
+ 117:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+ 118:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** void Start_Camera( void )
+ 119:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** {
+ 883              		.loc 1 119 0
+ 884              		.cfi_startproc
+ 885              		@ args = 0, pretend = 0, frame = 8
+ 886              		@ frame_needed = 1, uses_anonymous_args = 0
+ 887 0000 00482DE9 		push	{fp, lr}
+ 888              		.cfi_def_cfa_offset 8
+ 889              		.cfi_offset 11, -8
+ 890              		.cfi_offset 14, -4
+ 891 0004 04B08DE2 		add	fp, sp, #4
+ 892              		.cfi_def_cfa 11, 4
+ 893 0008 08D04DE2 		sub	sp, sp, #8
+ 120:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     /* MIPI camera clock start setting */
+ 121:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     uint8_t reg_sw_standby_out[3] = {0x01,0x00,0x01};
+ 894              		.loc 1 121 0
+ 895 000c 002000E3 		movw	r2, #:lower16:.LC1
+ 896 0010 002040E3 		movt	r2, #:upper16:.LC1
+ 897 0014 08304BE2 		sub	r3, fp, #8
+ 898 0018 002092E5 		ldr	r2, [r2]
+ 899 001c B020C3E1 		strh	r2, [r3]	@ movhi
+ 900 0020 023083E2 		add	r3, r3, #2
+ 901 0024 2228A0E1 		lsr	r2, r2, #16
+ 902 0028 0020C3E5 		strb	r2, [r3]
+ 122:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 123:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     RIIC_MipiWrite(MIPI_CAMERA_SUBADD,
+ 124:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     		       reg_sw_standby_out[0],
+ 903              		.loc 1 124 0
+ 904 002c 08305BE5 		ldrb	r3, [fp, #-8]	@ zero_extendqisi2
+ 123:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     		       reg_sw_standby_out[0],
+ 905              		.loc 1 123 0
+ 906 0030 0310A0E1 		mov	r1, r3
+ 125:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_standby_out[1],
+ 907              		.loc 1 125 0
+ 908 0034 07305BE5 		ldrb	r3, [fp, #-7]	@ zero_extendqisi2
+ 123:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     		       reg_sw_standby_out[0],
+ 909              		.loc 1 123 0
+ 910 0038 0320A0E1 		mov	r2, r3
+ 126:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 				   reg_sw_standby_out[2]);
+ 911              		.loc 1 126 0
+ 912 003c 06305BE5 		ldrb	r3, [fp, #-6]	@ zero_extendqisi2
+ 123:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     		       reg_sw_standby_out[0],
+ 913              		.loc 1 123 0
+ 914 0040 2000A0E3 		mov	r0, #32
+ 915 0044 FEFFFFEB 		bl	RIIC_MipiWrite
+ 127:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** }   /* End of function Start_MIPI() */
+ 916              		.loc 1 127 0
+ 917 0048 00F020E3 		nop
+ 918 004c 04D04BE2 		sub	sp, fp, #4
+ 919              		.cfi_def_cfa 13, 8
+ 920              		@ sp needed
+ 921 0050 0088BDE8 		pop	{fp, pc}
+ 922              		.cfi_endproc
+ 923              	.LFE4:
+ 925              		.section	.text.RIIC_MipiWrite,"ax",%progbits
+ 926              		.align	2
+ 927              		.global	RIIC_MipiWrite
+ 928              		.syntax unified
+ 929              		.arm
+ 930              		.fpu neon
+ 932              	RIIC_MipiWrite:
+ 933              	.LFB5:
+ 128:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 129:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 130:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** /******************************************************************************
+ 131:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * Function Name: RIIC_MipiWrite
+ 132:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * Description  :
+ 133:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @param[in]  ic_adr         : device address.
+ 134:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @param[in]  reg_adr_upper  : upper register address to write .
+ 135:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @param[in]  reg_adr_lower  : lower register address to write .
+ 136:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @param[in]  reg_data       : write data .
+ 137:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** * @retval  : none
+ 138:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** ******************************************************************************/
+ 139:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** void RIIC_MipiWrite( uint8_t ic_adr, uint8_t reg_adr_upper, uint8_t reg_adr_lower, uint8_t reg_data
+ 140:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** {
+ 934              		.loc 1 140 0
+ 935              		.cfi_startproc
+ 936              		@ args = 0, pretend = 0, frame = 32
+ 937              		@ frame_needed = 1, uses_anonymous_args = 0
+ 938 0000 00482DE9 		push	{fp, lr}
+ 939              		.cfi_def_cfa_offset 8
+ 940              		.cfi_offset 11, -8
+ 941              		.cfi_offset 14, -4
+ 942 0004 04B08DE2 		add	fp, sp, #4
+ 943              		.cfi_def_cfa 11, 4
+ 944 0008 20D04DE2 		sub	sp, sp, #32
+ 945 000c 00C0A0E1 		mov	ip, r0
+ 946 0010 0100A0E1 		mov	r0, r1
+ 947 0014 0210A0E1 		mov	r1, r2
+ 948 0018 0320A0E1 		mov	r2, r3
+ 949 001c 0C30A0E1 		mov	r3, ip
+ 950 0020 1D304BE5 		strb	r3, [fp, #-29]
+ 951 0024 0030A0E1 		mov	r3, r0
+ 952 0028 1E304BE5 		strb	r3, [fp, #-30]
+ 953 002c 0130A0E1 		mov	r3, r1
+ 954 0030 1F304BE5 		strb	r3, [fp, #-31]
+ 955 0034 0230A0E1 		mov	r3, r2
+ 956 0038 20304BE5 		strb	r3, [fp, #-32]
+ 141:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     int_t ret;
+ 142:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     st_r_drv_riic_transfer_t i2c_write;
+ 143:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 144:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     i2c_write.device_address = ic_adr;
+ 957              		.loc 1 144 0
+ 958 003c 1D305BE5 		ldrb	r3, [fp, #-29]	@ zero_extendqisi2
+ 959 0040 7330FFE6 		uxth	r3, r3
+ 960 0044 B8314BE1 		strh	r3, [fp, #-24]	@ movhi
+ 145:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     i2c_write.sub_address_type = RIIC_SUB_ADDR_WIDTH_16_BITS;
+ 961              		.loc 1 145 0
+ 962 0048 0230A0E3 		mov	r3, #2
+ 963 004c 16304BE5 		strb	r3, [fp, #-22]
+ 146:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     i2c_write.sub_address = (reg_adr_upper << 8) | reg_adr_lower;
+ 964              		.loc 1 146 0
+ 965 0050 1E305BE5 		ldrb	r3, [fp, #-30]	@ zero_extendqisi2
+ 966 0054 0324A0E1 		lsl	r2, r3, #8
+ 967 0058 1F305BE5 		ldrb	r3, [fp, #-31]	@ zero_extendqisi2
+ 968 005c 033082E1 		orr	r3, r2, r3
+ 969 0060 14300BE5 		str	r3, [fp, #-20]
+ 147:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     i2c_write.number_of_bytes = 1;
+ 970              		.loc 1 147 0
+ 971 0064 0130A0E3 		mov	r3, #1
+ 972 0068 10300BE5 		str	r3, [fp, #-16]
+ 148:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     i2c_write.p_data_buffer = &reg_data;
+ 973              		.loc 1 148 0
+ 974 006c 20304BE2 		sub	r3, fp, #32
+ 975 0070 0C300BE5 		str	r3, [fp, #-12]
+ 149:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 150:../src/renesas/application/common/camera/camera_mipi_imx219_b.c ****     ret = control(hi2c2, CTL_RIIC_WRITE, &i2c_write);
+ 976              		.loc 1 150 0
+ 977 0074 003000E3 		movw	r3, #:lower16:hi2c2
+ 978 0078 003040E3 		movt	r3, #:upper16:hi2c2
+ 979 007c 003093E5 		ldr	r3, [r3]
+ 980 0080 18204BE2 		sub	r2, fp, #24
+ 981 0084 0410A0E3 		mov	r1, #4
+ 982 0088 0300A0E1 		mov	r0, r3
+ 983 008c FEFFFFEB 		bl	control
+ 984 0090 08000BE5 		str	r0, [fp, #-8]
+ 151:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** 
+ 152:../src/renesas/application/common/camera/camera_mipi_imx219_b.c **** }   /* End of function RIIC_MipiWrite() */
+ 985              		.loc 1 152 0
+ 986 0094 00F020E3 		nop
+ 987 0098 04D04BE2 		sub	sp, fp, #4
+ 988              		.cfi_def_cfa 13, 8
+ 989              		@ sp needed
+ 990 009c 0088BDE8 		pop	{fp, pc}
+ 991              		.cfi_endproc
+ 992              	.LFE5:
+ 994              		.text
+ 995              	.Letext0:
+ 996              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 997              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 998              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 999              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1000              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 1001              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1002              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1003              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 1004              		.file 10 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 1005              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1006              		.file 12 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1007              		.file 13 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 1008              		.file 14 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 1009              		.file 15 "../src/renesas/application/common/camera/camera_mipi_imx219_b_regdata.h"
+ 1010              		.file 16 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 1011              		.file 17 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 1012              		.file 18 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+DEFINED SYMBOLS
+                            *ABS*:00000000 camera_mipi_imx219_b.c
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:17     .rodata.GPIO_SC_TABLE_INIT:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:20     .rodata.GPIO_SC_TABLE_INIT:00000000 GPIO_SC_TABLE_INIT
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:32     .rodata.GPIO_SC_TABLE_MANUAL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:35     .rodata.GPIO_SC_TABLE_MANUAL:00000000 GPIO_SC_TABLE_MANUAL
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:367    .rodata.GPIO_SC_TABLE_riic2:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:370    .rodata.GPIO_SC_TABLE_riic2:00000000 GPIO_SC_TABLE_riic2
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:382    .rodata.GPIO_SC_TABLE_riic3:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:385    .rodata.GPIO_SC_TABLE_riic3:00000000 GPIO_SC_TABLE_riic3
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:397    .rodata.GPIO_SC_TABLE_scifa4:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:400    .rodata.GPIO_SC_TABLE_scifa4:00000000 GPIO_SC_TABLE_scifa4
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:412    .rodata.GPIO_SC_TABLE_BSC:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:415    .rodata.GPIO_SC_TABLE_BSC:00000000 GPIO_SC_TABLE_BSC
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:597    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:600    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 GPIO_SC_TABLE_sdhi_simplified0
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:612    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:615    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 GPIO_SC_TABLE_sdhi_simplified1
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:627    .rodata.RIIC_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:630    .rodata.RIIC_SC_TABLE:00000000 RIIC_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:702    .data.hi2c2:00000000 hi2c2
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:699    .data.hi2c2:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:705    .rodata:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:706    .rodata:00000000 .LC2
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:709    .rodata:0000000c .LC0
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:714    .text.Init_Camera:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:720    .text.Init_Camera:00000000 Init_Camera
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:932    .text.RIIC_MipiWrite:00000000 RIIC_MipiWrite
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:870    .rodata:00000010 .LC1
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:875    .text.Start_Camera:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:881    .text.Start_Camera:00000000 Start_Camera
+C:\Users\Y\AppData\Local\Temp\ccZy4KYi.s:926    .text.RIIC_MipiWrite:00000000 $a
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.mipi_camera.h.31.8759126531659326f737b053fbb3b8a1
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_mipi_user.h.41.904962207e45a5581bdc399e4d770943
+                           .group:00000000 wm4.camera_imx219_b.h.42.c4f1a09dac6ee0a3abbf4a585714b9bf
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_mmu_lld_rza2m.h.41.3e841c712e0b350b02dd41ff0093d85d
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.r_rza2m_riic_lld_cfg.h.40.1a5f6c5ea695a369eafb519f9773c77d
+                           .group:00000000 wm4.r_rza2m_riic_lld_api.h.37.76c059981812ab1c27bbe073398fe70a
+                           .group:00000000 wm4.r_riic_drv_api.h.77.d3e88cefd960d5349156344e20f8969e
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.r_riic_drv_sc_cfg.h.69.d6decd0081a6cc31534b8edc46f68568
+
+UNDEFINED SYMBOLS
+open
+g_mipi_reg_init_table
+control

@@ -1,0 +1,1360 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"vdc_portsetting.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.rodata.GPIO_SC_TABLE_INIT,"a",%progbits
+  17              		.align	2
+  20              	GPIO_SC_TABLE_INIT:
+  21 0000 0108     		.short	2049
+  22 0002 02       		.byte	2
+  23 0003 01       		.byte	1
+  24 0004 05       		.byte	5
+  25 0005 00       		.space	1
+  26 0006 0000     		.short	0
+  27 0008 02       		.byte	2
+  28 0009 01       		.byte	1
+  29 000a 05       		.byte	5
+  30 000b 00       		.space	1
+  31              		.section	.rodata.GPIO_SC_TABLE_MANUAL,"a",%progbits
+  32              		.align	2
+  35              	GPIO_SC_TABLE_MANUAL:
+  36 0000 0004     		.short	1024
+  37 0002 08       		.byte	8
+  38 0003 01       		.byte	1
+  39 0004 04       		.byte	4
+  40 0005 00       		.space	1
+  41 0006 0104     		.short	1025
+  42 0008 08       		.byte	8
+  43 0009 01       		.byte	1
+  44 000a 04       		.byte	4
+  45 000b 00       		.space	1
+  46 000c 0204     		.short	1026
+  47 000e 08       		.byte	8
+  48 000f 01       		.byte	1
+  49 0010 04       		.byte	4
+  50 0011 00       		.space	1
+  51 0012 0304     		.short	1027
+  52 0014 08       		.byte	8
+  53 0015 01       		.byte	1
+  54 0016 04       		.byte	4
+  55 0017 00       		.space	1
+  56 0018 0404     		.short	1028
+  57 001a 08       		.byte	8
+  58 001b 01       		.byte	1
+  59 001c 04       		.byte	4
+  60 001d 00       		.space	1
+  61 001e 0504     		.short	1029
+  62 0020 08       		.byte	8
+  63 0021 01       		.byte	1
+  64 0022 04       		.byte	4
+  65 0023 00       		.space	1
+  66 0024 0604     		.short	1030
+  67 0026 08       		.byte	8
+  68 0027 01       		.byte	1
+  69 0028 04       		.byte	4
+  70 0029 00       		.space	1
+  71 002a 0704     		.short	1031
+  72 002c 08       		.byte	8
+  73 002d 01       		.byte	1
+  74 002e 04       		.byte	4
+  75 002f 00       		.space	1
+  76 0030 0006     		.short	1536
+  77 0032 04       		.byte	4
+  78 0033 01       		.byte	1
+  79 0034 04       		.byte	4
+  80 0035 00       		.space	1
+  81 0036 0106     		.short	1537
+  82 0038 08       		.byte	8
+  83 0039 01       		.byte	1
+  84 003a 05       		.byte	5
+  85 003b 00       		.space	1
+  86 003c 0206     		.short	1538
+  87 003e 08       		.byte	8
+  88 003f 01       		.byte	1
+  89 0040 05       		.byte	5
+  90 0041 00       		.space	1
+  91 0042 0306     		.short	1539
+  92 0044 08       		.byte	8
+  93 0045 01       		.byte	1
+  94 0046 05       		.byte	5
+  95 0047 00       		.space	1
+  96 0048 0406     		.short	1540
+  97 004a 04       		.byte	4
+  98 004b 01       		.byte	1
+  99 004c 04       		.byte	4
+ 100 004d 00       		.space	1
+ 101 004e 0506     		.short	1541
+ 102 0050 04       		.byte	4
+ 103 0051 01       		.byte	1
+ 104 0052 04       		.byte	4
+ 105 0053 00       		.space	1
+ 106 0054 0606     		.short	1542
+ 107 0056 04       		.byte	4
+ 108 0057 01       		.byte	1
+ 109 0058 04       		.byte	4
+ 110 0059 00       		.space	1
+ 111 005a 0706     		.short	1543
+ 112 005c 04       		.byte	4
+ 113 005d 01       		.byte	1
+ 114 005e 04       		.byte	4
+ 115 005f 00       		.space	1
+ 116 0060 0007     		.short	1792
+ 117 0062 04       		.byte	4
+ 118 0063 01       		.byte	1
+ 119 0064 04       		.byte	4
+ 120 0065 00       		.space	1
+ 121 0066 0107     		.short	1793
+ 122 0068 04       		.byte	4
+ 123 0069 01       		.byte	1
+ 124 006a 04       		.byte	4
+ 125 006b 00       		.space	1
+ 126 006c 0307     		.short	1795
+ 127 006e 04       		.byte	4
+ 128 006f 01       		.byte	1
+ 129 0070 04       		.byte	4
+ 130 0071 00       		.space	1
+ 131 0072 0407     		.short	1796
+ 132 0074 04       		.byte	4
+ 133 0075 01       		.byte	1
+ 134 0076 04       		.byte	4
+ 135 0077 00       		.space	1
+ 136 0078 0507     		.short	1797
+ 137 007a 04       		.byte	4
+ 138 007b 01       		.byte	1
+ 139 007c 04       		.byte	4
+ 140 007d 00       		.space	1
+ 141 007e 0308     		.short	2051
+ 142 0080 04       		.byte	4
+ 143 0081 01       		.byte	1
+ 144 0082 04       		.byte	4
+ 145 0083 00       		.space	1
+ 146 0084 0408     		.short	2052
+ 147 0086 04       		.byte	4
+ 148 0087 01       		.byte	1
+ 149 0088 04       		.byte	4
+ 150 0089 00       		.space	1
+ 151 008a 0508     		.short	2053
+ 152 008c 04       		.byte	4
+ 153 008d 01       		.byte	1
+ 154 008e 04       		.byte	4
+ 155 008f 00       		.space	1
+ 156 0090 0608     		.short	2054
+ 157 0092 04       		.byte	4
+ 158 0093 01       		.byte	1
+ 159 0094 04       		.byte	4
+ 160 0095 00       		.space	1
+ 161 0096 0409     		.short	2308
+ 162 0098 04       		.byte	4
+ 163 0099 01       		.byte	1
+ 164 009a 04       		.byte	4
+ 165 009b 00       		.space	1
+ 166 009c 0509     		.short	2309
+ 167 009e 04       		.byte	4
+ 168 009f 01       		.byte	1
+ 169 00a0 04       		.byte	4
+ 170 00a1 00       		.space	1
+ 171 00a2 0609     		.short	2310
+ 172 00a4 04       		.byte	4
+ 173 00a5 01       		.byte	1
+ 174 00a6 04       		.byte	4
+ 175 00a7 00       		.space	1
+ 176 00a8 0709     		.short	2311
+ 177 00aa 04       		.byte	4
+ 178 00ab 01       		.byte	1
+ 179 00ac 04       		.byte	4
+ 180 00ad 00       		.space	1
+ 181 00ae 0707     		.short	1799
+ 182 00b0 09       		.byte	9
+ 183 00b1 01       		.byte	1
+ 184 00b2 04       		.byte	4
+ 185 00b3 00       		.space	1
+ 186 00b4 0008     		.short	2048
+ 187 00b6 09       		.byte	9
+ 188 00b7 01       		.byte	1
+ 189 00b8 04       		.byte	4
+ 190 00b9 00       		.space	1
+ 191 00ba 000A     		.short	2560
+ 192 00bc 09       		.byte	9
+ 193 00bd 01       		.byte	1
+ 194 00be 04       		.byte	4
+ 195 00bf 00       		.space	1
+ 196 00c0 010A     		.short	2561
+ 197 00c2 09       		.byte	9
+ 198 00c3 01       		.byte	1
+ 199 00c4 04       		.byte	4
+ 200 00c5 00       		.space	1
+ 201 00c6 020A     		.short	2562
+ 202 00c8 09       		.byte	9
+ 203 00c9 01       		.byte	1
+ 204 00ca 04       		.byte	4
+ 205 00cb 00       		.space	1
+ 206 00cc 030A     		.short	2563
+ 207 00ce 09       		.byte	9
+ 208 00cf 01       		.byte	1
+ 209 00d0 04       		.byte	4
+ 210 00d1 00       		.space	1
+ 211 00d2 040A     		.short	2564
+ 212 00d4 09       		.byte	9
+ 213 00d5 01       		.byte	1
+ 214 00d6 04       		.byte	4
+ 215 00d7 00       		.space	1
+ 216 00d8 050A     		.short	2565
+ 217 00da 09       		.byte	9
+ 218 00db 01       		.byte	1
+ 219 00dc 04       		.byte	4
+ 220 00dd 00       		.space	1
+ 221 00de 060A     		.short	2566
+ 222 00e0 09       		.byte	9
+ 223 00e1 01       		.byte	1
+ 224 00e2 04       		.byte	4
+ 225 00e3 00       		.space	1
+ 226 00e4 070A     		.short	2567
+ 227 00e6 09       		.byte	9
+ 228 00e7 01       		.byte	1
+ 229 00e8 04       		.byte	4
+ 230 00e9 00       		.space	1
+ 231 00ea 000B     		.short	2816
+ 232 00ec 09       		.byte	9
+ 233 00ed 01       		.byte	1
+ 234 00ee 04       		.byte	4
+ 235 00ef 00       		.space	1
+ 236 00f0 010B     		.short	2817
+ 237 00f2 09       		.byte	9
+ 238 00f3 01       		.byte	1
+ 239 00f4 04       		.byte	4
+ 240 00f5 00       		.space	1
+ 241 00f6 020B     		.short	2818
+ 242 00f8 09       		.byte	9
+ 243 00f9 01       		.byte	1
+ 244 00fa 04       		.byte	4
+ 245 00fb 00       		.space	1
+ 246 00fc 030B     		.short	2819
+ 247 00fe 09       		.byte	9
+ 248 00ff 01       		.byte	1
+ 249 0100 04       		.byte	4
+ 250 0101 00       		.space	1
+ 251 0102 040B     		.short	2820
+ 252 0104 09       		.byte	9
+ 253 0105 01       		.byte	1
+ 254 0106 04       		.byte	4
+ 255 0107 00       		.space	1
+ 256 0108 050B     		.short	2821
+ 257 010a 09       		.byte	9
+ 258 010b 01       		.byte	1
+ 259 010c 04       		.byte	4
+ 260 010d 00       		.space	1
+ 261 010e 030C     		.short	3075
+ 262 0110 0B       		.byte	11
+ 263 0111 01       		.byte	1
+ 264 0112 04       		.byte	4
+ 265 0113 00       		.space	1
+ 266 0114 040C     		.short	3076
+ 267 0116 0B       		.byte	11
+ 268 0117 01       		.byte	1
+ 269 0118 04       		.byte	4
+ 270 0119 00       		.space	1
+ 271 011a 010E     		.short	3585
+ 272 011c 08       		.byte	8
+ 273 011d 01       		.byte	1
+ 274 011e 05       		.byte	5
+ 275 011f 00       		.space	1
+ 276 0120 020E     		.short	3586
+ 277 0122 08       		.byte	8
+ 278 0123 01       		.byte	1
+ 279 0124 05       		.byte	5
+ 280 0125 00       		.space	1
+ 281 0126 030E     		.short	3587
+ 282 0128 08       		.byte	8
+ 283 0129 01       		.byte	1
+ 284 012a 05       		.byte	5
+ 285 012b 00       		.space	1
+ 286 012c 040E     		.short	3588
+ 287 012e 08       		.byte	8
+ 288 012f 01       		.byte	1
+ 289 0130 05       		.byte	5
+ 290 0131 00       		.space	1
+ 291 0132 050E     		.short	3589
+ 292 0134 08       		.byte	8
+ 293 0135 01       		.byte	1
+ 294 0136 05       		.byte	5
+ 295 0137 00       		.space	1
+ 296 0138 060E     		.short	3590
+ 297 013a 08       		.byte	8
+ 298 013b 01       		.byte	1
+ 299 013c 05       		.byte	5
+ 300 013d 00       		.space	1
+ 301 013e 000F     		.short	3840
+ 302 0140 09       		.byte	9
+ 303 0141 01       		.byte	1
+ 304 0142 04       		.byte	4
+ 305 0143 00       		.space	1
+ 306 0144 010F     		.short	3841
+ 307 0146 09       		.byte	9
+ 308 0147 01       		.byte	1
+ 309 0148 04       		.byte	4
+ 310 0149 00       		.space	1
+ 311 014a 020F     		.short	3842
+ 312 014c 09       		.byte	9
+ 313 014d 01       		.byte	1
+ 314 014e 04       		.byte	4
+ 315 014f 00       		.space	1
+ 316 0150 030F     		.short	3843
+ 317 0152 09       		.byte	9
+ 318 0153 01       		.byte	1
+ 319 0154 04       		.byte	4
+ 320 0155 00       		.space	1
+ 321 0156 040F     		.short	3844
+ 322 0158 09       		.byte	9
+ 323 0159 01       		.byte	1
+ 324 015a 04       		.byte	4
+ 325 015b 00       		.space	1
+ 326 015c 050F     		.short	3845
+ 327 015e 09       		.byte	9
+ 328 015f 01       		.byte	1
+ 329 0160 04       		.byte	4
+ 330 0161 00       		.space	1
+ 331 0162 060F     		.short	3846
+ 332 0164 09       		.byte	9
+ 333 0165 01       		.byte	1
+ 334 0166 04       		.byte	4
+ 335 0167 00       		.space	1
+ 336 0168 070F     		.short	3847
+ 337 016a 09       		.byte	9
+ 338 016b 01       		.byte	1
+ 339 016c 04       		.byte	4
+ 340 016d 00       		.space	1
+ 341 016e 0011     		.short	4352
+ 342 0170 08       		.byte	8
+ 343 0171 01       		.byte	1
+ 344 0172 05       		.byte	5
+ 345 0173 00       		.space	1
+ 346 0174 0111     		.short	4353
+ 347 0176 08       		.byte	8
+ 348 0177 01       		.byte	1
+ 349 0178 05       		.byte	5
+ 350 0179 00       		.space	1
+ 351 017a 0211     		.short	4354
+ 352 017c 09       		.byte	9
+ 353 017d 01       		.byte	1
+ 354 017e 04       		.byte	4
+ 355 017f 00       		.space	1
+ 356 0180 0612     		.short	4614
+ 357 0182 09       		.byte	9
+ 358 0183 01       		.byte	1
+ 359 0184 02       		.byte	2
+ 360 0185 00       		.space	1
+ 361 0186 0712     		.short	4615
+ 362 0188 09       		.byte	9
+ 363 0189 01       		.byte	1
+ 364 018a 05       		.byte	5
+ 365 018b 00       		.space	1
+ 366              		.section	.rodata.GPIO_SC_TABLE_riic2,"a",%progbits
+ 367              		.align	2
+ 370              	GPIO_SC_TABLE_riic2:
+ 371 0000 040D     		.short	3332
+ 372 0002 07       		.byte	7
+ 373 0003 01       		.byte	1
+ 374 0004 05       		.byte	5
+ 375 0005 00       		.space	1
+ 376 0006 050D     		.short	3333
+ 377 0008 07       		.byte	7
+ 378 0009 01       		.byte	1
+ 379 000a 05       		.byte	5
+ 380 000b 00       		.space	1
+ 381              		.section	.rodata.GPIO_SC_TABLE_riic3,"a",%progbits
+ 382              		.align	2
+ 385              	GPIO_SC_TABLE_riic3:
+ 386 0000 060D     		.short	3334
+ 387 0002 07       		.byte	7
+ 388 0003 01       		.byte	1
+ 389 0004 05       		.byte	5
+ 390 0005 00       		.space	1
+ 391 0006 070D     		.short	3335
+ 392 0008 07       		.byte	7
+ 393 0009 01       		.byte	1
+ 394 000a 05       		.byte	5
+ 395 000b 00       		.space	1
+ 396              		.section	.rodata.GPIO_SC_TABLE_scifa4,"a",%progbits
+ 397              		.align	2
+ 400              	GPIO_SC_TABLE_scifa4:
+ 401 0000 0009     		.short	2304
+ 402 0002 0A       		.byte	10
+ 403 0003 01       		.byte	1
+ 404 0004 04       		.byte	4
+ 405 0005 00       		.space	1
+ 406 0006 0109     		.short	2305
+ 407 0008 0A       		.byte	10
+ 408 0009 01       		.byte	1
+ 409 000a 05       		.byte	5
+ 410 000b 00       		.space	1
+ 411              		.section	.rodata.GPIO_SC_TABLE_BSC,"a",%progbits
+ 412              		.align	2
+ 415              	GPIO_SC_TABLE_BSC:
+ 416 0000 0000     		.short	0
+ 417 0002 07       		.byte	7
+ 418 0003 01       		.byte	1
+ 419 0004 04       		.byte	4
+ 420 0005 00       		.space	1
+ 421 0006 0100     		.short	1
+ 422 0008 07       		.byte	7
+ 423 0009 01       		.byte	1
+ 424 000a 04       		.byte	4
+ 425 000b 00       		.space	1
+ 426 000c 0200     		.short	2
+ 427 000e 07       		.byte	7
+ 428 000f 01       		.byte	1
+ 429 0010 04       		.byte	4
+ 430 0011 00       		.space	1
+ 431 0012 0300     		.short	3
+ 432 0014 07       		.byte	7
+ 433 0015 01       		.byte	1
+ 434 0016 04       		.byte	4
+ 435 0017 00       		.space	1
+ 436 0018 0400     		.short	4
+ 437 001a 07       		.byte	7
+ 438 001b 01       		.byte	1
+ 439 001c 04       		.byte	4
+ 440 001d 00       		.space	1
+ 441 001e 0500     		.short	5
+ 442 0020 07       		.byte	7
+ 443 0021 01       		.byte	1
+ 444 0022 04       		.byte	4
+ 445 0023 00       		.space	1
+ 446 0024 0600     		.short	6
+ 447 0026 07       		.byte	7
+ 448 0027 01       		.byte	1
+ 449 0028 04       		.byte	4
+ 450 0029 00       		.space	1
+ 451 002a 0001     		.short	256
+ 452 002c 07       		.byte	7
+ 453 002d 01       		.byte	1
+ 454 002e 04       		.byte	4
+ 455 002f 00       		.space	1
+ 456 0030 0101     		.short	257
+ 457 0032 07       		.byte	7
+ 458 0033 01       		.byte	1
+ 459 0034 04       		.byte	4
+ 460 0035 00       		.space	1
+ 461 0036 0201     		.short	258
+ 462 0038 07       		.byte	7
+ 463 0039 01       		.byte	1
+ 464 003a 04       		.byte	4
+ 465 003b 00       		.space	1
+ 466 003c 0301     		.short	259
+ 467 003e 07       		.byte	7
+ 468 003f 01       		.byte	1
+ 469 0040 04       		.byte	4
+ 470 0041 00       		.space	1
+ 471 0042 0401     		.short	260
+ 472 0044 07       		.byte	7
+ 473 0045 01       		.byte	1
+ 474 0046 04       		.byte	4
+ 475 0047 00       		.space	1
+ 476 0048 0002     		.short	512
+ 477 004a 07       		.byte	7
+ 478 004b 01       		.byte	1
+ 479 004c 04       		.byte	4
+ 480 004d 00       		.space	1
+ 481 004e 0102     		.short	513
+ 482 0050 07       		.byte	7
+ 483 0051 01       		.byte	1
+ 484 0052 04       		.byte	4
+ 485 0053 00       		.space	1
+ 486 0054 0202     		.short	514
+ 487 0056 07       		.byte	7
+ 488 0057 01       		.byte	1
+ 489 0058 04       		.byte	4
+ 490 0059 00       		.space	1
+ 491 005a 0302     		.short	515
+ 492 005c 07       		.byte	7
+ 493 005d 01       		.byte	1
+ 494 005e 04       		.byte	4
+ 495 005f 00       		.space	1
+ 496 0060 0007     		.short	1792
+ 497 0062 07       		.byte	7
+ 498 0063 01       		.byte	1
+ 499 0064 04       		.byte	4
+ 500 0065 00       		.space	1
+ 501 0066 0107     		.short	1793
+ 502 0068 07       		.byte	7
+ 503 0069 01       		.byte	1
+ 504 006a 04       		.byte	4
+ 505 006b 00       		.space	1
+ 506 006c 0307     		.short	1795
+ 507 006e 07       		.byte	7
+ 508 006f 01       		.byte	1
+ 509 0070 04       		.byte	4
+ 510 0071 00       		.space	1
+ 511 0072 0407     		.short	1796
+ 512 0074 07       		.byte	7
+ 513 0075 01       		.byte	1
+ 514 0076 04       		.byte	4
+ 515 0077 00       		.space	1
+ 516 0078 0507     		.short	1797
+ 517 007a 07       		.byte	7
+ 518 007b 01       		.byte	1
+ 519 007c 04       		.byte	4
+ 520 007d 00       		.space	1
+ 521 007e 0108     		.short	2049
+ 522 0080 07       		.byte	7
+ 523 0081 01       		.byte	1
+ 524 0082 04       		.byte	4
+ 525 0083 00       		.space	1
+ 526 0084 0208     		.short	2050
+ 527 0086 07       		.byte	7
+ 528 0087 01       		.byte	1
+ 529 0088 04       		.byte	4
+ 530 0089 00       		.space	1
+ 531 008a 0308     		.short	2051
+ 532 008c 07       		.byte	7
+ 533 008d 01       		.byte	1
+ 534 008e 04       		.byte	4
+ 535 008f 00       		.space	1
+ 536 0090 0408     		.short	2052
+ 537 0092 07       		.byte	7
+ 538 0093 01       		.byte	1
+ 539 0094 04       		.byte	4
+ 540 0095 00       		.space	1
+ 541 0096 0508     		.short	2053
+ 542 0098 07       		.byte	7
+ 543 0099 01       		.byte	1
+ 544 009a 04       		.byte	4
+ 545 009b 00       		.space	1
+ 546 009c 0608     		.short	2054
+ 547 009e 07       		.byte	7
+ 548 009f 01       		.byte	1
+ 549 00a0 04       		.byte	4
+ 550 00a1 00       		.space	1
+ 551 00a2 0708     		.short	2055
+ 552 00a4 07       		.byte	7
+ 553 00a5 01       		.byte	1
+ 554 00a6 04       		.byte	4
+ 555 00a7 00       		.space	1
+ 556 00a8 0009     		.short	2304
+ 557 00aa 07       		.byte	7
+ 558 00ab 01       		.byte	1
+ 559 00ac 04       		.byte	4
+ 560 00ad 00       		.space	1
+ 561 00ae 0109     		.short	2305
+ 562 00b0 07       		.byte	7
+ 563 00b1 01       		.byte	1
+ 564 00b2 04       		.byte	4
+ 565 00b3 00       		.space	1
+ 566 00b4 0209     		.short	2306
+ 567 00b6 07       		.byte	7
+ 568 00b7 01       		.byte	1
+ 569 00b8 04       		.byte	4
+ 570 00b9 00       		.space	1
+ 571 00ba 0309     		.short	2307
+ 572 00bc 07       		.byte	7
+ 573 00bd 01       		.byte	1
+ 574 00be 04       		.byte	4
+ 575 00bf 00       		.space	1
+ 576 00c0 0409     		.short	2308
+ 577 00c2 07       		.byte	7
+ 578 00c3 01       		.byte	1
+ 579 00c4 04       		.byte	4
+ 580 00c5 00       		.space	1
+ 581 00c6 0509     		.short	2309
+ 582 00c8 07       		.byte	7
+ 583 00c9 01       		.byte	1
+ 584 00ca 04       		.byte	4
+ 585 00cb 00       		.space	1
+ 586 00cc 0609     		.short	2310
+ 587 00ce 07       		.byte	7
+ 588 00cf 01       		.byte	1
+ 589 00d0 04       		.byte	4
+ 590 00d1 00       		.space	1
+ 591 00d2 0709     		.short	2311
+ 592 00d4 07       		.byte	7
+ 593 00d5 01       		.byte	1
+ 594 00d6 04       		.byte	4
+ 595 00d7 00       		.space	1
+ 596              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified0,"a",%progbits
+ 597              		.align	2
+ 600              	GPIO_SC_TABLE_sdhi_simplified0:
+ 601 0000 0005     		.short	1280
+ 602 0002 09       		.byte	9
+ 603 0003 01       		.byte	1
+ 604 0004 05       		.byte	5
+ 605 0005 00       		.space	1
+ 606 0006 0105     		.short	1281
+ 607 0008 09       		.byte	9
+ 608 0009 01       		.byte	1
+ 609 000a 05       		.byte	5
+ 610 000b 00       		.space	1
+ 611              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified1,"a",%progbits
+ 612              		.align	2
+ 615              	GPIO_SC_TABLE_sdhi_simplified1:
+ 616 0000 0405     		.short	1284
+ 617 0002 09       		.byte	9
+ 618 0003 01       		.byte	1
+ 619 0004 05       		.byte	5
+ 620 0005 00       		.space	1
+ 621 0006 0505     		.short	1285
+ 622 0008 09       		.byte	9
+ 623 0009 01       		.byte	1
+ 624 000a 05       		.byte	5
+ 625 000b 00       		.space	1
+ 626              		.section	.rodata.RIIC_SC_TABLE,"a",%progbits
+ 627              		.align	2
+ 630              	RIIC_SC_TABLE:
+ 631 0000 02000000 		.word	2
+ 632 0004 00       		.byte	0
+ 633 0005 000000   		.space	3
+ 634 0008 01000000 		.word	1
+ 635 000c 01000000 		.word	1
+ 636 0010 01000000 		.word	1
+ 637 0014 0100     		.short	1
+ 638 0016 0100     		.short	1
+ 639 0018 0100     		.short	1
+ 640 001a 00       		.byte	0
+ 641 001b 00       		.byte	0
+ 642 001c 00       		.byte	0
+ 643 001d 00       		.byte	0
+ 644 001e 04       		.byte	4
+ 645 001f 00       		.space	1
+ 646 0020 00000000 		.word	0
+ 647 0024 00000000 		.word	0
+ 648 0028 00       		.byte	0
+ 649 0029 00       		.byte	0
+ 650 002a 00       		.byte	0
+ 651 002b 00       		.space	1
+ 652 002c 01000000 		.word	1
+ 653 0030 09       		.byte	9
+ 654 0031 09       		.byte	9
+ 655 0032 09       		.byte	9
+ 656 0033 09       		.byte	9
+ 657 0034 09       		.byte	9
+ 658 0035 09       		.byte	9
+ 659 0036 09       		.byte	9
+ 660 0037 09       		.byte	9
+ 661 0038 00000000 		.word	GPIO_SC_TABLE_riic2
+ 662 003c 02000000 		.word	2
+ 663 0040 00000000 		.space	4
+ 664 0044 03000000 		.word	3
+ 665 0048 00       		.byte	0
+ 666 0049 000000   		.space	3
+ 667 004c 01000000 		.word	1
+ 668 0050 01000000 		.word	1
+ 669 0054 01000000 		.word	1
+ 670 0058 0100     		.short	1
+ 671 005a 0100     		.short	1
+ 672 005c 0100     		.short	1
+ 673 005e 00       		.byte	0
+ 674 005f 00       		.byte	0
+ 675 0060 00       		.byte	0
+ 676 0061 00       		.byte	0
+ 677 0062 04       		.byte	4
+ 678 0063 00       		.space	1
+ 679 0064 00000000 		.word	0
+ 680 0068 00000000 		.word	0
+ 681 006c 00       		.byte	0
+ 682 006d 00       		.byte	0
+ 683 006e 00       		.byte	0
+ 684 006f 00       		.space	1
+ 685 0070 01000000 		.word	1
+ 686 0074 09       		.byte	9
+ 687 0075 09       		.byte	9
+ 688 0076 09       		.byte	9
+ 689 0077 09       		.byte	9
+ 690 0078 09       		.byte	9
+ 691 0079 09       		.byte	9
+ 692 007a 09       		.byte	9
+ 693 007b 09       		.byte	9
+ 694 007c 00000000 		.word	GPIO_SC_TABLE_riic3
+ 695 0080 02000000 		.word	2
+ 696 0084 00000000 		.space	4
+ 697              		.section	.rodata
+ 698              		.align	2
+ 699              	.LC0:
+ 700 0000 6770696F 		.ascii	"gpio\000"
+ 700      00
+ 701 0005 000000   		.align	2
+ 702              	.LC1:
+ 703 0008 5C5C2E5C 		.ascii	"\\\\.\\riic3\000"
+ 703      72696963 
+ 703      3300
+ 704              		.section	.text.VDC_LcdPortSetting,"ax",%progbits
+ 705              		.align	2
+ 706              		.global	VDC_LcdPortSetting
+ 707              		.syntax unified
+ 708              		.arm
+ 709              		.fpu neon
+ 711              	VDC_LcdPortSetting:
+ 712              	.LFB3:
+ 713              		.file 1 "../src/renesas/application/common/port_settings/vdc_portsetting.c"
+   1:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /*******************************************************************************
+   2:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * DISCLAIMER
+   3:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * all applicable laws, including copyright laws.
+   7:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * following link:
+  20:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * http://www.renesas.com/disclaimer
+  21:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * Copyright (C) 2017 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  *******************************************************************************/
+  23:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /**************************************************************************//**
+  24:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * File Name :    vdc_portsetting.c
+  25:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * @file          vdc_portsetting.c
+  26:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * $Rev:  $
+  27:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * $Date: 2018-06-22T15:31:02+09:00 $
+  28:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * @brief        VDC port setting functions
+  29:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  30:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  31:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /*******************************************************************************
+  32:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Includes <System Includes>, "Project Includes"
+  33:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  *******************************************************************************/
+  34:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_typedefs.h"
+  35:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "iodefine.h"
+  36:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "lcd_panel.h"
+  37:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_rvapi_vdc.h"
+  38:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_gpio_drv_api.h"
+  39:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_riic_drv_api.h"
+  40:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_devlink_wrapper.h"
+  41:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include "r_riic_drv_sc_cfg.h"
+  42:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #include <sys/unistd.h>
+  43:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  44:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  45:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Macro definitions
+  46:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  47:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #if ( LCD_PANEL==3 )
+  48:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #define TFP410                  (0x78u)
+  49:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #endif
+  50:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  51:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  52:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Enumerated Types
+  53:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  54:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  55:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  56:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Structures
+  57:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  58:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  59:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  60:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Global Vaiables
+  61:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  62:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  63:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  64:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  65:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Private global variables and functions
+  66:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  67:../src/renesas/application/common/port_settings/vdc_portsetting.c **** static void RIIC_HdmiWrite( int_t handle, uint8_t ic_adr, uint8_t reg_adr_upper, uint8_t reg_adr_lo
+  68:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  69:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+  70:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  Function prototypes
+  71:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  72:../src/renesas/application/common/port_settings/vdc_portsetting.c **** void VDC_LcdPortSetting(uint32_t param);
+  73:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  74:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  75:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /**************************************************************************//**
+  76:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * Function Name : VDC_LcdPortSetting
+  77:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * @brief       LCD panel port setup
+  78:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * @param[in]   param     :
+  79:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  * @retval      None
+  80:../src/renesas/application/common/port_settings/vdc_portsetting.c ****  ******************************************************************************/
+  81:../src/renesas/application/common/port_settings/vdc_portsetting.c **** void VDC_LcdPortSetting(uint32_t param)
+  82:../src/renesas/application/common/port_settings/vdc_portsetting.c **** {
+ 714              		.loc 1 82 0
+ 715              		.cfi_startproc
+ 716              		@ args = 0, pretend = 0, frame = 48
+ 717              		@ frame_needed = 1, uses_anonymous_args = 0
+ 718 0000 00482DE9 		push	{fp, lr}
+ 719              		.cfi_def_cfa_offset 8
+ 720              		.cfi_offset 11, -8
+ 721              		.cfi_offset 14, -4
+ 722 0004 04B08DE2 		add	fp, sp, #4
+ 723              		.cfi_def_cfa 11, 4
+ 724 0008 38D04DE2 		sub	sp, sp, #56
+ 725 000c 30000BE5 		str	r0, [fp, #-48]
+  83:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     int_t err;
+  84:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     int_t gpio_handle;
+  85:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  86:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     gpio_handle = direct_open("gpio", 0);
+ 726              		.loc 1 86 0
+ 727 0010 0010A0E3 		mov	r1, #0
+ 728 0014 000000E3 		movw	r0, #:lower16:.LC0
+ 729 0018 000040E3 		movt	r0, #:upper16:.LC0
+ 730 001c FEFFFFEB 		bl	direct_open
+ 731 0020 08000BE5 		str	r0, [fp, #-8]
+  87:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     if ( gpio_handle < 0 )
+ 732              		.loc 1 87 0
+ 733 0024 08301BE5 		ldr	r3, [fp, #-8]
+ 734 0028 000053E3 		cmp	r3, #0
+ 735 002c 000000AA 		bge	.L2
+ 736              	.L3:
+  88:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+  89:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* stop execute */
+  90:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         while(1);
+ 737              		.loc 1 90 0 discriminator 1
+ 738 0030 FEFFFFEA 		b	.L3
+ 739              	.L2:
+  91:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     }
+  92:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+  93:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #if     (LCD_PANEL==1)
+  94:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /*  LVDS LCD for RZ/A2M Eva board
+  95:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXCLKOUTM   :                       ... P4_7
+  96:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXCLKOUTP   :                       ... P4_6
+  97:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT2M     :                       ... P4_5
+  98:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT2P     :                       ... P4_4
+  99:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT1M     :                       ... P4_3
+ 100:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT1P     :                       ... P4_2
+ 101:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT0M     :                       ... P4_1
+ 102:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             TXOUT0P     :                       ... P4_0
+ 103:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     */
+ 104:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 105:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     st_r_drv_gpio_pin_list_t pin_lcd_lvds;
+ 106:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 107:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     static const r_gpio_port_pin_t pin_lcd_lvds_table[] =
+ 108:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 109:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_4_PIN_7,  GPIO_PORT_4_PIN_6,
+ 110:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_4_PIN_5,  GPIO_PORT_4_PIN_4,
+ 111:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_4_PIN_3,  GPIO_PORT_4_PIN_2,
+ 112:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_4_PIN_1,  GPIO_PORT_4_PIN_0,
+ 113:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     };
+ 114:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 115:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* === LCD === */
+ 116:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* ---- Port initialize ---- */
+ 117:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_lcd_lvds.p_pin_list = pin_lcd_lvds_table;
+ 118:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_lcd_lvds.count = (sizeof(pin_lcd_lvds_table)) / (sizeof(pin_lcd_lvds_table[0]));
+ 119:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     err = direct_control(gpio_handle, CTL_GPIO_INIT_BY_PIN_LIST, &pin_lcd_lvds);
+ 120:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     if ( err < 0 )
+ 121:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 122:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* stop execute */
+ 123:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         while(1);
+ 124:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     }
+ 125:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 126:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 127:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #elif (LCD_PANEL==2 || LCD_PANEL == 3)
+ 128:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 129:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /*  RSK LCD for RZ/A2M Eva board
+ 130:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             1    PF_7  LCD0_DATA0           2    PH_2  LCD0_DATA1
+ 131:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             3    PF_6  LCD0_DATA2           4    PF_5  LCD0_DATA3
+ 132:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             5    PF_4  LCD0_DATA4           6    PF_3  LCD0_DATA5
+ 133:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             7    PF_2  LCD0_DATA6           8    PF_1  LCD0_DATA7
+ 134:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             9    PF_0  LCD0_DATA8           10   P8_0  LCD0_DATA9
+ 135:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             11   PA_0  LCD0_DATA10          12   PA_1  LCD0_DATA11
+ 136:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             13   PA_2  LCD0_DATA12          14   PA_3  LCD0_DATA13
+ 137:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             15   PA_4  LCD0_DATA14          16   PA_5  LCD0_DATA15
+ 138:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             17   PA_6  LCD0_DATA16          18   PA_7  LCD0_DATA17
+ 139:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             19   PB_0  LCD0_DATA18          20   PB_1  LCD0_DATA19
+ 140:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             21   PB_2  LCD0_DATA20          22   PB_3  LCD0_DATA21
+ 141:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             23   PB_4  LCD0_DATA22          24   PB_5  LCD0_DATA23
+ 142:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             26   PJ_6  LCD0_CLK             27   PC_3  LCD0_TCON4(DE)
+ 143:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             28   PC_4  LCD0_TCON3(Hsync)    29   P7_7  LCD0_TCON0(Vsync)
+ 144:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 145:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                  PJ_7  LCD0_EXTCLK
+ 146:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             */
+ 147:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 148:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     st_r_drv_gpio_pin_list_t pin_lcd;
+ 149:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     static const r_gpio_port_pin_t gs_lcd_pin_table[] =
+ 150:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 151:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_F_PIN_7,  GPIO_PORT_H_PIN_2,
+ 152:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_F_PIN_6,  GPIO_PORT_F_PIN_5,
+ 153:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_F_PIN_4,  GPIO_PORT_F_PIN_3,
+ 154:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_F_PIN_2,  GPIO_PORT_F_PIN_1,
+ 155:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_F_PIN_0,  GPIO_PORT_8_PIN_0,
+ 156:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_A_PIN_0,  GPIO_PORT_A_PIN_1,
+ 157:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_A_PIN_2,  GPIO_PORT_A_PIN_3,
+ 158:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_A_PIN_4,  GPIO_PORT_A_PIN_5,
+ 159:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_A_PIN_6,  GPIO_PORT_A_PIN_7,
+ 160:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_B_PIN_0,  GPIO_PORT_B_PIN_1,
+ 161:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_B_PIN_2,  GPIO_PORT_B_PIN_3,
+ 162:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_B_PIN_4,  GPIO_PORT_B_PIN_5,
+ 163:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_J_PIN_6,  GPIO_PORT_C_PIN_3,
+ 164:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_C_PIN_4,  GPIO_PORT_7_PIN_7,
+ 165:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         GPIO_PORT_J_PIN_7
+ 166:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     };
+ 167:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 168:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     st_r_drv_gpio_sc_config_t pin_back_light;
+ 169:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     static const st_r_drv_gpio_pin_rw_t    p76_hi = { GPIO_PORT_7_PIN_6, GPIO_LEVEL_HIGH };
+ 170:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     static const st_r_drv_gpio_pin_rw_t    p76_lo = { GPIO_PORT_7_PIN_6, GPIO_LEVEL_LOW  };
+ 171:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 172:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* === LCD === */
+ 173:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* ---- Port initialize ---- */
+ 174:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_lcd.p_pin_list = gs_lcd_pin_table;
+ 740              		.loc 1 174 0
+ 741 0034 003000E3 		movw	r3, #:lower16:gs_lcd_pin_table.72178
+ 742 0038 003040E3 		movt	r3, #:upper16:gs_lcd_pin_table.72178
+ 743 003c 1C300BE5 		str	r3, [fp, #-28]
+ 175:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_lcd.count = (sizeof(gs_lcd_pin_table)) / (sizeof(gs_lcd_pin_table[0]));
+ 744              		.loc 1 175 0
+ 745 0040 1D30A0E3 		mov	r3, #29
+ 746 0044 18300BE5 		str	r3, [fp, #-24]
+ 176:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     err = direct_control(gpio_handle, CTL_GPIO_INIT_BY_PIN_LIST, &pin_lcd);
+ 747              		.loc 1 176 0
+ 748 0048 1C304BE2 		sub	r3, fp, #28
+ 749 004c 0320A0E1 		mov	r2, r3
+ 750 0050 0210A0E3 		mov	r1, #2
+ 751 0054 08001BE5 		ldr	r0, [fp, #-8]
+ 752 0058 FEFFFFEB 		bl	direct_control
+ 753 005c 0C000BE5 		str	r0, [fp, #-12]
+ 177:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     if ( err < 0 )
+ 754              		.loc 1 177 0
+ 755 0060 0C301BE5 		ldr	r3, [fp, #-12]
+ 756 0064 000053E3 		cmp	r3, #0
+ 757 0068 000000AA 		bge	.L4
+ 758              	.L5:
+ 178:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 179:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* stop execute */
+ 180:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         while(1);
+ 759              		.loc 1 180 0 discriminator 2
+ 760 006c FEFFFFEA 		b	.L5
+ 761              	.L4:
+ 181:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     }
+ 182:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 183:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* === P7_6 : RSK LCD BACK Light === */
+ 184:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* ---- Port initialize ---- */
+ 185:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_back_light.pin                    = GPIO_PORT_7_PIN_6;
+ 762              		.loc 1 185 0
+ 763 0070 063700E3 		movw	r3, #1798
+ 764 0074 B4324BE1 		strh	r3, [fp, #-36]	@ movhi
+ 186:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_back_light.configuration.function = GPIO_FUNC_OUT_LOW;
+ 765              		.loc 1 186 0
+ 766 0078 0430A0E3 		mov	r3, #4
+ 767 007c 22304BE5 		strb	r3, [fp, #-34]
+ 187:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_back_light.configuration.current  = GPIO_CURRENT_4mA;
+ 768              		.loc 1 187 0
+ 769 0080 0430A0E3 		mov	r3, #4
+ 770 0084 20304BE5 		strb	r3, [fp, #-32]
+ 188:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     pin_back_light.configuration.tint     = GPIO_TINT_DISABLE;
+ 771              		.loc 1 188 0
+ 772 0088 0130A0E3 		mov	r3, #1
+ 773 008c 21304BE5 		strb	r3, [fp, #-33]
+ 189:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 190:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     err = direct_control(gpio_handle, CTL_GPIO_SET_CONFIGURATION, &pin_back_light);
+ 774              		.loc 1 190 0
+ 775 0090 24304BE2 		sub	r3, fp, #36
+ 776 0094 0320A0E1 		mov	r2, r3
+ 777 0098 0010A0E3 		mov	r1, #0
+ 778 009c 08001BE5 		ldr	r0, [fp, #-8]
+ 779 00a0 FEFFFFEB 		bl	direct_control
+ 780 00a4 0C000BE5 		str	r0, [fp, #-12]
+ 191:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     if ( err < 0 )
+ 781              		.loc 1 191 0
+ 782 00a8 0C301BE5 		ldr	r3, [fp, #-12]
+ 783 00ac 000053E3 		cmp	r3, #0
+ 784 00b0 000000AA 		bge	.L6
+ 785              	.L7:
+ 192:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 193:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* stop execute */
+ 194:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         while(1);
+ 786              		.loc 1 194 0 discriminator 3
+ 787 00b4 FEFFFFEA 		b	.L7
+ 788              	.L6:
+ 195:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     }
+ 196:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     /* RSK LCD BACK Light on */
+ 197:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     direct_control(gpio_handle, CTL_GPIO_PIN_WRITE, (void*)&p76_hi);
+ 789              		.loc 1 197 0
+ 790 00b8 002000E3 		movw	r2, #:lower16:p76_hi.72180
+ 791 00bc 002040E3 		movt	r2, #:upper16:p76_hi.72180
+ 792 00c0 0810A0E3 		mov	r1, #8
+ 793 00c4 08001BE5 		ldr	r0, [fp, #-8]
+ 794 00c8 FEFFFFEB 		bl	direct_control
+ 795              	.LBB2:
+ 198:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 199:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #if ( LCD_PANEL==3 )
+ 200:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     {
+ 201:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         int_t   handle;
+ 202:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         uint8_t senddata[3];
+ 203:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 204:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* open RIIC */
+ 205:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         handle = open(DEVICE_INDENTIFIER "riic3", O_RDWR);
+ 796              		.loc 1 205 0
+ 797 00cc 0210A0E3 		mov	r1, #2
+ 798 00d0 000000E3 		movw	r0, #:lower16:.LC1
+ 799 00d4 000040E3 		movt	r0, #:upper16:.LC1
+ 800 00d8 FEFFFFEB 		bl	open
+ 801 00dc 10000BE5 		str	r0, [fp, #-16]
+ 206:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 207:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         if( handle >= 0 )
+ 802              		.loc 1 207 0
+ 803 00e0 10301BE5 		ldr	r3, [fp, #-16]
+ 804 00e4 000053E3 		cmp	r3, #0
+ 805 00e8 0F0000BA 		blt	.L8
+ 208:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         {
+ 209:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             /* HDMI On */
+ 210:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             senddata[0] = (uint8_t)(0x08u);
+ 806              		.loc 1 210 0
+ 807 00ec 0830A0E3 		mov	r3, #8
+ 808 00f0 28304BE5 		strb	r3, [fp, #-40]
+ 211:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             senddata[1] = (uint8_t)(0xbfu);
+ 809              		.loc 1 211 0
+ 810 00f4 4030E0E3 		mvn	r3, #64
+ 811 00f8 27304BE5 		strb	r3, [fp, #-39]
+ 212:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             senddata[2] = (uint8_t)(0x70u);
+ 812              		.loc 1 212 0
+ 813 00fc 7030A0E3 		mov	r3, #112
+ 814 0100 26304BE5 		strb	r3, [fp, #-38]
+ 213:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             RIIC_HdmiWrite(
+ 815              		.loc 1 213 0
+ 816 0104 28205BE5 		ldrb	r2, [fp, #-40]	@ zero_extendqisi2
+ 817 0108 27105BE5 		ldrb	r1, [fp, #-39]	@ zero_extendqisi2
+ 818 010c 26305BE5 		ldrb	r3, [fp, #-38]	@ zero_extendqisi2
+ 819 0110 00308DE5 		str	r3, [sp]
+ 820 0114 0130A0E1 		mov	r3, r1
+ 821 0118 7810A0E3 		mov	r1, #120
+ 822 011c 10001BE5 		ldr	r0, [fp, #-16]
+ 823 0120 FEFFFFEB 		bl	RIIC_HdmiWrite
+ 214:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                     handle,
+ 215:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                     TFP410,
+ 216:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                     senddata[0],
+ 217:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                     senddata[1],
+ 218:../src/renesas/application/common/port_settings/vdc_portsetting.c ****                     senddata[2]);
+ 219:../src/renesas/application/common/port_settings/vdc_portsetting.c ****             close(handle);
+ 824              		.loc 1 219 0
+ 825 0124 10001BE5 		ldr	r0, [fp, #-16]
+ 826 0128 FEFFFFEB 		bl	close
+ 827              	.L8:
+ 220:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         }
+ 221:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 222:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         /* RSK LCD BACK Light off */
+ 223:../src/renesas/application/common/port_settings/vdc_portsetting.c ****         direct_control(gpio_handle, CTL_GPIO_PIN_WRITE, (void*)&p76_lo);
+ 828              		.loc 1 223 0
+ 829 012c 002000E3 		movw	r2, #:lower16:p76_lo.72181
+ 830 0130 002040E3 		movt	r2, #:upper16:p76_lo.72181
+ 831 0134 0810A0E3 		mov	r1, #8
+ 832 0138 08001BE5 		ldr	r0, [fp, #-8]
+ 833 013c FEFFFFEB 		bl	direct_control
+ 834              	.LBE2:
+ 224:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     }
+ 225:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #endif
+ 226:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 227:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #else
+ 228:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     #error  Undefined LCD panel!
+ 229:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #endif
+ 230:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 231:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     direct_close(gpio_handle);
+ 835              		.loc 1 231 0
+ 836 0140 08001BE5 		ldr	r0, [fp, #-8]
+ 837 0144 FEFFFFEB 		bl	direct_close
+ 232:../src/renesas/application/common/port_settings/vdc_portsetting.c **** } /* End of function VDC_LcdPortSetting() */
+ 838              		.loc 1 232 0
+ 839 0148 00F020E3 		nop
+ 840 014c 04D04BE2 		sub	sp, fp, #4
+ 841              		.cfi_def_cfa 13, 8
+ 842              		@ sp needed
+ 843 0150 0088BDE8 		pop	{fp, pc}
+ 844              		.cfi_endproc
+ 845              	.LFE3:
+ 847              		.section	.text.RIIC_HdmiWrite,"ax",%progbits
+ 848              		.align	2
+ 849              		.syntax unified
+ 850              		.arm
+ 851              		.fpu neon
+ 853              	RIIC_HdmiWrite:
+ 854              	.LFB4:
+ 233:../src/renesas/application/common/port_settings/vdc_portsetting.c **** #if ( LCD_PANEL==3 )
+ 234:../src/renesas/application/common/port_settings/vdc_portsetting.c **** /******************************************************************************
+ 235:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * Function Name: RIIC_HdmiWrite
+ 236:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * Description  :
+ 237:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @param[in]  hld            : io handle.
+ 238:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @param[in]  ic_adr         : device address.
+ 239:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @param[in]  reg_adr_upper  : upper register address to write .
+ 240:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @param[in]  reg_adr_lower  : lower register address to write .
+ 241:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @param[in]  reg_data       : write data .
+ 242:../src/renesas/application/common/port_settings/vdc_portsetting.c **** * @retval  : none
+ 243:../src/renesas/application/common/port_settings/vdc_portsetting.c **** ******************************************************************************/
+ 244:../src/renesas/application/common/port_settings/vdc_portsetting.c **** static void RIIC_HdmiWrite( int_t handle, uint8_t ic_adr, uint8_t reg_adr_upper, uint8_t reg_adr_lo
+ 245:../src/renesas/application/common/port_settings/vdc_portsetting.c **** {
+ 855              		.loc 1 245 0
+ 856              		.cfi_startproc
+ 857              		@ args = 4, pretend = 0, frame = 32
+ 858              		@ frame_needed = 1, uses_anonymous_args = 0
+ 859 0000 00482DE9 		push	{fp, lr}
+ 860              		.cfi_def_cfa_offset 8
+ 861              		.cfi_offset 11, -8
+ 862              		.cfi_offset 14, -4
+ 863 0004 04B08DE2 		add	fp, sp, #4
+ 864              		.cfi_def_cfa 11, 4
+ 865 0008 20D04DE2 		sub	sp, sp, #32
+ 866 000c 20000BE5 		str	r0, [fp, #-32]
+ 867 0010 0100A0E1 		mov	r0, r1
+ 868 0014 0210A0E1 		mov	r1, r2
+ 869 0018 0320A0E1 		mov	r2, r3
+ 870 001c 0030A0E1 		mov	r3, r0
+ 871 0020 21304BE5 		strb	r3, [fp, #-33]
+ 872 0024 0130A0E1 		mov	r3, r1
+ 873 0028 22304BE5 		strb	r3, [fp, #-34]
+ 874 002c 0230A0E1 		mov	r3, r2
+ 875 0030 23304BE5 		strb	r3, [fp, #-35]
+ 246:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     int_t ret;
+ 247:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     st_r_drv_riic_transfer_t i2c_write;
+ 248:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 249:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     i2c_write.device_address = ic_adr;
+ 876              		.loc 1 249 0
+ 877 0034 21305BE5 		ldrb	r3, [fp, #-33]	@ zero_extendqisi2
+ 878 0038 7330FFE6 		uxth	r3, r3
+ 879 003c B8314BE1 		strh	r3, [fp, #-24]	@ movhi
+ 250:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     i2c_write.sub_address_type = RIIC_SUB_ADDR_WIDTH_16_BITS;
+ 880              		.loc 1 250 0
+ 881 0040 0230A0E3 		mov	r3, #2
+ 882 0044 16304BE5 		strb	r3, [fp, #-22]
+ 251:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     i2c_write.sub_address = (reg_adr_upper << 8) | reg_adr_lower;
+ 883              		.loc 1 251 0
+ 884 0048 22305BE5 		ldrb	r3, [fp, #-34]	@ zero_extendqisi2
+ 885 004c 0324A0E1 		lsl	r2, r3, #8
+ 886 0050 23305BE5 		ldrb	r3, [fp, #-35]	@ zero_extendqisi2
+ 887 0054 033082E1 		orr	r3, r2, r3
+ 888 0058 14300BE5 		str	r3, [fp, #-20]
+ 252:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     i2c_write.number_of_bytes = 1;
+ 889              		.loc 1 252 0
+ 890 005c 0130A0E3 		mov	r3, #1
+ 891 0060 10300BE5 		str	r3, [fp, #-16]
+ 253:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     i2c_write.p_data_buffer = &reg_data;
+ 892              		.loc 1 253 0
+ 893 0064 04308BE2 		add	r3, fp, #4
+ 894 0068 0C300BE5 		str	r3, [fp, #-12]
+ 254:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 255:../src/renesas/application/common/port_settings/vdc_portsetting.c ****     ret = control(handle, CTL_RIIC_WRITE, &i2c_write);
+ 895              		.loc 1 255 0
+ 896 006c 18304BE2 		sub	r3, fp, #24
+ 897 0070 0320A0E1 		mov	r2, r3
+ 898 0074 0410A0E3 		mov	r1, #4
+ 899 0078 20001BE5 		ldr	r0, [fp, #-32]
+ 900 007c FEFFFFEB 		bl	control
+ 901 0080 08000BE5 		str	r0, [fp, #-8]
+ 256:../src/renesas/application/common/port_settings/vdc_portsetting.c **** 
+ 257:../src/renesas/application/common/port_settings/vdc_portsetting.c **** }   /* End of function RIIC_MipiWrite() */
+ 902              		.loc 1 257 0
+ 903 0084 00F020E3 		nop
+ 904 0088 04D04BE2 		sub	sp, fp, #4
+ 905              		.cfi_def_cfa 13, 8
+ 906              		@ sp needed
+ 907 008c 0088BDE8 		pop	{fp, pc}
+ 908              		.cfi_endproc
+ 909              	.LFE4:
+ 911              		.section	.rodata.gs_lcd_pin_table.72178,"a",%progbits
+ 912              		.align	2
+ 915              	gs_lcd_pin_table.72178:
+ 916 0000 070F     		.short	3847
+ 917 0002 0211     		.short	4354
+ 918 0004 060F     		.short	3846
+ 919 0006 050F     		.short	3845
+ 920 0008 040F     		.short	3844
+ 921 000a 030F     		.short	3843
+ 922 000c 020F     		.short	3842
+ 923 000e 010F     		.short	3841
+ 924 0010 000F     		.short	3840
+ 925 0012 0008     		.short	2048
+ 926 0014 000A     		.short	2560
+ 927 0016 010A     		.short	2561
+ 928 0018 020A     		.short	2562
+ 929 001a 030A     		.short	2563
+ 930 001c 040A     		.short	2564
+ 931 001e 050A     		.short	2565
+ 932 0020 060A     		.short	2566
+ 933 0022 070A     		.short	2567
+ 934 0024 000B     		.short	2816
+ 935 0026 010B     		.short	2817
+ 936 0028 020B     		.short	2818
+ 937 002a 030B     		.short	2819
+ 938 002c 040B     		.short	2820
+ 939 002e 050B     		.short	2821
+ 940 0030 0612     		.short	4614
+ 941 0032 030C     		.short	3075
+ 942 0034 040C     		.short	3076
+ 943 0036 0707     		.short	1799
+ 944 0038 0712     		.short	4615
+ 945              		.section	.rodata.p76_hi.72180,"a",%progbits
+ 946              		.align	2
+ 949              	p76_hi.72180:
+ 950 0000 0607     		.short	1798
+ 951 0002 02       		.byte	2
+ 952 0003 00       		.space	1
+ 953              		.section	.rodata.p76_lo.72181,"a",%progbits
+ 954              		.align	2
+ 957              	p76_lo.72181:
+ 958 0000 0607     		.short	1798
+ 959 0002 01       		.byte	1
+ 960 0003 00       		.space	1
+ 961              		.text
+ 962              	.Letext0:
+ 963              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 964              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 965              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 966              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 967              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 968              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 969              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 970              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 971              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 972              		.file 11 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 973              		.file 12 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 974              		.file 13 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 975              		.file 14 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 976              		.file 15 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 977              		.file 16 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 978              		.file 17 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 979              		.file 18 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 980              		.file 19 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+DEFINED SYMBOLS
+                            *ABS*:00000000 vdc_portsetting.c
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:17     .rodata.GPIO_SC_TABLE_INIT:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:20     .rodata.GPIO_SC_TABLE_INIT:00000000 GPIO_SC_TABLE_INIT
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:32     .rodata.GPIO_SC_TABLE_MANUAL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:35     .rodata.GPIO_SC_TABLE_MANUAL:00000000 GPIO_SC_TABLE_MANUAL
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:367    .rodata.GPIO_SC_TABLE_riic2:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:370    .rodata.GPIO_SC_TABLE_riic2:00000000 GPIO_SC_TABLE_riic2
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:382    .rodata.GPIO_SC_TABLE_riic3:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:385    .rodata.GPIO_SC_TABLE_riic3:00000000 GPIO_SC_TABLE_riic3
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:397    .rodata.GPIO_SC_TABLE_scifa4:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:400    .rodata.GPIO_SC_TABLE_scifa4:00000000 GPIO_SC_TABLE_scifa4
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:412    .rodata.GPIO_SC_TABLE_BSC:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:415    .rodata.GPIO_SC_TABLE_BSC:00000000 GPIO_SC_TABLE_BSC
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:597    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:600    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 GPIO_SC_TABLE_sdhi_simplified0
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:612    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:615    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 GPIO_SC_TABLE_sdhi_simplified1
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:627    .rodata.RIIC_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:630    .rodata.RIIC_SC_TABLE:00000000 RIIC_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:698    .rodata:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:699    .rodata:00000000 .LC0
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:702    .rodata:00000008 .LC1
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:705    .text.VDC_LcdPortSetting:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:711    .text.VDC_LcdPortSetting:00000000 VDC_LcdPortSetting
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:915    .rodata.gs_lcd_pin_table.72178:00000000 gs_lcd_pin_table.72178
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:949    .rodata.p76_hi.72180:00000000 p76_hi.72180
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:853    .text.RIIC_HdmiWrite:00000000 RIIC_HdmiWrite
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:957    .rodata.p76_lo.72181:00000000 p76_lo.72181
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:848    .text.RIIC_HdmiWrite:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:912    .rodata.gs_lcd_pin_table.72178:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:946    .rodata.p76_hi.72180:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccgieHVb.s:954    .rodata.p76_lo.72181:00000000 $d
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.lcd_panel.h.32.e9e0ac40b9400faa87e27e1511233b74
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.r_vdc_user.h.49.5060b5b77fe69e4e595de8fadc36e78b
+                           .group:00000000 wm4.r_vdc.h.48.a14f484516009cb4cb3742c0c9b79bbd
+                           .group:00000000 wm4.pc_monitor.h.43.eb32cd806d1ffaea00344771bcd5806c
+                           .group:00000000 wm4.lcd_hdmi_clk.h.81.058f95aa20d264a99dd01a2b8d089b36
+                           .group:00000000 wm4.lcd_hdmi_ch0.h.31.d97657c0232b797280169390208e6e60
+                           .group:00000000 wm4.r_rvapi_vdc.h.73.5f3535c567d3af3dccdafb254b48c817
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.r_rza2m_riic_lld_cfg.h.40.1a5f6c5ea695a369eafb519f9773c77d
+                           .group:00000000 wm4.r_rza2m_riic_lld_api.h.37.76c059981812ab1c27bbe073398fe70a
+                           .group:00000000 wm4.r_riic_drv_api.h.77.d3e88cefd960d5349156344e20f8969e
+                           .group:00000000 wm4.r_riic_drv_sc_cfg.h.69.d6decd0081a6cc31534b8edc46f68568
+                           .group:00000000 wm4.unistd.h.2.39165d5b7784d1815ef4b0c4be6df560
+                           .group:00000000 wm4.unistd.h.156.9a9035c10111809e94aa612639fe2ed9
+
+UNDEFINED SYMBOLS
+direct_open
+direct_control
+open
+close
+direct_close
+control

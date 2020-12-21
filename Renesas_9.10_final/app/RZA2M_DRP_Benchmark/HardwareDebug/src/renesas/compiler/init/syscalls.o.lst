@@ -1,0 +1,1442 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"syscalls.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.bss.monitor_stdin,"aw",%nobits
+  17              		.align	2
+  20              	monitor_stdin:
+  21 0000 00000000 		.space	4
+  22              		.section	.bss.monitor_stdout,"aw",%nobits
+  23              		.align	2
+  26              	monitor_stdout:
+  27 0000 00000000 		.space	4
+  28              		.section	.bss.monitor_stderr,"aw",%nobits
+  29              		.align	2
+  32              	monitor_stderr:
+  33 0000 00000000 		.space	4
+  34              		.section	.rodata
+  35              		.align	2
+  36              	.LC0:
+  37 0000 5C5C2E5C 		.ascii	"\\\\.\\stdin\000"
+  37      73746469 
+  37      6E00
+  38 000a 0000     		.align	2
+  39              	.LC1:
+  40 000c 5C5C2E5C 		.ascii	"\\\\.\\stdout\000"
+  40      7374646F 
+  40      757400
+  41 0017 00       		.align	2
+  42              	.LC2:
+  43 0018 5C5C2E5C 		.ascii	"\\\\.\\stderr\000"
+  43      73746465 
+  43      727200
+  44              		.section	.text.initialise_monitor_handles,"ax",%progbits
+  45              		.align	2
+  46              		.global	initialise_monitor_handles
+  47              		.syntax unified
+  48              		.arm
+  49              		.fpu neon
+  51              	initialise_monitor_handles:
+  52              	.LFB3:
+  53              		.file 1 "../src/renesas/compiler/init/syscalls.c"
+   1:../src/renesas/compiler/init/syscalls.c **** /*******************************************************************************
+   2:../src/renesas/compiler/init/syscalls.c **** * DISCLAIMER
+   3:../src/renesas/compiler/init/syscalls.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/compiler/init/syscalls.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/compiler/init/syscalls.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/compiler/init/syscalls.c **** * all applicable laws, including copyright laws.
+   7:../src/renesas/compiler/init/syscalls.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/compiler/init/syscalls.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/compiler/init/syscalls.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/compiler/init/syscalls.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/compiler/init/syscalls.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/compiler/init/syscalls.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/compiler/init/syscalls.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/compiler/init/syscalls.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/compiler/init/syscalls.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/compiler/init/syscalls.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/compiler/init/syscalls.c **** * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/compiler/init/syscalls.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/compiler/init/syscalls.c **** * following link:
+  20:../src/renesas/compiler/init/syscalls.c **** * http://www.renesas.com/disclaimer
+  21:../src/renesas/compiler/init/syscalls.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/compiler/init/syscalls.c **** *******************************************************************************/
+  23:../src/renesas/compiler/init/syscalls.c **** /*******************************************************************************
+  24:../src/renesas/compiler/init/syscalls.c **** * File Name : syscalls.c
+  25:../src/renesas/compiler/init/syscalls.c **** * $Rev: 8694 $
+  26:../src/renesas/compiler/init/syscalls.c **** * $Date:: 2018-06-29 14:46:41 +0800#$
+  27:../src/renesas/compiler/init/syscalls.c **** * Description :
+  28:../src/renesas/compiler/init/syscalls.c **** ******************************************************************************/
+  29:../src/renesas/compiler/init/syscalls.c **** /* Copyright (C) 2010 Embecosm Limited
+  30:../src/renesas/compiler/init/syscalls.c ****  * Creative Commons License The document entitled "Howto: Porting newlib"
+  31:../src/renesas/compiler/init/syscalls.c ****  * by Jeremy Bennett of Embecosm is licensed under a Creative Commons
+  32:../src/renesas/compiler/init/syscalls.c ****  * Attribution 2.0 UK: England & Wales License. See the Legal Notice for details. 
+  33:../src/renesas/compiler/init/syscalls.c ****  */
+  34:../src/renesas/compiler/init/syscalls.c **** #include <sys/stat.h>
+  35:../src/renesas/compiler/init/syscalls.c **** #include <errno.h>
+  36:../src/renesas/compiler/init/syscalls.c **** #include <r_devlink_wrapper.h>
+  37:../src/renesas/compiler/init/syscalls.c **** #include <unistd.h>
+  38:../src/renesas/compiler/init/syscalls.c **** 
+  39:../src/renesas/compiler/init/syscalls.c **** #include "swi.h"
+  40:../src/renesas/compiler/init/syscalls.c **** #include "r_typedefs.h"
+  41:../src/renesas/compiler/init/syscalls.c **** #include "r_startup_config.h"
+  42:../src/renesas/compiler/init/syscalls.c **** 
+  43:../src/renesas/compiler/init/syscalls.c **** #undef errno
+  44:../src/renesas/compiler/init/syscalls.c **** extern int  errno;
+  45:../src/renesas/compiler/init/syscalls.c **** 
+  46:../src/renesas/compiler/init/syscalls.c **** 
+  47:../src/renesas/compiler/init/syscalls.c **** static int monitor_stdin;
+  48:../src/renesas/compiler/init/syscalls.c **** static int monitor_stdout;
+  49:../src/renesas/compiler/init/syscalls.c **** static int monitor_stderr;
+  50:../src/renesas/compiler/init/syscalls.c **** 
+  51:../src/renesas/compiler/init/syscalls.c **** /* Struct used to keep track of the file position, just so we
+  52:../src/renesas/compiler/init/syscalls.c ****    can implement fseek(fh,x,SEEK_CUR).  */
+  53:../src/renesas/compiler/init/syscalls.c **** 
+  54:../src/renesas/compiler/init/syscalls.c **** typedef struct
+  55:../src/renesas/compiler/init/syscalls.c **** {
+  56:../src/renesas/compiler/init/syscalls.c ****   int handle;
+  57:../src/renesas/compiler/init/syscalls.c ****   int pos;
+  58:../src/renesas/compiler/init/syscalls.c **** }
+  59:../src/renesas/compiler/init/syscalls.c **** poslog;
+  60:../src/renesas/compiler/init/syscalls.c **** 
+  61:../src/renesas/compiler/init/syscalls.c **** #define MAX_OPEN_FILES (20)
+  62:../src/renesas/compiler/init/syscalls.c **** 
+  63:../src/renesas/compiler/init/syscalls.c **** 
+  64:../src/renesas/compiler/init/syscalls.c **** /* Struct used to keep track of the file position, just so we
+  65:../src/renesas/compiler/init/syscalls.c ****    can implement fseek(fh,x,SEEK_CUR).  */
+  66:../src/renesas/compiler/init/syscalls.c **** struct fdent
+  67:../src/renesas/compiler/init/syscalls.c **** {
+  68:../src/renesas/compiler/init/syscalls.c ****   int handle;
+  69:../src/renesas/compiler/init/syscalls.c ****   int pos;
+  70:../src/renesas/compiler/init/syscalls.c ****   int ipending; /* Indicates fdent is being used but 'handle' not yet
+  71:../src/renesas/compiler/init/syscalls.c ****                    allocated by the low level open  function */
+  72:../src/renesas/compiler/init/syscalls.c **** };
+  73:../src/renesas/compiler/init/syscalls.c **** 
+  74:../src/renesas/compiler/init/syscalls.c **** /* Forward prototypes.  */
+  75:../src/renesas/compiler/init/syscalls.c **** void    initialise_monitor_handles _PARAMS ((void));
+  76:../src/renesas/compiler/init/syscalls.c **** 
+  77:../src/renesas/compiler/init/syscalls.c **** static int get_errno (void);
+  78:../src/renesas/compiler/init/syscalls.c **** static int error (int result);
+  79:../src/renesas/compiler/init/syscalls.c **** static int wrap  _PARAMS ((int));
+  80:../src/renesas/compiler/init/syscalls.c **** 
+  81:../src/renesas/compiler/init/syscalls.c **** int _swiopen (const char * path, int flags);
+  82:../src/renesas/compiler/init/syscalls.c **** int _open (const char * path, int flags, ...);
+  83:../src/renesas/compiler/init/syscalls.c **** int _swiclose (int fh);
+  84:../src/renesas/compiler/init/syscalls.c **** int _close(int fh);
+  85:../src/renesas/compiler/init/syscalls.c **** int _swiwrite (int fh, char * ptr, int len);
+  86:../src/renesas/compiler/init/syscalls.c **** int _write(int fh , const char *buffer , unsigned int n);
+  87:../src/renesas/compiler/init/syscalls.c **** int _swiread (int fh, char * ptr, int len);
+  88:../src/renesas/compiler/init/syscalls.c **** int _read(int fh , char *buffer , unsigned int n);
+  89:../src/renesas/compiler/init/syscalls.c **** int _stat (const char *fname, struct stat *st);
+  90:../src/renesas/compiler/init/syscalls.c **** 
+  91:../src/renesas/compiler/init/syscalls.c **** void initialise_monitor_handles (void)
+  92:../src/renesas/compiler/init/syscalls.c **** {
+  54              		.loc 1 92 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 8
+  57              		@ frame_needed = 1, uses_anonymous_args = 0
+  58 0000 00482DE9 		push	{fp, lr}
+  59              		.cfi_def_cfa_offset 8
+  60              		.cfi_offset 11, -8
+  61              		.cfi_offset 14, -4
+  62 0004 04B08DE2 		add	fp, sp, #4
+  63              		.cfi_def_cfa 11, 4
+  64 0008 08D04DE2 		sub	sp, sp, #8
+  93:../src/renesas/compiler/init/syscalls.c ****   /* Open the standard file descriptors by opening the special
+  94:../src/renesas/compiler/init/syscalls.c ****    * teletype device, ":tt", read-only to obtain a descritpor for
+  95:../src/renesas/compiler/init/syscalls.c ****    * standard input and write-only to obtain a descriptor for standard
+  96:../src/renesas/compiler/init/syscalls.c ****    * output. Finally, open ":tt" in append mode to obtain a descriptor
+  97:../src/renesas/compiler/init/syscalls.c ****    * for standard error. Since this is a write mode, most kernels will
+  98:../src/renesas/compiler/init/syscalls.c ****    * probably return the same value as for standard output, but the
+  99:../src/renesas/compiler/init/syscalls.c ****    * kernel can differentiate the two using the mode flag and return a
+ 100:../src/renesas/compiler/init/syscalls.c ****    * different descriptor for standard error.
+ 101:../src/renesas/compiler/init/syscalls.c ****    */
+ 102:../src/renesas/compiler/init/syscalls.c **** #if (STARTUP_CFG_SDRAM_ENABLE == 1)
+ 103:../src/renesas/compiler/init/syscalls.c **** 	return;
+ 104:../src/renesas/compiler/init/syscalls.c **** #endif
+ 105:../src/renesas/compiler/init/syscalls.c **** 
+ 106:../src/renesas/compiler/init/syscalls.c ****   int fh;
+ 107:../src/renesas/compiler/init/syscalls.c ****   char * name;
+ 108:../src/renesas/compiler/init/syscalls.c ****   name = "\\\\.\\stdin";
+  65              		.loc 1 108 0
+  66 000c 003000E3 		movw	r3, #:lower16:.LC0
+  67 0010 003040E3 		movt	r3, #:upper16:.LC0
+  68 0014 08300BE5 		str	r3, [fp, #-8]
+ 109:../src/renesas/compiler/init/syscalls.c ****   fh = low_open(name, O_RDWR);
+  69              		.loc 1 109 0
+  70 0018 0210A0E3 		mov	r1, #2
+  71 001c 08001BE5 		ldr	r0, [fp, #-8]
+  72 0020 FEFFFFEB 		bl	low_open
+  73 0024 0C000BE5 		str	r0, [fp, #-12]
+ 110:../src/renesas/compiler/init/syscalls.c ****   monitor_stdin = fh;
+  74              		.loc 1 110 0
+  75 0028 003000E3 		movw	r3, #:lower16:monitor_stdin
+  76 002c 003040E3 		movt	r3, #:upper16:monitor_stdin
+  77 0030 0C201BE5 		ldr	r2, [fp, #-12]
+  78 0034 002083E5 		str	r2, [r3]
+ 111:../src/renesas/compiler/init/syscalls.c ****   name = "\\\\.\\stdout";
+  79              		.loc 1 111 0
+  80 0038 003000E3 		movw	r3, #:lower16:.LC1
+  81 003c 003040E3 		movt	r3, #:upper16:.LC1
+  82 0040 08300BE5 		str	r3, [fp, #-8]
+ 112:../src/renesas/compiler/init/syscalls.c ****   fh = low_open(name, O_WRONLY);
+  83              		.loc 1 112 0
+  84 0044 0110A0E3 		mov	r1, #1
+  85 0048 08001BE5 		ldr	r0, [fp, #-8]
+  86 004c FEFFFFEB 		bl	low_open
+  87 0050 0C000BE5 		str	r0, [fp, #-12]
+ 113:../src/renesas/compiler/init/syscalls.c ****   monitor_stdout = fh;
+  88              		.loc 1 113 0
+  89 0054 003000E3 		movw	r3, #:lower16:monitor_stdout
+  90 0058 003040E3 		movt	r3, #:upper16:monitor_stdout
+  91 005c 0C201BE5 		ldr	r2, [fp, #-12]
+  92 0060 002083E5 		str	r2, [r3]
+ 114:../src/renesas/compiler/init/syscalls.c ****   name = "\\\\.\\stderr";
+  93              		.loc 1 114 0
+  94 0064 003000E3 		movw	r3, #:lower16:.LC2
+  95 0068 003040E3 		movt	r3, #:upper16:.LC2
+  96 006c 08300BE5 		str	r3, [fp, #-8]
+ 115:../src/renesas/compiler/init/syscalls.c ****   fh = low_open(name, O_WRONLY);
+  97              		.loc 1 115 0
+  98 0070 0110A0E3 		mov	r1, #1
+  99 0074 08001BE5 		ldr	r0, [fp, #-8]
+ 100 0078 FEFFFFEB 		bl	low_open
+ 101 007c 0C000BE5 		str	r0, [fp, #-12]
+ 116:../src/renesas/compiler/init/syscalls.c **** 
+ 117:../src/renesas/compiler/init/syscalls.c ****   /* If we failed to open stderr, redirect to stdout. */
+ 118:../src/renesas/compiler/init/syscalls.c ****   if (monitor_stderr == -1)
+ 102              		.loc 1 118 0
+ 103 0080 003000E3 		movw	r3, #:lower16:monitor_stderr
+ 104 0084 003040E3 		movt	r3, #:upper16:monitor_stderr
+ 105 0088 003093E5 		ldr	r3, [r3]
+ 106 008c 010073E3 		cmn	r3, #1
+ 107 0090 0500001A 		bne	.L3
+ 119:../src/renesas/compiler/init/syscalls.c ****   {
+ 120:../src/renesas/compiler/init/syscalls.c ****       monitor_stderr = monitor_stdout;
+ 108              		.loc 1 120 0
+ 109 0094 003000E3 		movw	r3, #:lower16:monitor_stdout
+ 110 0098 003040E3 		movt	r3, #:upper16:monitor_stdout
+ 111 009c 002093E5 		ldr	r2, [r3]
+ 112 00a0 003000E3 		movw	r3, #:lower16:monitor_stderr
+ 113 00a4 003040E3 		movt	r3, #:upper16:monitor_stderr
+ 114 00a8 002083E5 		str	r2, [r3]
+ 115              	.L3:
+ 121:../src/renesas/compiler/init/syscalls.c ****   }
+ 122:../src/renesas/compiler/init/syscalls.c **** }
+ 116              		.loc 1 122 0
+ 117 00ac 00F020E3 		nop
+ 118 00b0 04D04BE2 		sub	sp, fp, #4
+ 119              		.cfi_def_cfa 13, 8
+ 120              		@ sp needed
+ 121 00b4 0088BDE8 		pop	{fp, pc}
+ 122              		.cfi_endproc
+ 123              	.LFE3:
+ 125              		.section	.text.get_errno,"ax",%progbits
+ 126              		.align	2
+ 127              		.syntax unified
+ 128              		.arm
+ 129              		.fpu neon
+ 131              	get_errno:
+ 132              	.LFB4:
+ 123:../src/renesas/compiler/init/syscalls.c **** 
+ 124:../src/renesas/compiler/init/syscalls.c **** static int get_errno (void)
+ 125:../src/renesas/compiler/init/syscalls.c **** {
+ 133              		.loc 1 125 0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 1, uses_anonymous_args = 0
+ 137              		@ link register save eliminated.
+ 138 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 139              		.cfi_def_cfa_offset 4
+ 140              		.cfi_offset 11, -4
+ 141 0004 00B08DE2 		add	fp, sp, #0
+ 142              		.cfi_def_cfa_register 11
+ 126:../src/renesas/compiler/init/syscalls.c ****   __asm ("swi %a0" :: "i" (SWI_GetErrno));
+ 143              		.loc 1 126 0
+ 144              		.syntax divided
+ 145              	@ 126 "../src/renesas/compiler/init/syscalls.c" 1
+ 146 0008 020000EF 		swi 2
+ 147              	@ 0 "" 2
+ 127:../src/renesas/compiler/init/syscalls.c ****   return 0;
+ 148              		.loc 1 127 0
+ 149              		.arm
+ 150              		.syntax unified
+ 151 000c 0030A0E3 		mov	r3, #0
+ 128:../src/renesas/compiler/init/syscalls.c **** }
+ 152              		.loc 1 128 0
+ 153 0010 0300A0E1 		mov	r0, r3
+ 154 0014 00D08BE2 		add	sp, fp, #0
+ 155              		.cfi_def_cfa_register 13
+ 156              		@ sp needed
+ 157 0018 04B09DE4 		ldr	fp, [sp], #4
+ 158              		.cfi_restore 11
+ 159              		.cfi_def_cfa_offset 0
+ 160 001c 1EFF2FE1 		bx	lr
+ 161              		.cfi_endproc
+ 162              	.LFE4:
+ 164              		.section	.text.error,"ax",%progbits
+ 165              		.align	2
+ 166              		.syntax unified
+ 167              		.arm
+ 168              		.fpu neon
+ 170              	error:
+ 171              	.LFB5:
+ 129:../src/renesas/compiler/init/syscalls.c **** 
+ 130:../src/renesas/compiler/init/syscalls.c **** static int error (int result)
+ 131:../src/renesas/compiler/init/syscalls.c **** {
+ 172              		.loc 1 131 0
+ 173              		.cfi_startproc
+ 174              		@ args = 0, pretend = 0, frame = 8
+ 175              		@ frame_needed = 1, uses_anonymous_args = 0
+ 176 0000 00482DE9 		push	{fp, lr}
+ 177              		.cfi_def_cfa_offset 8
+ 178              		.cfi_offset 11, -8
+ 179              		.cfi_offset 14, -4
+ 180 0004 04B08DE2 		add	fp, sp, #4
+ 181              		.cfi_def_cfa 11, 4
+ 182 0008 08D04DE2 		sub	sp, sp, #8
+ 183 000c 08000BE5 		str	r0, [fp, #-8]
+ 132:../src/renesas/compiler/init/syscalls.c ****   errno = get_errno ();
+ 184              		.loc 1 132 0
+ 185 0010 FEFFFFEB 		bl	get_errno
+ 186 0014 0020A0E1 		mov	r2, r0
+ 187 0018 003000E3 		movw	r3, #:lower16:errno
+ 188 001c 003040E3 		movt	r3, #:upper16:errno
+ 189 0020 002083E5 		str	r2, [r3]
+ 133:../src/renesas/compiler/init/syscalls.c ****   return result;
+ 190              		.loc 1 133 0
+ 191 0024 08301BE5 		ldr	r3, [fp, #-8]
+ 134:../src/renesas/compiler/init/syscalls.c **** }
+ 192              		.loc 1 134 0
+ 193 0028 0300A0E1 		mov	r0, r3
+ 194 002c 04D04BE2 		sub	sp, fp, #4
+ 195              		.cfi_def_cfa 13, 8
+ 196              		@ sp needed
+ 197 0030 0088BDE8 		pop	{fp, pc}
+ 198              		.cfi_endproc
+ 199              	.LFE5:
+ 201              		.section	.text.wrap,"ax",%progbits
+ 202              		.align	2
+ 203              		.syntax unified
+ 204              		.arm
+ 205              		.fpu neon
+ 207              	wrap:
+ 208              	.LFB6:
+ 135:../src/renesas/compiler/init/syscalls.c **** 
+ 136:../src/renesas/compiler/init/syscalls.c **** 
+ 137:../src/renesas/compiler/init/syscalls.c **** static int wrap (int result)
+ 138:../src/renesas/compiler/init/syscalls.c **** {
+ 209              		.loc 1 138 0
+ 210              		.cfi_startproc
+ 211              		@ args = 0, pretend = 0, frame = 8
+ 212              		@ frame_needed = 1, uses_anonymous_args = 0
+ 213 0000 00482DE9 		push	{fp, lr}
+ 214              		.cfi_def_cfa_offset 8
+ 215              		.cfi_offset 11, -8
+ 216              		.cfi_offset 14, -4
+ 217 0004 04B08DE2 		add	fp, sp, #4
+ 218              		.cfi_def_cfa 11, 4
+ 219 0008 08D04DE2 		sub	sp, sp, #8
+ 220 000c 08000BE5 		str	r0, [fp, #-8]
+ 139:../src/renesas/compiler/init/syscalls.c ****   if (result == -1)
+ 221              		.loc 1 139 0
+ 222 0010 08301BE5 		ldr	r3, [fp, #-8]
+ 223 0014 010073E3 		cmn	r3, #1
+ 224 0018 0300001A 		bne	.L9
+ 140:../src/renesas/compiler/init/syscalls.c ****   {
+ 141:../src/renesas/compiler/init/syscalls.c ****     return error (-1);
+ 225              		.loc 1 141 0
+ 226 001c 0000E0E3 		mvn	r0, #0
+ 227 0020 FEFFFFEB 		bl	error
+ 228 0024 0030A0E1 		mov	r3, r0
+ 229 0028 000000EA 		b	.L10
+ 230              	.L9:
+ 142:../src/renesas/compiler/init/syscalls.c ****   }
+ 143:../src/renesas/compiler/init/syscalls.c ****   return result;
+ 231              		.loc 1 143 0
+ 232 002c 08301BE5 		ldr	r3, [fp, #-8]
+ 233              	.L10:
+ 144:../src/renesas/compiler/init/syscalls.c **** }
+ 234              		.loc 1 144 0
+ 235 0030 0300A0E1 		mov	r0, r3
+ 236 0034 04D04BE2 		sub	sp, fp, #4
+ 237              		.cfi_def_cfa 13, 8
+ 238              		@ sp needed
+ 239 0038 0088BDE8 		pop	{fp, pc}
+ 240              		.cfi_endproc
+ 241              	.LFE6:
+ 243              		.section	.text._getpid,"ax",%progbits
+ 244              		.align	2
+ 245              		.global	_getpid
+ 246              		.syntax unified
+ 247              		.arm
+ 248              		.fpu neon
+ 250              	_getpid:
+ 251              	.LFB7:
+ 145:../src/renesas/compiler/init/syscalls.c **** 
+ 146:../src/renesas/compiler/init/syscalls.c **** /********************************************************/
+ 147:../src/renesas/compiler/init/syscalls.c **** int _getpid(int n)
+ 148:../src/renesas/compiler/init/syscalls.c **** {
+ 252              		.loc 1 148 0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 8
+ 255              		@ frame_needed = 1, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 258              		.cfi_def_cfa_offset 4
+ 259              		.cfi_offset 11, -4
+ 260 0004 00B08DE2 		add	fp, sp, #0
+ 261              		.cfi_def_cfa_register 11
+ 262 0008 0CD04DE2 		sub	sp, sp, #12
+ 263 000c 08000BE5 		str	r0, [fp, #-8]
+ 149:../src/renesas/compiler/init/syscalls.c ****   return  1;
+ 264              		.loc 1 149 0
+ 265 0010 0130A0E3 		mov	r3, #1
+ 150:../src/renesas/compiler/init/syscalls.c **** }
+ 266              		.loc 1 150 0
+ 267 0014 0300A0E1 		mov	r0, r3
+ 268 0018 00D08BE2 		add	sp, fp, #0
+ 269              		.cfi_def_cfa_register 13
+ 270              		@ sp needed
+ 271 001c 04B09DE4 		ldr	fp, [sp], #4
+ 272              		.cfi_restore 11
+ 273              		.cfi_def_cfa_offset 0
+ 274 0020 1EFF2FE1 		bx	lr
+ 275              		.cfi_endproc
+ 276              	.LFE7:
+ 278              		.section	.bss.heap_end.8329,"aw",%nobits
+ 279              		.align	2
+ 282              	heap_end.8329:
+ 283 0000 00000000 		.space	4
+ 284              		.section	.rodata
+ 285 0023 00       		.align	2
+ 286              	.LC3:
+ 287 0024 5F736272 		.ascii	"_sbrk: Heap and stack collision\012\000"
+ 287      6B3A2048 
+ 287      65617020 
+ 287      616E6420 
+ 287      73746163 
+ 288              		.section	.text._sbrk,"ax",%progbits
+ 289              		.align	2
+ 290              		.global	_sbrk
+ 291              		.syntax unified
+ 292              		.arm
+ 293              		.fpu neon
+ 295              	_sbrk:
+ 296              	.LFB8:
+ 151:../src/renesas/compiler/init/syscalls.c **** 
+ 152:../src/renesas/compiler/init/syscalls.c **** /*******************************************************************************
+ 153:../src/renesas/compiler/init/syscalls.c **** * Function Name: _sbrk
+ 154:../src/renesas/compiler/init/syscalls.c **** * Description  : 
+ 155:../src/renesas/compiler/init/syscalls.c **** * Arguments    : incr - Requested memory size.  
+ 156:../src/renesas/compiler/init/syscalls.c **** * Return Value : Extended address of heap tail.
+ 157:../src/renesas/compiler/init/syscalls.c **** *******************************************************************************/
+ 158:../src/renesas/compiler/init/syscalls.c **** caddr_t _sbrk (int incr)
+ 159:../src/renesas/compiler/init/syscalls.c ****     {
+ 297              		.loc 1 159 0
+ 298              		.cfi_startproc
+ 299              		@ args = 0, pretend = 0, frame = 16
+ 300              		@ frame_needed = 1, uses_anonymous_args = 0
+ 301 0000 00482DE9 		push	{fp, lr}
+ 302              		.cfi_def_cfa_offset 8
+ 303              		.cfi_offset 11, -8
+ 304              		.cfi_offset 14, -4
+ 305 0004 04B08DE2 		add	fp, sp, #4
+ 306              		.cfi_def_cfa 11, 4
+ 307 0008 10D04DE2 		sub	sp, sp, #16
+ 308 000c 10000BE5 		str	r0, [fp, #-16]
+ 160:../src/renesas/compiler/init/syscalls.c ****   extern char   end __asm ("__heap_start");         /* Defined by the linker.  */
+ 161:../src/renesas/compiler/init/syscalls.c ****   extern char   heap_limit __asm ("__heap_end");    /* Defined by the linker.  */
+ 162:../src/renesas/compiler/init/syscalls.c ****   static char * heap_end = NULL;
+ 163:../src/renesas/compiler/init/syscalls.c ****   char *        prev_heap_end;
+ 164:../src/renesas/compiler/init/syscalls.c **** 
+ 165:../src/renesas/compiler/init/syscalls.c ****   if (heap_end == NULL)
+ 309              		.loc 1 165 0
+ 310 0010 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 311 0014 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 312 0018 003093E5 		ldr	r3, [r3]
+ 313 001c 000053E3 		cmp	r3, #0
+ 314 0020 0400001A 		bne	.L14
+ 166:../src/renesas/compiler/init/syscalls.c ****     heap_end = & end;
+ 315              		.loc 1 166 0
+ 316 0024 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 317 0028 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 318 002c 002000E3 		movw	r2, #:lower16:__heap_start
+ 319 0030 002040E3 		movt	r2, #:upper16:__heap_start
+ 320 0034 002083E5 		str	r2, [r3]
+ 321              	.L14:
+ 167:../src/renesas/compiler/init/syscalls.c **** 
+ 168:../src/renesas/compiler/init/syscalls.c ****   prev_heap_end = heap_end;
+ 322              		.loc 1 168 0
+ 323 0038 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 324 003c 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 325 0040 003093E5 		ldr	r3, [r3]
+ 326 0044 08300BE5 		str	r3, [fp, #-8]
+ 169:../src/renesas/compiler/init/syscalls.c **** 
+ 170:../src/renesas/compiler/init/syscalls.c ****   if (heap_end + incr > &heap_limit)
+ 327              		.loc 1 170 0
+ 328 0048 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 329 004c 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 330 0050 002093E5 		ldr	r2, [r3]
+ 331 0054 10301BE5 		ldr	r3, [fp, #-16]
+ 332 0058 032082E0 		add	r2, r2, r3
+ 333 005c 003000E3 		movw	r3, #:lower16:__heap_end
+ 334 0060 003040E3 		movt	r3, #:upper16:__heap_end
+ 335 0064 030052E1 		cmp	r2, r3
+ 336 0068 0A00009A 		bls	.L15
+ 171:../src/renesas/compiler/init/syscalls.c ****     {
+ 172:../src/renesas/compiler/init/syscalls.c ****       /* Some of the libstdc++-v3 tests rely upon detecting
+ 173:../src/renesas/compiler/init/syscalls.c ****      out of memory errors, so do not abort here.  */
+ 174:../src/renesas/compiler/init/syscalls.c **** 
+ 175:../src/renesas/compiler/init/syscalls.c **** 	    _write (1, "_sbrk: Heap and stack collision\n", 32);
+ 337              		.loc 1 175 0
+ 338 006c 2020A0E3 		mov	r2, #32
+ 339 0070 001000E3 		movw	r1, #:lower16:.LC3
+ 340 0074 001040E3 		movt	r1, #:upper16:.LC3
+ 341 0078 0100A0E3 		mov	r0, #1
+ 342 007c FEFFFFEB 		bl	_write
+ 176:../src/renesas/compiler/init/syscalls.c **** 
+ 177:../src/renesas/compiler/init/syscalls.c **** #if 0
+ 178:../src/renesas/compiler/init/syscalls.c ****       extern void abort (void);
+ 179:../src/renesas/compiler/init/syscalls.c **** 
+ 180:../src/renesas/compiler/init/syscalls.c ****       _write (1, "_sbrk: Heap and stack collision\n", 32);
+ 181:../src/renesas/compiler/init/syscalls.c **** 
+ 182:../src/renesas/compiler/init/syscalls.c ****       abort ();
+ 183:../src/renesas/compiler/init/syscalls.c **** #else
+ 184:../src/renesas/compiler/init/syscalls.c ****       errno = ENOMEM;
+ 343              		.loc 1 184 0
+ 344 0080 003000E3 		movw	r3, #:lower16:errno
+ 345 0084 003040E3 		movt	r3, #:upper16:errno
+ 346 0088 0C20A0E3 		mov	r2, #12
+ 347 008c 002083E5 		str	r2, [r3]
+ 185:../src/renesas/compiler/init/syscalls.c ****       return (caddr_t) -1;
+ 348              		.loc 1 185 0
+ 349 0090 0030E0E3 		mvn	r3, #0
+ 350 0094 080000EA 		b	.L16
+ 351              	.L15:
+ 186:../src/renesas/compiler/init/syscalls.c **** #endif
+ 187:../src/renesas/compiler/init/syscalls.c ****     }
+ 188:../src/renesas/compiler/init/syscalls.c **** 
+ 189:../src/renesas/compiler/init/syscalls.c ****   heap_end += incr;
+ 352              		.loc 1 189 0
+ 353 0098 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 354 009c 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 355 00a0 002093E5 		ldr	r2, [r3]
+ 356 00a4 10301BE5 		ldr	r3, [fp, #-16]
+ 357 00a8 032082E0 		add	r2, r2, r3
+ 358 00ac 003000E3 		movw	r3, #:lower16:heap_end.8329
+ 359 00b0 003040E3 		movt	r3, #:upper16:heap_end.8329
+ 360 00b4 002083E5 		str	r2, [r3]
+ 190:../src/renesas/compiler/init/syscalls.c **** 
+ 191:../src/renesas/compiler/init/syscalls.c ****   return (caddr_t) prev_heap_end;
+ 361              		.loc 1 191 0
+ 362 00b8 08301BE5 		ldr	r3, [fp, #-8]
+ 363              	.L16:
+ 192:../src/renesas/compiler/init/syscalls.c **** }
+ 364              		.loc 1 192 0
+ 365 00bc 0300A0E1 		mov	r0, r3
+ 366 00c0 04D04BE2 		sub	sp, fp, #4
+ 367              		.cfi_def_cfa 13, 8
+ 368              		@ sp needed
+ 369 00c4 0088BDE8 		pop	{fp, pc}
+ 370              		.cfi_endproc
+ 371              	.LFE8:
+ 373              		.section	.text._lseek,"ax",%progbits
+ 374              		.align	2
+ 375              		.global	_lseek
+ 376              		.syntax unified
+ 377              		.arm
+ 378              		.fpu neon
+ 380              	_lseek:
+ 381              	.LFB9:
+ 193:../src/renesas/compiler/init/syscalls.c **** /*******************************************************************************
+ 194:../src/renesas/compiler/init/syscalls.c **** End of function _sbrk
+ 195:../src/renesas/compiler/init/syscalls.c **** *******************************************************************************/
+ 196:../src/renesas/compiler/init/syscalls.c **** 
+ 197:../src/renesas/compiler/init/syscalls.c **** /********************************************************/
+ 198:../src/renesas/compiler/init/syscalls.c **** int _lseek (int fd, int ptr, int dir)
+ 199:../src/renesas/compiler/init/syscalls.c **** {
+ 382              		.loc 1 199 0
+ 383              		.cfi_startproc
+ 384              		@ args = 0, pretend = 0, frame = 16
+ 385              		@ frame_needed = 1, uses_anonymous_args = 0
+ 386              		@ link register save eliminated.
+ 387 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 388              		.cfi_def_cfa_offset 4
+ 389              		.cfi_offset 11, -4
+ 390 0004 00B08DE2 		add	fp, sp, #0
+ 391              		.cfi_def_cfa_register 11
+ 392 0008 14D04DE2 		sub	sp, sp, #20
+ 393 000c 08000BE5 		str	r0, [fp, #-8]
+ 394 0010 0C100BE5 		str	r1, [fp, #-12]
+ 395 0014 10200BE5 		str	r2, [fp, #-16]
+ 200:../src/renesas/compiler/init/syscalls.c ****     return  0;
+ 396              		.loc 1 200 0
+ 397 0018 0030A0E3 		mov	r3, #0
+ 201:../src/renesas/compiler/init/syscalls.c **** }
+ 398              		.loc 1 201 0
+ 399 001c 0300A0E1 		mov	r0, r3
+ 400 0020 00D08BE2 		add	sp, fp, #0
+ 401              		.cfi_def_cfa_register 13
+ 402              		@ sp needed
+ 403 0024 04B09DE4 		ldr	fp, [sp], #4
+ 404              		.cfi_restore 11
+ 405              		.cfi_def_cfa_offset 0
+ 406 0028 1EFF2FE1 		bx	lr
+ 407              		.cfi_endproc
+ 408              	.LFE9:
+ 410              		.section	.text._swiread,"ax",%progbits
+ 411              		.align	2
+ 412              		.global	_swiread
+ 413              		.syntax unified
+ 414              		.arm
+ 415              		.fpu neon
+ 417              	_swiread:
+ 418              	.LFB10:
+ 202:../src/renesas/compiler/init/syscalls.c **** 
+ 203:../src/renesas/compiler/init/syscalls.c **** 
+ 204:../src/renesas/compiler/init/syscalls.c **** /* Returns # chars not! written.  */
+ 205:../src/renesas/compiler/init/syscalls.c **** int _swiread (int fh, char * ptr, int len)
+ 206:../src/renesas/compiler/init/syscalls.c **** {
+ 419              		.loc 1 206 0
+ 420              		.cfi_startproc
+ 421              		@ args = 0, pretend = 0, frame = 24
+ 422              		@ frame_needed = 1, uses_anonymous_args = 0
+ 423 0000 00482DE9 		push	{fp, lr}
+ 424              		.cfi_def_cfa_offset 8
+ 425              		.cfi_offset 11, -8
+ 426              		.cfi_offset 14, -4
+ 427 0004 04B08DE2 		add	fp, sp, #4
+ 428              		.cfi_def_cfa 11, 4
+ 429 0008 18D04DE2 		sub	sp, sp, #24
+ 430 000c 10000BE5 		str	r0, [fp, #-16]
+ 431 0010 14100BE5 		str	r1, [fp, #-20]
+ 432 0014 18200BE5 		str	r2, [fp, #-24]
+ 207:../src/renesas/compiler/init/syscalls.c ****   int_t   i = low_read(fh, (uint8_t*)ptr, (uint32_t)len);
+ 433              		.loc 1 207 0
+ 434 0018 18301BE5 		ldr	r3, [fp, #-24]
+ 435 001c 0320A0E1 		mov	r2, r3
+ 436 0020 14101BE5 		ldr	r1, [fp, #-20]
+ 437 0024 10001BE5 		ldr	r0, [fp, #-16]
+ 438 0028 FEFFFFEB 		bl	low_read
+ 439 002c 08000BE5 		str	r0, [fp, #-8]
+ 208:../src/renesas/compiler/init/syscalls.c ****   return (i);
+ 440              		.loc 1 208 0
+ 441 0030 08301BE5 		ldr	r3, [fp, #-8]
+ 209:../src/renesas/compiler/init/syscalls.c **** }
+ 442              		.loc 1 209 0
+ 443 0034 0300A0E1 		mov	r0, r3
+ 444 0038 04D04BE2 		sub	sp, fp, #4
+ 445              		.cfi_def_cfa 13, 8
+ 446              		@ sp needed
+ 447 003c 0088BDE8 		pop	{fp, pc}
+ 448              		.cfi_endproc
+ 449              	.LFE10:
+ 451              		.section	.text._read,"ax",%progbits
+ 452              		.align	2
+ 453              		.global	_read
+ 454              		.syntax unified
+ 455              		.arm
+ 456              		.fpu neon
+ 458              	_read:
+ 459              	.LFB11:
+ 210:../src/renesas/compiler/init/syscalls.c **** 
+ 211:../src/renesas/compiler/init/syscalls.c **** 
+ 212:../src/renesas/compiler/init/syscalls.c **** /******************************************************************************
+ 213:../src/renesas/compiler/init/syscalls.c **** * Function Name: _read
+ 214:../src/renesas/compiler/init/syscalls.c **** * Description  : GNU interface to low-level I/O read
+ 215:../src/renesas/compiler/init/syscalls.c **** * Arguments    : int file_no
+ 216:../src/renesas/compiler/init/syscalls.c **** *              : const char *buffer
+ 217:../src/renesas/compiler/init/syscalls.c **** *              : unsigned int n
+ 218:../src/renesas/compiler/init/syscalls.c **** * Return Value : none
+ 219:../src/renesas/compiler/init/syscalls.c **** ******************************************************************************/
+ 220:../src/renesas/compiler/init/syscalls.c **** int _read(int fh , char *buffer , unsigned int n)
+ 221:../src/renesas/compiler/init/syscalls.c **** {
+ 460              		.loc 1 221 0
+ 461              		.cfi_startproc
+ 462              		@ args = 0, pretend = 0, frame = 24
+ 463              		@ frame_needed = 1, uses_anonymous_args = 0
+ 464 0000 00482DE9 		push	{fp, lr}
+ 465              		.cfi_def_cfa_offset 8
+ 466              		.cfi_offset 11, -8
+ 467              		.cfi_offset 14, -4
+ 468 0004 04B08DE2 		add	fp, sp, #4
+ 469              		.cfi_def_cfa 11, 4
+ 470 0008 18D04DE2 		sub	sp, sp, #24
+ 471 000c 10000BE5 		str	r0, [fp, #-16]
+ 472 0010 14100BE5 		str	r1, [fp, #-20]
+ 473 0014 18200BE5 		str	r2, [fp, #-24]
+ 222:../src/renesas/compiler/init/syscalls.c ****       int   iResult = low_read(fh, (uint8_t*) buffer, (uint32_t) n);
+ 474              		.loc 1 222 0
+ 475 0018 18201BE5 		ldr	r2, [fp, #-24]
+ 476 001c 14101BE5 		ldr	r1, [fp, #-20]
+ 477 0020 10001BE5 		ldr	r0, [fp, #-16]
+ 478 0024 FEFFFFEB 		bl	low_read
+ 479 0028 08000BE5 		str	r0, [fp, #-8]
+ 223:../src/renesas/compiler/init/syscalls.c ****       return (iResult);
+ 480              		.loc 1 223 0
+ 481 002c 08301BE5 		ldr	r3, [fp, #-8]
+ 224:../src/renesas/compiler/init/syscalls.c **** }
+ 482              		.loc 1 224 0
+ 483 0030 0300A0E1 		mov	r0, r3
+ 484 0034 04D04BE2 		sub	sp, fp, #4
+ 485              		.cfi_def_cfa 13, 8
+ 486              		@ sp needed
+ 487 0038 0088BDE8 		pop	{fp, pc}
+ 488              		.cfi_endproc
+ 489              	.LFE11:
+ 491              		.section	.text._swiopen,"ax",%progbits
+ 492              		.align	2
+ 493              		.global	_swiopen
+ 494              		.syntax unified
+ 495              		.arm
+ 496              		.fpu neon
+ 498              	_swiopen:
+ 499              	.LFB12:
+ 225:../src/renesas/compiler/init/syscalls.c **** 
+ 226:../src/renesas/compiler/init/syscalls.c **** int _swiopen (const char * path, int flags)
+ 227:../src/renesas/compiler/init/syscalls.c **** {
+ 500              		.loc 1 227 0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 112
+ 503              		@ frame_needed = 1, uses_anonymous_args = 0
+ 504 0000 00482DE9 		push	{fp, lr}
+ 505              		.cfi_def_cfa_offset 8
+ 506              		.cfi_offset 11, -8
+ 507              		.cfi_offset 14, -4
+ 508 0004 04B08DE2 		add	fp, sp, #4
+ 509              		.cfi_def_cfa 11, 4
+ 510 0008 70D04DE2 		sub	sp, sp, #112
+ 511 000c 70000BE5 		str	r0, [fp, #-112]
+ 512 0010 74100BE5 		str	r1, [fp, #-116]
+ 228:../src/renesas/compiler/init/syscalls.c ****   int aflags = 0, fh;
+ 513              		.loc 1 228 0
+ 514 0014 0030A0E3 		mov	r3, #0
+ 515 0018 08300BE5 		str	r3, [fp, #-8]
+ 229:../src/renesas/compiler/init/syscalls.c **** 
+ 230:../src/renesas/compiler/init/syscalls.c ****   /* It is an error to open a file that already exists. */
+ 231:../src/renesas/compiler/init/syscalls.c ****   if ((flags & O_CREAT)
+ 516              		.loc 1 231 0
+ 517 001c 74301BE5 		ldr	r3, [fp, #-116]
+ 518 0020 023C03E2 		and	r3, r3, #512
+ 519 0024 000053E3 		cmp	r3, #0
+ 520 0028 1100000A 		beq	.L24
+ 232:../src/renesas/compiler/init/syscalls.c ****       && (flags & O_EXCL))
+ 521              		.loc 1 232 0
+ 522 002c 74301BE5 		ldr	r3, [fp, #-116]
+ 523 0030 023B03E2 		and	r3, r3, #2048
+ 524 0034 000053E3 		cmp	r3, #0
+ 525 0038 0D00000A 		beq	.L24
+ 526              	.LBB2:
+ 233:../src/renesas/compiler/init/syscalls.c ****     {
+ 234:../src/renesas/compiler/init/syscalls.c ****       struct stat st;
+ 235:../src/renesas/compiler/init/syscalls.c ****       int res;
+ 236:../src/renesas/compiler/init/syscalls.c ****       res = _stat (path, &st);
+ 527              		.loc 1 236 0
+ 528 003c 6C304BE2 		sub	r3, fp, #108
+ 529 0040 0310A0E1 		mov	r1, r3
+ 530 0044 70001BE5 		ldr	r0, [fp, #-112]
+ 531 0048 FEFFFFEB 		bl	_stat
+ 532 004c 0C000BE5 		str	r0, [fp, #-12]
+ 237:../src/renesas/compiler/init/syscalls.c ****       if (res != -1)
+ 533              		.loc 1 237 0
+ 534 0050 0C301BE5 		ldr	r3, [fp, #-12]
+ 535 0054 010073E3 		cmn	r3, #1
+ 536 0058 0500000A 		beq	.L24
+ 238:../src/renesas/compiler/init/syscalls.c ****       {
+ 239:../src/renesas/compiler/init/syscalls.c ****          errno = EEXIST;
+ 537              		.loc 1 239 0
+ 538 005c 003000E3 		movw	r3, #:lower16:errno
+ 539 0060 003040E3 		movt	r3, #:upper16:errno
+ 540 0064 1120A0E3 		mov	r2, #17
+ 541 0068 002083E5 		str	r2, [r3]
+ 240:../src/renesas/compiler/init/syscalls.c ****          return -1;
+ 542              		.loc 1 240 0
+ 543 006c 0030E0E3 		mvn	r3, #0
+ 544 0070 3E0000EA 		b	.L26
+ 545              	.L24:
+ 546              	.LBE2:
+ 241:../src/renesas/compiler/init/syscalls.c ****       }
+ 242:../src/renesas/compiler/init/syscalls.c ****     }
+ 243:../src/renesas/compiler/init/syscalls.c **** 
+ 244:../src/renesas/compiler/init/syscalls.c ****   /* The flags are Unix-style, so we need to convert them. */
+ 245:../src/renesas/compiler/init/syscalls.c **** #ifdef O_BINARY
+ 246:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_BINARY)
+ 547              		.loc 1 246 0
+ 548 0074 74301BE5 		ldr	r3, [fp, #-116]
+ 549 0078 013803E2 		and	r3, r3, #65536
+ 550 007c 000053E3 		cmp	r3, #0
+ 551 0080 0200000A 		beq	.L27
+ 247:../src/renesas/compiler/init/syscalls.c ****     aflags |= 1;
+ 552              		.loc 1 247 0
+ 553 0084 08301BE5 		ldr	r3, [fp, #-8]
+ 554 0088 013083E3 		orr	r3, r3, #1
+ 555 008c 08300BE5 		str	r3, [fp, #-8]
+ 556              	.L27:
+ 248:../src/renesas/compiler/init/syscalls.c **** #endif
+ 249:../src/renesas/compiler/init/syscalls.c **** 
+ 250:../src/renesas/compiler/init/syscalls.c ****   /* In O_RDONLY we expect aflags == 0. */
+ 251:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_RDWR) {
+ 557              		.loc 1 251 0
+ 558 0090 74301BE5 		ldr	r3, [fp, #-116]
+ 559 0094 023003E2 		and	r3, r3, #2
+ 560 0098 000053E3 		cmp	r3, #0
+ 561 009c 0200000A 		beq	.L28
+ 252:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_RDWR;
+ 562              		.loc 1 252 0
+ 563 00a0 08301BE5 		ldr	r3, [fp, #-8]
+ 564 00a4 023083E3 		orr	r3, r3, #2
+ 565 00a8 08300BE5 		str	r3, [fp, #-8]
+ 566              	.L28:
+ 253:../src/renesas/compiler/init/syscalls.c ****   }
+ 254:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_WRONLY) {
+ 567              		.loc 1 254 0
+ 568 00ac 74301BE5 		ldr	r3, [fp, #-116]
+ 569 00b0 013003E2 		and	r3, r3, #1
+ 570 00b4 000053E3 		cmp	r3, #0
+ 571 00b8 0200000A 		beq	.L29
+ 255:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_WRONLY;
+ 572              		.loc 1 255 0
+ 573 00bc 08301BE5 		ldr	r3, [fp, #-8]
+ 574 00c0 013083E3 		orr	r3, r3, #1
+ 575 00c4 08300BE5 		str	r3, [fp, #-8]
+ 576              	.L29:
+ 256:../src/renesas/compiler/init/syscalls.c ****   }
+ 257:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_CREAT){
+ 577              		.loc 1 257 0
+ 578 00c8 74301BE5 		ldr	r3, [fp, #-116]
+ 579 00cc 023C03E2 		and	r3, r3, #512
+ 580 00d0 000053E3 		cmp	r3, #0
+ 581 00d4 0200000A 		beq	.L30
+ 258:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_CREAT;
+ 582              		.loc 1 258 0
+ 583 00d8 08301BE5 		ldr	r3, [fp, #-8]
+ 584 00dc 023C83E3 		orr	r3, r3, #512
+ 585 00e0 08300BE5 		str	r3, [fp, #-8]
+ 586              	.L30:
+ 259:../src/renesas/compiler/init/syscalls.c ****   }
+ 260:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_TRUNC){
+ 587              		.loc 1 260 0
+ 588 00e4 74301BE5 		ldr	r3, [fp, #-116]
+ 589 00e8 013B03E2 		and	r3, r3, #1024
+ 590 00ec 000053E3 		cmp	r3, #0
+ 591 00f0 0200000A 		beq	.L31
+ 261:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_TRUNC;
+ 592              		.loc 1 261 0
+ 593 00f4 08301BE5 		ldr	r3, [fp, #-8]
+ 594 00f8 013B83E3 		orr	r3, r3, #1024
+ 595 00fc 08300BE5 		str	r3, [fp, #-8]
+ 596              	.L31:
+ 262:../src/renesas/compiler/init/syscalls.c ****   }
+ 263:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_WRONLY){
+ 597              		.loc 1 263 0
+ 598 0100 74301BE5 		ldr	r3, [fp, #-116]
+ 599 0104 013003E2 		and	r3, r3, #1
+ 600 0108 000053E3 		cmp	r3, #0
+ 601 010c 0200000A 		beq	.L32
+ 264:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_WRONLY;
+ 602              		.loc 1 264 0
+ 603 0110 08301BE5 		ldr	r3, [fp, #-8]
+ 604 0114 013083E3 		orr	r3, r3, #1
+ 605 0118 08300BE5 		str	r3, [fp, #-8]
+ 606              	.L32:
+ 265:../src/renesas/compiler/init/syscalls.c ****   }
+ 266:../src/renesas/compiler/init/syscalls.c ****   if (flags & O_APPEND){
+ 607              		.loc 1 266 0
+ 608 011c 74301BE5 		ldr	r3, [fp, #-116]
+ 609 0120 083003E2 		and	r3, r3, #8
+ 610 0124 000053E3 		cmp	r3, #0
+ 611 0128 0200000A 		beq	.L33
+ 267:../src/renesas/compiler/init/syscalls.c ****     aflags |= O_APPEND;
+ 612              		.loc 1 267 0
+ 613 012c 08301BE5 		ldr	r3, [fp, #-8]
+ 614 0130 083083E3 		orr	r3, r3, #8
+ 615 0134 08300BE5 		str	r3, [fp, #-8]
+ 616              	.L33:
+ 268:../src/renesas/compiler/init/syscalls.c ****   }
+ 269:../src/renesas/compiler/init/syscalls.c **** 
+ 270:../src/renesas/compiler/init/syscalls.c ****     fh = low_open((char *)path, flags);
+ 617              		.loc 1 270 0
+ 618 0138 74101BE5 		ldr	r1, [fp, #-116]
+ 619 013c 70001BE5 		ldr	r0, [fp, #-112]
+ 620 0140 FEFFFFEB 		bl	low_open
+ 621 0144 10000BE5 		str	r0, [fp, #-16]
+ 271:../src/renesas/compiler/init/syscalls.c **** 
+ 272:../src/renesas/compiler/init/syscalls.c ****     /* Return a user file descriptor or an error. */
+ 273:../src/renesas/compiler/init/syscalls.c ****     if (fh >= 0)
+ 622              		.loc 1 273 0
+ 623 0148 10301BE5 		ldr	r3, [fp, #-16]
+ 624 014c 000053E3 		cmp	r3, #0
+ 625 0150 010000BA 		blt	.L34
+ 274:../src/renesas/compiler/init/syscalls.c ****     {
+ 275:../src/renesas/compiler/init/syscalls.c ****       return (fh);
+ 626              		.loc 1 275 0
+ 627 0154 10301BE5 		ldr	r3, [fp, #-16]
+ 628 0158 040000EA 		b	.L26
+ 629              	.L34:
+ 276:../src/renesas/compiler/init/syscalls.c ****     }
+ 277:../src/renesas/compiler/init/syscalls.c ****     errno = EEXIST;
+ 630              		.loc 1 277 0
+ 631 015c 003000E3 		movw	r3, #:lower16:errno
+ 632 0160 003040E3 		movt	r3, #:upper16:errno
+ 633 0164 1120A0E3 		mov	r2, #17
+ 634 0168 002083E5 		str	r2, [r3]
+ 278:../src/renesas/compiler/init/syscalls.c ****     return (-1);
+ 635              		.loc 1 278 0
+ 636 016c 0030E0E3 		mvn	r3, #0
+ 637              	.L26:
+ 279:../src/renesas/compiler/init/syscalls.c **** }
+ 638              		.loc 1 279 0
+ 639 0170 0300A0E1 		mov	r0, r3
+ 640 0174 04D04BE2 		sub	sp, fp, #4
+ 641              		.cfi_def_cfa 13, 8
+ 642              		@ sp needed
+ 643 0178 0088BDE8 		pop	{fp, pc}
+ 644              		.cfi_endproc
+ 645              	.LFE12:
+ 647              		.section	.text._open,"ax",%progbits
+ 648              		.align	2
+ 649              		.global	_open
+ 650              		.syntax unified
+ 651              		.arm
+ 652              		.fpu neon
+ 654              	_open:
+ 655              	.LFB13:
+ 280:../src/renesas/compiler/init/syscalls.c **** 
+ 281:../src/renesas/compiler/init/syscalls.c **** 
+ 282:../src/renesas/compiler/init/syscalls.c **** int _open (const char * path, int flags, ...)
+ 283:../src/renesas/compiler/init/syscalls.c **** {
+ 656              		.loc 1 283 0
+ 657              		.cfi_startproc
+ 658              		@ args = 4, pretend = 12, frame = 8
+ 659              		@ frame_needed = 1, uses_anonymous_args = 1
+ 660 0000 0E002DE9 		push	{r1, r2, r3}
+ 661              		.cfi_def_cfa_offset 12
+ 662              		.cfi_offset 1, -12
+ 663              		.cfi_offset 2, -8
+ 664              		.cfi_offset 3, -4
+ 665 0004 00482DE9 		push	{fp, lr}
+ 666              		.cfi_def_cfa_offset 20
+ 667              		.cfi_offset 11, -20
+ 668              		.cfi_offset 14, -16
+ 669 0008 04B08DE2 		add	fp, sp, #4
+ 670              		.cfi_def_cfa 11, 16
+ 671 000c 0CD04DE2 		sub	sp, sp, #12
+ 672 0010 0C000BE5 		str	r0, [fp, #-12]
+ 284:../src/renesas/compiler/init/syscalls.c ****   return wrap (_swiopen (path, flags));
+ 673              		.loc 1 284 0
+ 674 0014 04109BE5 		ldr	r1, [fp, #4]
+ 675 0018 0C001BE5 		ldr	r0, [fp, #-12]
+ 676 001c FEFFFFEB 		bl	_swiopen
+ 677 0020 0030A0E1 		mov	r3, r0
+ 678 0024 0300A0E1 		mov	r0, r3
+ 679 0028 FEFFFFEB 		bl	wrap
+ 680 002c 0030A0E1 		mov	r3, r0
+ 285:../src/renesas/compiler/init/syscalls.c **** }
+ 681              		.loc 1 285 0
+ 682 0030 0300A0E1 		mov	r0, r3
+ 683 0034 04D04BE2 		sub	sp, fp, #4
+ 684              		.cfi_def_cfa 13, 20
+ 685              		@ sp needed
+ 686 0038 0048BDE8 		pop	{fp, lr}
+ 687              		.cfi_restore 14
+ 688              		.cfi_restore 11
+ 689              		.cfi_def_cfa_offset 12
+ 690 003c 0CD08DE2 		add	sp, sp, #12
+ 691              		.cfi_restore 3
+ 692              		.cfi_restore 2
+ 693              		.cfi_restore 1
+ 694              		.cfi_def_cfa_offset 0
+ 695 0040 1EFF2FE1 		bx	lr
+ 696              		.cfi_endproc
+ 697              	.LFE13:
+ 699              		.section	.text._swiclose,"ax",%progbits
+ 700              		.align	2
+ 701              		.global	_swiclose
+ 702              		.syntax unified
+ 703              		.arm
+ 704              		.fpu neon
+ 706              	_swiclose:
+ 707              	.LFB14:
+ 286:../src/renesas/compiler/init/syscalls.c **** 
+ 287:../src/renesas/compiler/init/syscalls.c **** /* fh, is a valid internal file handle. */
+ 288:../src/renesas/compiler/init/syscalls.c **** int _swiclose (int fh)
+ 289:../src/renesas/compiler/init/syscalls.c **** {
+ 708              		.loc 1 289 0
+ 709              		.cfi_startproc
+ 710              		@ args = 0, pretend = 0, frame = 16
+ 711              		@ frame_needed = 1, uses_anonymous_args = 0
+ 712 0000 00482DE9 		push	{fp, lr}
+ 713              		.cfi_def_cfa_offset 8
+ 714              		.cfi_offset 11, -8
+ 715              		.cfi_offset 14, -4
+ 716 0004 04B08DE2 		add	fp, sp, #4
+ 717              		.cfi_def_cfa 11, 4
+ 718 0008 10D04DE2 		sub	sp, sp, #16
+ 719 000c 10000BE5 		str	r0, [fp, #-16]
+ 290:../src/renesas/compiler/init/syscalls.c ****   int   res = low_close(fh);
+ 720              		.loc 1 290 0
+ 721 0010 10001BE5 		ldr	r0, [fp, #-16]
+ 722 0014 FEFFFFEB 		bl	low_close
+ 723 0018 08000BE5 		str	r0, [fp, #-8]
+ 291:../src/renesas/compiler/init/syscalls.c ****   return res;
+ 724              		.loc 1 291 0
+ 725 001c 08301BE5 		ldr	r3, [fp, #-8]
+ 292:../src/renesas/compiler/init/syscalls.c **** }
+ 726              		.loc 1 292 0
+ 727 0020 0300A0E1 		mov	r0, r3
+ 728 0024 04D04BE2 		sub	sp, fp, #4
+ 729              		.cfi_def_cfa 13, 8
+ 730              		@ sp needed
+ 731 0028 0088BDE8 		pop	{fp, pc}
+ 732              		.cfi_endproc
+ 733              	.LFE14:
+ 735              		.section	.text._close,"ax",%progbits
+ 736              		.align	2
+ 737              		.global	_close
+ 738              		.syntax unified
+ 739              		.arm
+ 740              		.fpu neon
+ 742              	_close:
+ 743              	.LFB15:
+ 293:../src/renesas/compiler/init/syscalls.c **** 
+ 294:../src/renesas/compiler/init/syscalls.c **** 
+ 295:../src/renesas/compiler/init/syscalls.c **** /********************************************************/
+ 296:../src/renesas/compiler/init/syscalls.c **** int _close(int fh)
+ 297:../src/renesas/compiler/init/syscalls.c **** {
+ 744              		.loc 1 297 0
+ 745              		.cfi_startproc
+ 746              		@ args = 0, pretend = 0, frame = 8
+ 747              		@ frame_needed = 1, uses_anonymous_args = 0
+ 748 0000 00482DE9 		push	{fp, lr}
+ 749              		.cfi_def_cfa_offset 8
+ 750              		.cfi_offset 11, -8
+ 751              		.cfi_offset 14, -4
+ 752 0004 04B08DE2 		add	fp, sp, #4
+ 753              		.cfi_def_cfa 11, 4
+ 754 0008 08D04DE2 		sub	sp, sp, #8
+ 755 000c 08000BE5 		str	r0, [fp, #-8]
+ 298:../src/renesas/compiler/init/syscalls.c ****     errno = EBADF;
+ 756              		.loc 1 298 0
+ 757 0010 003000E3 		movw	r3, #:lower16:errno
+ 758 0014 003040E3 		movt	r3, #:upper16:errno
+ 759 0018 0920A0E3 		mov	r2, #9
+ 760 001c 002083E5 		str	r2, [r3]
+ 299:../src/renesas/compiler/init/syscalls.c **** 
+ 300:../src/renesas/compiler/init/syscalls.c ****     /* Attempt to close the handle. */
+ 301:../src/renesas/compiler/init/syscalls.c ****     errno = _swiclose (fh);
+ 761              		.loc 1 301 0
+ 762 0020 08001BE5 		ldr	r0, [fp, #-8]
+ 763 0024 FEFFFFEB 		bl	_swiclose
+ 764 0028 0020A0E1 		mov	r2, r0
+ 765 002c 003000E3 		movw	r3, #:lower16:errno
+ 766 0030 003040E3 		movt	r3, #:upper16:errno
+ 767 0034 002083E5 		str	r2, [r3]
+ 302:../src/renesas/compiler/init/syscalls.c ****     return wrap (errno);
+ 768              		.loc 1 302 0
+ 769 0038 003000E3 		movw	r3, #:lower16:errno
+ 770 003c 003040E3 		movt	r3, #:upper16:errno
+ 771 0040 003093E5 		ldr	r3, [r3]
+ 772 0044 0300A0E1 		mov	r0, r3
+ 773 0048 FEFFFFEB 		bl	wrap
+ 774 004c 0030A0E1 		mov	r3, r0
+ 303:../src/renesas/compiler/init/syscalls.c **** }
+ 775              		.loc 1 303 0
+ 776 0050 0300A0E1 		mov	r0, r3
+ 777 0054 04D04BE2 		sub	sp, fp, #4
+ 778              		.cfi_def_cfa 13, 8
+ 779              		@ sp needed
+ 780 0058 0088BDE8 		pop	{fp, pc}
+ 781              		.cfi_endproc
+ 782              	.LFE15:
+ 784              		.section	.text._swiwrite,"ax",%progbits
+ 785              		.align	2
+ 786              		.global	_swiwrite
+ 787              		.syntax unified
+ 788              		.arm
+ 789              		.fpu neon
+ 791              	_swiwrite:
+ 792              	.LFB16:
+ 304:../src/renesas/compiler/init/syscalls.c **** 
+ 305:../src/renesas/compiler/init/syscalls.c **** /* fh, is a valid internal file handle.
+ 306:../src/renesas/compiler/init/syscalls.c ****    Returns the number of bytes *not* written. */
+ 307:../src/renesas/compiler/init/syscalls.c **** int _swiwrite (int fh, char * ptr, int len)
+ 308:../src/renesas/compiler/init/syscalls.c **** {
+ 793              		.loc 1 308 0
+ 794              		.cfi_startproc
+ 795              		@ args = 0, pretend = 0, frame = 24
+ 796              		@ frame_needed = 1, uses_anonymous_args = 0
+ 797 0000 00482DE9 		push	{fp, lr}
+ 798              		.cfi_def_cfa_offset 8
+ 799              		.cfi_offset 11, -8
+ 800              		.cfi_offset 14, -4
+ 801 0004 04B08DE2 		add	fp, sp, #4
+ 802              		.cfi_def_cfa 11, 4
+ 803 0008 18D04DE2 		sub	sp, sp, #24
+ 804 000c 10000BE5 		str	r0, [fp, #-16]
+ 805 0010 14100BE5 		str	r1, [fp, #-20]
+ 806 0014 18200BE5 		str	r2, [fp, #-24]
+ 309:../src/renesas/compiler/init/syscalls.c ****   int_t i;
+ 310:../src/renesas/compiler/init/syscalls.c **** 
+ 311:../src/renesas/compiler/init/syscalls.c ****   i = low_write(fh, (uint8_t*)ptr, (uint32_t)len);
+ 807              		.loc 1 311 0
+ 808 0018 18301BE5 		ldr	r3, [fp, #-24]
+ 809 001c 0320A0E1 		mov	r2, r3
+ 810 0020 14101BE5 		ldr	r1, [fp, #-20]
+ 811 0024 10001BE5 		ldr	r0, [fp, #-16]
+ 812 0028 FEFFFFEB 		bl	low_write
+ 813 002c 08000BE5 		str	r0, [fp, #-8]
+ 312:../src/renesas/compiler/init/syscalls.c **** 
+ 313:../src/renesas/compiler/init/syscalls.c ****   return (i);
+ 814              		.loc 1 313 0
+ 815 0030 08301BE5 		ldr	r3, [fp, #-8]
+ 314:../src/renesas/compiler/init/syscalls.c **** }
+ 816              		.loc 1 314 0
+ 817 0034 0300A0E1 		mov	r0, r3
+ 818 0038 04D04BE2 		sub	sp, fp, #4
+ 819              		.cfi_def_cfa 13, 8
+ 820              		@ sp needed
+ 821 003c 0088BDE8 		pop	{fp, pc}
+ 822              		.cfi_endproc
+ 823              	.LFE16:
+ 825              		.section	.text._write,"ax",%progbits
+ 826              		.align	2
+ 827              		.global	_write
+ 828              		.syntax unified
+ 829              		.arm
+ 830              		.fpu neon
+ 832              	_write:
+ 833              	.LFB17:
+ 315:../src/renesas/compiler/init/syscalls.c **** 
+ 316:../src/renesas/compiler/init/syscalls.c **** /******************************************************************************
+ 317:../src/renesas/compiler/init/syscalls.c **** * Function Name: _write
+ 318:../src/renesas/compiler/init/syscalls.c **** * Description  : GNU interface to low-level I/O write
+ 319:../src/renesas/compiler/init/syscalls.c **** * Arguments    : int file_no
+ 320:../src/renesas/compiler/init/syscalls.c **** *              : const char *buffer
+ 321:../src/renesas/compiler/init/syscalls.c **** *              : unsigned int n
+ 322:../src/renesas/compiler/init/syscalls.c **** * Return Value : none
+ 323:../src/renesas/compiler/init/syscalls.c **** ******************************************************************************/
+ 324:../src/renesas/compiler/init/syscalls.c **** int _write(int fh , const char *buffer , unsigned int n)
+ 325:../src/renesas/compiler/init/syscalls.c **** {
+ 834              		.loc 1 325 0
+ 835              		.cfi_startproc
+ 836              		@ args = 0, pretend = 0, frame = 24
+ 837              		@ frame_needed = 1, uses_anonymous_args = 0
+ 838 0000 00482DE9 		push	{fp, lr}
+ 839              		.cfi_def_cfa_offset 8
+ 840              		.cfi_offset 11, -8
+ 841              		.cfi_offset 14, -4
+ 842 0004 04B08DE2 		add	fp, sp, #4
+ 843              		.cfi_def_cfa 11, 4
+ 844 0008 18D04DE2 		sub	sp, sp, #24
+ 845 000c 10000BE5 		str	r0, [fp, #-16]
+ 846 0010 14100BE5 		str	r1, [fp, #-20]
+ 847 0014 18200BE5 		str	r2, [fp, #-24]
+ 326:../src/renesas/compiler/init/syscalls.c ****     int_t i;
+ 327:../src/renesas/compiler/init/syscalls.c **** 
+ 328:../src/renesas/compiler/init/syscalls.c ****     i = low_write(fh, (uint8_t*)buffer, (uint32_t)n);
+ 848              		.loc 1 328 0
+ 849 0018 18201BE5 		ldr	r2, [fp, #-24]
+ 850 001c 14101BE5 		ldr	r1, [fp, #-20]
+ 851 0020 10001BE5 		ldr	r0, [fp, #-16]
+ 852 0024 FEFFFFEB 		bl	low_write
+ 853 0028 08000BE5 		str	r0, [fp, #-8]
+ 329:../src/renesas/compiler/init/syscalls.c **** 
+ 330:../src/renesas/compiler/init/syscalls.c ****     return (i);
+ 854              		.loc 1 330 0
+ 855 002c 08301BE5 		ldr	r3, [fp, #-8]
+ 331:../src/renesas/compiler/init/syscalls.c **** }
+ 856              		.loc 1 331 0
+ 857 0030 0300A0E1 		mov	r0, r3
+ 858 0034 04D04BE2 		sub	sp, fp, #4
+ 859              		.cfi_def_cfa 13, 8
+ 860              		@ sp needed
+ 861 0038 0088BDE8 		pop	{fp, pc}
+ 862              		.cfi_endproc
+ 863              	.LFE17:
+ 865              		.section	.text._stat,"ax",%progbits
+ 866              		.align	2
+ 867              		.global	_stat
+ 868              		.syntax unified
+ 869              		.arm
+ 870              		.fpu neon
+ 872              	_stat:
+ 873              	.LFB18:
+ 332:../src/renesas/compiler/init/syscalls.c **** 
+ 333:../src/renesas/compiler/init/syscalls.c **** 
+ 334:../src/renesas/compiler/init/syscalls.c **** int _stat (const char *fname, struct stat *st)
+ 335:../src/renesas/compiler/init/syscalls.c **** {
+ 874              		.loc 1 335 0
+ 875              		.cfi_startproc
+ 876              		@ args = 0, pretend = 0, frame = 8
+ 877              		@ frame_needed = 1, uses_anonymous_args = 0
+ 878              		@ link register save eliminated.
+ 879 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 880              		.cfi_def_cfa_offset 4
+ 881              		.cfi_offset 11, -4
+ 882 0004 00B08DE2 		add	fp, sp, #0
+ 883              		.cfi_def_cfa_register 11
+ 884 0008 0CD04DE2 		sub	sp, sp, #12
+ 885 000c 08000BE5 		str	r0, [fp, #-8]
+ 886 0010 0C100BE5 		str	r1, [fp, #-12]
+ 887              	.L46:
+ 336:../src/renesas/compiler/init/syscalls.c ****   while(1);
+ 888              		.loc 1 336 0 discriminator 1
+ 889 0014 FEFFFFEA 		b	.L46
+ 890              		.cfi_endproc
+ 891              	.LFE18:
+ 893              		.section	.text._fstat,"ax",%progbits
+ 894              		.align	2
+ 895              		.global	_fstat
+ 896              		.syntax unified
+ 897              		.arm
+ 898              		.fpu neon
+ 900              	_fstat:
+ 901              	.LFB19:
+ 337:../src/renesas/compiler/init/syscalls.c **** }
+ 338:../src/renesas/compiler/init/syscalls.c **** 
+ 339:../src/renesas/compiler/init/syscalls.c **** /********************************************************/
+ 340:../src/renesas/compiler/init/syscalls.c **** int _fstat (int fd, struct stat * st)
+ 341:../src/renesas/compiler/init/syscalls.c **** {
+ 902              		.loc 1 341 0
+ 903              		.cfi_startproc
+ 904              		@ args = 0, pretend = 0, frame = 8
+ 905              		@ frame_needed = 1, uses_anonymous_args = 0
+ 906              		@ link register save eliminated.
+ 907 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 908              		.cfi_def_cfa_offset 4
+ 909              		.cfi_offset 11, -4
+ 910 0004 00B08DE2 		add	fp, sp, #0
+ 911              		.cfi_def_cfa_register 11
+ 912 0008 0CD04DE2 		sub	sp, sp, #12
+ 913 000c 08000BE5 		str	r0, [fp, #-8]
+ 914 0010 0C100BE5 		str	r1, [fp, #-12]
+ 342:../src/renesas/compiler/init/syscalls.c ****     /* Always return as charactor device. */
+ 343:../src/renesas/compiler/init/syscalls.c ****     st->st_mode = S_IFCHR;
+ 915              		.loc 1 343 0
+ 916 0014 0C301BE5 		ldr	r3, [fp, #-12]
+ 917 0018 022AA0E3 		mov	r2, #8192
+ 918 001c 042083E5 		str	r2, [r3, #4]
+ 344:../src/renesas/compiler/init/syscalls.c ****     return  0;
+ 919              		.loc 1 344 0
+ 920 0020 0030A0E3 		mov	r3, #0
+ 345:../src/renesas/compiler/init/syscalls.c **** }
+ 921              		.loc 1 345 0
+ 922 0024 0300A0E1 		mov	r0, r3
+ 923 0028 00D08BE2 		add	sp, fp, #0
+ 924              		.cfi_def_cfa_register 13
+ 925              		@ sp needed
+ 926 002c 04B09DE4 		ldr	fp, [sp], #4
+ 927              		.cfi_restore 11
+ 928              		.cfi_def_cfa_offset 0
+ 929 0030 1EFF2FE1 		bx	lr
+ 930              		.cfi_endproc
+ 931              	.LFE19:
+ 933              		.section	.text._isatty,"ax",%progbits
+ 934              		.align	2
+ 935              		.global	_isatty
+ 936              		.syntax unified
+ 937              		.arm
+ 938              		.fpu neon
+ 940              	_isatty:
+ 941              	.LFB20:
+ 346:../src/renesas/compiler/init/syscalls.c **** 
+ 347:../src/renesas/compiler/init/syscalls.c **** /********************************************************/
+ 348:../src/renesas/compiler/init/syscalls.c **** int _isatty(int fd)
+ 349:../src/renesas/compiler/init/syscalls.c **** {
+ 942              		.loc 1 349 0
+ 943              		.cfi_startproc
+ 944              		@ args = 0, pretend = 0, frame = 8
+ 945              		@ frame_needed = 1, uses_anonymous_args = 0
+ 946              		@ link register save eliminated.
+ 947 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 948              		.cfi_def_cfa_offset 4
+ 949              		.cfi_offset 11, -4
+ 950 0004 00B08DE2 		add	fp, sp, #0
+ 951              		.cfi_def_cfa_register 11
+ 952 0008 0CD04DE2 		sub	sp, sp, #12
+ 953 000c 08000BE5 		str	r0, [fp, #-8]
+ 350:../src/renesas/compiler/init/syscalls.c ****     if ((fd == STDOUT_FILENO) || (fd == STDERR_FILENO))
+ 954              		.loc 1 350 0
+ 955 0010 08301BE5 		ldr	r3, [fp, #-8]
+ 956 0014 010053E3 		cmp	r3, #1
+ 957 0018 0200000A 		beq	.L50
+ 958              		.loc 1 350 0 is_stmt 0 discriminator 1
+ 959 001c 08301BE5 		ldr	r3, [fp, #-8]
+ 960 0020 020053E3 		cmp	r3, #2
+ 961 0024 0100001A 		bne	.L51
+ 962              	.L50:
+ 351:../src/renesas/compiler/init/syscalls.c ****     {
+ 352:../src/renesas/compiler/init/syscalls.c ****         return  1;
+ 963              		.loc 1 352 0 is_stmt 1
+ 964 0028 0130A0E3 		mov	r3, #1
+ 965 002c 040000EA 		b	.L52
+ 966              	.L51:
+ 353:../src/renesas/compiler/init/syscalls.c ****     }
+ 354:../src/renesas/compiler/init/syscalls.c ****     else
+ 355:../src/renesas/compiler/init/syscalls.c ****     {
+ 356:../src/renesas/compiler/init/syscalls.c ****         errno = EBADF;
+ 967              		.loc 1 356 0
+ 968 0030 003000E3 		movw	r3, #:lower16:errno
+ 969 0034 003040E3 		movt	r3, #:upper16:errno
+ 970 0038 0920A0E3 		mov	r2, #9
+ 971 003c 002083E5 		str	r2, [r3]
+ 357:../src/renesas/compiler/init/syscalls.c ****         return  -1;
+ 972              		.loc 1 357 0
+ 973 0040 0030E0E3 		mvn	r3, #0
+ 974              	.L52:
+ 358:../src/renesas/compiler/init/syscalls.c ****     }
+ 359:../src/renesas/compiler/init/syscalls.c **** }
+ 975              		.loc 1 359 0
+ 976 0044 0300A0E1 		mov	r0, r3
+ 977 0048 00D08BE2 		add	sp, fp, #0
+ 978              		.cfi_def_cfa_register 13
+ 979              		@ sp needed
+ 980 004c 04B09DE4 		ldr	fp, [sp], #4
+ 981              		.cfi_restore 11
+ 982              		.cfi_def_cfa_offset 0
+ 983 0050 1EFF2FE1 		bx	lr
+ 984              		.cfi_endproc
+ 985              	.LFE20:
+ 987              		.text
+ 988              	.Letext0:
+ 989              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 990              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 991              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 992              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 993              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 994              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 995              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 996              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 997              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 998              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 999              		.file 12 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1000              		.file 13 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1001              		.file 14 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 1002              		.file 15 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1003              		.file 16 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls.c
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:17     .bss.monitor_stdin:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:20     .bss.monitor_stdin:00000000 monitor_stdin
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:23     .bss.monitor_stdout:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:26     .bss.monitor_stdout:00000000 monitor_stdout
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:29     .bss.monitor_stderr:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:32     .bss.monitor_stderr:00000000 monitor_stderr
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:35     .rodata:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:36     .rodata:00000000 .LC0
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:39     .rodata:0000000c .LC1
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:42     .rodata:00000018 .LC2
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:45     .text.initialise_monitor_handles:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:51     .text.initialise_monitor_handles:00000000 initialise_monitor_handles
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:126    .text.get_errno:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:131    .text.get_errno:00000000 get_errno
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:165    .text.error:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:170    .text.error:00000000 error
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:202    .text.wrap:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:207    .text.wrap:00000000 wrap
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:244    .text._getpid:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:250    .text._getpid:00000000 _getpid
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:279    .bss.heap_end.8329:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:282    .bss.heap_end.8329:00000000 heap_end.8329
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:286    .rodata:00000024 .LC3
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:289    .text._sbrk:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:295    .text._sbrk:00000000 _sbrk
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:832    .text._write:00000000 _write
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:374    .text._lseek:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:380    .text._lseek:00000000 _lseek
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:411    .text._swiread:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:417    .text._swiread:00000000 _swiread
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:452    .text._read:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:458    .text._read:00000000 _read
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:492    .text._swiopen:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:498    .text._swiopen:00000000 _swiopen
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:872    .text._stat:00000000 _stat
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:648    .text._open:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:654    .text._open:00000000 _open
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:700    .text._swiclose:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:706    .text._swiclose:00000000 _swiclose
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:736    .text._close:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:742    .text._close:00000000 _close
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:785    .text._swiwrite:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:791    .text._swiwrite:00000000 _swiwrite
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:826    .text._write:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:866    .text._stat:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:894    .text._fstat:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:900    .text._fstat:00000000 _fstat
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:934    .text._isatty:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc7xx8pl.s:940    .text._isatty:00000000 _isatty
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.newlib.h.21.64e14ed41172bf448383d50cbb14725e
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.features.h.22.5cdadbb3efe495d1c9e38350b8c376c7
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.time.h.14.849270cc7997ccc4e05edd146e568a9f
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.errno.h.2.ba016d646105af6cad23be83630b6a3f
+                           .group:00000000 wm4.errno.h.9.1ecd7b1049497a0ab61da0f6cbd4b0c6
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stdio.h.47.1f5845210bb9053bbca9ed76fc4018da
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.unistd.h.2.39165d5b7784d1815ef4b0c4be6df560
+                           .group:00000000 wm4.unistd.h.156.9a9035c10111809e94aa612639fe2ed9
+                           .group:00000000 wm4.swi.h.26.8ef6964e359001cec347a6f29578eb74
+                           .group:00000000 wm4.r_startup_config.h.30.6618cf1eaa67b44be0d82a8248b7298a
+
+UNDEFINED SYMBOLS
+low_open
+errno
+__heap_start
+__heap_end
+low_read
+low_close
+low_write

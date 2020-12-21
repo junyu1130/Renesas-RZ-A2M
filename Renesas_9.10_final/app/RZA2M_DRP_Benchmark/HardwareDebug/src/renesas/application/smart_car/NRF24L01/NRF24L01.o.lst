@@ -1,0 +1,2550 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"NRF24L01.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.rodata.s_sc_cpg_xtal_frequency_khz_config,"a",%progbits
+  17              		.align	3
+  20              	s_sc_cpg_xtal_frequency_khz_config:
+  21 0000 00000000 		.word	0
+  22 0004 0070D740 		.word	1087860736
+  23              		.section	.rodata.s_sc_cpg_main_clock_config,"a",%progbits
+  24              		.align	3
+  27              	s_sc_cpg_main_clock_config:
+  28 0000 00       		.byte	0
+  29 0001 00000000 		.space	7
+  29      000000
+  30 0008 00000000 		.word	0
+  31 000c 001D3041 		.word	1093672192
+  32              		.section	.rodata.s_sc_cpg_sub_clock_div_config,"a",%progbits
+  33              		.align	3
+  36              	s_sc_cpg_sub_clock_div_config:
+  37 0000 00       		.byte	0
+  38 0001 00000000 		.space	7
+  38      000000
+  39 0008 00000000 		.word	0
+  40 000c 001D2041 		.word	1092623616
+  41 0010 01       		.byte	1
+  42 0011 00000000 		.space	7
+  42      000000
+  43 0018 00000000 		.word	0
+  44 001c 001D0041 		.word	1090526464
+  45 0020 02       		.byte	2
+  46 0021 00000000 		.space	7
+  46      000000
+  47 0028 00000000 		.word	0
+  48 002c 001DF040 		.word	1089477888
+  49              		.section	.rodata.s_sc_cpg_sub_clock_src_config,"a",%progbits
+  50              		.align	2
+  53              	s_sc_cpg_sub_clock_src_config:
+  54 0000 00       		.byte	0
+  55 0001 00       		.byte	0
+  56 0002 01       		.byte	1
+  57 0003 02       		.byte	2
+  58 0004 02       		.byte	2
+  59 0005 02       		.byte	2
+  60 0006 03       		.byte	3
+  61 0007 00       		.byte	0
+  62              		.section	.rodata.s_sc_cpg_ext_clk_config,"a",%progbits
+  63              		.align	2
+  66              	s_sc_cpg_ext_clk_config:
+  67 0000 04       		.byte	4
+  68              		.section	.rodata.GPIO_SC_TABLE_INIT,"a",%progbits
+  69              		.align	2
+  72              	GPIO_SC_TABLE_INIT:
+  73 0000 0108     		.short	2049
+  74 0002 02       		.byte	2
+  75 0003 01       		.byte	1
+  76 0004 05       		.byte	5
+  77 0005 00       		.space	1
+  78 0006 0000     		.short	0
+  79 0008 02       		.byte	2
+  80 0009 01       		.byte	1
+  81 000a 05       		.byte	5
+  82 000b 00       		.space	1
+  83              		.section	.rodata.GPIO_SC_TABLE_MANUAL,"a",%progbits
+  84              		.align	2
+  87              	GPIO_SC_TABLE_MANUAL:
+  88 0000 0004     		.short	1024
+  89 0002 08       		.byte	8
+  90 0003 01       		.byte	1
+  91 0004 04       		.byte	4
+  92 0005 00       		.space	1
+  93 0006 0104     		.short	1025
+  94 0008 08       		.byte	8
+  95 0009 01       		.byte	1
+  96 000a 04       		.byte	4
+  97 000b 00       		.space	1
+  98 000c 0204     		.short	1026
+  99 000e 08       		.byte	8
+ 100 000f 01       		.byte	1
+ 101 0010 04       		.byte	4
+ 102 0011 00       		.space	1
+ 103 0012 0304     		.short	1027
+ 104 0014 08       		.byte	8
+ 105 0015 01       		.byte	1
+ 106 0016 04       		.byte	4
+ 107 0017 00       		.space	1
+ 108 0018 0404     		.short	1028
+ 109 001a 08       		.byte	8
+ 110 001b 01       		.byte	1
+ 111 001c 04       		.byte	4
+ 112 001d 00       		.space	1
+ 113 001e 0504     		.short	1029
+ 114 0020 08       		.byte	8
+ 115 0021 01       		.byte	1
+ 116 0022 04       		.byte	4
+ 117 0023 00       		.space	1
+ 118 0024 0604     		.short	1030
+ 119 0026 08       		.byte	8
+ 120 0027 01       		.byte	1
+ 121 0028 04       		.byte	4
+ 122 0029 00       		.space	1
+ 123 002a 0704     		.short	1031
+ 124 002c 08       		.byte	8
+ 125 002d 01       		.byte	1
+ 126 002e 04       		.byte	4
+ 127 002f 00       		.space	1
+ 128 0030 0006     		.short	1536
+ 129 0032 04       		.byte	4
+ 130 0033 01       		.byte	1
+ 131 0034 04       		.byte	4
+ 132 0035 00       		.space	1
+ 133 0036 0106     		.short	1537
+ 134 0038 08       		.byte	8
+ 135 0039 01       		.byte	1
+ 136 003a 05       		.byte	5
+ 137 003b 00       		.space	1
+ 138 003c 0206     		.short	1538
+ 139 003e 08       		.byte	8
+ 140 003f 01       		.byte	1
+ 141 0040 05       		.byte	5
+ 142 0041 00       		.space	1
+ 143 0042 0306     		.short	1539
+ 144 0044 08       		.byte	8
+ 145 0045 01       		.byte	1
+ 146 0046 05       		.byte	5
+ 147 0047 00       		.space	1
+ 148 0048 0406     		.short	1540
+ 149 004a 04       		.byte	4
+ 150 004b 01       		.byte	1
+ 151 004c 04       		.byte	4
+ 152 004d 00       		.space	1
+ 153 004e 0506     		.short	1541
+ 154 0050 04       		.byte	4
+ 155 0051 01       		.byte	1
+ 156 0052 04       		.byte	4
+ 157 0053 00       		.space	1
+ 158 0054 0606     		.short	1542
+ 159 0056 04       		.byte	4
+ 160 0057 01       		.byte	1
+ 161 0058 04       		.byte	4
+ 162 0059 00       		.space	1
+ 163 005a 0706     		.short	1543
+ 164 005c 04       		.byte	4
+ 165 005d 01       		.byte	1
+ 166 005e 04       		.byte	4
+ 167 005f 00       		.space	1
+ 168 0060 0007     		.short	1792
+ 169 0062 04       		.byte	4
+ 170 0063 01       		.byte	1
+ 171 0064 04       		.byte	4
+ 172 0065 00       		.space	1
+ 173 0066 0107     		.short	1793
+ 174 0068 04       		.byte	4
+ 175 0069 01       		.byte	1
+ 176 006a 04       		.byte	4
+ 177 006b 00       		.space	1
+ 178 006c 0307     		.short	1795
+ 179 006e 04       		.byte	4
+ 180 006f 01       		.byte	1
+ 181 0070 04       		.byte	4
+ 182 0071 00       		.space	1
+ 183 0072 0407     		.short	1796
+ 184 0074 04       		.byte	4
+ 185 0075 01       		.byte	1
+ 186 0076 04       		.byte	4
+ 187 0077 00       		.space	1
+ 188 0078 0507     		.short	1797
+ 189 007a 04       		.byte	4
+ 190 007b 01       		.byte	1
+ 191 007c 04       		.byte	4
+ 192 007d 00       		.space	1
+ 193 007e 0308     		.short	2051
+ 194 0080 04       		.byte	4
+ 195 0081 01       		.byte	1
+ 196 0082 04       		.byte	4
+ 197 0083 00       		.space	1
+ 198 0084 0408     		.short	2052
+ 199 0086 04       		.byte	4
+ 200 0087 01       		.byte	1
+ 201 0088 04       		.byte	4
+ 202 0089 00       		.space	1
+ 203 008a 0508     		.short	2053
+ 204 008c 04       		.byte	4
+ 205 008d 01       		.byte	1
+ 206 008e 04       		.byte	4
+ 207 008f 00       		.space	1
+ 208 0090 0608     		.short	2054
+ 209 0092 04       		.byte	4
+ 210 0093 01       		.byte	1
+ 211 0094 04       		.byte	4
+ 212 0095 00       		.space	1
+ 213 0096 0409     		.short	2308
+ 214 0098 04       		.byte	4
+ 215 0099 01       		.byte	1
+ 216 009a 04       		.byte	4
+ 217 009b 00       		.space	1
+ 218 009c 0509     		.short	2309
+ 219 009e 04       		.byte	4
+ 220 009f 01       		.byte	1
+ 221 00a0 04       		.byte	4
+ 222 00a1 00       		.space	1
+ 223 00a2 0609     		.short	2310
+ 224 00a4 04       		.byte	4
+ 225 00a5 01       		.byte	1
+ 226 00a6 04       		.byte	4
+ 227 00a7 00       		.space	1
+ 228 00a8 0709     		.short	2311
+ 229 00aa 04       		.byte	4
+ 230 00ab 01       		.byte	1
+ 231 00ac 04       		.byte	4
+ 232 00ad 00       		.space	1
+ 233 00ae 0707     		.short	1799
+ 234 00b0 09       		.byte	9
+ 235 00b1 01       		.byte	1
+ 236 00b2 04       		.byte	4
+ 237 00b3 00       		.space	1
+ 238 00b4 0008     		.short	2048
+ 239 00b6 09       		.byte	9
+ 240 00b7 01       		.byte	1
+ 241 00b8 04       		.byte	4
+ 242 00b9 00       		.space	1
+ 243 00ba 000A     		.short	2560
+ 244 00bc 09       		.byte	9
+ 245 00bd 01       		.byte	1
+ 246 00be 04       		.byte	4
+ 247 00bf 00       		.space	1
+ 248 00c0 010A     		.short	2561
+ 249 00c2 09       		.byte	9
+ 250 00c3 01       		.byte	1
+ 251 00c4 04       		.byte	4
+ 252 00c5 00       		.space	1
+ 253 00c6 020A     		.short	2562
+ 254 00c8 09       		.byte	9
+ 255 00c9 01       		.byte	1
+ 256 00ca 04       		.byte	4
+ 257 00cb 00       		.space	1
+ 258 00cc 030A     		.short	2563
+ 259 00ce 09       		.byte	9
+ 260 00cf 01       		.byte	1
+ 261 00d0 04       		.byte	4
+ 262 00d1 00       		.space	1
+ 263 00d2 040A     		.short	2564
+ 264 00d4 09       		.byte	9
+ 265 00d5 01       		.byte	1
+ 266 00d6 04       		.byte	4
+ 267 00d7 00       		.space	1
+ 268 00d8 050A     		.short	2565
+ 269 00da 09       		.byte	9
+ 270 00db 01       		.byte	1
+ 271 00dc 04       		.byte	4
+ 272 00dd 00       		.space	1
+ 273 00de 060A     		.short	2566
+ 274 00e0 09       		.byte	9
+ 275 00e1 01       		.byte	1
+ 276 00e2 04       		.byte	4
+ 277 00e3 00       		.space	1
+ 278 00e4 070A     		.short	2567
+ 279 00e6 09       		.byte	9
+ 280 00e7 01       		.byte	1
+ 281 00e8 04       		.byte	4
+ 282 00e9 00       		.space	1
+ 283 00ea 000B     		.short	2816
+ 284 00ec 09       		.byte	9
+ 285 00ed 01       		.byte	1
+ 286 00ee 04       		.byte	4
+ 287 00ef 00       		.space	1
+ 288 00f0 010B     		.short	2817
+ 289 00f2 09       		.byte	9
+ 290 00f3 01       		.byte	1
+ 291 00f4 04       		.byte	4
+ 292 00f5 00       		.space	1
+ 293 00f6 020B     		.short	2818
+ 294 00f8 09       		.byte	9
+ 295 00f9 01       		.byte	1
+ 296 00fa 04       		.byte	4
+ 297 00fb 00       		.space	1
+ 298 00fc 030B     		.short	2819
+ 299 00fe 09       		.byte	9
+ 300 00ff 01       		.byte	1
+ 301 0100 04       		.byte	4
+ 302 0101 00       		.space	1
+ 303 0102 040B     		.short	2820
+ 304 0104 09       		.byte	9
+ 305 0105 01       		.byte	1
+ 306 0106 04       		.byte	4
+ 307 0107 00       		.space	1
+ 308 0108 050B     		.short	2821
+ 309 010a 09       		.byte	9
+ 310 010b 01       		.byte	1
+ 311 010c 04       		.byte	4
+ 312 010d 00       		.space	1
+ 313 010e 030C     		.short	3075
+ 314 0110 0B       		.byte	11
+ 315 0111 01       		.byte	1
+ 316 0112 04       		.byte	4
+ 317 0113 00       		.space	1
+ 318 0114 040C     		.short	3076
+ 319 0116 0B       		.byte	11
+ 320 0117 01       		.byte	1
+ 321 0118 04       		.byte	4
+ 322 0119 00       		.space	1
+ 323 011a 010E     		.short	3585
+ 324 011c 08       		.byte	8
+ 325 011d 01       		.byte	1
+ 326 011e 05       		.byte	5
+ 327 011f 00       		.space	1
+ 328 0120 020E     		.short	3586
+ 329 0122 08       		.byte	8
+ 330 0123 01       		.byte	1
+ 331 0124 05       		.byte	5
+ 332 0125 00       		.space	1
+ 333 0126 030E     		.short	3587
+ 334 0128 08       		.byte	8
+ 335 0129 01       		.byte	1
+ 336 012a 05       		.byte	5
+ 337 012b 00       		.space	1
+ 338 012c 040E     		.short	3588
+ 339 012e 08       		.byte	8
+ 340 012f 01       		.byte	1
+ 341 0130 05       		.byte	5
+ 342 0131 00       		.space	1
+ 343 0132 050E     		.short	3589
+ 344 0134 08       		.byte	8
+ 345 0135 01       		.byte	1
+ 346 0136 05       		.byte	5
+ 347 0137 00       		.space	1
+ 348 0138 060E     		.short	3590
+ 349 013a 08       		.byte	8
+ 350 013b 01       		.byte	1
+ 351 013c 05       		.byte	5
+ 352 013d 00       		.space	1
+ 353 013e 000F     		.short	3840
+ 354 0140 09       		.byte	9
+ 355 0141 01       		.byte	1
+ 356 0142 04       		.byte	4
+ 357 0143 00       		.space	1
+ 358 0144 010F     		.short	3841
+ 359 0146 09       		.byte	9
+ 360 0147 01       		.byte	1
+ 361 0148 04       		.byte	4
+ 362 0149 00       		.space	1
+ 363 014a 020F     		.short	3842
+ 364 014c 09       		.byte	9
+ 365 014d 01       		.byte	1
+ 366 014e 04       		.byte	4
+ 367 014f 00       		.space	1
+ 368 0150 030F     		.short	3843
+ 369 0152 09       		.byte	9
+ 370 0153 01       		.byte	1
+ 371 0154 04       		.byte	4
+ 372 0155 00       		.space	1
+ 373 0156 040F     		.short	3844
+ 374 0158 09       		.byte	9
+ 375 0159 01       		.byte	1
+ 376 015a 04       		.byte	4
+ 377 015b 00       		.space	1
+ 378 015c 050F     		.short	3845
+ 379 015e 09       		.byte	9
+ 380 015f 01       		.byte	1
+ 381 0160 04       		.byte	4
+ 382 0161 00       		.space	1
+ 383 0162 060F     		.short	3846
+ 384 0164 09       		.byte	9
+ 385 0165 01       		.byte	1
+ 386 0166 04       		.byte	4
+ 387 0167 00       		.space	1
+ 388 0168 070F     		.short	3847
+ 389 016a 09       		.byte	9
+ 390 016b 01       		.byte	1
+ 391 016c 04       		.byte	4
+ 392 016d 00       		.space	1
+ 393 016e 0011     		.short	4352
+ 394 0170 08       		.byte	8
+ 395 0171 01       		.byte	1
+ 396 0172 05       		.byte	5
+ 397 0173 00       		.space	1
+ 398 0174 0111     		.short	4353
+ 399 0176 08       		.byte	8
+ 400 0177 01       		.byte	1
+ 401 0178 05       		.byte	5
+ 402 0179 00       		.space	1
+ 403 017a 0211     		.short	4354
+ 404 017c 09       		.byte	9
+ 405 017d 01       		.byte	1
+ 406 017e 04       		.byte	4
+ 407 017f 00       		.space	1
+ 408 0180 0612     		.short	4614
+ 409 0182 09       		.byte	9
+ 410 0183 01       		.byte	1
+ 411 0184 02       		.byte	2
+ 412 0185 00       		.space	1
+ 413 0186 0712     		.short	4615
+ 414 0188 09       		.byte	9
+ 415 0189 01       		.byte	1
+ 416 018a 05       		.byte	5
+ 417 018b 00       		.space	1
+ 418              		.section	.rodata.GPIO_SC_TABLE_riic2,"a",%progbits
+ 419              		.align	2
+ 422              	GPIO_SC_TABLE_riic2:
+ 423 0000 040D     		.short	3332
+ 424 0002 07       		.byte	7
+ 425 0003 01       		.byte	1
+ 426 0004 05       		.byte	5
+ 427 0005 00       		.space	1
+ 428 0006 050D     		.short	3333
+ 429 0008 07       		.byte	7
+ 430 0009 01       		.byte	1
+ 431 000a 05       		.byte	5
+ 432 000b 00       		.space	1
+ 433              		.section	.rodata.GPIO_SC_TABLE_riic3,"a",%progbits
+ 434              		.align	2
+ 437              	GPIO_SC_TABLE_riic3:
+ 438 0000 060D     		.short	3334
+ 439 0002 07       		.byte	7
+ 440 0003 01       		.byte	1
+ 441 0004 05       		.byte	5
+ 442 0005 00       		.space	1
+ 443 0006 070D     		.short	3335
+ 444 0008 07       		.byte	7
+ 445 0009 01       		.byte	1
+ 446 000a 05       		.byte	5
+ 447 000b 00       		.space	1
+ 448              		.section	.rodata.GPIO_SC_TABLE_scifa4,"a",%progbits
+ 449              		.align	2
+ 452              	GPIO_SC_TABLE_scifa4:
+ 453 0000 0009     		.short	2304
+ 454 0002 0A       		.byte	10
+ 455 0003 01       		.byte	1
+ 456 0004 04       		.byte	4
+ 457 0005 00       		.space	1
+ 458 0006 0109     		.short	2305
+ 459 0008 0A       		.byte	10
+ 460 0009 01       		.byte	1
+ 461 000a 05       		.byte	5
+ 462 000b 00       		.space	1
+ 463              		.section	.rodata.GPIO_SC_TABLE_BSC,"a",%progbits
+ 464              		.align	2
+ 467              	GPIO_SC_TABLE_BSC:
+ 468 0000 0000     		.short	0
+ 469 0002 07       		.byte	7
+ 470 0003 01       		.byte	1
+ 471 0004 04       		.byte	4
+ 472 0005 00       		.space	1
+ 473 0006 0100     		.short	1
+ 474 0008 07       		.byte	7
+ 475 0009 01       		.byte	1
+ 476 000a 04       		.byte	4
+ 477 000b 00       		.space	1
+ 478 000c 0200     		.short	2
+ 479 000e 07       		.byte	7
+ 480 000f 01       		.byte	1
+ 481 0010 04       		.byte	4
+ 482 0011 00       		.space	1
+ 483 0012 0300     		.short	3
+ 484 0014 07       		.byte	7
+ 485 0015 01       		.byte	1
+ 486 0016 04       		.byte	4
+ 487 0017 00       		.space	1
+ 488 0018 0400     		.short	4
+ 489 001a 07       		.byte	7
+ 490 001b 01       		.byte	1
+ 491 001c 04       		.byte	4
+ 492 001d 00       		.space	1
+ 493 001e 0500     		.short	5
+ 494 0020 07       		.byte	7
+ 495 0021 01       		.byte	1
+ 496 0022 04       		.byte	4
+ 497 0023 00       		.space	1
+ 498 0024 0600     		.short	6
+ 499 0026 07       		.byte	7
+ 500 0027 01       		.byte	1
+ 501 0028 04       		.byte	4
+ 502 0029 00       		.space	1
+ 503 002a 0001     		.short	256
+ 504 002c 07       		.byte	7
+ 505 002d 01       		.byte	1
+ 506 002e 04       		.byte	4
+ 507 002f 00       		.space	1
+ 508 0030 0101     		.short	257
+ 509 0032 07       		.byte	7
+ 510 0033 01       		.byte	1
+ 511 0034 04       		.byte	4
+ 512 0035 00       		.space	1
+ 513 0036 0201     		.short	258
+ 514 0038 07       		.byte	7
+ 515 0039 01       		.byte	1
+ 516 003a 04       		.byte	4
+ 517 003b 00       		.space	1
+ 518 003c 0301     		.short	259
+ 519 003e 07       		.byte	7
+ 520 003f 01       		.byte	1
+ 521 0040 04       		.byte	4
+ 522 0041 00       		.space	1
+ 523 0042 0401     		.short	260
+ 524 0044 07       		.byte	7
+ 525 0045 01       		.byte	1
+ 526 0046 04       		.byte	4
+ 527 0047 00       		.space	1
+ 528 0048 0002     		.short	512
+ 529 004a 07       		.byte	7
+ 530 004b 01       		.byte	1
+ 531 004c 04       		.byte	4
+ 532 004d 00       		.space	1
+ 533 004e 0102     		.short	513
+ 534 0050 07       		.byte	7
+ 535 0051 01       		.byte	1
+ 536 0052 04       		.byte	4
+ 537 0053 00       		.space	1
+ 538 0054 0202     		.short	514
+ 539 0056 07       		.byte	7
+ 540 0057 01       		.byte	1
+ 541 0058 04       		.byte	4
+ 542 0059 00       		.space	1
+ 543 005a 0302     		.short	515
+ 544 005c 07       		.byte	7
+ 545 005d 01       		.byte	1
+ 546 005e 04       		.byte	4
+ 547 005f 00       		.space	1
+ 548 0060 0007     		.short	1792
+ 549 0062 07       		.byte	7
+ 550 0063 01       		.byte	1
+ 551 0064 04       		.byte	4
+ 552 0065 00       		.space	1
+ 553 0066 0107     		.short	1793
+ 554 0068 07       		.byte	7
+ 555 0069 01       		.byte	1
+ 556 006a 04       		.byte	4
+ 557 006b 00       		.space	1
+ 558 006c 0307     		.short	1795
+ 559 006e 07       		.byte	7
+ 560 006f 01       		.byte	1
+ 561 0070 04       		.byte	4
+ 562 0071 00       		.space	1
+ 563 0072 0407     		.short	1796
+ 564 0074 07       		.byte	7
+ 565 0075 01       		.byte	1
+ 566 0076 04       		.byte	4
+ 567 0077 00       		.space	1
+ 568 0078 0507     		.short	1797
+ 569 007a 07       		.byte	7
+ 570 007b 01       		.byte	1
+ 571 007c 04       		.byte	4
+ 572 007d 00       		.space	1
+ 573 007e 0108     		.short	2049
+ 574 0080 07       		.byte	7
+ 575 0081 01       		.byte	1
+ 576 0082 04       		.byte	4
+ 577 0083 00       		.space	1
+ 578 0084 0208     		.short	2050
+ 579 0086 07       		.byte	7
+ 580 0087 01       		.byte	1
+ 581 0088 04       		.byte	4
+ 582 0089 00       		.space	1
+ 583 008a 0308     		.short	2051
+ 584 008c 07       		.byte	7
+ 585 008d 01       		.byte	1
+ 586 008e 04       		.byte	4
+ 587 008f 00       		.space	1
+ 588 0090 0408     		.short	2052
+ 589 0092 07       		.byte	7
+ 590 0093 01       		.byte	1
+ 591 0094 04       		.byte	4
+ 592 0095 00       		.space	1
+ 593 0096 0508     		.short	2053
+ 594 0098 07       		.byte	7
+ 595 0099 01       		.byte	1
+ 596 009a 04       		.byte	4
+ 597 009b 00       		.space	1
+ 598 009c 0608     		.short	2054
+ 599 009e 07       		.byte	7
+ 600 009f 01       		.byte	1
+ 601 00a0 04       		.byte	4
+ 602 00a1 00       		.space	1
+ 603 00a2 0708     		.short	2055
+ 604 00a4 07       		.byte	7
+ 605 00a5 01       		.byte	1
+ 606 00a6 04       		.byte	4
+ 607 00a7 00       		.space	1
+ 608 00a8 0009     		.short	2304
+ 609 00aa 07       		.byte	7
+ 610 00ab 01       		.byte	1
+ 611 00ac 04       		.byte	4
+ 612 00ad 00       		.space	1
+ 613 00ae 0109     		.short	2305
+ 614 00b0 07       		.byte	7
+ 615 00b1 01       		.byte	1
+ 616 00b2 04       		.byte	4
+ 617 00b3 00       		.space	1
+ 618 00b4 0209     		.short	2306
+ 619 00b6 07       		.byte	7
+ 620 00b7 01       		.byte	1
+ 621 00b8 04       		.byte	4
+ 622 00b9 00       		.space	1
+ 623 00ba 0309     		.short	2307
+ 624 00bc 07       		.byte	7
+ 625 00bd 01       		.byte	1
+ 626 00be 04       		.byte	4
+ 627 00bf 00       		.space	1
+ 628 00c0 0409     		.short	2308
+ 629 00c2 07       		.byte	7
+ 630 00c3 01       		.byte	1
+ 631 00c4 04       		.byte	4
+ 632 00c5 00       		.space	1
+ 633 00c6 0509     		.short	2309
+ 634 00c8 07       		.byte	7
+ 635 00c9 01       		.byte	1
+ 636 00ca 04       		.byte	4
+ 637 00cb 00       		.space	1
+ 638 00cc 0609     		.short	2310
+ 639 00ce 07       		.byte	7
+ 640 00cf 01       		.byte	1
+ 641 00d0 04       		.byte	4
+ 642 00d1 00       		.space	1
+ 643 00d2 0709     		.short	2311
+ 644 00d4 07       		.byte	7
+ 645 00d5 01       		.byte	1
+ 646 00d6 04       		.byte	4
+ 647 00d7 00       		.space	1
+ 648              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified0,"a",%progbits
+ 649              		.align	2
+ 652              	GPIO_SC_TABLE_sdhi_simplified0:
+ 653 0000 0005     		.short	1280
+ 654 0002 09       		.byte	9
+ 655 0003 01       		.byte	1
+ 656 0004 05       		.byte	5
+ 657 0005 00       		.space	1
+ 658 0006 0105     		.short	1281
+ 659 0008 09       		.byte	9
+ 660 0009 01       		.byte	1
+ 661 000a 05       		.byte	5
+ 662 000b 00       		.space	1
+ 663              		.section	.rodata.GPIO_SC_TABLE_sdhi_simplified1,"a",%progbits
+ 664              		.align	2
+ 667              	GPIO_SC_TABLE_sdhi_simplified1:
+ 668 0000 0405     		.short	1284
+ 669 0002 09       		.byte	9
+ 670 0003 01       		.byte	1
+ 671 0004 05       		.byte	5
+ 672 0005 00       		.space	1
+ 673 0006 0505     		.short	1285
+ 674 0008 09       		.byte	9
+ 675 0009 01       		.byte	1
+ 676 000a 05       		.byte	5
+ 677 000b 00       		.space	1
+ 678              		.section	.rodata.MMU_SC_TABLE,"a",%progbits
+ 679              		.align	2
+ 682              	MMU_SC_TABLE:
+ 683 0000 00000000 		.word	0
+ 684 0004 00000000 		.word	0
+ 685 0008 0010     		.short	4096
+ 686 000a 0000     		.space	2
+ 687 000c F20D0800 		.word	527858
+ 688 0010 00000000 		.word	0
+ 689 0014 00000000 		.word	0
+ 690 0018 4000     		.short	64
+ 691 001a 0000     		.space	2
+ 692 001c F20D0800 		.word	527858
+ 693 0020 00000004 		.word	67108864
+ 694 0024 00000004 		.word	67108864
+ 695 0028 4000     		.short	64
+ 696 002a 0000     		.space	2
+ 697 002c F20D0800 		.word	527858
+ 698 0030 00000008 		.word	134217728
+ 699 0034 00000008 		.word	134217728
+ 700 0038 4000     		.short	64
+ 701 003a 0000     		.space	2
+ 702 003c F20D0800 		.word	527858
+ 703 0040 0000000C 		.word	201326592
+ 704 0044 0000000C 		.word	201326592
+ 705 0048 4000     		.short	64
+ 706 004a 0000     		.space	2
+ 707 004c EE1D0800 		.word	531950
+ 708 0050 00000010 		.word	268435456
+ 709 0054 00000010 		.word	268435456
+ 710 0058 4000     		.short	64
+ 711 005a 0000     		.space	2
+ 712 005c F20D0800 		.word	527858
+ 713 0060 00000014 		.word	335544320
+ 714 0064 00000014 		.word	335544320
+ 715 0068 4000     		.short	64
+ 716 006a 0000     		.space	2
+ 717 006c F20D0800 		.word	527858
+ 718 0070 00000018 		.word	402653184
+ 719 0074 00000018 		.word	402653184
+ 720 0078 7000     		.short	112
+ 721 007a 0000     		.space	2
+ 722 007c F2010800 		.word	524786
+ 723 0080 0000001F 		.word	520093696
+ 724 0084 0000001F 		.word	520093696
+ 725 0088 1000     		.short	16
+ 726 008a 0000     		.space	2
+ 727 008c F20D0000 		.word	3570
+ 728 0090 00000020 		.word	536870912
+ 729 0094 00000020 		.word	536870912
+ 730 0098 0001     		.short	256
+ 731 009a 0000     		.space	2
+ 732 009c EE1D0800 		.word	531950
+ 733 00a0 00000030 		.word	805306368
+ 734 00a4 00000030 		.word	805306368
+ 735 00a8 0001     		.short	256
+ 736 00aa 0000     		.space	2
+ 737 00ac EE1D0800 		.word	531950
+ 738 00b0 00000040 		.word	1073741824
+ 739 00b4 00000040 		.word	1073741824
+ 740 00b8 0001     		.short	256
+ 741 00ba 0000     		.space	2
+ 742 00bc EE1D0800 		.word	531950
+ 743 00c0 00000050 		.word	1342177280
+ 744 00c4 00000050 		.word	1342177280
+ 745 00c8 0001     		.short	256
+ 746 00ca 0000     		.space	2
+ 747 00cc EE1D0800 		.word	531950
+ 748 00d0 00000060 		.word	1610612736
+ 749 00d4 00000060 		.word	1610612736
+ 750 00d8 0001     		.short	256
+ 751 00da 0000     		.space	2
+ 752 00dc EE1D0800 		.word	531950
+ 753 00e0 00000070 		.word	1879048192
+ 754 00e4 00000020 		.word	536870912
+ 755 00e8 0001     		.short	256
+ 756 00ea 0000     		.space	2
+ 757 00ec E20D0800 		.word	527842
+ 758 00f0 00000080 		.word	-2147483648
+ 759 00f4 00000080 		.word	-2147483648
+ 760 00f8 0400     		.short	4
+ 761 00fa 0000     		.space	2
+ 762 00fc E64D0800 		.word	544230
+ 763 0100 00004080 		.word	-2143289344
+ 764 0104 00004080 		.word	-2143289344
+ 765 0108 1C00     		.short	28
+ 766 010a 0000     		.space	2
+ 767 010c F2010800 		.word	524786
+ 768 0110 00000082 		.word	-2113929216
+ 769 0114 00000080 		.word	-2147483648
+ 770 0118 0400     		.short	4
+ 771 011a 0000     		.space	2
+ 772 011c E24D0800 		.word	544226
+ 773 0120 00004082 		.word	-2109734912
+ 774 0124 00004082 		.word	-2109734912
+ 775 0128 5C00     		.short	92
+ 776 012a 0000     		.space	2
+ 777 012c F2010800 		.word	524786
+ 778 0130 00000088 		.word	-2013265920
+ 779 0134 00000000 		.word	0
+ 780 0138 4000     		.short	64
+ 781 013a 0000     		.space	2
+ 782 013c F20D0800 		.word	527858
+ 783 0140 0000008C 		.word	-1946157056
+ 784 0144 00000004 		.word	67108864
+ 785 0148 4000     		.short	64
+ 786 014a 0000     		.space	2
+ 787 014c F20D0800 		.word	527858
+ 788 0150 00000090 		.word	-1879048192
+ 789 0154 00000008 		.word	134217728
+ 790 0158 4000     		.short	64
+ 791 015a 0000     		.space	2
+ 792 015c F20D0800 		.word	527858
+ 793 0160 00000094 		.word	-1811939328
+ 794 0164 0000000C 		.word	201326592
+ 795 0168 4000     		.short	64
+ 796 016a 0000     		.space	2
+ 797 016c E24D0800 		.word	544226
+ 798 0170 00000098 		.word	-1744830464
+ 799 0174 00000010 		.word	268435456
+ 800 0178 4000     		.short	64
+ 801 017a 0000     		.space	2
+ 802 017c F20D0800 		.word	527858
+ 803 0180 0000009C 		.word	-1677721600
+ 804 0184 00000014 		.word	335544320
+ 805 0188 4000     		.short	64
+ 806 018a 0000     		.space	2
+ 807 018c F20D0800 		.word	527858
+ 808 0190 000000A0 		.word	-1610612736
+ 809 0194 00000030 		.word	805306368
+ 810 0198 0001     		.short	256
+ 811 019a 0000     		.space	2
+ 812 019c E20D0800 		.word	527842
+ 813 01a0 000000B0 		.word	-1342177280
+ 814 01a4 00000040 		.word	1073741824
+ 815 01a8 0001     		.short	256
+ 816 01aa 0000     		.space	2
+ 817 01ac E24D0800 		.word	544226
+ 818 01b0 000000C0 		.word	-1073741824
+ 819 01b4 00000050 		.word	1342177280
+ 820 01b8 0001     		.short	256
+ 821 01ba 0000     		.space	2
+ 822 01bc E20D0800 		.word	527842
+ 823 01c0 000000D0 		.word	-805306368
+ 824 01c4 00000060 		.word	1610612736
+ 825 01c8 0001     		.short	256
+ 826 01ca 0000     		.space	2
+ 827 01cc E24D0800 		.word	544226
+ 828 01d0 000000E0 		.word	-536870912
+ 829 01d4 000000E0 		.word	-536870912
+ 830 01d8 8000     		.short	128
+ 831 01da 0000     		.space	2
+ 832 01dc F2010800 		.word	524786
+ 833 01e0 000000E8 		.word	-402653184
+ 834 01e4 000000E8 		.word	-402653184
+ 835 01e8 8001     		.short	384
+ 836 01ea 0000     		.space	2
+ 837 01ec F20D0000 		.word	3570
+ 838              		.section	.rodata.SCIFA_SC_TABLE,"a",%progbits
+ 839              		.align	2
+ 842              	SCIFA_SC_TABLE:
+ 843 0000 04000000 		.word	4
+ 844 0004 00       		.byte	0
+ 845 0005 000000   		.space	3
+ 846 0008 80250000 		.word	9600
+ 847 000c 00       		.byte	0
+ 848 000d 00       		.byte	0
+ 849 000e 00       		.byte	0
+ 850 000f 00       		.byte	0
+ 851 0010 01       		.byte	1
+ 852 0011 00       		.byte	0
+ 853 0012 00       		.byte	0
+ 854 0013 00       		.byte	0
+ 855 0014 00       		.byte	0
+ 856 0015 00       		.byte	0
+ 857 0016 00       		.byte	0
+ 858 0017 0F       		.byte	15
+ 859 0018 01       		.byte	1
+ 860 0019 01       		.byte	1
+ 861 001a 01       		.byte	1
+ 862 001b 01       		.byte	1
+ 863 001c 01       		.byte	1
+ 864 001d 02       		.byte	2
+ 865 001e 02       		.byte	2
+ 866 001f 00       		.byte	0
+ 867 0020 1E       		.byte	30
+ 868 0021 1E       		.byte	30
+ 869 0022 00       		.byte	0
+ 870 0023 00       		.space	1
+ 871 0024 00000000 		.word	GPIO_SC_TABLE_scifa4
+ 872 0028 02000000 		.word	2
+ 873 002c 00000000 		.space	4
+ 874              		.section	.rodata.SDHI_SC_TABLE,"a",%progbits
+ 875              		.align	2
+ 878              	SDHI_SC_TABLE:
+ 879 0000 00000000 		.word	0
+ 880 0004 00       		.byte	0
+ 881 0005 01       		.byte	1
+ 882 0006 01       		.byte	1
+ 883 0007 00       		.space	1
+ 884 0008 00000000 		.word	fat_sample_cd_int_cb_function
+ 885 000c 00000000 		.word	GPIO_SC_TABLE_sdhi_simplified0
+ 886 0010 02000000 		.word	2
+ 887 0014 00000000 		.space	4
+ 888 0018 01000000 		.word	1
+ 889 001c 00       		.byte	0
+ 890 001d 00       		.byte	0
+ 891 001e 00       		.byte	0
+ 892 001f 00       		.space	1
+ 893 0020 00000000 		.word	0
+ 894 0024 00000000 		.word	GPIO_SC_TABLE_sdhi_simplified1
+ 895 0028 02000000 		.word	2
+ 896 002c 00000000 		.space	4
+ 897              		.section	.data.s_p83_hi,"aw",%progbits
+ 898              		.align	2
+ 901              	s_p83_hi:
+ 902 0000 0308     		.short	2051
+ 903 0002 02       		.byte	2
+ 904 0003 00       		.byte	0
+ 905              		.section	.data.s_p84_hi,"aw",%progbits
+ 906              		.align	2
+ 909              	s_p84_hi:
+ 910 0000 0408     		.short	2052
+ 911 0002 02       		.byte	2
+ 912 0003 00       		.byte	0
+ 913              		.section	.data.s_p85_hi,"aw",%progbits
+ 914              		.align	2
+ 917              	s_p85_hi:
+ 918 0000 0508     		.short	2053
+ 919 0002 02       		.byte	2
+ 920 0003 00       		.byte	0
+ 921              		.section	.data.s_p86_hi,"aw",%progbits
+ 922              		.align	2
+ 925              	s_p86_hi:
+ 926 0000 0608     		.short	2054
+ 927 0002 02       		.byte	2
+ 928 0003 00       		.byte	0
+ 929              		.section	.data.s_p83_lo,"aw",%progbits
+ 930              		.align	2
+ 933              	s_p83_lo:
+ 934 0000 0308     		.short	2051
+ 935 0002 01       		.byte	1
+ 936 0003 00       		.byte	0
+ 937              		.section	.data.s_p84_lo,"aw",%progbits
+ 938              		.align	2
+ 941              	s_p84_lo:
+ 942 0000 0408     		.short	2052
+ 943 0002 01       		.byte	1
+ 944 0003 00       		.byte	0
+ 945              		.section	.data.s_p85_lo,"aw",%progbits
+ 946              		.align	2
+ 949              	s_p85_lo:
+ 950 0000 0508     		.short	2053
+ 951 0002 01       		.byte	1
+ 952 0003 00       		.byte	0
+ 953              		.section	.data.s_p86_lo,"aw",%progbits
+ 954              		.align	2
+ 957              	s_p86_lo:
+ 958 0000 0608     		.short	2054
+ 959 0002 01       		.byte	1
+ 960 0003 00       		.byte	0
+ 961              		.section	.bss.s_p00,"aw",%nobits
+ 962              		.align	2
+ 965              	s_p00:
+ 966 0000 00000000 		.space	4
+ 967              		.section	.data.s_p81,"aw",%progbits
+ 968              		.align	2
+ 971              	s_p81:
+ 972 0000 0108     		.short	2049
+ 973 0002 00       		.byte	0
+ 974 0003 00       		.byte	0
+ 975              		.section	.bss.NRF_gpio_handle,"aw",%nobits
+ 976              		.align	2
+ 979              	NRF_gpio_handle:
+ 980 0000 00000000 		.space	4
+ 981              		.section	.rodata.NRF_pin_list,"a",%progbits
+ 982              		.align	2
+ 985              	NRF_pin_list:
+ 986 0000 0308     		.short	2051
+ 987 0002 0408     		.short	2052
+ 988 0004 0508     		.short	2053
+ 989 0006 0608     		.short	2054
+ 990              		.global	TX_ADDRESS
+ 991              		.section	.rodata.TX_ADDRESS,"a",%progbits
+ 992              		.align	2
+ 995              	TX_ADDRESS:
+ 996 0000 34       		.byte	52
+ 997 0001 43       		.byte	67
+ 998 0002 10       		.byte	16
+ 999 0003 10       		.byte	16
+ 1000 0004 01       		.byte	1
+ 1001              		.global	RX_ADDRESS
+ 1002              		.section	.rodata.RX_ADDRESS,"a",%progbits
+ 1003              		.align	2
+ 1006              	RX_ADDRESS:
+ 1007 0000 34       		.byte	52
+ 1008 0001 43       		.byte	67
+ 1009 0002 10       		.byte	16
+ 1010 0003 10       		.byte	16
+ 1011 0004 01       		.byte	1
+ 1012              		.section	.rodata
+ 1013              		.align	2
+ 1014              	.LC1:
+ 1015 0000 5C5C2E5C 		.ascii	"\\\\.\\gpio\000"
+ 1015      6770696F 
+ 1015      00
+ 1016              		.section	.text.NRF_Init,"ax",%progbits
+ 1017              		.align	2
+ 1018              		.global	NRF_Init
+ 1019              		.syntax unified
+ 1020              		.arm
+ 1021              		.fpu neon
+ 1023              	NRF_Init:
+ 1024              	.LFB3:
+ 1025              		.file 1 "../src/renesas/application/smart_car/NRF24L01/NRF24L01.c"
+   1:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** #include<NRF24L01.h>
+   2:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+   3:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //define some para
+   4:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //---------High-signal---------//
+   5:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //Pin-8
+   6:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p83_hi ={GPIO_PORT_8_PIN_3,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+   7:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p84_hi ={GPIO_PORT_8_PIN_4,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+   8:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p85_hi ={GPIO_PORT_8_PIN_5,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+   9:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p86_hi ={GPIO_PORT_8_PIN_6,GPIO_LEVEL_HIGH,GPIO_SUCCESS};
+  10:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  11:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //---------Low-signal---------//
+  12:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //Pin-8
+  13:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p83_lo ={GPIO_PORT_8_PIN_3,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  14:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p84_lo ={GPIO_PORT_8_PIN_4,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  15:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p85_lo ={GPIO_PORT_8_PIN_5,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  16:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p86_lo ={GPIO_PORT_8_PIN_6,GPIO_LEVEL_LOW,GPIO_SUCCESS};
+  17:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  18:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p00    ={GPIO_PORT_0_PIN_0, GPIO_LEVEL_SC_DEFAULT, GPIO_SUCCESS };
+  19:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static st_r_drv_gpio_pin_rw_t s_p81    ={GPIO_PORT_8_PIN_1, GPIO_LEVEL_SC_DEFAULT, GPIO_SUCCESS };
+  20:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  21:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static int_t NRF_gpio_handle;
+  22:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** static const r_gpio_port_pin_t NRF_pin_list[] =
+  23:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+  24:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	GPIO_PORT_8_PIN_3,
+  25:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	GPIO_PORT_8_PIN_4,
+  26:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	GPIO_PORT_8_PIN_5,
+  27:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	GPIO_PORT_8_PIN_6,
+  28:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** };
+  29:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  30:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //u8  MOSI,MISO,SCK,CSN,CE;
+  31:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** const u8 TX_ADDRESS[TX_ADR_WIDTH]={0x34,0x43,0x10,0x10,0x01};
+  32:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** const u8 RX_ADDRESS[RX_ADR_WIDTH]={0x34,0x43,0x10,0x10,0x01};
+  33:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  34:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** int_t NRF_Init(void)
+  35:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1026              		.loc 1 35 0
+ 1027              		.cfi_startproc
+ 1028              		@ args = 0, pretend = 0, frame = 16
+ 1029              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1030 0000 00482DE9 		push	{fp, lr}
+ 1031              		.cfi_def_cfa_offset 8
+ 1032              		.cfi_offset 11, -8
+ 1033              		.cfi_offset 14, -4
+ 1034 0004 04B08DE2 		add	fp, sp, #4
+ 1035              		.cfi_def_cfa 11, 4
+ 1036 0008 10D04DE2 		sub	sp, sp, #16
+  36:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     int_t err;
+  37:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     st_r_drv_gpio_pin_list_t pin_NRF;
+  38:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     char_t data;
+  39:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     NRF_gpio_handle = open(DEVICE_INDENTIFIER "gpio", O_RDWR);
+ 1037              		.loc 1 39 0
+ 1038 000c 0210A0E3 		mov	r1, #2
+ 1039 0010 000000E3 		movw	r0, #:lower16:.LC1
+ 1040 0014 000040E3 		movt	r0, #:upper16:.LC1
+ 1041 0018 FEFFFFEB 		bl	open
+ 1042 001c 0020A0E1 		mov	r2, r0
+ 1043 0020 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1044 0024 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1045 0028 002083E5 		str	r2, [r3]
+  40:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     pin_NRF.p_pin_list = NRF_pin_list;
+ 1046              		.loc 1 40 0
+ 1047 002c 003000E3 		movw	r3, #:lower16:NRF_pin_list
+ 1048 0030 003040E3 		movt	r3, #:upper16:NRF_pin_list
+ 1049 0034 14300BE5 		str	r3, [fp, #-20]
+  41:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     pin_NRF.count = (sizeof(NRF_pin_list)) / (sizeof(NRF_pin_list[0]));
+ 1050              		.loc 1 41 0
+ 1051 0038 0430A0E3 		mov	r3, #4
+ 1052 003c 10300BE5 		str	r3, [fp, #-16]
+  42:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     err = direct_control(NRF_gpio_handle, CTL_GPIO_INIT_BY_PIN_LIST, &pin_NRF);
+ 1053              		.loc 1 42 0
+ 1054 0040 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1055 0044 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1056 0048 003093E5 		ldr	r3, [r3]
+ 1057 004c 14204BE2 		sub	r2, fp, #20
+ 1058 0050 0210A0E3 		mov	r1, #2
+ 1059 0054 0300A0E1 		mov	r0, r3
+ 1060 0058 FEFFFFEB 		bl	direct_control
+ 1061 005c 08000BE5 		str	r0, [fp, #-8]
+  43:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     NRF24L01_RX_Mode(90);
+ 1062              		.loc 1 43 0
+ 1063 0060 5A00A0E3 		mov	r0, #90
+ 1064 0064 FEFFFFEB 		bl	NRF24L01_RX_Mode
+  44:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     return err;
+ 1065              		.loc 1 44 0
+ 1066 0068 08301BE5 		ldr	r3, [fp, #-8]
+  45:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1067              		.loc 1 45 0
+ 1068 006c 0300A0E1 		mov	r0, r3
+ 1069 0070 04D04BE2 		sub	sp, fp, #4
+ 1070              		.cfi_def_cfa 13, 8
+ 1071              		@ sp needed
+ 1072 0074 0088BDE8 		pop	{fp, pc}
+ 1073              		.cfi_endproc
+ 1074              	.LFE3:
+ 1076              		.section	.text.SPI_RW,"ax",%progbits
+ 1077              		.align	2
+ 1078              		.global	SPI_RW
+ 1079              		.syntax unified
+ 1080              		.arm
+ 1081              		.fpu neon
+ 1083              	SPI_RW:
+ 1084              	.LFB4:
+  46:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  47:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 写一个字节到24L01，同时读出一个字节
+  48:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 SPI_RW(u8 byte)
+  49:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1085              		.loc 1 49 0
+ 1086              		.cfi_startproc
+ 1087              		@ args = 0, pretend = 0, frame = 16
+ 1088              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1089 0000 00482DE9 		push	{fp, lr}
+ 1090              		.cfi_def_cfa_offset 8
+ 1091              		.cfi_offset 11, -8
+ 1092              		.cfi_offset 14, -4
+ 1093 0004 04B08DE2 		add	fp, sp, #4
+ 1094              		.cfi_def_cfa 11, 4
+ 1095 0008 10D04DE2 		sub	sp, sp, #16
+ 1096 000c 0030A0E1 		mov	r3, r0
+ 1097 0010 0D304BE5 		strb	r3, [fp, #-13]
+  50:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 bit_ctr;
+  51:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(bit_ctr=0;bit_ctr<8;bit_ctr++) // output 8-bit
+ 1098              		.loc 1 51 0
+ 1099 0014 0030A0E3 		mov	r3, #0
+ 1100 0018 05304BE5 		strb	r3, [fp, #-5]
+ 1101 001c 370000EA 		b	.L4
+ 1102              	.L7:
+  52:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+  53:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		if  (byte & 0x80)
+ 1103              		.loc 1 53 0
+ 1104 0020 DD305BE1 		ldrsb	r3, [fp, #-13]
+ 1105 0024 000053E3 		cmp	r3, #0
+ 1106 0028 080000AA 		bge	.L5
+  54:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 			NRF_MOSI_1;
+ 1107              		.loc 1 54 0
+ 1108 002c 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1109 0030 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1110 0034 003093E5 		ldr	r3, [r3]
+ 1111 0038 002000E3 		movw	r2, #:lower16:s_p86_hi
+ 1112 003c 002040E3 		movt	r2, #:upper16:s_p86_hi
+ 1113 0040 0810A0E3 		mov	r1, #8
+ 1114 0044 0300A0E1 		mov	r0, r3
+ 1115 0048 FEFFFFEB 		bl	direct_control
+ 1116 004c 070000EA 		b	.L6
+ 1117              	.L5:
+  55:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		else NRF_MOSI_0;   // output 'u8', MSB to MOSI
+ 1118              		.loc 1 55 0
+ 1119 0050 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1120 0054 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1121 0058 003093E5 		ldr	r3, [r3]
+ 1122 005c 002000E3 		movw	r2, #:lower16:s_p86_lo
+ 1123 0060 002040E3 		movt	r2, #:upper16:s_p86_lo
+ 1124 0064 0810A0E3 		mov	r1, #8
+ 1125 0068 0300A0E1 		mov	r0, r3
+ 1126 006c FEFFFFEB 		bl	direct_control
+ 1127              	.L6:
+  56:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  57:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		byte = (byte << 1); // shift next bit into MSB..
+ 1128              		.loc 1 57 0 discriminator 2
+ 1129 0070 0D305BE5 		ldrb	r3, [fp, #-13]
+ 1130 0074 8330A0E1 		lsl	r3, r3, #1
+ 1131 0078 0D304BE5 		strb	r3, [fp, #-13]
+  58:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		NRF_SCK_1; // Set SCK high..
+ 1132              		.loc 1 58 0 discriminator 2
+ 1133 007c 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1134 0080 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1135 0084 003093E5 		ldr	r3, [r3]
+ 1136 0088 002000E3 		movw	r2, #:lower16:s_p85_hi
+ 1137 008c 002040E3 		movt	r2, #:upper16:s_p85_hi
+ 1138 0090 0810A0E3 		mov	r1, #8
+ 1139 0094 0300A0E1 		mov	r0, r3
+ 1140 0098 FEFFFFEB 		bl	direct_control
+  59:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		byte |= NRF_MISO; // capture current MISO bit
+ 1141              		.loc 1 59 0 discriminator 2
+ 1142 009c 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1143 00a0 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1144 00a4 002093E5 		ldr	r2, [r3]
+ 1145 00a8 003000E3 		movw	r3, #:lower16:s_p81
+ 1146 00ac 003040E3 		movt	r3, #:upper16:s_p81
+ 1147 00b0 001093E5 		ldr	r1, [r3]
+ 1148 00b4 0200A0E1 		mov	r0, r2
+ 1149 00b8 FEFFFFEB 		bl	Read_Bit
+ 1150 00bc 0030A0E1 		mov	r3, r0
+ 1151 00c0 7320AFE6 		sxtb	r2, r3
+ 1152 00c4 DD305BE1 		ldrsb	r3, [fp, #-13]
+ 1153 00c8 033082E1 		orr	r3, r2, r3
+ 1154 00cc 7330AFE6 		sxtb	r3, r3
+ 1155 00d0 0D304BE5 		strb	r3, [fp, #-13]
+  60:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		NRF_SCK_0; // ..then set SCK low again
+ 1156              		.loc 1 60 0 discriminator 2
+ 1157 00d4 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1158 00d8 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1159 00dc 003093E5 		ldr	r3, [r3]
+ 1160 00e0 002000E3 		movw	r2, #:lower16:s_p85_lo
+ 1161 00e4 002040E3 		movt	r2, #:upper16:s_p85_lo
+ 1162 00e8 0810A0E3 		mov	r1, #8
+ 1163 00ec 0300A0E1 		mov	r0, r3
+ 1164 00f0 FEFFFFEB 		bl	direct_control
+  51:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+ 1165              		.loc 1 51 0 discriminator 2
+ 1166 00f4 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1167 00f8 013083E2 		add	r3, r3, #1
+ 1168 00fc 05304BE5 		strb	r3, [fp, #-5]
+ 1169              	.L4:
+  51:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+ 1170              		.loc 1 51 0 is_stmt 0 discriminator 1
+ 1171 0100 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1172 0104 070053E3 		cmp	r3, #7
+ 1173 0108 C4FFFF9A 		bls	.L7
+  61:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	}
+  62:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return(byte); // return read byte
+ 1174              		.loc 1 62 0 is_stmt 1
+ 1175 010c 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+  63:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1176              		.loc 1 63 0
+ 1177 0110 0300A0E1 		mov	r0, r3
+ 1178 0114 04D04BE2 		sub	sp, fp, #4
+ 1179              		.cfi_def_cfa 13, 8
+ 1180              		@ sp needed
+ 1181 0118 0088BDE8 		pop	{fp, pc}
+ 1182              		.cfi_endproc
+ 1183              	.LFE4:
+ 1185              		.section	.text.SPI_Write_Reg,"ax",%progbits
+ 1186              		.align	2
+ 1187              		.global	SPI_Write_Reg
+ 1188              		.syntax unified
+ 1189              		.arm
+ 1190              		.fpu neon
+ 1192              	SPI_Write_Reg:
+ 1193              	.LFB5:
+  64:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  65:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // SPI写寄存器
+  66:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // reg：指定的寄存器
+  67:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // value：写入的值
+  68:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //向寄存器reg写一个字节，同时返回状态字节
+  69:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 SPI_Write_Reg(u8 reg, u8 value)
+  70:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1194              		.loc 1 70 0
+ 1195              		.cfi_startproc
+ 1196              		@ args = 0, pretend = 0, frame = 16
+ 1197              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1198 0000 00482DE9 		push	{fp, lr}
+ 1199              		.cfi_def_cfa_offset 8
+ 1200              		.cfi_offset 11, -8
+ 1201              		.cfi_offset 14, -4
+ 1202 0004 04B08DE2 		add	fp, sp, #4
+ 1203              		.cfi_def_cfa 11, 4
+ 1204 0008 10D04DE2 		sub	sp, sp, #16
+ 1205 000c 0030A0E1 		mov	r3, r0
+ 1206 0010 0120A0E1 		mov	r2, r1
+ 1207 0014 0D304BE5 		strb	r3, [fp, #-13]
+ 1208 0018 0230A0E1 		mov	r3, r2
+ 1209 001c 0E304BE5 		strb	r3, [fp, #-14]
+  71:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 status;
+  72:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_0; // CSN low, init SPI transaction
+ 1210              		.loc 1 72 0
+ 1211 0020 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1212 0024 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1213 0028 003093E5 		ldr	r3, [r3]
+ 1214 002c 002000E3 		movw	r2, #:lower16:s_p84_lo
+ 1215 0030 002040E3 		movt	r2, #:upper16:s_p84_lo
+ 1216 0034 0810A0E3 		mov	r1, #8
+ 1217 0038 0300A0E1 		mov	r0, r3
+ 1218 003c FEFFFFEB 		bl	direct_control
+  73:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	status = SPI_RW(reg); // select register
+ 1219              		.loc 1 73 0
+ 1220 0040 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 1221 0044 0300A0E1 		mov	r0, r3
+ 1222 0048 FEFFFFEB 		bl	SPI_RW
+ 1223 004c 0030A0E1 		mov	r3, r0
+ 1224 0050 05304BE5 		strb	r3, [fp, #-5]
+  74:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_RW(value); // ..and write value to it..
+ 1225              		.loc 1 74 0
+ 1226 0054 0E305BE5 		ldrb	r3, [fp, #-14]	@ zero_extendqisi2
+ 1227 0058 0300A0E1 		mov	r0, r3
+ 1228 005c FEFFFFEB 		bl	SPI_RW
+  75:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_1; // CSN high again
+ 1229              		.loc 1 75 0
+ 1230 0060 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1231 0064 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1232 0068 003093E5 		ldr	r3, [r3]
+ 1233 006c 002000E3 		movw	r2, #:lower16:s_p84_hi
+ 1234 0070 002040E3 		movt	r2, #:upper16:s_p84_hi
+ 1235 0074 0810A0E3 		mov	r1, #8
+ 1236 0078 0300A0E1 		mov	r0, r3
+ 1237 007c FEFFFFEB 		bl	direct_control
+  76:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return(status); // return nRF24L01 status u8
+ 1238              		.loc 1 76 0
+ 1239 0080 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+  77:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1240              		.loc 1 77 0
+ 1241 0084 0300A0E1 		mov	r0, r3
+ 1242 0088 04D04BE2 		sub	sp, fp, #4
+ 1243              		.cfi_def_cfa 13, 8
+ 1244              		@ sp needed
+ 1245 008c 0088BDE8 		pop	{fp, pc}
+ 1246              		.cfi_endproc
+ 1247              	.LFE5:
+ 1249              		.section	.text.SPI_Read_Reg,"ax",%progbits
+ 1250              		.align	2
+ 1251              		.global	SPI_Read_Reg
+ 1252              		.syntax unified
+ 1253              		.arm
+ 1254              		.fpu neon
+ 1256              	SPI_Read_Reg:
+ 1257              	.LFB6:
+  78:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //SPI读寄存器
+  79:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //reg:要读取的寄存器
+  80:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 SPI_Read_Reg(u8 reg)
+  81:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1258              		.loc 1 81 0
+ 1259              		.cfi_startproc
+ 1260              		@ args = 0, pretend = 0, frame = 16
+ 1261              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1262 0000 00482DE9 		push	{fp, lr}
+ 1263              		.cfi_def_cfa_offset 8
+ 1264              		.cfi_offset 11, -8
+ 1265              		.cfi_offset 14, -4
+ 1266 0004 04B08DE2 		add	fp, sp, #4
+ 1267              		.cfi_def_cfa 11, 4
+ 1268 0008 10D04DE2 		sub	sp, sp, #16
+ 1269 000c 0030A0E1 		mov	r3, r0
+ 1270 0010 0D304BE5 		strb	r3, [fp, #-13]
+  82:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 reg_val;
+  83:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_0; // CSN low, init SPI transaction
+ 1271              		.loc 1 83 0
+ 1272 0014 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1273 0018 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1274 001c 003093E5 		ldr	r3, [r3]
+ 1275 0020 002000E3 		movw	r2, #:lower16:s_p84_lo
+ 1276 0024 002040E3 		movt	r2, #:upper16:s_p84_lo
+ 1277 0028 0810A0E3 		mov	r1, #8
+ 1278 002c 0300A0E1 		mov	r0, r3
+ 1279 0030 FEFFFFEB 		bl	direct_control
+  84:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_RW(reg); // select register
+ 1280              		.loc 1 84 0
+ 1281 0034 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 1282 0038 0300A0E1 		mov	r0, r3
+ 1283 003c FEFFFFEB 		bl	SPI_RW
+  85:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	reg_val=SPI_RW(0XFF); // ..and write value to it..
+ 1284              		.loc 1 85 0
+ 1285 0040 FF00A0E3 		mov	r0, #255
+ 1286 0044 FEFFFFEB 		bl	SPI_RW
+ 1287 0048 0030A0E1 		mov	r3, r0
+ 1288 004c 05304BE5 		strb	r3, [fp, #-5]
+  86:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_1; // CSN high again
+ 1289              		.loc 1 86 0
+ 1290 0050 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1291 0054 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1292 0058 003093E5 		ldr	r3, [r3]
+ 1293 005c 002000E3 		movw	r2, #:lower16:s_p84_hi
+ 1294 0060 002040E3 		movt	r2, #:upper16:s_p84_hi
+ 1295 0064 0810A0E3 		mov	r1, #8
+ 1296 0068 0300A0E1 		mov	r0, r3
+ 1297 006c FEFFFFEB 		bl	direct_control
+  87:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return(reg_val); // return nRF24L01 status u8
+ 1298              		.loc 1 87 0
+ 1299 0070 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+  88:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1300              		.loc 1 88 0
+ 1301 0074 0300A0E1 		mov	r0, r3
+ 1302 0078 04D04BE2 		sub	sp, fp, #4
+ 1303              		.cfi_def_cfa 13, 8
+ 1304              		@ sp needed
+ 1305 007c 0088BDE8 		pop	{fp, pc}
+ 1306              		.cfi_endproc
+ 1307              	.LFE6:
+ 1309              		.section	.rodata
+ 1310 0009 000000   		.align	2
+ 1311              	.LC0:
+ 1312 000c A5       		.byte	-91
+ 1313 000d A5       		.byte	-91
+ 1314 000e A5       		.byte	-91
+ 1315 000f A5       		.byte	-91
+ 1316 0010 A5       		.byte	-91
+ 1317              		.section	.text.NRF24L01_Check,"ax",%progbits
+ 1318              		.align	2
+ 1319              		.global	NRF24L01_Check
+ 1320              		.syntax unified
+ 1321              		.arm
+ 1322              		.fpu neon
+ 1324              	NRF24L01_Check:
+ 1325              	.LFB7:
+  89:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  90:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 NRF24L01_Check(void)
+  91:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1326              		.loc 1 91 0
+ 1327              		.cfi_startproc
+ 1328              		@ args = 0, pretend = 0, frame = 16
+ 1329              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1330 0000 00482DE9 		push	{fp, lr}
+ 1331              		.cfi_def_cfa_offset 8
+ 1332              		.cfi_offset 11, -8
+ 1333              		.cfi_offset 14, -4
+ 1334 0004 04B08DE2 		add	fp, sp, #4
+ 1335              		.cfi_def_cfa 11, 4
+ 1336 0008 10D04DE2 		sub	sp, sp, #16
+  92:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};
+ 1337              		.loc 1 92 0
+ 1338 000c 002000E3 		movw	r2, #:lower16:.LC0
+ 1339 0010 002040E3 		movt	r2, #:upper16:.LC0
+ 1340 0014 0C304BE2 		sub	r3, fp, #12
+ 1341 0018 030092E8 		ldm	r2, {r0, r1}
+ 1342 001c 000083E5 		str	r0, [r3]
+ 1343 0020 043083E2 		add	r3, r3, #4
+ 1344 0024 0010C3E5 		strb	r1, [r3]
+  93:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 buf2[5]={0X00};
+ 1345              		.loc 1 93 0
+ 1346 0028 14304BE2 		sub	r3, fp, #20
+ 1347 002c 0020A0E3 		mov	r2, #0
+ 1348 0030 002083E5 		str	r2, [r3]
+ 1349 0034 0420C3E5 		strb	r2, [r3, #4]
+  94:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+  95:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 i;
+  96:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Buf(WRITE_REG+TX_ADDR,buf,5);
+ 1350              		.loc 1 96 0
+ 1351 0038 0C304BE2 		sub	r3, fp, #12
+ 1352 003c 0520A0E3 		mov	r2, #5
+ 1353 0040 0310A0E1 		mov	r1, r3
+ 1354 0044 3000A0E3 		mov	r0, #48
+ 1355 0048 FEFFFFEB 		bl	SPI_Write_Buf
+  97:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Read_Buf(TX_ADDR,buf2,5); //读出写的地址
+ 1356              		.loc 1 97 0
+ 1357 004c 14304BE2 		sub	r3, fp, #20
+ 1358 0050 0520A0E3 		mov	r2, #5
+ 1359 0054 0310A0E1 		mov	r1, r3
+ 1360 0058 1000A0E3 		mov	r0, #16
+ 1361 005c FEFFFFEB 		bl	SPI_Read_Buf
+  98:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(i=0;i<5;i++)if(buf[i]!=0XA5)break;
+ 1362              		.loc 1 98 0
+ 1363 0060 0030A0E3 		mov	r3, #0
+ 1364 0064 05304BE5 		strb	r3, [fp, #-5]
+ 1365 0068 080000EA 		b	.L14
+ 1366              	.L17:
+ 1367              		.loc 1 98 0 is_stmt 0 discriminator 4
+ 1368 006c 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1369 0070 04204BE2 		sub	r2, fp, #4
+ 1370 0074 033082E0 		add	r3, r2, r3
+ 1371 0078 083053E5 		ldrb	r3, [r3, #-8]	@ zero_extendqisi2
+ 1372 007c A50053E3 		cmp	r3, #165
+ 1373 0080 0600001A 		bne	.L21
+ 1374              		.loc 1 98 0 discriminator 2
+ 1375 0084 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1376 0088 013083E2 		add	r3, r3, #1
+ 1377 008c 05304BE5 		strb	r3, [fp, #-5]
+ 1378              	.L14:
+ 1379              		.loc 1 98 0 discriminator 3
+ 1380 0090 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1381 0094 040053E3 		cmp	r3, #4
+ 1382 0098 F3FFFF9A 		bls	.L17
+ 1383 009c 000000EA 		b	.L16
+ 1384              	.L21:
+ 1385              		.loc 1 98 0
+ 1386 00a0 00F020E3 		nop
+ 1387              	.L16:
+  99:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	if(i!=5)return 1;//error
+ 1388              		.loc 1 99 0 is_stmt 1
+ 1389 00a4 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1390 00a8 050053E3 		cmp	r3, #5
+ 1391 00ac 0100000A 		beq	.L18
+ 1392              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 1393 00b0 0130A0E3 		mov	r3, #1
+ 1394 00b4 000000EA 		b	.L20
+ 1395              	.L18:
+ 100:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return 0;		 //normal
+ 1396              		.loc 1 100 0 is_stmt 1
+ 1397 00b8 0030A0E3 		mov	r3, #0
+ 1398              	.L20:
+ 101:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1399              		.loc 1 101 0 discriminator 1
+ 1400 00bc 0300A0E1 		mov	r0, r3
+ 1401 00c0 04D04BE2 		sub	sp, fp, #4
+ 1402              		.cfi_def_cfa 13, 8
+ 1403              		@ sp needed
+ 1404 00c4 0088BDE8 		pop	{fp, pc}
+ 1405              		.cfi_endproc
+ 1406              	.LFE7:
+ 1408              		.section	.text.SPI_Read_Buf,"ax",%progbits
+ 1409              		.align	2
+ 1410              		.global	SPI_Read_Buf
+ 1411              		.syntax unified
+ 1412              		.arm
+ 1413              		.fpu neon
+ 1415              	SPI_Read_Buf:
+ 1416              	.LFB8:
+ 102:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 103:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 读出len字节的数据
+ 104:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 SPI_Read_Buf(u8 reg, u8 *pBuf, u8 len)
+ 105:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1417              		.loc 1 105 0
+ 1418              		.cfi_startproc
+ 1419              		@ args = 0, pretend = 0, frame = 16
+ 1420              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1421 0000 10482DE9 		push	{r4, fp, lr}
+ 1422              		.cfi_def_cfa_offset 12
+ 1423              		.cfi_offset 4, -12
+ 1424              		.cfi_offset 11, -8
+ 1425              		.cfi_offset 14, -4
+ 1426 0004 08B08DE2 		add	fp, sp, #8
+ 1427              		.cfi_def_cfa 11, 4
+ 1428 0008 14D04DE2 		sub	sp, sp, #20
+ 1429 000c 0030A0E1 		mov	r3, r0
+ 1430 0010 1C100BE5 		str	r1, [fp, #-28]
+ 1431 0014 15304BE5 		strb	r3, [fp, #-21]
+ 1432 0018 0230A0E1 		mov	r3, r2
+ 1433 001c 16304BE5 		strb	r3, [fp, #-22]
+ 106:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 status,u8_ctr;
+ 107:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_0; // Set CSN low, init SPI tranaction
+ 1434              		.loc 1 107 0
+ 1435 0020 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1436 0024 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1437 0028 003093E5 		ldr	r3, [r3]
+ 1438 002c 002000E3 		movw	r2, #:lower16:s_p84_lo
+ 1439 0030 002040E3 		movt	r2, #:upper16:s_p84_lo
+ 1440 0034 0810A0E3 		mov	r1, #8
+ 1441 0038 0300A0E1 		mov	r0, r3
+ 1442 003c FEFFFFEB 		bl	direct_control
+ 108:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	status = SPI_RW(reg); // Select register to write to and read status u8
+ 1443              		.loc 1 108 0
+ 1444 0040 15305BE5 		ldrb	r3, [fp, #-21]	@ zero_extendqisi2
+ 1445 0044 0300A0E1 		mov	r0, r3
+ 1446 0048 FEFFFFEB 		bl	SPI_RW
+ 1447 004c 0030A0E1 		mov	r3, r0
+ 1448 0050 0E304BE5 		strb	r3, [fp, #-14]
+ 109:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0;u8_ctr<len;u8_ctr++)
+ 1449              		.loc 1 109 0
+ 1450 0054 0030A0E3 		mov	r3, #0
+ 1451 0058 0D304BE5 		strb	r3, [fp, #-13]
+ 1452 005c 090000EA 		b	.L23
+ 1453              	.L24:
+ 110:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		pBuf[u8_ctr] = SPI_RW(0xFF); //
+ 1454              		.loc 1 110 0 discriminator 3
+ 1455 0060 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 1456 0064 1C201BE5 		ldr	r2, [fp, #-28]
+ 1457 0068 034082E0 		add	r4, r2, r3
+ 1458 006c FF00A0E3 		mov	r0, #255
+ 1459 0070 FEFFFFEB 		bl	SPI_RW
+ 1460 0074 0030A0E1 		mov	r3, r0
+ 1461 0078 0030C4E5 		strb	r3, [r4]
+ 109:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0;u8_ctr<len;u8_ctr++)
+ 1462              		.loc 1 109 0 discriminator 3
+ 1463 007c 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 1464 0080 013083E2 		add	r3, r3, #1
+ 1465 0084 0D304BE5 		strb	r3, [fp, #-13]
+ 1466              	.L23:
+ 109:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0;u8_ctr<len;u8_ctr++)
+ 1467              		.loc 1 109 0 is_stmt 0 discriminator 1
+ 1468 0088 0D205BE5 		ldrb	r2, [fp, #-13]	@ zero_extendqisi2
+ 1469 008c 16305BE5 		ldrb	r3, [fp, #-22]	@ zero_extendqisi2
+ 1470 0090 030052E1 		cmp	r2, r3
+ 1471 0094 F1FFFF3A 		bcc	.L24
+ 111:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_1;
+ 1472              		.loc 1 111 0 is_stmt 1
+ 1473 0098 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1474 009c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1475 00a0 003093E5 		ldr	r3, [r3]
+ 1476 00a4 002000E3 		movw	r2, #:lower16:s_p84_hi
+ 1477 00a8 002040E3 		movt	r2, #:upper16:s_p84_hi
+ 1478 00ac 0810A0E3 		mov	r1, #8
+ 1479 00b0 0300A0E1 		mov	r0, r3
+ 1480 00b4 FEFFFFEB 		bl	direct_control
+ 112:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return(status); // return nRF24L01 status u8
+ 1481              		.loc 1 112 0
+ 1482 00b8 0E305BE5 		ldrb	r3, [fp, #-14]	@ zero_extendqisi2
+ 113:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1483              		.loc 1 113 0
+ 1484 00bc 0300A0E1 		mov	r0, r3
+ 1485 00c0 08D04BE2 		sub	sp, fp, #8
+ 1486              		.cfi_def_cfa 13, 12
+ 1487              		@ sp needed
+ 1488 00c4 1088BDE8 		pop	{r4, fp, pc}
+ 1489              		.cfi_endproc
+ 1490              	.LFE8:
+ 1492              		.section	.text.SPI_Write_Buf,"ax",%progbits
+ 1493              		.align	2
+ 1494              		.global	SPI_Write_Buf
+ 1495              		.syntax unified
+ 1496              		.arm
+ 1497              		.fpu neon
+ 1499              	SPI_Write_Buf:
+ 1500              	.LFB9:
+ 114:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 写入len字节的数据
+ 115:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 SPI_Write_Buf(u8 reg, u8 *pBuf, u8 len)
+ 116:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1501              		.loc 1 116 0
+ 1502              		.cfi_startproc
+ 1503              		@ args = 0, pretend = 0, frame = 16
+ 1504              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1505 0000 00482DE9 		push	{fp, lr}
+ 1506              		.cfi_def_cfa_offset 8
+ 1507              		.cfi_offset 11, -8
+ 1508              		.cfi_offset 14, -4
+ 1509 0004 04B08DE2 		add	fp, sp, #4
+ 1510              		.cfi_def_cfa 11, 4
+ 1511 0008 10D04DE2 		sub	sp, sp, #16
+ 1512 000c 0030A0E1 		mov	r3, r0
+ 1513 0010 14100BE5 		str	r1, [fp, #-20]
+ 1514 0014 0D304BE5 		strb	r3, [fp, #-13]
+ 1515 0018 0230A0E1 		mov	r3, r2
+ 1516 001c 0E304BE5 		strb	r3, [fp, #-14]
+ 117:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 status,u8_ctr;
+ 118:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_0;
+ 1517              		.loc 1 118 0
+ 1518 0020 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1519 0024 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1520 0028 003093E5 		ldr	r3, [r3]
+ 1521 002c 002000E3 		movw	r2, #:lower16:s_p84_lo
+ 1522 0030 002040E3 		movt	r2, #:upper16:s_p84_lo
+ 1523 0034 0810A0E3 		mov	r1, #8
+ 1524 0038 0300A0E1 		mov	r0, r3
+ 1525 003c FEFFFFEB 		bl	direct_control
+ 119:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	status = SPI_RW(reg);
+ 1526              		.loc 1 119 0
+ 1527 0040 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 1528 0044 0300A0E1 		mov	r0, r3
+ 1529 0048 FEFFFFEB 		bl	SPI_RW
+ 1530 004c 0030A0E1 		mov	r3, r0
+ 1531 0050 06304BE5 		strb	r3, [fp, #-6]
+ 120:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0; u8_ctr<len; u8_ctr++) //
+ 1532              		.loc 1 120 0
+ 1533 0054 0030A0E3 		mov	r3, #0
+ 1534 0058 05304BE5 		strb	r3, [fp, #-5]
+ 1535 005c 080000EA 		b	.L27
+ 1536              	.L28:
+ 121:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		SPI_RW(*pBuf++);
+ 1537              		.loc 1 121 0 discriminator 3
+ 1538 0060 14301BE5 		ldr	r3, [fp, #-20]
+ 1539 0064 012083E2 		add	r2, r3, #1
+ 1540 0068 14200BE5 		str	r2, [fp, #-20]
+ 1541 006c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1542 0070 0300A0E1 		mov	r0, r3
+ 1543 0074 FEFFFFEB 		bl	SPI_RW
+ 120:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0; u8_ctr<len; u8_ctr++) //
+ 1544              		.loc 1 120 0 discriminator 3
+ 1545 0078 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1546 007c 013083E2 		add	r3, r3, #1
+ 1547 0080 05304BE5 		strb	r3, [fp, #-5]
+ 1548              	.L27:
+ 120:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	for(u8_ctr=0; u8_ctr<len; u8_ctr++) //
+ 1549              		.loc 1 120 0 is_stmt 0 discriminator 1
+ 1550 0084 05205BE5 		ldrb	r2, [fp, #-5]	@ zero_extendqisi2
+ 1551 0088 0E305BE5 		ldrb	r3, [fp, #-14]	@ zero_extendqisi2
+ 1552 008c 030052E1 		cmp	r2, r3
+ 1553 0090 F2FFFF3A 		bcc	.L28
+ 122:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_1; // Set CSN high again
+ 1554              		.loc 1 122 0 is_stmt 1
+ 1555 0094 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1556 0098 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1557 009c 003093E5 		ldr	r3, [r3]
+ 1558 00a0 002000E3 		movw	r2, #:lower16:s_p84_hi
+ 1559 00a4 002040E3 		movt	r2, #:upper16:s_p84_hi
+ 1560 00a8 0810A0E3 		mov	r1, #8
+ 1561 00ac 0300A0E1 		mov	r0, r3
+ 1562 00b0 FEFFFFEB 		bl	direct_control
+ 123:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return(status); //
+ 1563              		.loc 1 123 0
+ 1564 00b4 06305BE5 		ldrb	r3, [fp, #-6]	@ zero_extendqisi2
+ 124:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1565              		.loc 1 124 0
+ 1566 00b8 0300A0E1 		mov	r0, r3
+ 1567 00bc 04D04BE2 		sub	sp, fp, #4
+ 1568              		.cfi_def_cfa 13, 8
+ 1569              		@ sp needed
+ 1570 00c0 0088BDE8 		pop	{fp, pc}
+ 1571              		.cfi_endproc
+ 1572              	.LFE9:
+ 1574              		.section	.text.nRF24L01_RxPacket,"ax",%progbits
+ 1575              		.align	2
+ 1576              		.global	nRF24L01_RxPacket
+ 1577              		.syntax unified
+ 1578              		.arm
+ 1579              		.fpu neon
+ 1581              	nRF24L01_RxPacket:
+ 1582              	.LFB10:
+ 125:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 126:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 接收函数，返回1表示有数据收到，否则没有数据接受到
+ 127:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 nRF24L01_RxPacket(unsigned char* rx_buf)
+ 128:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1583              		.loc 1 128 0
+ 1584              		.cfi_startproc
+ 1585              		@ args = 0, pretend = 0, frame = 16
+ 1586              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1587 0000 00482DE9 		push	{fp, lr}
+ 1588              		.cfi_def_cfa_offset 8
+ 1589              		.cfi_offset 11, -8
+ 1590              		.cfi_offset 14, -4
+ 1591 0004 04B08DE2 		add	fp, sp, #4
+ 1592              		.cfi_def_cfa 11, 4
+ 1593 0008 10D04DE2 		sub	sp, sp, #16
+ 1594 000c 10000BE5 		str	r0, [fp, #-16]
+ 129:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	u8 revale=0;
+ 130:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 sta;
+ 131:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	// set in RX mode
+ 132:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	SPI_Write_Reg(WRITE_REG + CONFIG, 0x0f); // Set PWR_UP bit, enable CRC(2 u8s) &Prim:RX. RX_DR en
+ 133:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	NRF_CE_1; // Set CE pin high to enable RX device
+ 134:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	R_OS_TaskSleep(130);
+ 135:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	sta=SPI_Read_Reg(STATUS); // read register STATUS's value
+ 1595              		.loc 1 135 0
+ 1596 0010 0700A0E3 		mov	r0, #7
+ 1597 0014 FEFFFFEB 		bl	SPI_Read_Reg
+ 1598 0018 0030A0E1 		mov	r3, r0
+ 1599 001c 05304BE5 		strb	r3, [fp, #-5]
+ 136:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG+STATUS,sta);// clear RX_DR or TX_DS or MAX_RT interruptflag
+ 1600              		.loc 1 136 0
+ 1601 0020 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1602 0024 0310A0E1 		mov	r1, r3
+ 1603 0028 2700A0E3 		mov	r0, #39
+ 1604 002c FEFFFFEB 		bl	SPI_Write_Reg
+ 137:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	if(sta&RX_OK) // if receive data ready (RX_DR) interrupt
+ 1605              		.loc 1 137 0
+ 1606 0030 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1607 0034 403003E2 		and	r3, r3, #64
+ 1608 0038 000053E3 		cmp	r3, #0
+ 1609 003c 0800000A 		beq	.L31
+ 138:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+ 139:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //		NRF_CE_0; // stand by mode
+ 140:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		SPI_Read_Buf(RD_RX_PLOAD,rx_buf,RX_PLOAD_WIDTH);// read receive payload fromRX_FIFO buffer
+ 1610              		.loc 1 140 0
+ 1611 0040 2020A0E3 		mov	r2, #32
+ 1612 0044 10101BE5 		ldr	r1, [fp, #-16]
+ 1613 0048 6100A0E3 		mov	r0, #97
+ 1614 004c FEFFFFEB 		bl	SPI_Read_Buf
+ 141:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		SPI_Write_Reg(FLUSH_RX,0xff);
+ 1615              		.loc 1 141 0
+ 1616 0050 FF10A0E3 		mov	r1, #255
+ 1617 0054 E200A0E3 		mov	r0, #226
+ 1618 0058 FEFFFFEB 		bl	SPI_Write_Reg
+ 142:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		return 0;
+ 1619              		.loc 1 142 0
+ 1620 005c 0030A0E3 		mov	r3, #0
+ 1621 0060 000000EA 		b	.L32
+ 1622              	.L31:
+ 143:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //		revale =1;
+ 144:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	}
+ 145:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 146:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return 1;
+ 1623              		.loc 1 146 0
+ 1624 0064 0130A0E3 		mov	r3, #1
+ 1625              	.L32:
+ 147:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1626              		.loc 1 147 0
+ 1627 0068 0300A0E1 		mov	r0, r3
+ 1628 006c 04D04BE2 		sub	sp, fp, #4
+ 1629              		.cfi_def_cfa 13, 8
+ 1630              		@ sp needed
+ 1631 0070 0088BDE8 		pop	{fp, pc}
+ 1632              		.cfi_endproc
+ 1633              	.LFE10:
+ 1635              		.section	.text.nRF24L01_TxPacket,"ax",%progbits
+ 1636              		.align	2
+ 1637              		.global	nRF24L01_TxPacket
+ 1638              		.syntax unified
+ 1639              		.arm
+ 1640              		.fpu neon
+ 1642              	nRF24L01_TxPacket:
+ 1643              	.LFB11:
+ 148:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 149:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 发送函数
+ 150:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** u8 nRF24L01_TxPacket(unsigned char * tx_buf)
+ 151:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1644              		.loc 1 151 0
+ 1645              		.cfi_startproc
+ 1646              		@ args = 0, pretend = 0, frame = 16
+ 1647              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1648 0000 00482DE9 		push	{fp, lr}
+ 1649              		.cfi_def_cfa_offset 8
+ 1650              		.cfi_offset 11, -8
+ 1651              		.cfi_offset 14, -4
+ 1652 0004 04B08DE2 		add	fp, sp, #4
+ 1653              		.cfi_def_cfa 11, 4
+ 1654 0008 10D04DE2 		sub	sp, sp, #16
+ 1655 000c 10000BE5 		str	r0, [fp, #-16]
+ 152:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	u8 sta;
+ 153:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_0;
+ 1656              		.loc 1 153 0
+ 1657 0010 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1658 0014 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1659 0018 003093E5 		ldr	r3, [r3]
+ 1660 001c 002000E3 		movw	r2, #:lower16:s_p83_lo
+ 1661 0020 002040E3 		movt	r2, #:upper16:s_p83_lo
+ 1662 0024 0810A0E3 		mov	r1, #8
+ 1663 0028 0300A0E1 		mov	r0, r3
+ 1664 002c FEFFFFEB 		bl	direct_control
+ 154:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	//SPI_Write_Buf(WRITE_REG + TX_ADDR, TX_ADDRESS, TX_ADR_WIDTH); // WritesTX_Address to nRF24L01
+ 155:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	//SPI_Write_Buf(WRITE_REG + RX_ADDR_P0, TX_ADDRESS, TX_ADR_WIDTH); //RX_Addr0 same as TX_Adr for A
+ 156:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Buf(WR_TX_PLOAD, tx_buf, TX_PLOAD_WIDTH); // Writes data to TX payload
+ 1665              		.loc 1 156 0
+ 1666 0030 2020A0E3 		mov	r2, #32
+ 1667 0034 10101BE5 		ldr	r1, [fp, #-16]
+ 1668 0038 A000A0E3 		mov	r0, #160
+ 1669 003c FEFFFFEB 		bl	SPI_Write_Buf
+ 157:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	sta=SPI_Write_Reg(WRITE_REG + CONFIG, 0x0e); // Set PWR_UP bit, enable CRC(2 u8s) &Prim:TX. MAX_RT
+ 1670              		.loc 1 157 0
+ 1671 0040 0E10A0E3 		mov	r1, #14
+ 1672 0044 2000A0E3 		mov	r0, #32
+ 1673 0048 FEFFFFEB 		bl	SPI_Write_Reg
+ 1674 004c 0030A0E1 		mov	r3, r0
+ 1675 0050 05304BE5 		strb	r3, [fp, #-5]
+ 158:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_1;
+ 1676              		.loc 1 158 0
+ 1677 0054 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1678 0058 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1679 005c 003093E5 		ldr	r3, [r3]
+ 1680 0060 002000E3 		movw	r2, #:lower16:s_p83_hi
+ 1681 0064 002040E3 		movt	r2, #:upper16:s_p83_hi
+ 1682 0068 0810A0E3 		mov	r1, #8
+ 1683 006c 0300A0E1 		mov	r0, r3
+ 1684 0070 FEFFFFEB 		bl	direct_control
+ 159:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	while(NRF_IRQ!=0);
+ 1685              		.loc 1 159 0
+ 1686 0074 00F020E3 		nop
+ 1687              	.L34:
+ 1688              		.loc 1 159 0 is_stmt 0 discriminator 1
+ 1689 0078 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1690 007c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1691 0080 002093E5 		ldr	r2, [r3]
+ 1692 0084 003000E3 		movw	r3, #:lower16:s_p00
+ 1693 0088 003040E3 		movt	r3, #:upper16:s_p00
+ 1694 008c 001093E5 		ldr	r1, [r3]
+ 1695 0090 0200A0E1 		mov	r0, r2
+ 1696 0094 FEFFFFEB 		bl	Read_Bit
+ 1697 0098 0030A0E1 		mov	r3, r0
+ 1698 009c 000053E3 		cmp	r3, #0
+ 1699 00a0 F4FFFF1A 		bne	.L34
+ 160:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	R_OS_TaskSleep(10);
+ 161:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** //	NRF_CE_0;
+ 162:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	if(sta&MAX_TX)//最大发送次数
+ 1700              		.loc 1 162 0 is_stmt 1
+ 1701 00a4 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1702 00a8 103003E2 		and	r3, r3, #16
+ 1703 00ac 000053E3 		cmp	r3, #0
+ 1704 00b0 0400000A 		beq	.L35
+ 163:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+ 164:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		SPI_Write_Reg(FLUSH_TX,0xff); //清除FIFO缓存寄存器
+ 1705              		.loc 1 164 0
+ 1706 00b4 FF10A0E3 		mov	r1, #255
+ 1707 00b8 E100A0E3 		mov	r0, #225
+ 1708 00bc FEFFFFEB 		bl	SPI_Write_Reg
+ 165:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		return MAX_TX;
+ 1709              		.loc 1 165 0
+ 1710 00c0 1030A0E3 		mov	r3, #16
+ 1711 00c4 060000EA 		b	.L36
+ 1712              	.L35:
+ 166:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	}
+ 167:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	if(sta&TX_OK)//发送完成
+ 1713              		.loc 1 167 0
+ 1714 00c8 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1715 00cc 203003E2 		and	r3, r3, #32
+ 1716 00d0 000053E3 		cmp	r3, #0
+ 1717 00d4 0100000A 		beq	.L37
+ 168:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	{
+ 169:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 		return TX_OK;
+ 1718              		.loc 1 169 0
+ 1719 00d8 2030A0E3 		mov	r3, #32
+ 1720 00dc 000000EA 		b	.L36
+ 1721              	.L37:
+ 170:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	}
+ 171:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	return 0xff;//未知原因
+ 1722              		.loc 1 171 0
+ 1723 00e0 FF30A0E3 		mov	r3, #255
+ 1724              	.L36:
+ 172:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1725              		.loc 1 172 0
+ 1726 00e4 0300A0E1 		mov	r0, r3
+ 1727 00e8 04D04BE2 		sub	sp, fp, #4
+ 1728              		.cfi_def_cfa 13, 8
+ 1729              		@ sp needed
+ 1730 00ec 0088BDE8 		pop	{fp, pc}
+ 1731              		.cfi_endproc
+ 1732              	.LFE11:
+ 1734              		.section	.text.NRF24L01_TX_Mode,"ax",%progbits
+ 1735              		.align	2
+ 1736              		.global	NRF24L01_TX_Mode
+ 1737              		.syntax unified
+ 1738              		.arm
+ 1739              		.fpu neon
+ 1741              	NRF24L01_TX_Mode:
+ 1742              	.LFB12:
+ 173:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 174:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 175:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 176:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** void NRF24L01_TX_Mode(u8 NRF2401Channel)
+ 177:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1743              		.loc 1 177 0
+ 1744              		.cfi_startproc
+ 1745              		@ args = 0, pretend = 0, frame = 8
+ 1746              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1747 0000 00482DE9 		push	{fp, lr}
+ 1748              		.cfi_def_cfa_offset 8
+ 1749              		.cfi_offset 11, -8
+ 1750              		.cfi_offset 14, -4
+ 1751 0004 04B08DE2 		add	fp, sp, #4
+ 1752              		.cfi_def_cfa 11, 4
+ 1753 0008 08D04DE2 		sub	sp, sp, #8
+ 1754 000c 0030A0E1 		mov	r3, r0
+ 1755 0010 05304BE5 		strb	r3, [fp, #-5]
+ 178:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_0;
+ 1756              		.loc 1 178 0
+ 1757 0014 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1758 0018 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1759 001c 003093E5 		ldr	r3, [r3]
+ 1760 0020 002000E3 		movw	r2, #:lower16:s_p83_lo
+ 1761 0024 002040E3 		movt	r2, #:upper16:s_p83_lo
+ 1762 0028 0810A0E3 		mov	r1, #8
+ 1763 002c 0300A0E1 		mov	r0, r3
+ 1764 0030 FEFFFFEB 		bl	direct_control
+ 179:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Buf(WRITE_REG+TX_ADDR,(u8*)TX_ADDRESS,TX_ADR_WIDTH);//Ð´TX½ÚµãµØÖ·
+ 1765              		.loc 1 179 0
+ 1766 0034 0520A0E3 		mov	r2, #5
+ 1767 0038 001000E3 		movw	r1, #:lower16:TX_ADDRESS
+ 1768 003c 001040E3 		movt	r1, #:upper16:TX_ADDRESS
+ 1769 0040 3000A0E3 		mov	r0, #48
+ 1770 0044 FEFFFFEB 		bl	SPI_Write_Buf
+ 180:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Buf(WRITE_REG+RX_ADDR_P0,(u8*)RX_ADDRESS,RX_ADR_WIDTH); //ÉèÖÃTX½ÚµãµØÖ·,�
+ 1771              		.loc 1 180 0
+ 1772 0048 0520A0E3 		mov	r2, #5
+ 1773 004c 001000E3 		movw	r1, #:lower16:RX_ADDRESS
+ 1774 0050 001040E3 		movt	r1, #:upper16:RX_ADDRESS
+ 1775 0054 2A00A0E3 		mov	r0, #42
+ 1776 0058 FEFFFFEB 		bl	SPI_Write_Buf
+ 181:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 182:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+EN_AA,0x01);     //Ê¹ÄÜÍ¨µÀ0µÄ×Ô¶¯Ó¦´ð
+ 1777              		.loc 1 182 0
+ 1778 005c 0110A0E3 		mov	r1, #1
+ 1779 0060 2100A0E3 		mov	r0, #33
+ 1780 0064 FEFFFFEB 		bl	SPI_Write_Reg
+ 183:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+EN_RXADDR,0x01); //Ê¹ÄÜÍ¨µÀ0µÄ½ÓÊÕµØÖ·
+ 1781              		.loc 1 183 0
+ 1782 0068 0110A0E3 		mov	r1, #1
+ 1783 006c 2200A0E3 		mov	r0, #34
+ 1784 0070 FEFFFFEB 		bl	SPI_Write_Reg
+ 184:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+SETUP_RETR,0x1a);//ÉèÖÃ×Ô¶¯ÖØ·¢¼ä¸ôÊ±¼ä:500us + 86us
+ 1785              		.loc 1 184 0
+ 1786 0074 1A10A0E3 		mov	r1, #26
+ 1787 0078 2400A0E3 		mov	r0, #36
+ 1788 007c FEFFFFEB 		bl	SPI_Write_Reg
+ 185:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+RF_CH,NRF2401Channel);       //ÉèÖÃRFÍ¨µÀÎª40
+ 1789              		.loc 1 185 0
+ 1790 0080 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1791 0084 0310A0E1 		mov	r1, r3
+ 1792 0088 2500A0E3 		mov	r0, #37
+ 1793 008c FEFFFFEB 		bl	SPI_Write_Reg
+ 186:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+RF_SETUP,0x0f);  //ÉèÖÃTX·¢Éä²ÎÊý,0dbÔöÒæ,2Mbps,µÍÔë
+ 1794              		.loc 1 186 0
+ 1795 0090 0F10A0E3 		mov	r1, #15
+ 1796 0094 2600A0E3 		mov	r0, #38
+ 1797 0098 FEFFFFEB 		bl	SPI_Write_Reg
+ 187:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+CONFIG,0x0e);    //ÅäÖÃ»ù±¾¹¤×÷Ä£Ê½µÄ²ÎÊý;PWR_UP,E
+ 1798              		.loc 1 187 0
+ 1799 009c 0E10A0E3 		mov	r1, #14
+ 1800 00a0 2000A0E3 		mov	r0, #32
+ 1801 00a4 FEFFFFEB 		bl	SPI_Write_Reg
+ 188:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_1;//CEÎª¸ß,10usºóÆô¶¯·¢ËÍ
+ 1802              		.loc 1 188 0
+ 1803 00a8 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1804 00ac 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1805 00b0 003093E5 		ldr	r3, [r3]
+ 1806 00b4 002000E3 		movw	r2, #:lower16:s_p83_hi
+ 1807 00b8 002040E3 		movt	r2, #:upper16:s_p83_hi
+ 1808 00bc 0810A0E3 		mov	r1, #8
+ 1809 00c0 0300A0E1 		mov	r0, r3
+ 1810 00c4 FEFFFFEB 		bl	direct_control
+ 189:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1811              		.loc 1 189 0
+ 1812 00c8 00F020E3 		nop
+ 1813 00cc 04D04BE2 		sub	sp, fp, #4
+ 1814              		.cfi_def_cfa 13, 8
+ 1815              		@ sp needed
+ 1816 00d0 0088BDE8 		pop	{fp, pc}
+ 1817              		.cfi_endproc
+ 1818              	.LFE12:
+ 1820              		.section	.text.NRF24L01_RX_Mode,"ax",%progbits
+ 1821              		.align	2
+ 1822              		.global	NRF24L01_RX_Mode
+ 1823              		.syntax unified
+ 1824              		.arm
+ 1825              		.fpu neon
+ 1827              	NRF24L01_RX_Mode:
+ 1828              	.LFB13:
+ 190:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 191:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** void NRF24L01_RX_Mode(u8 NRF2401Channel)
+ 192:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1829              		.loc 1 192 0
+ 1830              		.cfi_startproc
+ 1831              		@ args = 0, pretend = 0, frame = 8
+ 1832              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1833 0000 00482DE9 		push	{fp, lr}
+ 1834              		.cfi_def_cfa_offset 8
+ 1835              		.cfi_offset 11, -8
+ 1836              		.cfi_offset 14, -4
+ 1837 0004 04B08DE2 		add	fp, sp, #4
+ 1838              		.cfi_def_cfa 11, 4
+ 1839 0008 08D04DE2 		sub	sp, sp, #8
+ 1840 000c 0030A0E1 		mov	r3, r0
+ 1841 0010 05304BE5 		strb	r3, [fp, #-5]
+ 193:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_0;
+ 1842              		.loc 1 193 0
+ 1843 0014 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1844 0018 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1845 001c 003093E5 		ldr	r3, [r3]
+ 1846 0020 002000E3 		movw	r2, #:lower16:s_p83_lo
+ 1847 0024 002040E3 		movt	r2, #:upper16:s_p83_lo
+ 1848 0028 0810A0E3 		mov	r1, #8
+ 1849 002c 0300A0E1 		mov	r0, r3
+ 1850 0030 FEFFFFEB 		bl	direct_control
+ 194:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Buf(WRITE_REG+RX_ADDR_P0,(u8*)RX_ADDRESS,RX_ADR_WIDTH);//Ð´RX½ÚµãµØÖ·
+ 1851              		.loc 1 194 0
+ 1852 0034 0520A0E3 		mov	r2, #5
+ 1853 0038 001000E3 		movw	r1, #:lower16:RX_ADDRESS
+ 1854 003c 001040E3 		movt	r1, #:upper16:RX_ADDRESS
+ 1855 0040 2A00A0E3 		mov	r0, #42
+ 1856 0044 FEFFFFEB 		bl	SPI_Write_Buf
+ 195:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 196:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+EN_AA,0x01);    	//Ê¹ÄÜÍ¨µÀ0µÄ×Ô¶¯Ó¦´ð
+ 1857              		.loc 1 196 0
+ 1858 0048 0110A0E3 		mov	r1, #1
+ 1859 004c 2100A0E3 		mov	r0, #33
+ 1860 0050 FEFFFFEB 		bl	SPI_Write_Reg
+ 197:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+EN_RXADDR,0x01);	//Ê¹ÄÜÍ¨µÀ0µÄ½ÓÊÕµØÖ·
+ 1861              		.loc 1 197 0
+ 1862 0054 0110A0E3 		mov	r1, #1
+ 1863 0058 2200A0E3 		mov	r0, #34
+ 1864 005c FEFFFFEB 		bl	SPI_Write_Reg
+ 198:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+RF_CH,NRF2401Channel);	    	//ÉèÖÃRFÍ¨ÐÅÆµÂÊ
+ 1865              		.loc 1 198 0
+ 1866 0060 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1867 0064 0310A0E1 		mov	r1, r3
+ 1868 0068 2500A0E3 		mov	r0, #37
+ 1869 006c FEFFFFEB 		bl	SPI_Write_Reg
+ 199:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);//Ñ¡ÔñÍ¨µÀ0µÄÓÐÐ§Êý¾Ý¿í¶È
+ 1870              		.loc 1 199 0
+ 1871 0070 2010A0E3 		mov	r1, #32
+ 1872 0074 3100A0E3 		mov	r0, #49
+ 1873 0078 FEFFFFEB 		bl	SPI_Write_Reg
+ 200:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+RF_SETUP,0x0f);	//ÉèÖÃTX·¢Éä²ÎÊý,0dbÔöÒæ,2Mbps,µÍÔë�
+ 1874              		.loc 1 200 0
+ 1875 007c 0F10A0E3 		mov	r1, #15
+ 1876 0080 2600A0E3 		mov	r0, #38
+ 1877 0084 FEFFFFEB 		bl	SPI_Write_Reg
+ 201:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	SPI_Write_Reg(WRITE_REG+CONFIG, 0x0f);		//ÅäÖÃ»ù±¾¹¤×÷Ä£Ê½µÄ²ÎÊý;PWR_UP,EN
+ 1878              		.loc 1 201 0
+ 1879 0088 0F10A0E3 		mov	r1, #15
+ 1880 008c 2000A0E3 		mov	r0, #32
+ 1881 0090 FEFFFFEB 		bl	SPI_Write_Reg
+ 202:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****   	NRF_CE_1; //进入接收模式
+ 1882              		.loc 1 202 0
+ 1883 0094 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1884 0098 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1885 009c 003093E5 		ldr	r3, [r3]
+ 1886 00a0 002000E3 		movw	r2, #:lower16:s_p83_hi
+ 1887 00a4 002040E3 		movt	r2, #:upper16:s_p83_hi
+ 1888 00a8 0810A0E3 		mov	r1, #8
+ 1889 00ac 0300A0E1 		mov	r0, r3
+ 1890 00b0 FEFFFFEB 		bl	direct_control
+ 203:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 1891              		.loc 1 203 0
+ 1892 00b4 00F020E3 		nop
+ 1893 00b8 04D04BE2 		sub	sp, fp, #4
+ 1894              		.cfi_def_cfa 13, 8
+ 1895              		@ sp needed
+ 1896 00bc 0088BDE8 		pop	{fp, pc}
+ 1897              		.cfi_endproc
+ 1898              	.LFE13:
+ 1900              		.section	.text.nRF24L01_Config,"ax",%progbits
+ 1901              		.align	2
+ 1902              		.global	nRF24L01_Config
+ 1903              		.syntax unified
+ 1904              		.arm
+ 1905              		.fpu neon
+ 1907              	nRF24L01_Config:
+ 1908              	.LFB14:
+ 204:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** // 配置函数
+ 205:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** void nRF24L01_Config(void)
+ 206:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** {
+ 1909              		.loc 1 206 0
+ 1910              		.cfi_startproc
+ 1911              		@ args = 0, pretend = 0, frame = 0
+ 1912              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1913 0000 00482DE9 		push	{fp, lr}
+ 1914              		.cfi_def_cfa_offset 8
+ 1915              		.cfi_offset 11, -8
+ 1916              		.cfi_offset 14, -4
+ 1917 0004 04B08DE2 		add	fp, sp, #4
+ 1918              		.cfi_def_cfa 11, 4
+ 207:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	//initial io
+ 208:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_0; // chip enable
+ 1919              		.loc 1 208 0
+ 1920 0008 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1921 000c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1922 0010 003093E5 		ldr	r3, [r3]
+ 1923 0014 002000E3 		movw	r2, #:lower16:s_p83_lo
+ 1924 0018 002040E3 		movt	r2, #:upper16:s_p83_lo
+ 1925 001c 0810A0E3 		mov	r1, #8
+ 1926 0020 0300A0E1 		mov	r0, r3
+ 1927 0024 FEFFFFEB 		bl	direct_control
+ 209:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CSN_1; // Spi disable
+ 1928              		.loc 1 209 0
+ 1929 0028 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1930 002c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1931 0030 003093E5 		ldr	r3, [r3]
+ 1932 0034 002000E3 		movw	r2, #:lower16:s_p84_hi
+ 1933 0038 002040E3 		movt	r2, #:upper16:s_p84_hi
+ 1934 003c 0810A0E3 		mov	r1, #8
+ 1935 0040 0300A0E1 		mov	r0, r3
+ 1936 0044 FEFFFFEB 		bl	direct_control
+ 210:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_SCK_0; // Spi clock line init high
+ 1937              		.loc 1 210 0
+ 1938 0048 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1939 004c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1940 0050 003093E5 		ldr	r3, [r3]
+ 1941 0054 002000E3 		movw	r2, #:lower16:s_p85_lo
+ 1942 0058 002040E3 		movt	r2, #:upper16:s_p85_lo
+ 1943 005c 0810A0E3 		mov	r1, #8
+ 1944 0060 0300A0E1 		mov	r0, r3
+ 1945 0064 FEFFFFEB 		bl	direct_control
+ 211:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_0;
+ 1946              		.loc 1 211 0
+ 1947 0068 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 1948 006c 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 1949 0070 003093E5 		ldr	r3, [r3]
+ 1950 0074 002000E3 		movw	r2, #:lower16:s_p83_lo
+ 1951 0078 002040E3 		movt	r2, #:upper16:s_p83_lo
+ 1952 007c 0810A0E3 		mov	r1, #8
+ 1953 0080 0300A0E1 		mov	r0, r3
+ 1954 0084 FEFFFFEB 		bl	direct_control
+ 212:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + CONFIG, 0x0f); // Set PWR_UP bit, enable CRC(2 u8s) &Prim:RX. RX_DR enab
+ 1955              		.loc 1 212 0
+ 1956 0088 0F10A0E3 		mov	r1, #15
+ 1957 008c 2000A0E3 		mov	r0, #32
+ 1958 0090 FEFFFFEB 		bl	SPI_Write_Reg
+ 213:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + EN_AA, 0x01);
+ 1959              		.loc 1 213 0
+ 1960 0094 0110A0E3 		mov	r1, #1
+ 1961 0098 2100A0E3 		mov	r0, #33
+ 1962 009c FEFFFFEB 		bl	SPI_Write_Reg
+ 214:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + EN_RXADDR, 0x01); // Enable Pipe0
+ 1963              		.loc 1 214 0
+ 1964 00a0 0110A0E3 		mov	r1, #1
+ 1965 00a4 2200A0E3 		mov	r0, #34
+ 1966 00a8 FEFFFFEB 		bl	SPI_Write_Reg
+ 215:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + SETUP_AW, 0x02); // Setup address width=5 BYTEs
+ 1967              		.loc 1 215 0
+ 1968 00ac 0210A0E3 		mov	r1, #2
+ 1969 00b0 2300A0E3 		mov	r0, #35
+ 1970 00b4 FEFFFFEB 		bl	SPI_Write_Reg
+ 216:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + SETUP_RETR, 0x1a); // 500us + 86us, 10 retrans...
+ 1971              		.loc 1 216 0
+ 1972 00b8 1A10A0E3 		mov	r1, #26
+ 1973 00bc 2400A0E3 		mov	r0, #36
+ 1974 00c0 FEFFFFEB 		bl	SPI_Write_Reg
+ 217:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + RF_CH, 0);
+ 1975              		.loc 1 217 0
+ 1976 00c4 0010A0E3 		mov	r1, #0
+ 1977 00c8 2500A0E3 		mov	r0, #37
+ 1978 00cc FEFFFFEB 		bl	SPI_Write_Reg
+ 218:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + RF_SETUP, 0x07); // TX_PWR:0dBm, Datarate:1Mbps,LNA:HCURR
+ 1979              		.loc 1 218 0
+ 1980 00d0 0710A0E3 		mov	r1, #7
+ 1981 00d4 2600A0E3 		mov	r0, #38
+ 1982 00d8 FEFFFFEB 		bl	SPI_Write_Reg
+ 219:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Reg(WRITE_REG + RX_PW_P0, RX_PLOAD_WIDTH);
+ 1983              		.loc 1 219 0
+ 1984 00dc 2010A0E3 		mov	r1, #32
+ 1985 00e0 3100A0E3 		mov	r0, #49
+ 1986 00e4 FEFFFFEB 		bl	SPI_Write_Reg
+ 220:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Buf(WRITE_REG + TX_ADDR, (u8*)TX_ADDRESS, TX_ADR_WIDTH);
+ 1987              		.loc 1 220 0
+ 1988 00e8 0520A0E3 		mov	r2, #5
+ 1989 00ec 001000E3 		movw	r1, #:lower16:TX_ADDRESS
+ 1990 00f0 001040E3 		movt	r1, #:upper16:TX_ADDRESS
+ 1991 00f4 3000A0E3 		mov	r0, #48
+ 1992 00f8 FEFFFFEB 		bl	SPI_Write_Buf
+ 221:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	SPI_Write_Buf(WRITE_REG + RX_ADDR_P0, (u8*)RX_ADDRESS, RX_ADR_WIDTH);
+ 1993              		.loc 1 221 0
+ 1994 00fc 0520A0E3 		mov	r2, #5
+ 1995 0100 001000E3 		movw	r1, #:lower16:RX_ADDRESS
+ 1996 0104 001040E3 		movt	r1, #:upper16:RX_ADDRESS
+ 1997 0108 2A00A0E3 		mov	r0, #42
+ 1998 010c FEFFFFEB 		bl	SPI_Write_Buf
+ 222:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 	NRF_CE_1; //
+ 1999              		.loc 1 222 0
+ 2000 0110 003000E3 		movw	r3, #:lower16:NRF_gpio_handle
+ 2001 0114 003040E3 		movt	r3, #:upper16:NRF_gpio_handle
+ 2002 0118 003093E5 		ldr	r3, [r3]
+ 2003 011c 002000E3 		movw	r2, #:lower16:s_p83_hi
+ 2004 0120 002040E3 		movt	r2, #:upper16:s_p83_hi
+ 2005 0124 0810A0E3 		mov	r1, #8
+ 2006 0128 0300A0E1 		mov	r0, r3
+ 2007 012c FEFFFFEB 		bl	direct_control
+ 223:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 2008              		.loc 1 223 0
+ 2009 0130 00F020E3 		nop
+ 2010 0134 0088BDE8 		pop	{fp, pc}
+ 2011              		.cfi_endproc
+ 2012              	.LFE14:
+ 2014              		.section	.text.Read_Bit,"ax",%progbits
+ 2015              		.align	2
+ 2016              		.global	Read_Bit
+ 2017              		.syntax unified
+ 2018              		.arm
+ 2019              		.fpu neon
+ 2021              	Read_Bit:
+ 2022              	.LFB15:
+ 224:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 225:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 226:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** int Read_Bit(int_t handle ,st_r_drv_gpio_pin_rw_t pin){
+ 2023              		.loc 1 226 0
+ 2024              		.cfi_startproc
+ 2025              		@ args = 0, pretend = 0, frame = 16
+ 2026              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2027 0000 00482DE9 		push	{fp, lr}
+ 2028              		.cfi_def_cfa_offset 8
+ 2029              		.cfi_offset 11, -8
+ 2030              		.cfi_offset 14, -4
+ 2031 0004 04B08DE2 		add	fp, sp, #4
+ 2032              		.cfi_def_cfa 11, 4
+ 2033 0008 10D04DE2 		sub	sp, sp, #16
+ 2034 000c 10000BE5 		str	r0, [fp, #-16]
+ 2035 0010 14100BE5 		str	r1, [fp, #-20]
+ 227:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 228:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     int_t gpio_err;
+ 229:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     e_r_drv_gpio_level_t ret;
+ 230:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** 
+ 231:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     gpio_err = direct_control(handle, CTL_GPIO_PIN_READ, &pin);
+ 2036              		.loc 1 231 0
+ 2037 0014 14304BE2 		sub	r3, fp, #20
+ 2038 0018 0320A0E1 		mov	r2, r3
+ 2039 001c 0910A0E3 		mov	r1, #9
+ 2040 0020 10001BE5 		ldr	r0, [fp, #-16]
+ 2041 0024 FEFFFFEB 		bl	direct_control
+ 2042 0028 0C000BE5 		str	r0, [fp, #-12]
+ 232:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     if (gpio_err < 0)
+ 2043              		.loc 1 232 0
+ 2044 002c 0C301BE5 		ldr	r3, [fp, #-12]
+ 2045 0030 000053E3 		cmp	r3, #0
+ 2046 0034 020000AA 		bge	.L42
+ 233:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     {
+ 234:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****         ret = GPIO_LEVEL_SC_DEFAULT;
+ 2047              		.loc 1 234 0
+ 2048 0038 0030A0E3 		mov	r3, #0
+ 2049 003c 05304BE5 		strb	r3, [fp, #-5]
+ 2050 0040 010000EA 		b	.L43
+ 2051              	.L42:
+ 235:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     }
+ 236:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     else
+ 237:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     {
+ 238:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****         ret = pin.level;
+ 2052              		.loc 1 238 0
+ 2053 0044 12305BE5 		ldrb	r3, [fp, #-18]
+ 2054 0048 05304BE5 		strb	r3, [fp, #-5]
+ 2055              	.L43:
+ 239:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     }
+ 240:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c ****     return (int)(ret-1);
+ 2056              		.loc 1 240 0
+ 2057 004c 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 2058 0050 013043E2 		sub	r3, r3, #1
+ 241:../src/renesas/application/smart_car/NRF24L01/NRF24L01.c **** }
+ 2059              		.loc 1 241 0
+ 2060 0054 0300A0E1 		mov	r0, r3
+ 2061 0058 04D04BE2 		sub	sp, fp, #4
+ 2062              		.cfi_def_cfa 13, 8
+ 2063              		@ sp needed
+ 2064 005c 0088BDE8 		pop	{fp, pc}
+ 2065              		.cfi_endproc
+ 2066              	.LFE15:
+ 2068              		.text
+ 2069              	.Letext0:
+ 2070              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2071              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2072              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2073              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2074              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 2075              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2076              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 2077              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 2078              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2079              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 2080              		.file 12 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2081              		.file 13 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2082              		.file 14 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2083              		.file 15 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2084              		.file 16 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2085              		.file 17 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2086              		.file 18 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2087              		.file 19 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2088              		.file 20 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2089              		.file 21 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2090              		.file 22 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2091              		.file 23 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2092              		.file 24 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2093              		.file 25 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2094              		.file 26 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2095              		.file 27 "d:\\projects\\e2_studio\\rz_a2m\\workspace\\renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 2096              		.file 28 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\app\\RZA2M_DRP_Benchmark
+DEFINED SYMBOLS
+                            *ABS*:00000000 NRF24L01.c
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:17     .rodata.s_sc_cpg_xtal_frequency_khz_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:20     .rodata.s_sc_cpg_xtal_frequency_khz_config:00000000 s_sc_cpg_xtal_frequency_khz_config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:24     .rodata.s_sc_cpg_main_clock_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:27     .rodata.s_sc_cpg_main_clock_config:00000000 s_sc_cpg_main_clock_config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:33     .rodata.s_sc_cpg_sub_clock_div_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:36     .rodata.s_sc_cpg_sub_clock_div_config:00000000 s_sc_cpg_sub_clock_div_config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:50     .rodata.s_sc_cpg_sub_clock_src_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:53     .rodata.s_sc_cpg_sub_clock_src_config:00000000 s_sc_cpg_sub_clock_src_config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:63     .rodata.s_sc_cpg_ext_clk_config:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:66     .rodata.s_sc_cpg_ext_clk_config:00000000 s_sc_cpg_ext_clk_config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:69     .rodata.GPIO_SC_TABLE_INIT:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:72     .rodata.GPIO_SC_TABLE_INIT:00000000 GPIO_SC_TABLE_INIT
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:84     .rodata.GPIO_SC_TABLE_MANUAL:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:87     .rodata.GPIO_SC_TABLE_MANUAL:00000000 GPIO_SC_TABLE_MANUAL
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:419    .rodata.GPIO_SC_TABLE_riic2:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:422    .rodata.GPIO_SC_TABLE_riic2:00000000 GPIO_SC_TABLE_riic2
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:434    .rodata.GPIO_SC_TABLE_riic3:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:437    .rodata.GPIO_SC_TABLE_riic3:00000000 GPIO_SC_TABLE_riic3
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:449    .rodata.GPIO_SC_TABLE_scifa4:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:452    .rodata.GPIO_SC_TABLE_scifa4:00000000 GPIO_SC_TABLE_scifa4
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:464    .rodata.GPIO_SC_TABLE_BSC:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:467    .rodata.GPIO_SC_TABLE_BSC:00000000 GPIO_SC_TABLE_BSC
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:649    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:652    .rodata.GPIO_SC_TABLE_sdhi_simplified0:00000000 GPIO_SC_TABLE_sdhi_simplified0
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:664    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:667    .rodata.GPIO_SC_TABLE_sdhi_simplified1:00000000 GPIO_SC_TABLE_sdhi_simplified1
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:679    .rodata.MMU_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:682    .rodata.MMU_SC_TABLE:00000000 MMU_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:839    .rodata.SCIFA_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:842    .rodata.SCIFA_SC_TABLE:00000000 SCIFA_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:875    .rodata.SDHI_SC_TABLE:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:878    .rodata.SDHI_SC_TABLE:00000000 SDHI_SC_TABLE
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:898    .data.s_p83_hi:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:901    .data.s_p83_hi:00000000 s_p83_hi
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:906    .data.s_p84_hi:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:909    .data.s_p84_hi:00000000 s_p84_hi
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:914    .data.s_p85_hi:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:917    .data.s_p85_hi:00000000 s_p85_hi
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:922    .data.s_p86_hi:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:925    .data.s_p86_hi:00000000 s_p86_hi
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:930    .data.s_p83_lo:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:933    .data.s_p83_lo:00000000 s_p83_lo
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:938    .data.s_p84_lo:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:941    .data.s_p84_lo:00000000 s_p84_lo
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:946    .data.s_p85_lo:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:949    .data.s_p85_lo:00000000 s_p85_lo
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:954    .data.s_p86_lo:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:957    .data.s_p86_lo:00000000 s_p86_lo
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:962    .bss.s_p00:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:965    .bss.s_p00:00000000 s_p00
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:968    .data.s_p81:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:971    .data.s_p81:00000000 s_p81
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:976    .bss.NRF_gpio_handle:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:979    .bss.NRF_gpio_handle:00000000 NRF_gpio_handle
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:982    .rodata.NRF_pin_list:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:985    .rodata.NRF_pin_list:00000000 NRF_pin_list
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:995    .rodata.TX_ADDRESS:00000000 TX_ADDRESS
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:992    .rodata.TX_ADDRESS:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1006   .rodata.RX_ADDRESS:00000000 RX_ADDRESS
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1003   .rodata.RX_ADDRESS:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1013   .rodata:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1014   .rodata:00000000 .LC1
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1017   .text.NRF_Init:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1023   .text.NRF_Init:00000000 NRF_Init
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1827   .text.NRF24L01_RX_Mode:00000000 NRF24L01_RX_Mode
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1077   .text.SPI_RW:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1083   .text.SPI_RW:00000000 SPI_RW
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:2021   .text.Read_Bit:00000000 Read_Bit
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1186   .text.SPI_Write_Reg:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1192   .text.SPI_Write_Reg:00000000 SPI_Write_Reg
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1250   .text.SPI_Read_Reg:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1256   .text.SPI_Read_Reg:00000000 SPI_Read_Reg
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1311   .rodata:0000000c .LC0
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1318   .text.NRF24L01_Check:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1324   .text.NRF24L01_Check:00000000 NRF24L01_Check
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1499   .text.SPI_Write_Buf:00000000 SPI_Write_Buf
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1415   .text.SPI_Read_Buf:00000000 SPI_Read_Buf
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1409   .text.SPI_Read_Buf:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1493   .text.SPI_Write_Buf:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1575   .text.nRF24L01_RxPacket:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1581   .text.nRF24L01_RxPacket:00000000 nRF24L01_RxPacket
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1636   .text.nRF24L01_TxPacket:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1642   .text.nRF24L01_TxPacket:00000000 nRF24L01_TxPacket
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1735   .text.NRF24L01_TX_Mode:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1741   .text.NRF24L01_TX_Mode:00000000 NRF24L01_TX_Mode
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1821   .text.NRF24L01_RX_Mode:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1901   .text.nRF24L01_Config:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:1907   .text.nRF24L01_Config:00000000 nRF24L01_Config
+C:\Users\Y\AppData\Local\Temp\cceli6US.s:2015   .text.Read_Bit:00000000 $a
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_gpio_drv_api.h.88.f296296c75201b7ffad4ce7b1e5337e5
+                           .group:00000000 wm4.r_gpio_lld_rza2m.h.45.b9676c2739b4c00d77987fe632217935
+                           .group:00000000 wm4.mcu_board_select.h.31.7f7a1c962a4ca00898aa17751bce3853
+                           .group:00000000 wm4.iobitmask.h.29.773e8f8428b0c21e1206a8c47a6d3927
+                           .group:00000000 wm4.adc_iobitmask.h.29.48ba2821c8a4fc20022447ad9316d399
+                           .group:00000000 wm4.bsc_iobitmask.h.29.115d15c4ad4b48e00598dcd62d33c637
+                           .group:00000000 wm4.ceu_iobitmask.h.29.413b5b68bb3c2148786493166a57173e
+                           .group:00000000 wm4.cpg_iobitmask.h.29.58382d682aa9abf69ab653ac5fe9149b
+                           .group:00000000 wm4.csi2link_iobitmask.h.29.701c130cb17627664fe7c147084057cf
+                           .group:00000000 wm4.dmac_iobitmask.h.29.98850e876107975c53dc0bb8ebb53eb5
+                           .group:00000000 wm4.drpk_iobitmask.h.29.167e7cf6b1feb4d38b8903a46d8c35ac
+                           .group:00000000 wm4.drw_iobitmask.h.29.71d46f2244f6e7ae6117fe6c41c5567d
+                           .group:00000000 wm4.edmac_iobitmask.h.29.4e406d859155ba914663e1cf61cad89a
+                           .group:00000000 wm4.eptpc_iobitmask.h.29.64bcd0a67db3a886572992ae6da8898c
+                           .group:00000000 wm4.etherc_iobitmask.h.29.07b13cb10c426023658e5c51f952b6de
+                           .group:00000000 wm4.gpio_iobitmask.h.29.ea8c1464682eb61f2d0763b97ed530f9
+                           .group:00000000 wm4.gpt_iobitmask.h.29.94173800a704c5ba32e348ba97cd23cf
+                           .group:00000000 wm4.hyper_iobitmask.h.29.f09febbc7b835674abe34ae75f3c700d
+                           .group:00000000 wm4.imr2_iobitmask.h.29.90b834f92ca4d39c49dda81fe096b5f0
+                           .group:00000000 wm4.intc_iobitmask.h.29.6d3be2e47bf3d7eb7e91eeddcab863af
+                           .group:00000000 wm4.irda_iobitmask.h.29.6f43dde454e599a1d4a8be2978ac9459
+                           .group:00000000 wm4.jcu_iobitmask.h.29.9fd48851a81ff31733aa19b29e4846ad
+                           .group:00000000 wm4.lvds_iobitmask.h.29.4a6f69c8911426fa05f0b05eab5f5e15
+                           .group:00000000 wm4.mtu_iobitmask.h.29.7a98ba20f3fb30f35d72abcc74524cc2
+                           .group:00000000 wm4.nandc_iobitmask.h.29.a3a0f4ae99fdf814aa6f25f430186b14
+                           .group:00000000 wm4.octa_iobitmask.h.29.88d29c353902045cc5df621720d36632
+                           .group:00000000 wm4.ostm_iobitmask.h.29.38ee9f4e1711e17bd3f38545ba631cde
+                           .group:00000000 wm4.pl310_iobitmask.h.29.c1ef5625c0a9d67f24e89fe2fd7e4886
+                           .group:00000000 wm4.pmg_iobitmask.h.29.d20cb8352080a58cf6cbf526935d968e
+                           .group:00000000 wm4.poe3_iobitmask.h.29.3a3444cc2dbf606e2370573e16d57254
+                           .group:00000000 wm4.poeg_iobitmask.h.29.5601eb8cf1161926d683c0720340f85d
+                           .group:00000000 wm4.prr_iobitmask.h.29.52f8479a52e2236c122b5956e4bdbfce
+                           .group:00000000 wm4.ptpedmac_iobitmask.h.29.494dcb2240ebba7fa20d0c2ab02007f7
+                           .group:00000000 wm4.rcanfd_iobitmask.h.29.4376b1b7ff587ba618a622f2c4029df7
+                           .group:00000000 wm4.rcan_iobitmask.h.29.c6f8b9b62e8fdc007f8b5f40c1f7e95d
+                           .group:00000000 wm4.riic_iobitmask.h.29.b6e4a30b4a750b93bf8b54b204e41e8e
+                           .group:00000000 wm4.rspi_iobitmask.h.29.2e257f44186c83ca40dbb0db2548623b
+                           .group:00000000 wm4.rtc_iobitmask.h.29.83f9de1730e532ab7dfce6a57bb996ea
+                           .group:00000000 wm4.scifa_iobitmask.h.29.c7af830569e0d6a26f3d66e3adc293d7
+                           .group:00000000 wm4.scim_iobitmask.h.29.3b5e9d8b03a11c94acd93de96d2037f6
+                           .group:00000000 wm4.sdmmc_iobitmask.h.29.023cb9ff953a162569769cc98970f23e
+                           .group:00000000 wm4.spdif_iobitmask.h.29.c16f83f628828ab24aa2b72615b93e69
+                           .group:00000000 wm4.spibsc_iobitmask.h.29.8ade4a581f57cd5b82569a69eb5f0d67
+                           .group:00000000 wm4.sprite_iobitmask.h.29.82888597faf7ebb3bc86b5f1018a2253
+                           .group:00000000 wm4.ssif_iobitmask.h.29.482529b431f1ad627a02168620c61eee
+                           .group:00000000 wm4.usb_iobitmask.h.29.aae4dfd463dfdd120bf5855c9dc97483
+                           .group:00000000 wm4.vdc6_iobitmask.h.29.3ce0a3f9d2209ce71e4fec48b4ecb79a
+                           .group:00000000 wm4.vin_iobitmask.h.29.576a1d6e4b2cf6cbd353044865e437f2
+                           .group:00000000 wm4.wdt_iobitmask.h.29.c612db09eac33fb3da8d8aaee67287a9
+                           .group:00000000 wm4.rza_io_regrw.h.46.8ffd34a4c69bd0fad4b7b3d6d30a6855
+                           .group:00000000 wm4.r_cache_lld_rza2m.h.49.8943c30e0d78454ab1bac47fcdc61a41
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.7fe5132a77561580dbf35c71e690474f
+                           .group:00000000 wm4.r_cpg_drv_api.h.38.b40a52cab6e6adb0f168c573c5a31ec8
+                           .group:00000000 wm4.r_intc_lld_rza2m.h.46.7dc7c9a114da565f71778e91111dd70b
+                           .group:00000000 wm4.r_mmu_lld_rza2m.h.41.3e841c712e0b350b02dd41ff0093d85d
+                           .group:00000000 wm4.r_stb_lld_rza2m.h.46.c1a1fce253cc34cd49049ab15104e0d0
+                           .group:00000000 wm4.r_bsc_lld_rza2m.h.30.db8a1463b905452b1ec96ad2e3da18a4
+                           .group:00000000 wm4.r_ceu_user.h.38.140474eca4ac6a909fdcd22019c567ca
+                           .group:00000000 wm4.stdbool.h.29.07dce69c3b78884144b7f7bd19483461
+                           .group:00000000 wm4.r_dk2_if.h.53.04a09603c8426576ee9c3b06e8b8dd44
+                           .group:00000000 wm4.rz_co_typedef.h.33.48214617b2167869e276cdf9b5e605d8
+                           .group:00000000 wm4.r_jcu_typedef.h.62.f28b2736609f230013d899023f2d5a54
+                           .group:00000000 wm4.r_mipi_user.h.41.904962207e45a5581bdc399e4d770943
+                           .group:00000000 wm4.r_rza2m_riic_lld_cfg.h.40.1a5f6c5ea695a369eafb519f9773c77d
+                           .group:00000000 wm4.r_rza2m_riic_lld_api.h.37.76c059981812ab1c27bbe073398fe70a
+                           .group:00000000 wm4.r_riic_drv_api.h.77.d3e88cefd960d5349156344e20f8969e
+                           .group:00000000 wm4.r_vdc_user.h.49.5060b5b77fe69e4e595de8fadc36e78b
+                           .group:00000000 wm4.r_vdc.h.48.a14f484516009cb4cb3742c0c9b79bbd
+                           .group:00000000 wm4.r_rvapi_vdc.h.73.5f3535c567d3af3dccdafb254b48c817
+                           .group:00000000 wm4.r_spea.h.48.b9ed4fd711365d515684299152d7899f
+                           .group:00000000 wm4.r_rza2_scifa_lld_cfg.h.37.7a46a4beb27e120eb804765fbf41c7ce
+                           .group:00000000 wm4.r_scifa_lld_rza2m_api.h.42.bf3348f1877be2a35daaf7307d1083ab
+                           .group:00000000 wm4.r_scifa_drv_api.h.90.7ad2e6f1bf099aca54e367524f538022
+                           .group:00000000 wm4.r_rza2_scifa_lld.h.73.d0daf7287239025b54ce272d1f179bc4
+                           .group:00000000 wm4.r_sd_cfg.h.37.c020fda203b6091ea9a05c044d112f48
+                           .group:00000000 wm4.r_sdif.h.39.e8128497d2cbef5623d9f8b71f13fd2c
+                           .group:00000000 wm4.trace.h.67.bddc4e225b6f150c649875384d686fa0
+                           .group:00000000 wm4.os_port_config.h.30.dc2a07b0b1ef27f5072d53aadb97c22f
+                           .group:00000000 wm4.inttypes.h.14.b28deb26920e51e0da310220ef0f9003
+                           .group:00000000 wm4.inttypes.h.28.c3e61b48c6ae3a7cb62609add2dd53d1
+                           .group:00000000 wm4.compiler_port.h.55.df9c2dc6e7c3c8d2023a60d359d51c90
+                           .group:00000000 wm4.os_port.h.35.121ef70496ec9ebb6ac3975f75ae8477
+                           .group:00000000 wm4.FreeRTOSConfig.h.29.57d7ee2ca1fa56012ddbf298eb71a67e
+                           .group:00000000 wm4.projdefs.h.29.3472c8470d131a5f474bc7437ea94609
+                           .group:00000000 wm4.portmacro.h.71.5aaa521454bf5c46feaeb3600165fe21
+                           .group:00000000 wm4.portable.h.64.00b423ba030e23bed354b037664af7a6
+                           .group:00000000 wm4.mpu_wrappers.h.29.c427bcb47cdbc76126df163ed8d718ae
+                           .group:00000000 wm4.freertos.h.66.8cf20fb8e5505a32acad25b15f03255e
+                           .group:00000000 wm4.list.h.61.5c5a38f6bc6687eed6d893e57dabd8e6
+                           .group:00000000 wm4.task.h.46.3ef9a27c775afa221d5872c3a27e24ba
+                           .group:00000000 wm4.queue.h.65.c672d4100a726c23d437015b36fefeae
+                           .group:00000000 wm4.semphr.h.39.340b671c07db4901cda8217ed0bf5efe
+                           .group:00000000 wm4.freertos_cli.h.44.d2b0c6a5d95d64df83dde78f17a38854
+                           .group:00000000 wm4.os_port_freertos.h.42.927b913f954bdc6c1595c3cbdcc26b35
+                           .group:00000000 wm4.os_port.h.105.486b9c4d7fa5ba92a137fc779addadcb
+                           .group:00000000 wm4.r_task_priority.h.42.5f9d7a8c6eb031adfea4722ebab12dd4
+                           .group:00000000 wm4.r_os_abstraction_api.h.52.f52c5f8a865f19209d200bd66fbd6702
+                           .group:00000000 wm4.smart_car.h.17.df616b04c6a5780319cfa38e272f1adf
+                           .group:00000000 wm4.NRF24L01.h.4.64cc24e5ae90f69203c1a6cbb574c6a9
+
+UNDEFINED SYMBOLS
+fat_sample_cd_int_cb_function
+open
+direct_control

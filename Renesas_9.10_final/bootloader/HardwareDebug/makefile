@@ -1,0 +1,305 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+-include ../makefile.init
+
+-include makefile.init
+
+RM := rm -rf *.lst *.lis *.lpp *.map
+
+# All of the sources participating in the build are defined here
+-include sources.mk
+-include generate/system/subdir.mk
+-include generate/drivers/r_stb/src/lld/subdir.mk
+-include generate/drivers/r_spibsc/src/lld/subdir.mk
+-include generate/drivers/r_cpg/src/lld/subdir.mk
+-include generate/drivers/r_cpg/src/hld/subdir.mk
+-include generate/compiler/init/subdir.mk
+-include generate/compiler/asm/subdir.mk
+-include generate/subdir.mk
+-include subdir.mk
+-include objects.mk
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(CC_UPPER_DEPS)),)
+-include $(CC_UPPER_DEPS)
+endif
+ifneq ($(strip $(C++_UPPER_DEPS)),)
+-include $(C++_UPPER_DEPS)
+endif
+ifneq ($(strip $(CPP_UPPER_DEPS)),)
+-include $(CPP_UPPER_DEPS)
+endif
+ifneq ($(strip $(FSY_DEPS)),)
+-include $(FSY_DEPS)
+endif
+ifneq ($(strip $(C_UPPER_DEPS)),)
+-include $(C_UPPER_DEPS)
+endif
+ifneq ($(strip $(SRC_UPPER_DEPS)),)
+-include $(SRC_UPPER_DEPS)
+endif
+ifneq ($(strip $(S_DEPS)),)
+-include $(S_DEPS)
+endif
+ifneq ($(strip $(PP_UPPER_DEPS)),)
+-include $(PP_UPPER_DEPS)
+endif
+ifneq ($(strip $(P_DEPS)),)
+-include $(P_DEPS)
+endif
+ifneq ($(strip $(JMP_UPPER_DEPS)),)
+-include $(JMP_UPPER_DEPS)
+endif
+ifneq ($(strip $(ASM_UPPER_DEPS)),)
+-include $(ASM_UPPER_DEPS)
+endif
+ifneq ($(strip $(SX_UPPER_DEPS)),)
+-include $(SX_UPPER_DEPS)
+endif
+ifneq ($(strip $(CXX_DEPS)),)
+-include $(CXX_DEPS)
+endif
+ifneq ($(strip $(JMP_DEPS)),)
+-include $(JMP_DEPS)
+endif
+ifneq ($(strip $(CXX_UPPER_DEPS)),)
+-include $(CXX_UPPER_DEPS)
+endif
+ifneq ($(strip $(P_UPPER_DEPS)),)
+-include $(P_UPPER_DEPS)
+endif
+ifneq ($(strip $(FSY_UPPER_DEPS)),)
+-include $(FSY_UPPER_DEPS)
+endif
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+ifneq ($(strip $(SRC_DEPS)),)
+-include $(SRC_DEPS)
+endif
+ifneq ($(strip $(PP_DEPS)),)
+-include $(PP_DEPS)
+endif
+ifneq ($(strip $(CC_DEPS)),)
+-include $(CC_DEPS)
+endif
+ifneq ($(strip $(SX_DEPS)),)
+-include $(SX_DEPS)
+endif
+ifneq ($(strip $(C++_DEPS)),)
+-include $(C++_DEPS)
+endif
+ifneq ($(strip $(ASM_DEPS)),)
+-include $(ASM_DEPS)
+endif
+ifneq ($(strip $(S_UPPER_DEPS)),)
+-include $(S_UPPER_DEPS)
+endif
+ifneq ($(strip $(CPP_DEPS)),)
+-include $(CPP_DEPS)
+endif
+endif
+
+-include ../makefile.defs
+
+# Add inputs and outputs from these tool invocations to the build variables 
+SECONDARY_FLASH += \
+rza2m_sflash_boot_loader_gcc.bin \
+
+SECONDARY_SIZE += \
+rza2m_sflash_boot_loader_gcc.siz \
+
+LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS += \
+librza2m_sflash_boot_loader_gcc.a \
+
+
+# All Target
+all: rza2m_sflash_boot_loader_gcc.elf secondary-outputs
+
+# Tool invocations
+rza2m_sflash_boot_loader_gcc.elf: $(OBJS) $(USER_OBJS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS)
+	@echo 'Building target: $@'
+	@echo 'Invoking: Cross ARM C++ Linker'
+	$(file > rza2m_sflash_boot_loader_gcc.elf.in,-mcpu=cortex-a9 -march=armv7-a -marm -mthumb-interwork -mlittle-endian -mfloat-abi=hard -mfpu=neon -mno-unaligned-access -Og -ffunction-sections -fdata-sections -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -Wnull-dereference -g3 -Wstack-usage=100 -o "rza2m_sflash_boot_loader_gcc.elf" $(OBJS) $(USER_OBJS) -T "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bootloader/generate/linker_script.ld" -L "D:\\\\Project\\\\e2_studio\\\\workspace2\\\\RZA2M_DRP_Benchmark_V1.0.0\\\\RZA2M_DRP_Benchmark_V1.0.0\\\\bootloader\\\\HardwareDebug" -Wl,-Map,"rza2m_sflash_boot_loader_gcc.map" -Wl,--start-group -lrza2m_sflash_boot_loader_gcc -lgcc -lstdc++ -Wl,--end-group -nostartfiles -Xlinker --gc-sections -Wl,-eStart)
+	@echo 'arm-none-eabi-g++ -mcpu=cortex-a9 -march=armv7-a -marm -mthumb-interwork -mlittle-endian -mfloat-abi=hard -mfpu=neon -mno-unaligned-access -Og -ffunction-sections -fdata-sections -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wpadded -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -Wnull-dereference -g3 -Wstack-usage=100 -o "rza2m_sflash_boot_loader_gcc.elf" $(OBJS) $(USER_OBJS) -T "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bootloader/generate/linker_script.ld" -L "D:\\\\Project\\\\e2_studio\\\\workspace2\\\\RZA2M_DRP_Benchmark_V1.0.0\\\\RZA2M_DRP_Benchmark_V1.0.0\\\\bootloader\\\\HardwareDebug" -Wl,-Map,"rza2m_sflash_boot_loader_gcc.map" -Wl,--start-group -lrza2m_sflash_boot_loader_gcc -lgcc -lstdc++ -Wl,--end-group -nostartfiles -Xlinker --gc-sections -Wl,-eStart'
+
+	arm-none-eabi-g++ @"rza2m_sflash_boot_loader_gcc.elf.in"
+	@echo 'Finished building target: $@'
+	@echo ' '
+rza2m_sflash_boot_loader_gcc.bin: rza2m_sflash_boot_loader_gcc.elf
+	@echo 'Invoking: Cross ARM GNU Create Flash Image'
+	arm-none-eabi-objcopy -O binary "rza2m_sflash_boot_loader_gcc.elf"  "rza2m_sflash_boot_loader_gcc.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+rza2m_sflash_boot_loader_gcc.siz: rza2m_sflash_boot_loader_gcc.elf
+	@echo 'Invoking: Cross ARM GNU Print Size'
+	arm-none-eabi-size --format=berkeley "rza2m_sflash_boot_loader_gcc.elf"
+	@echo 'Finished building: $@'
+	@echo ' '
+librza2m_sflash_boot_loader_gcc.a: 
+	@echo 'Invoking: Library Generator'
+	arm-none-eabi-libgen  --header-files=all --select-lib=newlib --compiler-options=-Og,-ffunction-sections,-fdata-sections,-mcpu=cortex-a9,-march=armv7-a,-mthumb-interwork,-mlittle-endian,-mfloat-abi=hard,-mfpu=neon,-mno-unaligned-access --assembler-options=-mcpu=cortex-a9,-march=armv7-a,-mthumb-interwork,-mlittle-endian,-mfloat-abi=hard,-mfpu=neon -o "librza2m_sflash_boot_loader_gcc.a"
+	@echo 'Finished building: $@'
+	@echo ' '
+# Other Targets
+clean:
+ifneq ($(strip $(CC_UPPER_DEPS)),)
+	-$(file > clean_CC_UPPER_DEPS.tmp, $(CC_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_CC_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_CC_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(C++_UPPER_DEPS)),)
+	-$(file > clean_C++_UPPER_DEPS.tmp, $(C++_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_C++_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_C++_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(CPP_UPPER_DEPS)),)
+	-$(file > clean_CPP_UPPER_DEPS.tmp, $(CPP_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_CPP_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_CPP_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(FSY_DEPS)),)
+	-$(file > clean_FSY_DEPS.tmp, $(FSY_DEPS))
+	-@ xargs -s 6000 -t -a clean_FSY_DEPS.tmp $(RM)
+	-@$(RM) clean_FSY_DEPS.tmp
+endif
+ifneq ($(strip $(C_UPPER_DEPS)),)
+	-$(file > clean_C_UPPER_DEPS.tmp, $(C_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_C_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_C_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(SECONDARY_SIZE)),)
+	-$(file > clean_SECONDARY_SIZE.tmp, $(SECONDARY_SIZE))
+	-@ xargs -s 6000 -t -a clean_SECONDARY_SIZE.tmp $(RM)
+	-@$(RM) clean_SECONDARY_SIZE.tmp
+endif
+ifneq ($(strip $(SRC_UPPER_DEPS)),)
+	-$(file > clean_SRC_UPPER_DEPS.tmp, $(SRC_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_SRC_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_SRC_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(S_DEPS)),)
+	-$(file > clean_S_DEPS.tmp, $(S_DEPS))
+	-@ xargs -s 6000 -t -a clean_S_DEPS.tmp $(RM)
+	-@$(RM) clean_S_DEPS.tmp
+endif
+ifneq ($(strip $(PP_UPPER_DEPS)),)
+	-$(file > clean_PP_UPPER_DEPS.tmp, $(PP_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_PP_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_PP_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(P_DEPS)),)
+	-$(file > clean_P_DEPS.tmp, $(P_DEPS))
+	-@ xargs -s 6000 -t -a clean_P_DEPS.tmp $(RM)
+	-@$(RM) clean_P_DEPS.tmp
+endif
+ifneq ($(strip $(JMP_UPPER_DEPS)),)
+	-$(file > clean_JMP_UPPER_DEPS.tmp, $(JMP_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_JMP_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_JMP_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(ASM_UPPER_DEPS)),)
+	-$(file > clean_ASM_UPPER_DEPS.tmp, $(ASM_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_ASM_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_ASM_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(SX_UPPER_DEPS)),)
+	-$(file > clean_SX_UPPER_DEPS.tmp, $(SX_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_SX_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_SX_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(CXX_DEPS)),)
+	-$(file > clean_CXX_DEPS.tmp, $(CXX_DEPS))
+	-@ xargs -s 6000 -t -a clean_CXX_DEPS.tmp $(RM)
+	-@$(RM) clean_CXX_DEPS.tmp
+endif
+ifneq ($(strip $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS)),)
+	-$(file > clean_LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS.tmp, $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS))
+	-@ xargs -s 6000 -t -a clean_LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS.tmp $(RM)
+	-@$(RM) clean_LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS.tmp
+endif
+ifneq ($(strip $(JMP_DEPS)),)
+	-$(file > clean_JMP_DEPS.tmp, $(JMP_DEPS))
+	-@ xargs -s 6000 -t -a clean_JMP_DEPS.tmp $(RM)
+	-@$(RM) clean_JMP_DEPS.tmp
+endif
+ifneq ($(strip $(CXX_UPPER_DEPS)),)
+	-$(file > clean_CXX_UPPER_DEPS.tmp, $(CXX_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_CXX_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_CXX_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(P_UPPER_DEPS)),)
+	-$(file > clean_P_UPPER_DEPS.tmp, $(P_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_P_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_P_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(FSY_UPPER_DEPS)),)
+	-$(file > clean_FSY_UPPER_DEPS.tmp, $(FSY_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_FSY_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_FSY_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(C_DEPS)),)
+	-$(file > clean_C_DEPS.tmp, $(C_DEPS))
+	-@ xargs -s 6000 -t -a clean_C_DEPS.tmp $(RM)
+	-@$(RM) clean_C_DEPS.tmp
+endif
+ifneq ($(strip $(SRC_DEPS)),)
+	-$(file > clean_SRC_DEPS.tmp, $(SRC_DEPS))
+	-@ xargs -s 6000 -t -a clean_SRC_DEPS.tmp $(RM)
+	-@$(RM) clean_SRC_DEPS.tmp
+endif
+ifneq ($(strip $(PP_DEPS)),)
+	-$(file > clean_PP_DEPS.tmp, $(PP_DEPS))
+	-@ xargs -s 6000 -t -a clean_PP_DEPS.tmp $(RM)
+	-@$(RM) clean_PP_DEPS.tmp
+endif
+ifneq ($(strip $(CC_DEPS)),)
+	-$(file > clean_CC_DEPS.tmp, $(CC_DEPS))
+	-@ xargs -s 6000 -t -a clean_CC_DEPS.tmp $(RM)
+	-@$(RM) clean_CC_DEPS.tmp
+endif
+ifneq ($(strip $(SX_DEPS)),)
+	-$(file > clean_SX_DEPS.tmp, $(SX_DEPS))
+	-@ xargs -s 6000 -t -a clean_SX_DEPS.tmp $(RM)
+	-@$(RM) clean_SX_DEPS.tmp
+endif
+ifneq ($(strip $(C++_DEPS)),)
+	-$(file > clean_C++_DEPS.tmp, $(C++_DEPS))
+	-@ xargs -s 6000 -t -a clean_C++_DEPS.tmp $(RM)
+	-@$(RM) clean_C++_DEPS.tmp
+endif
+ifneq ($(strip $(OBJS)),)
+	-$(file > clean_OBJS.tmp, $(OBJS))
+	-@ xargs -s 6000 -t -a clean_OBJS.tmp $(RM)
+	-@$(RM) clean_OBJS.tmp
+endif
+ifneq ($(strip $(SECONDARY_FLASH)),)
+	-$(file > clean_SECONDARY_FLASH.tmp, $(SECONDARY_FLASH))
+	-@ xargs -s 6000 -t -a clean_SECONDARY_FLASH.tmp $(RM)
+	-@$(RM) clean_SECONDARY_FLASH.tmp
+endif
+ifneq ($(strip $(ASM_DEPS)),)
+	-$(file > clean_ASM_DEPS.tmp, $(ASM_DEPS))
+	-@ xargs -s 6000 -t -a clean_ASM_DEPS.tmp $(RM)
+	-@$(RM) clean_ASM_DEPS.tmp
+endif
+ifneq ($(strip $(S_UPPER_DEPS)),)
+	-$(file > clean_S_UPPER_DEPS.tmp, $(S_UPPER_DEPS))
+	-@ xargs -s 6000 -t -a clean_S_UPPER_DEPS.tmp $(RM)
+	-@$(RM) clean_S_UPPER_DEPS.tmp
+endif
+ifneq ($(strip $(CPP_DEPS)),)
+	-$(file > clean_CPP_DEPS.tmp, $(CPP_DEPS))
+	-@ xargs -s 6000 -t -a clean_CPP_DEPS.tmp $(RM)
+	-@$(RM) clean_CPP_DEPS.tmp
+endif
+	-$(RM)  rza2m_sflash_boot_loader_gcc.elf
+	-@echo ' '
+
+secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_SIZE)
+
+.PHONY: all clean dependents 
+
+-include ../makefile.targets

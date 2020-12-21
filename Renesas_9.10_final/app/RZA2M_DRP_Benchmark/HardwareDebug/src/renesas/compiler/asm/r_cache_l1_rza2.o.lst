@@ -1,0 +1,464 @@
+   1              	# 1 "../src/renesas/compiler/asm/r_cache_l1_rza2.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : r_cache_l1_rza2.asm
+  25              	@* $Rev: 467 $
+  26              	@* $Date:: 2018-07-06 18:39:45 +0900#$
+  27              	@* Description : Declaration of the Cortex-A9 cache API function.
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	    .section    .text
+  32              	    .arm
+  33              	
+  34              	@*******************************************************************************
+  35              	@ Function Name: r_cache_l1_cache_init
+  36              	@ Description  : Sub function of initialize the Cortex-A9 Cache.
+  37              	@ Arguments    : none
+  38              	@ Return Value : none
+  39              	@*******************************************************************************
+  40              	    .section .text.r_cache_l1_cache_init
+  41              	    .global r_cache_l1_cache_init
+  43              	    .func   r_cache_l1_cache_init
+  44              	r_cache_l1_cache_init:
+  45              	
+  46              	    @ yet yet
+  47              	
+  48 0000 1EFF2FE1 	    BX  lr
+  49              	
+  50              	    .endfunc
+  51              	@*******************************************************************************
+  52              	@End of function r_cache_l1_cache_init
+  53              	@*******************************************************************************
+  54              	
+  55              	@*******************************************************************************
+  56              	@ Function Name: r_cache_l1_i_inv_all
+  57              	@ Description  : Invalidate whole of the Cortex-A9 instruction cache.
+  58              	@ Arguments    : none
+  59              	@ Return Value : none
+  60              	@*******************************************************************************
+  61              	    .section .text.r_cache_l1_i_inv_all
+  62              	    .global r_cache_l1_i_inv_all
+  64              	    .func   r_cache_l1_i_inv_all
+  65              	r_cache_l1_i_inv_all:
+  66              	
+  67 0000 0000A0E3 	    MOV  r0, #0                 @ r0 data is ignored
+  68 0004 150F07EE 	    MCR  p15, 0, r0, c7, c5, 0  @ ICIALLU
+  69 0008 4FF07FF5 	    DSB                         
+  70 000c 6FF07FF5 	    ISB                         
+  71              	
+  72 0010 1EFF2FE1 	    BX  lr
+  73              	
+  74              	    .endfunc
+  75              	@*******************************************************************************
+  76              	@End of function r_cache_l1_i_inv_all
+  77              	@*******************************************************************************
+  78              	
+  79              	@*******************************************************************************
+  80              	@ Function Name: r_cache_l1_d_cache_operation
+  81              	@ Description  : Operate whole of the Cortex-A9 data cache.
+  82              	@ Arguments    : r0 - R_CACHE_L1_OP_D_INV_ALL(0)         : Invalidate all
+  83              	@                   - R_CACHE_L1_OP_D_CLEAN_ALL(1)       : Clean all
+  84              	@                   - R_CACHE_L1_OP_D_CLEAN_INV_ALL(2)   : Clean&Invalidate all
+  85              	@ Return Value : none
+  86              	@*******************************************************************************
+  87              	    .section .text.r_cache_l1_d_cache_operation
+  88              	    .global r_cache_l1_d_cache_operation
+  90              	    .func   r_cache_l1_d_cache_operation
+  91              	r_cache_l1_d_cache_operation:
+  92              	
+  93 0000 F00F2DE9 	    PUSH {r4-r11}
+  94              	
+  95 0004 306F30EE 	    MRC  p15, 1, r6, c0, c0, 1  @ Read CLIDR
+  96 0008 073416E2 	    ANDS r3, r6, #0x07000000    @ Extract coherency level
+  97 000c A33BA0E1 	    MOV  r3, r3, LSR #23        @ Total cache levels << 1
+  98 0010 2200000A 	    BEQ  Finished               @ If 0, no need to clean
+  99              	
+ 100 0014 00A0A0E3 	    MOV  r10, #0                @ R10 holds current cache level << 1
+ 101              	Loop1:                         
+ 102 0018 AA208AE0 	    ADD  r2, r10, r10, LSR #1   @ R2 holds cache "Set" position
+ 103 001c 3612A0E1 	    MOV  r1, r6, LSR r2         @ Bottom 3 bits are the Cache-type for this level
+ 104 0020 071001E2 	    AND  r1, r1, #7             @ Isolate those lower 3 bits
+ 105 0024 020051E3 	    CMP  r1, #2                 
+ 106 0028 190000BA 	    BLT  Skip                   @ No cache or only instruction cache at this level
+ 107              	
+ 108 002c 10AF40EE 	    MCR  p15, 2, r10, c0, c0, 0 @ Write the Cache Size selection register (CSSELR)
+ 109 0030 6FF07FF5 	    ISB                         @ ISB to sync the change to the CacheSizeID reg
+ 110 0034 101F30EE 	    MRC  p15, 1, r1, c0, c0, 0  @ Reads current Cache Size ID register (CCSIDR)
+ 111 0038 072001E2 	    AND  r2, r1, #7             @ Extract the line length field
+ 112 003c 042082E2 	    ADD  r2, r2, #4             @ Add 4 for the line length offset (log2 16 bytes)
+ 113 0040 64409FE5 	    LDR  r4, =0x3FF             
+ 114 0044 A14114E0 	    ANDS r4, r4, r1, LSR #3     @ R4 is the max number on the way size (right aligned)
+ 115 0048 145F6FE1 	    CLZ  r5, r4                 @ R5 is the bit position of the way size increment
+ 116 004c 5C709FE5 	    LDR  r7, =0x7FFF            
+ 117 0050 A17617E0 	    ANDS r7, r7, r1, LSR #13    @ R7 is the max number of the index size (right aligned)
+ 118              	Loop2:                         
+ 119 0054 0490A0E1 	    MOV  r9, r4                 @ R9 working copy of the max way size (right aligned)
+ 120              	
+ 121              	Loop3:                         
+ 122 0058 19B58AE1 	    ORR  r11, r10, r9, LSL r5   @ Factor in the Way number and cache number into R11
+ 123 005c 17B28BE1 	    ORR  r11, r11, r7, LSL r2   @ Factor in the Set number
+ 124 0060 000050E3 	    CMP  r0, #0                 
+ 125 0064 0100001A 	    BNE  Dccsw                  
+ 126 0068 56BF07EE 	    MCR  p15, 0, r11, c7, c6, 2 @ Invalidate by Set/Way (DCISW)
+ 127 006c 040000EA 	    B    Count                  
+ 128              	Dccsw:                         
+ 129 0070 010050E3 	    CMP  r0, #1                 
+ 130 0074 0100001A 	    BNE  Dccisw                 
+ 131 0078 5ABF07EE 	    MCR  p15, 0, r11, c7, c10, 2@ Clean by set/way (DCCSW)
+ 132 007c 000000EA 	    B    Count                  
+ 133              	Dccisw:                        
+ 134 0080 5EBF07EE 	    MCR  p15, 0, r11, c7, c14, 2@ Clean and Invalidate by set/way (DCCISW)
+ 135              	Count:                         
+ 136 0084 019059E2 	    SUBS r9, r9, #1             @ Decrement the Way number
+ 137 0088 F2FFFFAA 	    BGE  Loop3                  
+ 138 008c 017057E2 	    SUBS r7, r7, #1             @ Decrement the Set number
+ 139 0090 EFFFFFAA 	    BGE  Loop2                  
+ 140              	Skip:                          
+ 141 0094 02A08AE2 	    ADD  r10, r10, #2           @ increment the cache number
+ 142 0098 0A0053E1 	    CMP  r3, r10                
+ 143 009c DDFFFFCA 	    BGT  Loop1                  
+ 144              	
+ 145              	Finished:                      
+ 146 00a0 4FF07FF5 	    DSB                         
+ 147 00a4 F00FBDE8 	    POP {r4-r11}
+ 148 00a8 1EFF2FE1 	    BX  lr
+ 149              	
+ 150              	    .endfunc
+ 151              	@*******************************************************************************
+ 152              	@End of function r_cache_l1_d_cache_operation
+ 153              	@*******************************************************************************
+ 154              	
+ 155              	@*******************************************************************************
+ 156              	@ Function Name: r_cache_l1_d_inv_mva
+ 157              	@ Description  : Apply invalidate operation to a cache line which is included
+ 158              	@                in the specified address.
+ 159              	@ Arguments    : r0 -
+ 160              	@                    Starting address of cache operation (virtual address).
+ 161              	@ Return Value : none
+ 162              	@*******************************************************************************
+ 163              	    .section .text.r_cache_l1_d_inv_mva
+ 164              	    .global r_cache_l1_d_inv_mva
+ 166              	    .func   r_cache_l1_d_inv_mva
+ 167              	r_cache_l1_d_inv_mva:
+ 168              	
+ 169 0000 360F07EE 	    MCR  p15, 0, r0, c7, c6, 1  @ DCIMVAC
+ 170 0004 5FF07FF5 	    DMB                         
+ 171              	
+ 172 0008 1EFF2FE1 	    BX  lr
+ 173              	
+ 174              	    .endfunc
+ 175              	@*******************************************************************************
+ 176              	@End of function r_cache_l1_d_inv_mva
+ 177              	@*******************************************************************************
+ 178              	
+ 179              	@*******************************************************************************
+ 180              	@ Function Name: r_cache_l1_d_clean_mva
+ 181              	@ Description  : Apply clean operation to a cache line which is included
+ 182              	@                in the specified address.
+ 183              	@ Arguments    : r0 -
+ 184              	@                    Starting address of cache operation (virtual address).
+ 185              	@ Return Value : none
+ 186              	@*******************************************************************************
+ 187              	    .section .text.r_cache_l1_d_clean_mva
+ 188              	    .global r_cache_l1_d_clean_mva
+ 190              	    .func   r_cache_l1_d_clean_mva
+ 191              	r_cache_l1_d_clean_mva:
+ 192              	
+ 193 0000 3A0F07EE 	    MCR  p15, 0, r0, c7, c10, 1 @ DCCMVAC
+ 194 0004 5FF07FF5 	    DMB                         
+ 195              	
+ 196 0008 1EFF2FE1 	    BX  lr
+ 197              	
+ 198              	    .endfunc
+ 199              	@*******************************************************************************
+ 200              	@End of function r_cache_l1_d_clean_mva
+ 201              	@*******************************************************************************
+ 202              	
+ 203              	@*******************************************************************************
+ 204              	@ Function Name: r_cache_l1_d_clean_inv_mva
+ 205              	@ Description  : Apply clean&invalidate operation to a cache line which is
+ 206              	@                included in the specified address.
+ 207              	@ Arguments    : r0 -
+ 208              	@                    Starting address of cache operation (virtual address).
+ 209              	@ Return Value : none
+ 210              	@*******************************************************************************
+ 211              	    .section .text.r_cache_l1_d_clean_inv_mva
+ 212              	    .global r_cache_l1_d_clean_inv_mva
+ 214              	    .func   r_cache_l1_d_clean_inv_mva
+ 215              	r_cache_l1_d_clean_inv_mva:
+ 216              	
+ 217 0000 3E0F07EE 	    MCR  p15, 0, r0, c7, c14, 1 @ DCCIMVAC
+ 218 0004 5FF07FF5 	    DMB                         
+ 219              	
+ 220 0008 1EFF2FE1 	    BX  lr
+ 221              	
+ 222              	    .endfunc
+ 223              	@*******************************************************************************
+ 224              	@End of function r_cache_l1_d_clean_inv_mva
+ 225              	@*******************************************************************************
+ 226              	
+ 227              	@*******************************************************************************
+ 228              	@ Function Name: r_cache_l1_i_enable
+ 229              	@ Description  : Enable the Cortex-A9 instruction cache.
+ 230              	@ Arguments    : none
+ 231              	@ Return Value : none
+ 232              	@*******************************************************************************
+ 233              	    .section .text.r_cache_l1_i_enable
+ 234              	    .global r_cache_l1_i_enable
+ 236              	    .func   r_cache_l1_i_enable
+ 237              	r_cache_l1_i_enable:
+ 238              	
+ 239 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read System Control Register
+ 240 0004 010A80E3 	    ORR  r0, r0, #(0x1 << 12)   @ Enable I Cache
+ 241 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write System Control Register
+ 242              	
+ 243 000c 1EFF2FE1 	    BX  lr
+ 244              	
+ 245              	    .endfunc
+ 246              	@*******************************************************************************
+ 247              	@End of function r_cache_l1_i_enable
+ 248              	@*******************************************************************************
+ 249              	
+ 250              	@*******************************************************************************
+ 251              	@ Function Name: r_cache_l1_i_disable
+ 252              	@ Description  : Disable the Cortex-A9 instruction cache.
+ 253              	@ Arguments    : none
+ 254              	@ Return Value : none
+ 255              	@*******************************************************************************
+ 256              	    .section .text.r_cache_l1_i_disable
+ 257              	    .global r_cache_l1_i_disable
+ 259              	    .func   r_cache_l1_i_disable
+ 260              	r_cache_l1_i_disable:
+ 261              	
+ 262 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read System Control Register
+ 263 0004 010AC0E3 	    BIC  r0, r0, #(0x1 << 12)   @ Disable I Cache
+ 264 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write System Control Register
+ 265              	
+ 266 000c 1EFF2FE1 	    BX  lr
+ 267              	
+ 268              	    .endfunc
+ 269              	@*******************************************************************************
+ 270              	@End of function r_cache_l1_i_disable
+ 271              	@*******************************************************************************
+ 272              	
+ 273              	@*******************************************************************************
+ 274              	@ Function Name: r_cache_l1_d_enable
+ 275              	@ Description  : Enable the Cortex-A9 data cache.
+ 276              	@ Arguments    : none
+ 277              	@ Return Value : none
+ 278              	@*******************************************************************************
+ 279              	    .section .text.r_cache_l1_d_enable
+ 280              	    .global r_cache_l1_d_enable
+ 282              	    .func   r_cache_l1_d_enable
+ 283              	r_cache_l1_d_enable:
+ 284              	
+ 285 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read System Control Register
+ 286 0004 040080E3 	    ORR  r0, r0, #(0x1 << 2)    @ Enable D Cache
+ 287 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write System Control Register
+ 288              	
+ 289 000c 1EFF2FE1 	    BX  lr
+ 290              	
+ 291              	    .endfunc
+ 292              	@*******************************************************************************
+ 293              	@End of function r_cache_l1_d_enable
+ 294              	@*******************************************************************************
+ 295              	
+ 296              	@*******************************************************************************
+ 297              	@ Function Name: r_cache_l1_d_disable
+ 298              	@ Description  : Disable the Cortex-A9 data cache.
+ 299              	@ Arguments    : none
+ 300              	@ Return Value : none
+ 301              	@*******************************************************************************
+ 302              	    .section .text.r_cache_l1_d_disable
+ 303              	    .global r_cache_l1_d_disable
+ 305              	    .func   r_cache_l1_d_disable
+ 306              	r_cache_l1_d_disable:
+ 307              	
+ 308 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read System Control Register
+ 309 0004 0400C0E3 	    BIC  r0, r0, #(0x1 << 2)    @ Disable D Cache
+ 310 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write System Control Register
+ 311              	
+ 312 000c 1EFF2FE1 	    BX  lr
+ 313              	
+ 314              	    .endfunc
+ 315              	@*******************************************************************************
+ 316              	@End of function r_cache_l1_d_disable
+ 317              	@*******************************************************************************
+ 318              	
+ 319              	@*******************************************************************************
+ 320              	@ Function Name: r_cache_l1_btac_enable
+ 321              	@ Description  : Enable the Cortex-A9 branch prediction.
+ 322              	@ Arguments    : none
+ 323              	@ Return Value : none
+ 324              	@*******************************************************************************
+ 325              	    .section .text.r_cache_l1_btac_enable
+ 326              	    .global r_cache_l1_btac_enable
+ 328              	    .func   r_cache_l1_btac_enable
+ 329              	r_cache_l1_btac_enable:
+ 330              	
+ 331 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read System Control Register
+ 332 0004 020B80E3 	    ORR  r0, r0, #(0x1 << 11)   @ Enable program flow prediction
+ 333 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write System Control Register
+ 334              	
+ 335 000c 1EFF2FE1 	    BX  lr
+ 336              	
+ 337              	    .endfunc
+ 338              	@*******************************************************************************
+ 339              	@End of function r_cache_l1_btac_enable
+ 340              	@*******************************************************************************
+ 341              	
+ 342              	@*******************************************************************************
+ 343              	@ Function Name: r_cache_l1_btac_disable
+ 344              	@ Description  : Disable the Cortex-A9 branch prediction.
+ 345              	@ Arguments    : none
+ 346              	@ Return Value : none
+ 347              	@*******************************************************************************
+ 348              	    .section .text.r_cache_l1_btac_disable
+ 349              	    .global r_cache_l1_btac_disable
+ 351              	    .func   r_cache_l1_btac_disable
+ 352              	r_cache_l1_btac_disable:
+ 353              	
+ 354 0000 100F11EE 	    MRC  p15, 0, r0, c1, c0, 0  @ Read CP15 register 1
+ 355 0004 020BC0E3 	    BIC  r0, r0, #(0x1 << 11)   @ Disable program flow prediction
+ 356 0008 100F01EE 	    MCR  p15, 0, r0, c1, c0, 0  @ Write CP15 register 1
+ 357              	
+ 358 000c 1EFF2FE1 	    BX  lr
+ 359              	
+ 360              	    .endfunc
+ 361              	@*******************************************************************************
+ 362              	@End of function r_cache_l1_btac_disable
+ 363              	@*******************************************************************************
+ 364              	
+ 365              	@*******************************************************************************
+ 366              	@ Function Name: r_cache_l1_btac_inv
+ 367              	@ Description  : Invalidate whole of the Cortex-A9 branch prediction table.
+ 368              	@ Arguments    : none
+ 369              	@ Return Value : none
+ 370              	@*******************************************************************************
+ 371              	    .section .text.r_cache_l1_btac_inv
+ 372              	    .global r_cache_l1_btac_inv
+ 374              	    .func   r_cache_l1_btac_inv
+ 375              	r_cache_l1_btac_inv:
+ 376              	
+ 377 0000 0000A0E3 	    MOV  r0, #0                 @ r0 data is ignored
+ 378 0004 D50F07EE 	    MCR  p15, 0, r0, c7, c5, 6  @ BPIALL
+ 379 0008 4FF07FF5 	    DSB                         
+ 380 000c 6FF07FF5 	    ISB                         
+ 381              	
+ 382 0010 1EFF2FE1 	    BX  lr
+ 383              	
+ 384              	    .endfunc
+ 385              	@*******************************************************************************
+ 386              	@End of function r_cache_l1_btac_inv
+ 387              	@*******************************************************************************
+ 388              	
+ 389              	@*******************************************************************************
+ 390              	@ Function Name: r_cache_l1_prefetch_enable
+ 391              	@ Description  : Enable the Cortex-A9 prefetching.
+ 392              	@ Arguments    : none
+ 393              	@ Return Value : none
+ 394              	@*******************************************************************************
+ 395              	    .section .text.r_cache_l1_prefetch_enable
+ 396              	    .global r_cache_l1_prefetch_enable
+ 398              	    .func   r_cache_l1_prefetch_enable
+ 399              	r_cache_l1_prefetch_enable:
+ 400              	
+ 401 0000 300F11EE 	    MRC  p15, 0, r0, c1, c0, 1  @ Read Auxiliary Control Register
+ 402 0004 040080E3 	    ORR  r0, r0, #(0x1 << 2)    @ Enable Dside prefetch
+ 403 0008 300F01EE 	    MCR  p15, 0, r0, c1, c0, 1  @ Write Auxiliary Control Register
+ 404              	
+ 405 000c 1EFF2FE1 	    BX  lr
+ 406              	
+ 407              	    .endfunc
+ 408              	@*******************************************************************************
+ 409              	@End of function r_cache_l1_prefetch_enable
+ 410              	@*******************************************************************************
+ 411              	
+ 412              	@*******************************************************************************
+ 413              	@ Function Name: r_cache_l1_prefetch_disable
+ 414              	@ Description  : Disable the Cortex-A9 prefetching.
+ 415              	@ Arguments    : none
+ 416              	@ Return Value : none
+ 417              	@*******************************************************************************
+ 418              	    .section .text.r_cache_l1_prefetch_disable
+ 419              	    .global r_cache_l1_prefetch_disable
+ 421              	    .func   r_cache_l1_prefetch_disable
+ 422              	r_cache_l1_prefetch_disable:
+ 423              	
+ 424 0000 300F11EE 	    MRC  p15, 0, r0, c1, c0, 1  @ Read Auxiliary Control Register
+ 425 0004 0400C0E3 	    BIC  r0, r0, #(0x1 << 2)    @ Disable Dside prefetch
+ 426 0008 300F01EE 	    MCR  p15, 0, r0, c1, c0, 1  @ Write Auxiliary Control Register
+ 427              	
+ 428 000c 1EFF2FE1 	    BX  lr
+ 429              	
+ 430              	    .endfunc
+ 431              	@*******************************************************************************
+ 432              	@End of function r_cache_l1_prefetch_disable
+ 433              	@*******************************************************************************
+DEFINED SYMBOLS
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:44     .text.r_cache_l1_cache_init:00000000 r_cache_l1_cache_init
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:48     .text.r_cache_l1_cache_init:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:65     .text.r_cache_l1_i_inv_all:00000000 r_cache_l1_i_inv_all
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:67     .text.r_cache_l1_i_inv_all:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:91     .text.r_cache_l1_d_cache_operation:00000000 r_cache_l1_d_cache_operation
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:93     .text.r_cache_l1_d_cache_operation:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:145    .text.r_cache_l1_d_cache_operation:000000a0 Finished
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:101    .text.r_cache_l1_d_cache_operation:00000018 Loop1
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:140    .text.r_cache_l1_d_cache_operation:00000094 Skip
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:118    .text.r_cache_l1_d_cache_operation:00000054 Loop2
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:121    .text.r_cache_l1_d_cache_operation:00000058 Loop3
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:128    .text.r_cache_l1_d_cache_operation:00000070 Dccsw
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:135    .text.r_cache_l1_d_cache_operation:00000084 Count
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:133    .text.r_cache_l1_d_cache_operation:00000080 Dccisw
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:167    .text.r_cache_l1_d_inv_mva:00000000 r_cache_l1_d_inv_mva
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:169    .text.r_cache_l1_d_inv_mva:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:191    .text.r_cache_l1_d_clean_mva:00000000 r_cache_l1_d_clean_mva
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:193    .text.r_cache_l1_d_clean_mva:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:215    .text.r_cache_l1_d_clean_inv_mva:00000000 r_cache_l1_d_clean_inv_mva
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:217    .text.r_cache_l1_d_clean_inv_mva:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:237    .text.r_cache_l1_i_enable:00000000 r_cache_l1_i_enable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:239    .text.r_cache_l1_i_enable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:260    .text.r_cache_l1_i_disable:00000000 r_cache_l1_i_disable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:262    .text.r_cache_l1_i_disable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:283    .text.r_cache_l1_d_enable:00000000 r_cache_l1_d_enable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:285    .text.r_cache_l1_d_enable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:306    .text.r_cache_l1_d_disable:00000000 r_cache_l1_d_disable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:308    .text.r_cache_l1_d_disable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:329    .text.r_cache_l1_btac_enable:00000000 r_cache_l1_btac_enable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:331    .text.r_cache_l1_btac_enable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:352    .text.r_cache_l1_btac_disable:00000000 r_cache_l1_btac_disable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:354    .text.r_cache_l1_btac_disable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:375    .text.r_cache_l1_btac_inv:00000000 r_cache_l1_btac_inv
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:377    .text.r_cache_l1_btac_inv:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:399    .text.r_cache_l1_prefetch_enable:00000000 r_cache_l1_prefetch_enable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:401    .text.r_cache_l1_prefetch_enable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:422    .text.r_cache_l1_prefetch_disable:00000000 r_cache_l1_prefetch_disable
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:424    .text.r_cache_l1_prefetch_disable:00000000 $a
+../src/renesas/compiler/asm/r_cache_l1_rza2.asm:433    .text.r_cache_l1_d_cache_operation:000000ac $d
+
+NO UNDEFINED SYMBOLS

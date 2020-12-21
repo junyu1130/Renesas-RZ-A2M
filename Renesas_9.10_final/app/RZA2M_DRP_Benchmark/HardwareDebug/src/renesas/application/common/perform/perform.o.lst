@@ -1,0 +1,815 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"perform.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.bss.overhead,"aw",%nobits
+  17              		.align	2
+  20              	overhead:
+  21 0000 00000000 		.space	4
+  22              		.section	.bss.app_time,"aw",%nobits
+  23              		.align	2
+  26              	app_time:
+  27 0000 00000000 		.space	3072
+  27      00000000 
+  27      00000000 
+  27      00000000 
+  27      00000000 
+  28              		.section	.text.PerformInit,"ax",%progbits
+  29              		.align	2
+  30              		.global	PerformInit
+  31              		.syntax unified
+  32              		.arm
+  33              		.fpu neon
+  35              	PerformInit:
+  36              	.LFB0:
+  37              		.file 1 "../src/renesas/application/common/perform/perform.c"
+   1:../src/renesas/application/common/perform/perform.c **** /*******************************************************************************
+   2:../src/renesas/application/common/perform/perform.c **** * DISCLAIMER
+   3:../src/renesas/application/common/perform/perform.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/application/common/perform/perform.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/application/common/perform/perform.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/application/common/perform/perform.c **** * all applicable laws, including copyright laws.
+   7:../src/renesas/application/common/perform/perform.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/application/common/perform/perform.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/application/common/perform/perform.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/application/common/perform/perform.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/application/common/perform/perform.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/application/common/perform/perform.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/application/common/perform/perform.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/application/common/perform/perform.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/application/common/perform/perform.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/application/common/perform/perform.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/application/common/perform/perform.c **** * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/application/common/perform/perform.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/application/common/perform/perform.c **** * following link:
+  20:../src/renesas/application/common/perform/perform.c **** * http://www.renesas.com/disclaimer
+  21:../src/renesas/application/common/perform/perform.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/application/common/perform/perform.c **** *******************************************************************************/
+  23:../src/renesas/application/common/perform/perform.c **** 
+  24:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  25:../src/renesas/application/common/perform/perform.c **** Includes   <System Includes> , "Project Includes"
+  26:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  27:../src/renesas/application/common/perform/perform.c **** #include "r_typedefs.h"
+  28:../src/renesas/application/common/perform/perform.c **** 
+  29:../src/renesas/application/common/perform/perform.c **** #include "r_intc_lld_rza2m.h"
+  30:../src/renesas/application/common/perform/perform.c **** 
+  31:../src/renesas/application/common/perform/perform.c **** #include "iodefine.h"
+  32:../src/renesas/application/common/perform/perform.c **** 
+  33:../src/renesas/application/common/perform/perform.c **** #include "perform.h"
+  34:../src/renesas/application/common/perform/perform.c **** 
+  35:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  36:../src/renesas/application/common/perform/perform.c **** Typedef definitions
+  37:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  38:../src/renesas/application/common/perform/perform.c **** 
+  39:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  40:../src/renesas/application/common/perform/perform.c **** Macro definitions
+  41:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  42:../src/renesas/application/common/perform/perform.c **** #define TIMER_MAX   (256)
+  43:../src/renesas/application/common/perform/perform.c **** 
+  44:../src/renesas/application/common/perform/perform.c **** #define START_TIME  (0)
+  45:../src/renesas/application/common/perform/perform.c **** #define END_TIME    (1)
+  46:../src/renesas/application/common/perform/perform.c **** #define ELAPSE_TIME (2)
+  47:../src/renesas/application/common/perform/perform.c **** 
+  48:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  49:../src/renesas/application/common/perform/perform.c **** Imported global variables and functions (from other files)
+  50:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  51:../src/renesas/application/common/perform/perform.c **** 
+  52:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  53:../src/renesas/application/common/perform/perform.c **** Exported global variables and functions (to be accessed by other files)
+  54:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  55:../src/renesas/application/common/perform/perform.c **** 
+  56:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  57:../src/renesas/application/common/perform/perform.c **** Private global variables and functions
+  58:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  59:../src/renesas/application/common/perform/perform.c **** static uint32_t overhead;
+  60:../src/renesas/application/common/perform/perform.c **** static uint32_t app_time[TIMER_MAX][ELAPSE_TIME + 1];    /* 0:START_TIME 1:END_TIME 2:ELAPSE_TIME *
+  61:../src/renesas/application/common/perform/perform.c **** 
+  62:../src/renesas/application/common/perform/perform.c **** static uint32_t GetElapsedClockCount(uint32_t timer_no);
+  63:../src/renesas/application/common/perform/perform.c **** 
+  64:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+  65:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformInit
+  66:../src/renesas/application/common/perform/perform.c **** * Description  : Initialization of performance measurement processing
+  67:../src/renesas/application/common/perform/perform.c **** *              : (initial count clock of OSTM 1: P1: 66.666666 [MHz], 1 count: 15 [ns])
+  68:../src/renesas/application/common/perform/perform.c **** * Arguments    : -
+  69:../src/renesas/application/common/perform/perform.c **** * Return Value : 0  success
+  70:../src/renesas/application/common/perform/perform.c **** *                -1 fail
+  71:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+  72:../src/renesas/application/common/perform/perform.c **** int32_t PerformInit(void)
+  73:../src/renesas/application/common/perform/perform.c **** {
+  38              		.loc 1 73 0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 16
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 0000 04B02DE5 		str	fp, [sp, #-4]!
+  44              		.cfi_def_cfa_offset 4
+  45              		.cfi_offset 11, -4
+  46 0004 00B08DE2 		add	fp, sp, #0
+  47              		.cfi_def_cfa_register 11
+  48 0008 14D04DE2 		sub	sp, sp, #20
+  74:../src/renesas/application/common/perform/perform.c ****     uint32_t time1,time2;
+  75:../src/renesas/application/common/perform/perform.c ****     volatile uint8_t dummy_buf;
+  76:../src/renesas/application/common/perform/perform.c **** 
+  77:../src/renesas/application/common/perform/perform.c ****     /* OSTM2 is used as the run time stats counter. */
+  78:../src/renesas/application/common/perform/perform.c **** 	CPG.STBCR3.BIT.MSTP34 = 0;      /*  OSTM2 */
+  49              		.loc 1 78 0
+  50 000c 1030A0E3 		mov	r3, #16
+  51 0010 FE3C4FE3 		movt	r3, 64766
+  52 0014 1024D3E5 		ldrb	r2, [r3, #1040]
+  53 0018 1F22C4E7 		bfc	r2, #4, #1
+  54 001c 1024C3E5 		strb	r2, [r3, #1040]
+  79:../src/renesas/application/common/perform/perform.c ****     dummy_buf = CPG.STBCR3.BYTE;    /* (Dummy read) */
+  55              		.loc 1 79 0
+  56 0020 1030A0E3 		mov	r3, #16
+  57 0024 FE3C4FE3 		movt	r3, 64766
+  58 0028 1034D3E5 		ldrb	r3, [r3, #1040]
+  59 002c 7330EFE6 		uxtb	r3, r3
+  60 0030 0D304BE5 		strb	r3, [fp, #-13]
+  80:../src/renesas/application/common/perform/perform.c **** 
+  81:../src/renesas/application/common/perform/perform.c ****     /* Stop the counter. */
+  82:../src/renesas/application/common/perform/perform.c ****     OSTM2.OSTMnTT.BIT.OSTMnTT = 1;
+  61              		.loc 1 82 0
+  62 0034 0D3AA0E3 		mov	r3, #53248
+  63 0038 03384EE3 		movt	r3, 59395
+  64 003c 1820D3E5 		ldrb	r2, [r3, #24]
+  65 0040 012082E3 		orr	r2, r2, #1
+  66 0044 1820C3E5 		strb	r2, [r3, #24]
+  83:../src/renesas/application/common/perform/perform.c **** 
+  84:../src/renesas/application/common/perform/perform.c ****     /* ---- OSTM compare register (CMP) setting ---- */
+  85:../src/renesas/application/common/perform/perform.c ****     OSTM2.OSTMnCMP.LONG =  (uint32_t)(- 1) ;
+  67              		.loc 1 85 0
+  68 0048 0D3AA0E3 		mov	r3, #53248
+  69 004c 03384EE3 		movt	r3, 59395
+  70 0050 0020E0E3 		mvn	r2, #0
+  71 0054 002083E5 		str	r2, [r3]
+  86:../src/renesas/application/common/perform/perform.c **** 
+  87:../src/renesas/application/common/perform/perform.c ****     /* Work in compare mode mode. */
+  88:../src/renesas/application/common/perform/perform.c ****     OSTM2.OSTMnCTL.BIT.OSTMnMD1 = 1;
+  72              		.loc 1 88 0
+  73 0058 0D3AA0E3 		mov	r3, #53248
+  74 005c 03384EE3 		movt	r3, 59395
+  75 0060 2020D3E5 		ldrb	r2, [r3, #32]
+  76 0064 022082E3 		orr	r2, r2, #2
+  77 0068 2020C3E5 		strb	r2, [r3, #32]
+  89:../src/renesas/application/common/perform/perform.c **** 
+  90:../src/renesas/application/common/perform/perform.c ****     /* Don't use interrupts. */
+  91:../src/renesas/application/common/perform/perform.c ****     OSTM2.OSTMnCTL.BIT.OSTMnMD0 = 0;
+  78              		.loc 1 91 0
+  79 006c 0D3AA0E3 		mov	r3, #53248
+  80 0070 03384EE3 		movt	r3, 59395
+  81 0074 2020D3E5 		ldrb	r2, [r3, #32]
+  82 0078 1F20C0E7 		bfc	r2, #0, #1
+  83 007c 2020C3E5 		strb	r2, [r3, #32]
+  92:../src/renesas/application/common/perform/perform.c **** 
+  93:../src/renesas/application/common/perform/perform.c ****     OSTM2.OSTMnTS.BIT.OSTMnTS = 1;  /* Start counting */
+  84              		.loc 1 93 0
+  85 0080 0D3AA0E3 		mov	r3, #53248
+  86 0084 03384EE3 		movt	r3, 59395
+  87 0088 1420D3E5 		ldrb	r2, [r3, #20]
+  88 008c 012082E3 		orr	r2, r2, #1
+  89 0090 1420C3E5 		strb	r2, [r3, #20]
+  94:../src/renesas/application/common/perform/perform.c **** 
+  95:../src/renesas/application/common/perform/perform.c ****     time1 = OSTM2.OSTMnCNT.LONG;
+  90              		.loc 1 95 0
+  91 0094 0D3AA0E3 		mov	r3, #53248
+  92 0098 03384EE3 		movt	r3, 59395
+  93 009c 043093E5 		ldr	r3, [r3, #4]
+  94 00a0 08300BE5 		str	r3, [fp, #-8]
+  96:../src/renesas/application/common/perform/perform.c ****     time2 = OSTM2.OSTMnCNT.LONG;
+  95              		.loc 1 96 0
+  96 00a4 0D3AA0E3 		mov	r3, #53248
+  97 00a8 03384EE3 		movt	r3, 59395
+  98 00ac 043093E5 		ldr	r3, [r3, #4]
+  99 00b0 0C300BE5 		str	r3, [fp, #-12]
+  97:../src/renesas/application/common/perform/perform.c ****     overhead = time2 - time1;
+ 100              		.loc 1 97 0
+ 101 00b4 0C201BE5 		ldr	r2, [fp, #-12]
+ 102 00b8 08301BE5 		ldr	r3, [fp, #-8]
+ 103 00bc 032042E0 		sub	r2, r2, r3
+ 104 00c0 003000E3 		movw	r3, #:lower16:overhead
+ 105 00c4 003040E3 		movt	r3, #:upper16:overhead
+ 106 00c8 002083E5 		str	r2, [r3]
+  98:../src/renesas/application/common/perform/perform.c **** 
+  99:../src/renesas/application/common/perform/perform.c ****     return 0;
+ 107              		.loc 1 99 0
+ 108 00cc 0030A0E3 		mov	r3, #0
+ 100:../src/renesas/application/common/perform/perform.c **** }
+ 109              		.loc 1 100 0
+ 110 00d0 0300A0E1 		mov	r0, r3
+ 111 00d4 00D08BE2 		add	sp, fp, #0
+ 112              		.cfi_def_cfa_register 13
+ 113              		@ sp needed
+ 114 00d8 04B09DE4 		ldr	fp, [sp], #4
+ 115              		.cfi_restore 11
+ 116              		.cfi_def_cfa_offset 0
+ 117 00dc 1EFF2FE1 		bx	lr
+ 118              		.cfi_endproc
+ 119              	.LFE0:
+ 121              		.section	.text.PerformSetStartTime,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	PerformSetStartTime
+ 124              		.syntax unified
+ 125              		.arm
+ 126              		.fpu neon
+ 128              	PerformSetStartTime:
+ 129              	.LFB1:
+ 101:../src/renesas/application/common/perform/perform.c **** 
+ 102:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 103:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformSetStartTime
+ 104:../src/renesas/application/common/perform/perform.c **** * Description  : Save start time of performance measurement
+ 105:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 106:../src/renesas/application/common/perform/perform.c **** *              :   Timer number used for performance measurement
+ 107:../src/renesas/application/common/perform/perform.c **** * Return Value : -
+ 108:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 109:../src/renesas/application/common/perform/perform.c **** void PerformSetStartTime(uint32_t timer_no)
+ 110:../src/renesas/application/common/perform/perform.c **** {
+ 130              		.loc 1 110 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 8
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 135 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 136              		.cfi_def_cfa_offset 4
+ 137              		.cfi_offset 11, -4
+ 138 0004 00B08DE2 		add	fp, sp, #0
+ 139              		.cfi_def_cfa_register 11
+ 140 0008 0CD04DE2 		sub	sp, sp, #12
+ 141 000c 08000BE5 		str	r0, [fp, #-8]
+ 111:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 142              		.loc 1 111 0
+ 143 0010 08301BE5 		ldr	r3, [fp, #-8]
+ 144 0014 FF0053E3 		cmp	r3, #255
+ 145 0018 0C00008A 		bhi	.L6
+ 112:../src/renesas/application/common/perform/perform.c ****     {
+ 113:../src/renesas/application/common/perform/perform.c ****         app_time[timer_no][START_TIME] = OSTM2.OSTMnCNT.LONG;
+ 146              		.loc 1 113 0
+ 147 001c 0D3AA0E3 		mov	r3, #53248
+ 148 0020 03384EE3 		movt	r3, 59395
+ 149 0024 040093E5 		ldr	r0, [r3, #4]
+ 150 0028 002000E3 		movw	r2, #:lower16:app_time
+ 151 002c 002040E3 		movt	r2, #:upper16:app_time
+ 152 0030 08101BE5 		ldr	r1, [fp, #-8]
+ 153 0034 0130A0E1 		mov	r3, r1
+ 154 0038 8330A0E1 		lsl	r3, r3, #1
+ 155 003c 013083E0 		add	r3, r3, r1
+ 156 0040 0331A0E1 		lsl	r3, r3, #2
+ 157 0044 033082E0 		add	r3, r2, r3
+ 158 0048 000083E5 		str	r0, [r3]
+ 114:../src/renesas/application/common/perform/perform.c ****     }
+ 115:../src/renesas/application/common/perform/perform.c **** 
+ 116:../src/renesas/application/common/perform/perform.c ****     return;
+ 159              		.loc 1 116 0
+ 160 004c 00F020E3 		nop
+ 161              	.L6:
+ 162 0050 00F020E3 		nop
+ 117:../src/renesas/application/common/perform/perform.c **** }
+ 163              		.loc 1 117 0
+ 164 0054 00D08BE2 		add	sp, fp, #0
+ 165              		.cfi_def_cfa_register 13
+ 166              		@ sp needed
+ 167 0058 04B09DE4 		ldr	fp, [sp], #4
+ 168              		.cfi_restore 11
+ 169              		.cfi_def_cfa_offset 0
+ 170 005c 1EFF2FE1 		bx	lr
+ 171              		.cfi_endproc
+ 172              	.LFE1:
+ 174              		.section	.text.PerformSetEndTime,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	PerformSetEndTime
+ 177              		.syntax unified
+ 178              		.arm
+ 179              		.fpu neon
+ 181              	PerformSetEndTime:
+ 182              	.LFB2:
+ 118:../src/renesas/application/common/perform/perform.c **** 
+ 119:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 120:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformSetEndTime
+ 121:../src/renesas/application/common/perform/perform.c **** * Description  : Save end time of performance measurement
+ 122:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 123:../src/renesas/application/common/perform/perform.c **** *              :   Timer number used for performance measurement
+ 124:../src/renesas/application/common/perform/perform.c **** * Return Value : -
+ 125:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 126:../src/renesas/application/common/perform/perform.c **** void PerformSetEndTime(uint32_t timer_no)
+ 127:../src/renesas/application/common/perform/perform.c **** {
+ 183              		.loc 1 127 0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 8
+ 186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 187              		@ link register save eliminated.
+ 188 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 189              		.cfi_def_cfa_offset 4
+ 190              		.cfi_offset 11, -4
+ 191 0004 00B08DE2 		add	fp, sp, #0
+ 192              		.cfi_def_cfa_register 11
+ 193 0008 0CD04DE2 		sub	sp, sp, #12
+ 194 000c 08000BE5 		str	r0, [fp, #-8]
+ 128:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 195              		.loc 1 128 0
+ 196 0010 08301BE5 		ldr	r3, [fp, #-8]
+ 197 0014 FF0053E3 		cmp	r3, #255
+ 198 0018 0D00008A 		bhi	.L10
+ 129:../src/renesas/application/common/perform/perform.c ****     {
+ 130:../src/renesas/application/common/perform/perform.c ****         app_time[timer_no][END_TIME] = OSTM2.OSTMnCNT.LONG;
+ 199              		.loc 1 130 0
+ 200 001c 0D3AA0E3 		mov	r3, #53248
+ 201 0020 03384EE3 		movt	r3, 59395
+ 202 0024 040093E5 		ldr	r0, [r3, #4]
+ 203 0028 002000E3 		movw	r2, #:lower16:app_time
+ 204 002c 002040E3 		movt	r2, #:upper16:app_time
+ 205 0030 08101BE5 		ldr	r1, [fp, #-8]
+ 206 0034 0130A0E1 		mov	r3, r1
+ 207 0038 8330A0E1 		lsl	r3, r3, #1
+ 208 003c 013083E0 		add	r3, r3, r1
+ 209 0040 0331A0E1 		lsl	r3, r3, #2
+ 210 0044 033082E0 		add	r3, r2, r3
+ 211 0048 043083E2 		add	r3, r3, #4
+ 212 004c 000083E5 		str	r0, [r3]
+ 131:../src/renesas/application/common/perform/perform.c ****     }
+ 132:../src/renesas/application/common/perform/perform.c **** 
+ 133:../src/renesas/application/common/perform/perform.c ****     return;
+ 213              		.loc 1 133 0
+ 214 0050 00F020E3 		nop
+ 215              	.L10:
+ 216 0054 00F020E3 		nop
+ 134:../src/renesas/application/common/perform/perform.c **** }
+ 217              		.loc 1 134 0
+ 218 0058 00D08BE2 		add	sp, fp, #0
+ 219              		.cfi_def_cfa_register 13
+ 220              		@ sp needed
+ 221 005c 04B09DE4 		ldr	fp, [sp], #4
+ 222              		.cfi_restore 11
+ 223              		.cfi_def_cfa_offset 0
+ 224 0060 1EFF2FE1 		bx	lr
+ 225              		.cfi_endproc
+ 226              	.LFE2:
+ 228              		.section	.text.PerformGetElapsedTime_ns,"ax",%progbits
+ 229              		.align	2
+ 230              		.global	PerformGetElapsedTime_ns
+ 231              		.syntax unified
+ 232              		.arm
+ 233              		.fpu neon
+ 235              	PerformGetElapsedTime_ns:
+ 236              	.LFB3:
+ 135:../src/renesas/application/common/perform/perform.c **** 
+ 136:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 137:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformGetElapsedTime_ns
+ 138:../src/renesas/application/common/perform/perform.c **** * Description  : Return elapsed time[ns]
+ 139:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 140:../src/renesas/application/common/perform/perform.c **** *                  Number of the timer that acquires the elapsed time
+ 141:../src/renesas/application/common/perform/perform.c **** * Return Value : Elapsed time
+ 142:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 143:../src/renesas/application/common/perform/perform.c **** uint32_t PerformGetElapsedTime_ns(uint32_t timer_no)
+ 144:../src/renesas/application/common/perform/perform.c **** {
+ 237              		.loc 1 144 0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 16
+ 240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 241 0000 00482DE9 		push	{fp, lr}
+ 242              		.cfi_def_cfa_offset 8
+ 243              		.cfi_offset 11, -8
+ 244              		.cfi_offset 14, -4
+ 245 0004 04B08DE2 		add	fp, sp, #4
+ 246              		.cfi_def_cfa 11, 4
+ 247 0008 10D04DE2 		sub	sp, sp, #16
+ 248 000c 10000BE5 		str	r0, [fp, #-16]
+ 145:../src/renesas/application/common/perform/perform.c ****     uint32_t elapsed_time_ns = 0;
+ 249              		.loc 1 145 0
+ 250 0010 0030A0E3 		mov	r3, #0
+ 251 0014 08300BE5 		str	r3, [fp, #-8]
+ 146:../src/renesas/application/common/perform/perform.c **** 
+ 147:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 252              		.loc 1 147 0
+ 253 0018 10301BE5 		ldr	r3, [fp, #-16]
+ 254 001c FF0053E3 		cmp	r3, #255
+ 255 0020 0700008A 		bhi	.L12
+ 148:../src/renesas/application/common/perform/perform.c ****     {
+ 149:../src/renesas/application/common/perform/perform.c ****         /* Calculate the number of clocks from the start time to the end time */
+ 150:../src/renesas/application/common/perform/perform.c ****         elapsed_time_ns = GetElapsedClockCount(timer_no);
+ 256              		.loc 1 150 0
+ 257 0024 10001BE5 		ldr	r0, [fp, #-16]
+ 258 0028 FEFFFFEB 		bl	GetElapsedClockCount
+ 259 002c 08000BE5 		str	r0, [fp, #-8]
+ 151:../src/renesas/application/common/perform/perform.c **** 
+ 152:../src/renesas/application/common/perform/perform.c ****         /* Multiply by the period of 1 clock to calculate elapsed time (ns) */
+ 153:../src/renesas/application/common/perform/perform.c ****         elapsed_time_ns *= 15;
+ 260              		.loc 1 153 0
+ 261 0030 08201BE5 		ldr	r2, [fp, #-8]
+ 262 0034 0230A0E1 		mov	r3, r2
+ 263 0038 0332A0E1 		lsl	r3, r3, #4
+ 264 003c 023043E0 		sub	r3, r3, r2
+ 265 0040 08300BE5 		str	r3, [fp, #-8]
+ 266              	.L12:
+ 154:../src/renesas/application/common/perform/perform.c ****     }
+ 155:../src/renesas/application/common/perform/perform.c **** 
+ 156:../src/renesas/application/common/perform/perform.c ****     return elapsed_time_ns;
+ 267              		.loc 1 156 0
+ 268 0044 08301BE5 		ldr	r3, [fp, #-8]
+ 157:../src/renesas/application/common/perform/perform.c **** }
+ 269              		.loc 1 157 0
+ 270 0048 0300A0E1 		mov	r0, r3
+ 271 004c 04D04BE2 		sub	sp, fp, #4
+ 272              		.cfi_def_cfa 13, 8
+ 273              		@ sp needed
+ 274 0050 0088BDE8 		pop	{fp, pc}
+ 275              		.cfi_endproc
+ 276              	.LFE3:
+ 278              		.section	.text.PerformGetElapsedTime_us,"ax",%progbits
+ 279              		.align	2
+ 280              		.global	PerformGetElapsedTime_us
+ 281              		.syntax unified
+ 282              		.arm
+ 283              		.fpu neon
+ 285              	PerformGetElapsedTime_us:
+ 286              	.LFB4:
+ 158:../src/renesas/application/common/perform/perform.c **** 
+ 159:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 160:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformGetElapsedTime_us
+ 161:../src/renesas/application/common/perform/perform.c **** * Description  : Return elapsed time[us]
+ 162:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 163:../src/renesas/application/common/perform/perform.c **** *                  Number of the timer that acquires the elapsed time
+ 164:../src/renesas/application/common/perform/perform.c **** * Return Value : Elapsed time
+ 165:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 166:../src/renesas/application/common/perform/perform.c **** uint32_t PerformGetElapsedTime_us(uint32_t timer_no)
+ 167:../src/renesas/application/common/perform/perform.c **** {
+ 287              		.loc 1 167 0
+ 288              		.cfi_startproc
+ 289              		@ args = 0, pretend = 0, frame = 16
+ 290              		@ frame_needed = 1, uses_anonymous_args = 0
+ 291 0000 00482DE9 		push	{fp, lr}
+ 292              		.cfi_def_cfa_offset 8
+ 293              		.cfi_offset 11, -8
+ 294              		.cfi_offset 14, -4
+ 295 0004 04B08DE2 		add	fp, sp, #4
+ 296              		.cfi_def_cfa 11, 4
+ 297 0008 10D04DE2 		sub	sp, sp, #16
+ 298 000c 10000BE5 		str	r0, [fp, #-16]
+ 168:../src/renesas/application/common/perform/perform.c ****     uint32_t elapsed_time_us = 0;
+ 299              		.loc 1 168 0
+ 300 0010 0030A0E3 		mov	r3, #0
+ 301 0014 08300BE5 		str	r3, [fp, #-8]
+ 169:../src/renesas/application/common/perform/perform.c **** 
+ 170:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 302              		.loc 1 170 0
+ 303 0018 10301BE5 		ldr	r3, [fp, #-16]
+ 304 001c FF0053E3 		cmp	r3, #255
+ 305 0020 0800008A 		bhi	.L15
+ 171:../src/renesas/application/common/perform/perform.c ****     {
+ 172:../src/renesas/application/common/perform/perform.c ****         /* Calculate the number of clocks from the start time to the end time */
+ 173:../src/renesas/application/common/perform/perform.c ****         elapsed_time_us = GetElapsedClockCount(timer_no);
+ 306              		.loc 1 173 0
+ 307 0024 10001BE5 		ldr	r0, [fp, #-16]
+ 308 0028 FEFFFFEB 		bl	GetElapsedClockCount
+ 309 002c 08000BE5 		str	r0, [fp, #-8]
+ 174:../src/renesas/application/common/perform/perform.c **** 
+ 175:../src/renesas/application/common/perform/perform.c ****         /* Multiply by the period of 1 clock to calculate elapsed time (us) */
+ 176:../src/renesas/application/common/perform/perform.c ****         elapsed_time_us /= 66;
+ 310              		.loc 1 176 0
+ 311 0030 08201BE5 		ldr	r2, [fp, #-8]
+ 312 0034 E13308E3 		movw	r3, #33761
+ 313 0038 0F3E43E3 		movt	r3, 15887
+ 314 003c 922383E0 		umull	r2, r3, r2, r3
+ 315 0040 2332A0E1 		lsr	r3, r3, #4
+ 316 0044 08300BE5 		str	r3, [fp, #-8]
+ 317              	.L15:
+ 177:../src/renesas/application/common/perform/perform.c ****     }
+ 178:../src/renesas/application/common/perform/perform.c **** 
+ 179:../src/renesas/application/common/perform/perform.c ****     return elapsed_time_us;
+ 318              		.loc 1 179 0
+ 319 0048 08301BE5 		ldr	r3, [fp, #-8]
+ 180:../src/renesas/application/common/perform/perform.c **** }
+ 320              		.loc 1 180 0
+ 321 004c 0300A0E1 		mov	r0, r3
+ 322 0050 04D04BE2 		sub	sp, fp, #4
+ 323              		.cfi_def_cfa 13, 8
+ 324              		@ sp needed
+ 325 0054 0088BDE8 		pop	{fp, pc}
+ 326              		.cfi_endproc
+ 327              	.LFE4:
+ 329              		.section	.text.PerformGetElapsedTime_ms,"ax",%progbits
+ 330              		.align	2
+ 331              		.global	PerformGetElapsedTime_ms
+ 332              		.syntax unified
+ 333              		.arm
+ 334              		.fpu neon
+ 336              	PerformGetElapsedTime_ms:
+ 337              	.LFB5:
+ 181:../src/renesas/application/common/perform/perform.c **** 
+ 182:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 183:../src/renesas/application/common/perform/perform.c **** * Function Name: PerformGetElapsedTime_ms
+ 184:../src/renesas/application/common/perform/perform.c **** * Description  : Return elapsed time[ms]
+ 185:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 186:../src/renesas/application/common/perform/perform.c **** *                  Number of the timer that acquires the elapsed time
+ 187:../src/renesas/application/common/perform/perform.c **** * Return Value : Elapsed time
+ 188:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 189:../src/renesas/application/common/perform/perform.c **** uint32_t PerformGetElapsedTime_ms(uint32_t timer_no)
+ 190:../src/renesas/application/common/perform/perform.c **** {
+ 338              		.loc 1 190 0
+ 339              		.cfi_startproc
+ 340              		@ args = 0, pretend = 0, frame = 16
+ 341              		@ frame_needed = 1, uses_anonymous_args = 0
+ 342 0000 00482DE9 		push	{fp, lr}
+ 343              		.cfi_def_cfa_offset 8
+ 344              		.cfi_offset 11, -8
+ 345              		.cfi_offset 14, -4
+ 346 0004 04B08DE2 		add	fp, sp, #4
+ 347              		.cfi_def_cfa 11, 4
+ 348 0008 10D04DE2 		sub	sp, sp, #16
+ 349 000c 10000BE5 		str	r0, [fp, #-16]
+ 191:../src/renesas/application/common/perform/perform.c ****     uint32_t elapsed_time_ms = 0;
+ 350              		.loc 1 191 0
+ 351 0010 0030A0E3 		mov	r3, #0
+ 352 0014 08300BE5 		str	r3, [fp, #-8]
+ 192:../src/renesas/application/common/perform/perform.c **** 
+ 193:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 353              		.loc 1 193 0
+ 354 0018 10301BE5 		ldr	r3, [fp, #-16]
+ 355 001c FF0053E3 		cmp	r3, #255
+ 356 0020 0800008A 		bhi	.L18
+ 194:../src/renesas/application/common/perform/perform.c ****     {
+ 195:../src/renesas/application/common/perform/perform.c ****         /* Calculate the number of clocks from the start time to the end time */
+ 196:../src/renesas/application/common/perform/perform.c ****         elapsed_time_ms = GetElapsedClockCount(timer_no);
+ 357              		.loc 1 196 0
+ 358 0024 10001BE5 		ldr	r0, [fp, #-16]
+ 359 0028 FEFFFFEB 		bl	GetElapsedClockCount
+ 360 002c 08000BE5 		str	r0, [fp, #-8]
+ 197:../src/renesas/application/common/perform/perform.c **** 
+ 198:../src/renesas/application/common/perform/perform.c ****         /* Multiply by the period of 1 clock to calculate elapsed time (us) */
+ 199:../src/renesas/application/common/perform/perform.c ****         elapsed_time_ms /= 66000;
+ 361              		.loc 1 199 0
+ 362 0030 08201BE5 		ldr	r2, [fp, #-8]
+ 363 0034 173304E3 		movw	r3, #17175
+ 364 0038 333E4FE3 		movt	r3, 65075
+ 365 003c 922383E0 		umull	r2, r3, r2, r3
+ 366 0040 2338A0E1 		lsr	r3, r3, #16
+ 367 0044 08300BE5 		str	r3, [fp, #-8]
+ 368              	.L18:
+ 200:../src/renesas/application/common/perform/perform.c ****     }
+ 201:../src/renesas/application/common/perform/perform.c **** 
+ 202:../src/renesas/application/common/perform/perform.c ****     return elapsed_time_ms;
+ 369              		.loc 1 202 0
+ 370 0048 08301BE5 		ldr	r3, [fp, #-8]
+ 203:../src/renesas/application/common/perform/perform.c **** }
+ 371              		.loc 1 203 0
+ 372 004c 0300A0E1 		mov	r0, r3
+ 373 0050 04D04BE2 		sub	sp, fp, #4
+ 374              		.cfi_def_cfa 13, 8
+ 375              		@ sp needed
+ 376 0054 0088BDE8 		pop	{fp, pc}
+ 377              		.cfi_endproc
+ 378              	.LFE5:
+ 380              		.section	.text.GetElapsedClockCount,"ax",%progbits
+ 381              		.align	2
+ 382              		.syntax unified
+ 383              		.arm
+ 384              		.fpu neon
+ 386              	GetElapsedClockCount:
+ 387              	.LFB6:
+ 204:../src/renesas/application/common/perform/perform.c **** 
+ 205:../src/renesas/application/common/perform/perform.c **** /******************************************************************************
+ 206:../src/renesas/application/common/perform/perform.c **** * Function Name: GetElapsedClockCount
+ 207:../src/renesas/application/common/perform/perform.c **** * Description  : Return elapsed clock count (66.666[MHz])
+ 208:../src/renesas/application/common/perform/perform.c **** * Arguments    : timer_no
+ 209:../src/renesas/application/common/perform/perform.c **** *                  Number of the timer that acquires the elapsed clock count
+ 210:../src/renesas/application/common/perform/perform.c **** * Return Value : Elapsed clock count
+ 211:../src/renesas/application/common/perform/perform.c **** ******************************************************************************/
+ 212:../src/renesas/application/common/perform/perform.c **** static uint32_t GetElapsedClockCount(uint32_t timer_no)
+ 213:../src/renesas/application/common/perform/perform.c **** {
+ 388              		.loc 1 213 0
+ 389              		.cfi_startproc
+ 390              		@ args = 0, pretend = 0, frame = 16
+ 391              		@ frame_needed = 1, uses_anonymous_args = 0
+ 392              		@ link register save eliminated.
+ 393 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 394              		.cfi_def_cfa_offset 4
+ 395              		.cfi_offset 11, -4
+ 396 0004 00B08DE2 		add	fp, sp, #0
+ 397              		.cfi_def_cfa_register 11
+ 398 0008 14D04DE2 		sub	sp, sp, #20
+ 399 000c 10000BE5 		str	r0, [fp, #-16]
+ 214:../src/renesas/application/common/perform/perform.c ****     uint32_t clock_count = 0;
+ 400              		.loc 1 214 0
+ 401 0010 0030A0E3 		mov	r3, #0
+ 402 0014 08300BE5 		str	r3, [fp, #-8]
+ 215:../src/renesas/application/common/perform/perform.c **** 
+ 216:../src/renesas/application/common/perform/perform.c ****     if (timer_no < TIMER_MAX)
+ 403              		.loc 1 216 0
+ 404 0018 10301BE5 		ldr	r3, [fp, #-16]
+ 405 001c FF0053E3 		cmp	r3, #255
+ 406 0020 4700008A 		bhi	.L21
+ 217:../src/renesas/application/common/perform/perform.c ****     {
+ 218:../src/renesas/application/common/perform/perform.c ****         if (app_time[timer_no][END_TIME] > app_time[timer_no][START_TIME])
+ 407              		.loc 1 218 0
+ 408 0024 002000E3 		movw	r2, #:lower16:app_time
+ 409 0028 002040E3 		movt	r2, #:upper16:app_time
+ 410 002c 10101BE5 		ldr	r1, [fp, #-16]
+ 411 0030 0130A0E1 		mov	r3, r1
+ 412 0034 8330A0E1 		lsl	r3, r3, #1
+ 413 0038 013083E0 		add	r3, r3, r1
+ 414 003c 0331A0E1 		lsl	r3, r3, #2
+ 415 0040 033082E0 		add	r3, r2, r3
+ 416 0044 043083E2 		add	r3, r3, #4
+ 417 0048 000093E5 		ldr	r0, [r3]
+ 418 004c 002000E3 		movw	r2, #:lower16:app_time
+ 419 0050 002040E3 		movt	r2, #:upper16:app_time
+ 420 0054 10101BE5 		ldr	r1, [fp, #-16]
+ 421 0058 0130A0E1 		mov	r3, r1
+ 422 005c 8330A0E1 		lsl	r3, r3, #1
+ 423 0060 013083E0 		add	r3, r3, r1
+ 424 0064 0331A0E1 		lsl	r3, r3, #2
+ 425 0068 033082E0 		add	r3, r2, r3
+ 426 006c 003093E5 		ldr	r3, [r3]
+ 427 0070 030050E1 		cmp	r0, r3
+ 428 0074 1900009A 		bls	.L22
+ 219:../src/renesas/application/common/perform/perform.c ****         {
+ 220:../src/renesas/application/common/perform/perform.c ****             /* Calculate the number of clocks from the start time to the end time */
+ 221:../src/renesas/application/common/perform/perform.c ****             clock_count = (app_time[timer_no][END_TIME] - app_time[timer_no][START_TIME]) - overhea
+ 429              		.loc 1 221 0
+ 430 0078 002000E3 		movw	r2, #:lower16:app_time
+ 431 007c 002040E3 		movt	r2, #:upper16:app_time
+ 432 0080 10101BE5 		ldr	r1, [fp, #-16]
+ 433 0084 0130A0E1 		mov	r3, r1
+ 434 0088 8330A0E1 		lsl	r3, r3, #1
+ 435 008c 013083E0 		add	r3, r3, r1
+ 436 0090 0331A0E1 		lsl	r3, r3, #2
+ 437 0094 033082E0 		add	r3, r2, r3
+ 438 0098 043083E2 		add	r3, r3, #4
+ 439 009c 000093E5 		ldr	r0, [r3]
+ 440 00a0 002000E3 		movw	r2, #:lower16:app_time
+ 441 00a4 002040E3 		movt	r2, #:upper16:app_time
+ 442 00a8 10101BE5 		ldr	r1, [fp, #-16]
+ 443 00ac 0130A0E1 		mov	r3, r1
+ 444 00b0 8330A0E1 		lsl	r3, r3, #1
+ 445 00b4 013083E0 		add	r3, r3, r1
+ 446 00b8 0331A0E1 		lsl	r3, r3, #2
+ 447 00bc 033082E0 		add	r3, r2, r3
+ 448 00c0 003093E5 		ldr	r3, [r3]
+ 449 00c4 032040E0 		sub	r2, r0, r3
+ 450 00c8 003000E3 		movw	r3, #:lower16:overhead
+ 451 00cc 003040E3 		movt	r3, #:upper16:overhead
+ 452 00d0 003093E5 		ldr	r3, [r3]
+ 453 00d4 033042E0 		sub	r3, r2, r3
+ 454 00d8 08300BE5 		str	r3, [fp, #-8]
+ 455 00dc 180000EA 		b	.L21
+ 456              	.L22:
+ 222:../src/renesas/application/common/perform/perform.c ****         }
+ 223:../src/renesas/application/common/perform/perform.c ****         else
+ 224:../src/renesas/application/common/perform/perform.c ****         {
+ 225:../src/renesas/application/common/perform/perform.c ****             /* Calculate the number of clocks from the start time to the end time */
+ 226:../src/renesas/application/common/perform/perform.c ****             clock_count = ((0xFFFFFFFF - app_time[timer_no][START_TIME] + 1) + app_time[timer_no][E
+ 457              		.loc 1 226 0
+ 458 00e0 002000E3 		movw	r2, #:lower16:app_time
+ 459 00e4 002040E3 		movt	r2, #:upper16:app_time
+ 460 00e8 10101BE5 		ldr	r1, [fp, #-16]
+ 461 00ec 0130A0E1 		mov	r3, r1
+ 462 00f0 8330A0E1 		lsl	r3, r3, #1
+ 463 00f4 013083E0 		add	r3, r3, r1
+ 464 00f8 0331A0E1 		lsl	r3, r3, #2
+ 465 00fc 033082E0 		add	r3, r2, r3
+ 466 0100 043083E2 		add	r3, r3, #4
+ 467 0104 000093E5 		ldr	r0, [r3]
+ 468 0108 002000E3 		movw	r2, #:lower16:app_time
+ 469 010c 002040E3 		movt	r2, #:upper16:app_time
+ 470 0110 10101BE5 		ldr	r1, [fp, #-16]
+ 471 0114 0130A0E1 		mov	r3, r1
+ 472 0118 8330A0E1 		lsl	r3, r3, #1
+ 473 011c 013083E0 		add	r3, r3, r1
+ 474 0120 0331A0E1 		lsl	r3, r3, #2
+ 475 0124 033082E0 		add	r3, r2, r3
+ 476 0128 003093E5 		ldr	r3, [r3]
+ 477 012c 032040E0 		sub	r2, r0, r3
+ 478 0130 003000E3 		movw	r3, #:lower16:overhead
+ 479 0134 003040E3 		movt	r3, #:upper16:overhead
+ 480 0138 003093E5 		ldr	r3, [r3]
+ 481 013c 033042E0 		sub	r3, r2, r3
+ 482 0140 08300BE5 		str	r3, [fp, #-8]
+ 483              	.L21:
+ 227:../src/renesas/application/common/perform/perform.c ****         }
+ 228:../src/renesas/application/common/perform/perform.c ****     }
+ 229:../src/renesas/application/common/perform/perform.c **** 
+ 230:../src/renesas/application/common/perform/perform.c ****     return clock_count;
+ 484              		.loc 1 230 0
+ 485 0144 08301BE5 		ldr	r3, [fp, #-8]
+ 231:../src/renesas/application/common/perform/perform.c **** }
+ 486              		.loc 1 231 0
+ 487 0148 0300A0E1 		mov	r0, r3
+ 488 014c 00D08BE2 		add	sp, fp, #0
+ 489              		.cfi_def_cfa_register 13
+ 490              		@ sp needed
+ 491 0150 04B09DE4 		ldr	fp, [sp], #4
+ 492              		.cfi_restore 11
+ 493              		.cfi_def_cfa_offset 0
+ 494 0154 1EFF2FE1 		bx	lr
+ 495              		.cfi_endproc
+ 496              	.LFE6:
+ 498              		.text
+ 499              	.Letext0:
+ 500              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 501              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 502              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 503              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 504              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 505              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 506              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 507              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate\
+ 508              		.file 10 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 509              		.file 11 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+DEFINED SYMBOLS
+                            *ABS*:00000000 perform.c
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:17     .bss.overhead:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:20     .bss.overhead:00000000 overhead
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:23     .bss.app_time:00000000 $d
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:26     .bss.app_time:00000000 app_time
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:29     .text.PerformInit:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:35     .text.PerformInit:00000000 PerformInit
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:122    .text.PerformSetStartTime:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:128    .text.PerformSetStartTime:00000000 PerformSetStartTime
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:175    .text.PerformSetEndTime:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:181    .text.PerformSetEndTime:00000000 PerformSetEndTime
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:229    .text.PerformGetElapsedTime_ns:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:235    .text.PerformGetElapsedTime_ns:00000000 PerformGetElapsedTime_ns
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:386    .text.GetElapsedClockCount:00000000 GetElapsedClockCount
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:279    .text.PerformGetElapsedTime_us:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:285    .text.PerformGetElapsedTime_us:00000000 PerformGetElapsedTime_us
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:330    .text.PerformGetElapsedTime_ms:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:336    .text.PerformGetElapsedTime_ms:00000000 PerformGetElapsedTime_ms
+C:\Users\Y\AppData\Local\Temp\cc8xPj1h.s:381    .text.GetElapsedClockCount:00000000 $a
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_intc_lld_rza2m.h.46.7dc7c9a114da565f71778e91111dd70b
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+
+NO UNDEFINED SYMBOLS

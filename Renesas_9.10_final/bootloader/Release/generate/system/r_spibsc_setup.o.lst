@@ -1,0 +1,432 @@
+   1              		.arch armv7-a
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"r_spibsc_setup.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.r_spibsc_setup,"ax",%progbits
+  17              		.align	2
+  18              		.global	r_spibsc_setup
+  19              		.arch armv7-a
+  20              		.syntax unified
+  21              		.arm
+  22              		.fpu neon
+  24              	r_spibsc_setup:
+  25              	.LFB3:
+  26              		.file 1 "../generate/system/r_spibsc_setup.c"
+   1:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+   2:../generate/system/r_spibsc_setup.c **** * DISCLAIMER
+   3:../generate/system/r_spibsc_setup.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../generate/system/r_spibsc_setup.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../generate/system/r_spibsc_setup.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../generate/system/r_spibsc_setup.c **** * all applicable laws, including copyright laws.
+   7:../generate/system/r_spibsc_setup.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../generate/system/r_spibsc_setup.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../generate/system/r_spibsc_setup.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../generate/system/r_spibsc_setup.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../generate/system/r_spibsc_setup.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../generate/system/r_spibsc_setup.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../generate/system/r_spibsc_setup.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../generate/system/r_spibsc_setup.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../generate/system/r_spibsc_setup.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../generate/system/r_spibsc_setup.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../generate/system/r_spibsc_setup.c **** * and to discontinue the availability of this software. By using this software,
+  18:../generate/system/r_spibsc_setup.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../generate/system/r_spibsc_setup.c **** * following link:
+  20:../generate/system/r_spibsc_setup.c **** * http://www.renesas.com/disclaimer
+  21:../generate/system/r_spibsc_setup.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+  23:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+  24:../generate/system/r_spibsc_setup.c **** * File Name    : r_spibsc_setup.c
+  25:../generate/system/r_spibsc_setup.c **** * $Rev: 708 $
+  26:../generate/system/r_spibsc_setup.c **** * $Date:: 2018-10-31 11:16:00 +0900#$
+  27:../generate/system/r_spibsc_setup.c **** * Device(s)    : RZ/A2M
+  28:../generate/system/r_spibsc_setup.c **** * OS           : None
+  29:../generate/system/r_spibsc_setup.c **** * H/W Platform : RZ/A2M Board
+  30:../generate/system/r_spibsc_setup.c **** * Description  : RZ/A2M Sample Program
+  31:../generate/system/r_spibsc_setup.c **** * Operation    :
+  32:../generate/system/r_spibsc_setup.c **** * Limitations  :
+  33:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+  34:../generate/system/r_spibsc_setup.c **** 
+  35:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  36:../generate/system/r_spibsc_setup.c **** Includes   <System Includes> , "Project Includes"
+  37:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  38:../generate/system/r_spibsc_setup.c **** 
+  39:../generate/system/r_spibsc_setup.c **** #include "r_typedefs.h"
+  40:../generate/system/r_spibsc_setup.c **** #include "iodefine.h"
+  41:../generate/system/r_spibsc_setup.c **** #include "iobitmask.h"
+  42:../generate/system/r_spibsc_setup.c **** #include "rza_io_regrw.h"
+  43:../generate/system/r_spibsc_setup.c **** #include "r_spibsc_setup.h"
+  44:../generate/system/r_spibsc_setup.c **** 
+  45:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  46:../generate/system/r_spibsc_setup.c **** Typedef definitions
+  47:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  48:../generate/system/r_spibsc_setup.c **** 
+  49:../generate/system/r_spibsc_setup.c **** 
+  50:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  51:../generate/system/r_spibsc_setup.c **** Macro definitions
+  52:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  53:../generate/system/r_spibsc_setup.c **** 
+  54:../generate/system/r_spibsc_setup.c **** 
+  55:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  56:../generate/system/r_spibsc_setup.c **** Imported global variables and functions (from other files)
+  57:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  58:../generate/system/r_spibsc_setup.c **** 
+  59:../generate/system/r_spibsc_setup.c **** 
+  60:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  61:../generate/system/r_spibsc_setup.c **** Exported global variables and functions (to be accessed by other files)
+  62:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  63:../generate/system/r_spibsc_setup.c **** 
+  64:../generate/system/r_spibsc_setup.c **** 
+  65:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  66:../generate/system/r_spibsc_setup.c **** Private global variables and functions
+  67:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  68:../generate/system/r_spibsc_setup.c **** 
+  69:../generate/system/r_spibsc_setup.c **** 
+  70:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+  71:../generate/system/r_spibsc_setup.c **** * Function Name: HW_INIT_IO_RegWrite_16
+  72:../generate/system/r_spibsc_setup.c **** * Description  : IO register 16-bit write
+  73:../generate/system/r_spibsc_setup.c **** * Arguments    : volatile uint16_t * ioreg : IO register for writing
+  74:../generate/system/r_spibsc_setup.c **** *              :                           : Use register definition name of the
+  75:../generate/system/r_spibsc_setup.c **** *              :                           : iodefine.h
+  76:../generate/system/r_spibsc_setup.c **** *              : uint16_t write_value      : Write value for the IO register
+  77:../generate/system/r_spibsc_setup.c **** *              : uint16_t shift            : The number of left shifts to the
+  78:../generate/system/r_spibsc_setup.c **** *              :                           : target bit
+  79:../generate/system/r_spibsc_setup.c **** *              : uint16_t mask             : Mask value for the IO register
+  80:../generate/system/r_spibsc_setup.c **** *              :                           : (Target bit : "1")
+  81:../generate/system/r_spibsc_setup.c **** * Return Value : None
+  82:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+  83:../generate/system/r_spibsc_setup.c **** static void HW_INIT_IO_RegWrite_16(volatile uint16_t * ioreg, uint16_t write_value, uint16_t shift,
+  84:../generate/system/r_spibsc_setup.c **** {
+  85:../generate/system/r_spibsc_setup.c ****     uint16_t reg_value;
+  86:../generate/system/r_spibsc_setup.c **** 
+  87:../generate/system/r_spibsc_setup.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+  88:../generate/system/r_spibsc_setup.c ****     {
+  89:../generate/system/r_spibsc_setup.c ****         reg_value = *ioreg;                                         /* Read from register */
+  90:../generate/system/r_spibsc_setup.c ****         reg_value = (uint16_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify
+  91:../generate/system/r_spibsc_setup.c ****     }
+  92:../generate/system/r_spibsc_setup.c ****     else
+  93:../generate/system/r_spibsc_setup.c ****     {
+  94:../generate/system/r_spibsc_setup.c ****         reg_value = write_value;
+  95:../generate/system/r_spibsc_setup.c ****     }
+  96:../generate/system/r_spibsc_setup.c ****     *ioreg    = reg_value;                                      /* Write to register  */
+  97:../generate/system/r_spibsc_setup.c **** }
+  98:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+  99:../generate/system/r_spibsc_setup.c **** End of function HW_INIT_IO_RegWrite_16
+ 100:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+ 101:../generate/system/r_spibsc_setup.c **** 
+ 102:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+ 103:../generate/system/r_spibsc_setup.c **** * Function Name: HW_INIT_IO_RegRead_32
+ 104:../generate/system/r_spibsc_setup.c **** * Description  : IO register 32-bit read
+ 105:../generate/system/r_spibsc_setup.c **** * Arguments    : volatile uint32_t * ioreg : IO register for reading
+ 106:../generate/system/r_spibsc_setup.c **** *              :                           : Use register definition name of the
+ 107:../generate/system/r_spibsc_setup.c **** *              :                           : iodefine.h
+ 108:../generate/system/r_spibsc_setup.c **** *              : uint32_t shift            : The number of right shifts to the
+ 109:../generate/system/r_spibsc_setup.c **** *              :                           : target bit
+ 110:../generate/system/r_spibsc_setup.c **** *              : uint32_t mask             : Mask bit for the IO register
+ 111:../generate/system/r_spibsc_setup.c **** *              :                           : (Target bit: "1")
+ 112:../generate/system/r_spibsc_setup.c **** * Return Value : uint32_t : Value of the obtained target bit
+ 113:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+ 114:../generate/system/r_spibsc_setup.c **** static uint32_t HW_INIT_IO_RegRead_32(volatile uint32_t * ioreg, uint32_t shift, uint32_t mask)
+ 115:../generate/system/r_spibsc_setup.c **** {
+ 116:../generate/system/r_spibsc_setup.c ****     uint32_t reg_value;
+ 117:../generate/system/r_spibsc_setup.c **** 
+ 118:../generate/system/r_spibsc_setup.c ****     reg_value = *ioreg;                             /* Read from register            */
+ 119:../generate/system/r_spibsc_setup.c ****     if ( IOREG_NONMASK_ACCESS != mask)
+ 120:../generate/system/r_spibsc_setup.c ****     {
+ 121:../generate/system/r_spibsc_setup.c ****         reg_value = (reg_value & mask) >> shift;    /* Clear other bit and Bit shift */
+ 122:../generate/system/r_spibsc_setup.c ****     }
+ 123:../generate/system/r_spibsc_setup.c **** 
+ 124:../generate/system/r_spibsc_setup.c ****     return reg_value;
+ 125:../generate/system/r_spibsc_setup.c **** }
+ 126:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+ 127:../generate/system/r_spibsc_setup.c **** End of function HW_INIT_IO_RegRead_32
+ 128:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+ 129:../generate/system/r_spibsc_setup.c **** 
+ 130:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+ 131:../generate/system/r_spibsc_setup.c **** * Function Name: hw_init_spibsc_wait_tend
+ 132:../generate/system/r_spibsc_setup.c **** * Description  : Wait Transfer End (Manual mode)
+ 133:../generate/system/r_spibsc_setup.c **** * Arguments    : none
+ 134:../generate/system/r_spibsc_setup.c **** * Return Value : none
+ 135:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+ 136:../generate/system/r_spibsc_setup.c **** static void hw_init_spibsc_wait_tend(void)
+ 137:../generate/system/r_spibsc_setup.c **** {
+ 138:../generate/system/r_spibsc_setup.c **** 
+ 139:../generate/system/r_spibsc_setup.c ****     uint32_t tend;
+ 140:../generate/system/r_spibsc_setup.c **** 
+ 141:../generate/system/r_spibsc_setup.c ****     do{
+ 142:../generate/system/r_spibsc_setup.c **** 
+ 143:../generate/system/r_spibsc_setup.c ****         /* Read CMNSR.TEND */
+ 144:../generate/system/r_spibsc_setup.c ****        tend = HW_INIT_IO_RegRead_32(&SPIBSC.CMNSR.LONG, SPIBSC_CMNSR_TEND_SHIFT, SPIBSC_CMNSR_TEND)
+ 145:../generate/system/r_spibsc_setup.c **** 
+ 146:../generate/system/r_spibsc_setup.c ****     }while( 0 == tend );
+ 147:../generate/system/r_spibsc_setup.c **** 
+ 148:../generate/system/r_spibsc_setup.c **** }
+ 149:../generate/system/r_spibsc_setup.c **** /*******************************************************************************
+ 150:../generate/system/r_spibsc_setup.c **** End of function hw_init_spibsc_wait_tend
+ 151:../generate/system/r_spibsc_setup.c **** *******************************************************************************/
+ 152:../generate/system/r_spibsc_setup.c **** 
+ 153:../generate/system/r_spibsc_setup.c **** /******************************************************************************
+ 154:../generate/system/r_spibsc_setup.c **** * Function Name: r_spibsc_setup
+ 155:../generate/system/r_spibsc_setup.c **** * Description  : 
+ 156:../generate/system/r_spibsc_setup.c **** * Arguments    : none
+ 157:../generate/system/r_spibsc_setup.c **** * Return Value : none
+ 158:../generate/system/r_spibsc_setup.c **** ******************************************************************************/
+ 159:../generate/system/r_spibsc_setup.c **** void r_spibsc_setup( void )
+ 160:../generate/system/r_spibsc_setup.c **** {
+  27              		.loc 1 160 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 161:../generate/system/r_spibsc_setup.c **** 
+ 162:../generate/system/r_spibsc_setup.c **** 	/* Wait TEND = 1 */
+ 163:../generate/system/r_spibsc_setup.c **** 	hw_init_spibsc_wait_tend();
+  32              		.loc 1 163 2 view .LVU1
+  33              	.LBB12:
+  34              	.LBI12:
+ 136:../generate/system/r_spibsc_setup.c **** {
+  35              		.loc 1 136 13 view .LVU2
+  36              	.LBB13:
+  37              	.LBB14:
+  38              	.LBB15:
+ 118:../generate/system/r_spibsc_setup.c ****     if ( IOREG_NONMASK_ACCESS != mask)
+  39              		.loc 1 118 15 is_stmt 0 view .LVU3
+  40 0000 7E25A0E3 		mov	r2, #528482304
+  41              	.L2:
+  42              	.LBE15:
+  43              	.LBE14:
+ 139:../generate/system/r_spibsc_setup.c **** 
+  44              		.loc 1 139 5 is_stmt 1 view .LVU4
+ 141:../generate/system/r_spibsc_setup.c **** 
+  45              		.loc 1 141 5 view .LVU5
+ 144:../generate/system/r_spibsc_setup.c **** 
+  46              		.loc 1 144 8 view .LVU6
+  47              	.LVL0:
+  48              	.LBB17:
+  49              	.LBI14:
+ 114:../generate/system/r_spibsc_setup.c **** {
+  50              		.loc 1 114 17 view .LVU7
+  51              	.LBB16:
+ 116:../generate/system/r_spibsc_setup.c **** 
+  52              		.loc 1 116 5 view .LVU8
+ 118:../generate/system/r_spibsc_setup.c ****     if ( IOREG_NONMASK_ACCESS != mask)
+  53              		.loc 1 118 5 view .LVU9
+ 118:../generate/system/r_spibsc_setup.c ****     if ( IOREG_NONMASK_ACCESS != mask)
+  54              		.loc 1 118 15 is_stmt 0 view .LVU10
+  55 0004 483092E5 		ldr	r3, [r2, #72]
+  56              	.LVL1:
+ 119:../generate/system/r_spibsc_setup.c ****     {
+  57              		.loc 1 119 5 is_stmt 1 view .LVU11
+ 121:../generate/system/r_spibsc_setup.c ****     }
+  58              		.loc 1 121 9 view .LVU12
+ 124:../generate/system/r_spibsc_setup.c **** }
+  59              		.loc 1 124 5 view .LVU13
+ 124:../generate/system/r_spibsc_setup.c **** }
+  60              		.loc 1 124 5 is_stmt 0 view .LVU14
+  61              	.LBE16:
+  62              	.LBE17:
+ 146:../generate/system/r_spibsc_setup.c **** 
+  63              		.loc 1 146 11 is_stmt 1 view .LVU15
+ 146:../generate/system/r_spibsc_setup.c **** 
+  64              		.loc 1 146 5 is_stmt 0 view .LVU16
+  65 0008 010013E3 		tst	r3, #1
+  66 000c FCFFFF0A 		beq	.L2
+  67              	.LBE13:
+  68              	.LBE12:
+ 164:../generate/system/r_spibsc_setup.c **** 
+ 165:../generate/system/r_spibsc_setup.c ****     /* ---- SCLKSEL.SPICR[1:0] = b'01 : SPIBSC Clock = P1   ---- */
+ 166:../generate/system/r_spibsc_setup.c ****     HW_INIT_IO_RegWrite_16(&CPG.SCLKSEL.WORD, 0x1, CPG_SCLKSEL_SPICR_SHIFT, CPG_SCLKSEL_SPICR);
+  69              		.loc 1 166 5 is_stmt 1 view .LVU17
+  70              	.LVL2:
+  71              	.LBB18:
+  72              	.LBI18:
+  83:../generate/system/r_spibsc_setup.c **** {
+  73              		.loc 1 83 13 view .LVU18
+  74              	.LBB19:
+  85:../generate/system/r_spibsc_setup.c **** 
+  75              		.loc 1 85 5 view .LVU19
+  87:../generate/system/r_spibsc_setup.c ****     {
+  76              		.loc 1 87 5 view .LVU20
+  89:../generate/system/r_spibsc_setup.c ****         reg_value = (uint16_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify
+  77              		.loc 1 89 9 view .LVU21
+  89:../generate/system/r_spibsc_setup.c ****         reg_value = (uint16_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify
+  78              		.loc 1 89 19 is_stmt 0 view .LVU22
+  79 0010 14209FE5 		ldr	r2, .L5
+  90:../generate/system/r_spibsc_setup.c ****     }
+  80              		.loc 1 90 43 view .LVU23
+  81 0014 FC3F0FE3 		movw	r3, #65532
+  82              	.LVL3:
+  89:../generate/system/r_spibsc_setup.c ****         reg_value = (uint16_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify
+  83              		.loc 1 89 19 view .LVU24
+  84 0018 BB1F52E1 		ldrh	r1, [r2, #-251]
+  85              	.LVL4:
+  90:../generate/system/r_spibsc_setup.c ****     }
+  86              		.loc 1 90 9 is_stmt 1 view .LVU25
+  90:../generate/system/r_spibsc_setup.c ****     }
+  87              		.loc 1 90 43 is_stmt 0 view .LVU26
+  88 001c 013003E0 		and	r3, r3, r1
+  90:../generate/system/r_spibsc_setup.c ****     }
+  89              		.loc 1 90 19 view .LVU27
+  90 0020 013083E3 		orr	r3, r3, #1
+  91              	.LVL5:
+  96:../generate/system/r_spibsc_setup.c **** }
+  92              		.loc 1 96 5 is_stmt 1 view .LVU28
+  96:../generate/system/r_spibsc_setup.c **** }
+  93              		.loc 1 96 15 is_stmt 0 view .LVU29
+  94 0024 BB3F42E1 		strh	r3, [r2, #-251]	@ movhi
+  95              	.LVL6:
+  96:../generate/system/r_spibsc_setup.c **** }
+  96              		.loc 1 96 15 view .LVU30
+  97              	.LBE19:
+  98              	.LBE18:
+ 167:../generate/system/r_spibsc_setup.c **** 
+ 168:../generate/system/r_spibsc_setup.c **** }
+  99              		.loc 1 168 1 view .LVU31
+ 100 0028 1EFF2FE1 		bx	lr
+ 101              	.L6:
+ 102              		.align	2
+ 103              	.L5:
+ 104 002c FF01FEFC 		.word	-50462209
+ 105              		.cfi_endproc
+ 106              	.LFE3:
+ 108              		.text
+ 109              	.Letext0:
+ 110              		.file 2 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 111              		.file 3 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 112              		.file 4 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\lib\\gcc\\arm-none
+ 113              		.file 5 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 114              		.file 6 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 115              		.file 7 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 116              		.file 8 "d:\\program files (x86)\\gnu arm embedded toolchain\\9 2020-q2-update\\arm-none-eabi\\inc
+ 117              		.file 9 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/ge
+ 118              		.file 10 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas-9.9/Renesas-9.7-TrafficLight/bootloader/g
+DEFINED SYMBOLS
+                            *ABS*:00000000 r_spibsc_setup.c
+C:\Users\Y\AppData\Local\Temp\cciPsyM6.s:17     .text.r_spibsc_setup:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cciPsyM6.s:24     .text.r_spibsc_setup:00000000 r_spibsc_setup
+C:\Users\Y\AppData\Local\Temp\cciPsyM6.s:104    .text.r_spibsc_setup:0000002c $d
+                           .group:00000000 wm4.0.58582867dec117551e3c8e9255733210
+                           .group:00000000 wm4.stddef.h.39.144cf5ddcd53cbfdac30259dc1a6c87f
+                           .group:00000000 wm4._newlib_version.h.4.1ef4e12f167f8b69d7c30054be56050d
+                           .group:00000000 wm4.features.h.33.318b64d71e0957639cfb30f1db1f7ec8
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.7cb3972cd43265932d4782d5eb589854
+                           .group:00000000 wm4.ieeefp.h.77.3f06799abf5dd88bdddee084775a1223
+                           .group:00000000 wm4.config.h.224.c701144a7b0518c6ee9b9b5465b79f81
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.155.3588ebfdd1e8c7ede80509bb9c3b8009
+                           .group:00000000 wm4._types.h.127.34941de1b2539d59d5cac00e0dd27a45
+                           .group:00000000 wm4.reent.h.17.e292bf8b0bec6c96e131a54347145a30
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4.reent.h.77.dcd6129ff07fe81bd5636db29abe53b2
+                           .group:00000000 wm4.cdefs.h.49.6260d97adb8d27534cbdc0f868b8ea87
+                           .group:00000000 wm4.math.h.13.97100c05caf9f40dd9f5a3cda48ccc01
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.iobitmask.h.29.773e8f8428b0c21e1206a8c47a6d3927
+                           .group:00000000 wm4.adc_iobitmask.h.29.48ba2821c8a4fc20022447ad9316d399
+                           .group:00000000 wm4.bsc_iobitmask.h.29.115d15c4ad4b48e00598dcd62d33c637
+                           .group:00000000 wm4.ceu_iobitmask.h.29.413b5b68bb3c2148786493166a57173e
+                           .group:00000000 wm4.cpg_iobitmask.h.29.58382d682aa9abf69ab653ac5fe9149b
+                           .group:00000000 wm4.csi2link_iobitmask.h.29.701c130cb17627664fe7c147084057cf
+                           .group:00000000 wm4.dmac_iobitmask.h.29.98850e876107975c53dc0bb8ebb53eb5
+                           .group:00000000 wm4.drpk_iobitmask.h.29.167e7cf6b1feb4d38b8903a46d8c35ac
+                           .group:00000000 wm4.drw_iobitmask.h.29.71d46f2244f6e7ae6117fe6c41c5567d
+                           .group:00000000 wm4.edmac_iobitmask.h.29.4e406d859155ba914663e1cf61cad89a
+                           .group:00000000 wm4.eptpc_iobitmask.h.29.64bcd0a67db3a886572992ae6da8898c
+                           .group:00000000 wm4.etherc_iobitmask.h.29.07b13cb10c426023658e5c51f952b6de
+                           .group:00000000 wm4.gpio_iobitmask.h.29.ea8c1464682eb61f2d0763b97ed530f9
+                           .group:00000000 wm4.gpt_iobitmask.h.29.94173800a704c5ba32e348ba97cd23cf
+                           .group:00000000 wm4.hyper_iobitmask.h.29.f09febbc7b835674abe34ae75f3c700d
+                           .group:00000000 wm4.imr2_iobitmask.h.29.90b834f92ca4d39c49dda81fe096b5f0
+                           .group:00000000 wm4.intc_iobitmask.h.29.6d3be2e47bf3d7eb7e91eeddcab863af
+                           .group:00000000 wm4.irda_iobitmask.h.29.6f43dde454e599a1d4a8be2978ac9459
+                           .group:00000000 wm4.jcu_iobitmask.h.29.9fd48851a81ff31733aa19b29e4846ad
+                           .group:00000000 wm4.lvds_iobitmask.h.29.4a6f69c8911426fa05f0b05eab5f5e15
+                           .group:00000000 wm4.mtu_iobitmask.h.29.7a98ba20f3fb30f35d72abcc74524cc2
+                           .group:00000000 wm4.nandc_iobitmask.h.29.a3a0f4ae99fdf814aa6f25f430186b14
+                           .group:00000000 wm4.octa_iobitmask.h.29.88d29c353902045cc5df621720d36632
+                           .group:00000000 wm4.ostm_iobitmask.h.29.38ee9f4e1711e17bd3f38545ba631cde
+                           .group:00000000 wm4.pl310_iobitmask.h.29.c1ef5625c0a9d67f24e89fe2fd7e4886
+                           .group:00000000 wm4.pmg_iobitmask.h.29.d20cb8352080a58cf6cbf526935d968e
+                           .group:00000000 wm4.poe3_iobitmask.h.29.3a3444cc2dbf606e2370573e16d57254
+                           .group:00000000 wm4.poeg_iobitmask.h.29.5601eb8cf1161926d683c0720340f85d
+                           .group:00000000 wm4.prr_iobitmask.h.29.52f8479a52e2236c122b5956e4bdbfce
+                           .group:00000000 wm4.ptpedmac_iobitmask.h.29.494dcb2240ebba7fa20d0c2ab02007f7
+                           .group:00000000 wm4.rcanfd_iobitmask.h.29.4376b1b7ff587ba618a622f2c4029df7
+                           .group:00000000 wm4.rcan_iobitmask.h.29.c6f8b9b62e8fdc007f8b5f40c1f7e95d
+                           .group:00000000 wm4.riic_iobitmask.h.29.b6e4a30b4a750b93bf8b54b204e41e8e
+                           .group:00000000 wm4.rspi_iobitmask.h.29.2e257f44186c83ca40dbb0db2548623b
+                           .group:00000000 wm4.rtc_iobitmask.h.29.83f9de1730e532ab7dfce6a57bb996ea
+                           .group:00000000 wm4.scifa_iobitmask.h.29.c7af830569e0d6a26f3d66e3adc293d7
+                           .group:00000000 wm4.scim_iobitmask.h.29.3b5e9d8b03a11c94acd93de96d2037f6
+                           .group:00000000 wm4.sdmmc_iobitmask.h.29.023cb9ff953a162569769cc98970f23e
+                           .group:00000000 wm4.spdif_iobitmask.h.29.c16f83f628828ab24aa2b72615b93e69
+                           .group:00000000 wm4.spibsc_iobitmask.h.29.8ade4a581f57cd5b82569a69eb5f0d67
+                           .group:00000000 wm4.sprite_iobitmask.h.29.82888597faf7ebb3bc86b5f1018a2253
+                           .group:00000000 wm4.ssif_iobitmask.h.29.482529b431f1ad627a02168620c61eee
+                           .group:00000000 wm4.usb_iobitmask.h.29.aae4dfd463dfdd120bf5855c9dc97483
+                           .group:00000000 wm4.vdc6_iobitmask.h.29.3ce0a3f9d2209ce71e4fec48b4ecb79a
+                           .group:00000000 wm4.vin_iobitmask.h.29.576a1d6e4b2cf6cbd353044865e437f2
+                           .group:00000000 wm4.wdt_iobitmask.h.29.c612db09eac33fb3da8d8aaee67287a9
+                           .group:00000000 wm4.rza_io_regrw.h.46.8ffd34a4c69bd0fad4b7b3d6d30a6855
+
+NO UNDEFINED SYMBOLS

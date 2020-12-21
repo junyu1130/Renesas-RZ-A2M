@@ -1,0 +1,989 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"r_bcd_camera.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.comm	g_camera_vsync_us,4,4
+  17              		.section	.data.vdc_captured,"aw",%progbits
+  18              		.align	2
+  21              	vdc_captured:
+  22 0000 FFFFFFFF 		.word	-1
+  23              		.section	Capture_RAM,"aw",%progbits
+  24              		.align	2
+  27              	frame_buffer:
+  28 0000 00000000 		.space	691200
+  28      00000000 
+  28      00000000 
+  28      00000000 
+  28      00000000 
+  29              		.section	.bss.mb_manage_table,"aw",%nobits
+  30              		.align	2
+  33              	mb_manage_table:
+  34 0000 00000000 		.space	12
+  34      00000000 
+  34      00000000 
+  35              		.section	.bss.buff_write_point,"aw",%nobits
+  36              		.align	2
+  39              	buff_write_point:
+  40 0000 00000000 		.space	4
+  41              		.section	.text.R_BCD_CameraGetFrameAddress,"ax",%progbits
+  42              		.align	2
+  43              		.global	R_BCD_CameraGetFrameAddress
+  44              		.syntax unified
+  45              		.arm
+  46              		.fpu neon
+  48              	R_BCD_CameraGetFrameAddress:
+  49              	.LFB0:
+  50              		.file 1 "../src/renesas/application/r_bcd_camera.c"
+   1:../src/renesas/application/r_bcd_camera.c **** /*******************************************************************************
+   2:../src/renesas/application/r_bcd_camera.c **** * DISCLAIMER
+   3:../src/renesas/application/r_bcd_camera.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/application/r_bcd_camera.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/application/r_bcd_camera.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/application/r_bcd_camera.c **** * all applicable laws, including copyright laws.
+   7:../src/renesas/application/r_bcd_camera.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/application/r_bcd_camera.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/application/r_bcd_camera.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/application/r_bcd_camera.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/application/r_bcd_camera.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/application/r_bcd_camera.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/application/r_bcd_camera.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/application/r_bcd_camera.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/application/r_bcd_camera.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/application/r_bcd_camera.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/application/r_bcd_camera.c **** * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/application/r_bcd_camera.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/application/r_bcd_camera.c **** * following link:
+  20:../src/renesas/application/r_bcd_camera.c **** * http://www.renesas.com/disclaimer
+  21:../src/renesas/application/r_bcd_camera.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/application/r_bcd_camera.c **** *******************************************************************************/
+  23:../src/renesas/application/r_bcd_camera.c **** 
+  24:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  25:../src/renesas/application/r_bcd_camera.c **** Includes   <System Includes> , "Project Includes"
+  26:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  27:../src/renesas/application/r_bcd_camera.c **** #include "r_typedefs.h"
+  28:../src/renesas/application/r_bcd_camera.c **** #include "mipi_camera.h"
+  29:../src/renesas/application/r_bcd_camera.c **** 
+  30:../src/renesas/application/r_bcd_camera.c **** #include "r_rvapi_mipi.h"
+  31:../src/renesas/application/r_bcd_camera.c **** #include "r_bcd_camera.h"
+  32:../src/renesas/application/r_bcd_camera.c **** #include "r_bcd_main.h"
+  33:../src/renesas/application/r_bcd_camera.c **** #include "r_intc_drv_api.h"
+  34:../src/renesas/application/r_bcd_camera.c **** #include "perform.h"
+  35:../src/renesas/application/r_bcd_camera.c **** 
+  36:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  37:../src/renesas/application/r_bcd_camera.c **** Typedef definitions
+  38:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  39:../src/renesas/application/r_bcd_camera.c **** 
+  40:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  41:../src/renesas/application/r_bcd_camera.c **** Macro definitions
+  42:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  43:../src/renesas/application/r_bcd_camera.c **** #define MB_REG_NUM_MAX (3)
+  44:../src/renesas/application/r_bcd_camera.c **** 
+  45:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  46:../src/renesas/application/r_bcd_camera.c **** Imported global variables and functions (from other files)
+  47:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  48:../src/renesas/application/r_bcd_camera.c **** extern void Init_Camera(void);
+  49:../src/renesas/application/r_bcd_camera.c **** extern void Start_Camera( void );
+  50:../src/renesas/application/r_bcd_camera.c **** 
+  51:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  52:../src/renesas/application/r_bcd_camera.c **** Exported global variables and functions (to be accessed by other files)
+  53:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  54:../src/renesas/application/r_bcd_camera.c **** uint32_t g_camera_vsync_us;
+  55:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  56:../src/renesas/application/r_bcd_camera.c **** Private global variables and functions
+  57:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  58:../src/renesas/application/r_bcd_camera.c **** /* Static function */
+  59:../src/renesas/application/r_bcd_camera.c **** static void MipiInt_isr(e_mipi_interrupt_type_t int_type);
+  60:../src/renesas/application/r_bcd_camera.c **** static void SwapPoint (volatile uint32_t * point, uint32_t max_point);
+  61:../src/renesas/application/r_bcd_camera.c **** 
+  62:../src/renesas/application/r_bcd_camera.c **** /* Static variable */
+  63:../src/renesas/application/r_bcd_camera.c **** volatile static int32_t vdc_captured = R_BCD_CAMERA_NOT_CAPTURED;
+  64:../src/renesas/application/r_bcd_camera.c **** static uint8_t frame_buffer[R_BCD_CAMERA_FRAME_BUF_NUM][R_BCD_CAMERA_HEIGHT * R_BCD_CAMERA_WIDTH] _
+  65:../src/renesas/application/r_bcd_camera.c **** volatile static uint32_t mb_manage_table[MB_REG_NUM_MAX];   /* Current buffer point for input captu
+  66:../src/renesas/application/r_bcd_camera.c **** volatile static uint32_t buff_write_point;   /* Current buffer point for input capture data */
+  67:../src/renesas/application/r_bcd_camera.c **** 
+  68:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  69:../src/renesas/application/r_bcd_camera.c **** * Function Name: R_BCD_CameraGetFrameAddress
+  70:../src/renesas/application/r_bcd_camera.c **** * Description  : Returns the address of the frame buffer with the number specified by the argument
+  71:../src/renesas/application/r_bcd_camera.c **** * Arguments    : index
+  72:../src/renesas/application/r_bcd_camera.c **** *              :   index of the frame buffer
+  73:../src/renesas/application/r_bcd_camera.c **** * Return Value : address of the frame buffer
+  74:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  75:../src/renesas/application/r_bcd_camera.c **** uint8_t *R_BCD_CameraGetFrameAddress(int32_t index)
+  76:../src/renesas/application/r_bcd_camera.c **** {
+  51              		.loc 1 76 0
+  52              		.cfi_startproc
+  53              		@ args = 0, pretend = 0, frame = 8
+  54              		@ frame_needed = 1, uses_anonymous_args = 0
+  55              		@ link register save eliminated.
+  56 0000 04B02DE5 		str	fp, [sp, #-4]!
+  57              		.cfi_def_cfa_offset 4
+  58              		.cfi_offset 11, -4
+  59 0004 00B08DE2 		add	fp, sp, #0
+  60              		.cfi_def_cfa_register 11
+  61 0008 0CD04DE2 		sub	sp, sp, #12
+  62 000c 08000BE5 		str	r0, [fp, #-8]
+  77:../src/renesas/application/r_bcd_camera.c ****     return &frame_buffer[index][0];
+  63              		.loc 1 77 0
+  64 0010 08201BE5 		ldr	r2, [fp, #-8]
+  65 0014 233BA0E3 		mov	r3, #35840
+  66 0018 0A3040E3 		movt	r3, 10
+  67 001c 930202E0 		mul	r2, r3, r2
+  68 0020 003000E3 		movw	r3, #:lower16:frame_buffer
+  69 0024 003040E3 		movt	r3, #:upper16:frame_buffer
+  70 0028 033082E0 		add	r3, r2, r3
+  78:../src/renesas/application/r_bcd_camera.c **** }
+  71              		.loc 1 78 0
+  72 002c 0300A0E1 		mov	r0, r3
+  73 0030 00D08BE2 		add	sp, fp, #0
+  74              		.cfi_def_cfa_register 13
+  75              		@ sp needed
+  76 0034 04B09DE4 		ldr	fp, [sp], #4
+  77              		.cfi_restore 11
+  78              		.cfi_def_cfa_offset 0
+  79 0038 1EFF2FE1 		bx	lr
+  80              		.cfi_endproc
+  81              	.LFE0:
+  83              		.section	.text.R_BCD_CameraInit,"ax",%progbits
+  84              		.align	2
+  85              		.global	R_BCD_CameraInit
+  86              		.syntax unified
+  87              		.arm
+  88              		.fpu neon
+  90              	R_BCD_CameraInit:
+  91              	.LFB1:
+  79:../src/renesas/application/r_bcd_camera.c **** 
+  80:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+  81:../src/renesas/application/r_bcd_camera.c **** * Function Name: R_BCD_CameraInit
+  82:../src/renesas/application/r_bcd_camera.c **** * Description  : Initialization of camera capture processing(MIPI/VIN)
+  83:../src/renesas/application/r_bcd_camera.c **** * Arguments    : -
+  84:../src/renesas/application/r_bcd_camera.c **** * Return Value : 0  success
+  85:../src/renesas/application/r_bcd_camera.c **** *                -1 fail
+  86:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+  87:../src/renesas/application/r_bcd_camera.c **** int32_t R_BCD_CameraInit(void)
+  88:../src/renesas/application/r_bcd_camera.c **** {
+  92              		.loc 1 88 0
+  93              		.cfi_startproc
+  94              		@ args = 0, pretend = 0, frame = 88
+  95              		@ frame_needed = 1, uses_anonymous_args = 0
+  96 0000 00482DE9 		push	{fp, lr}
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 11, -8
+  99              		.cfi_offset 14, -4
+ 100 0004 04B08DE2 		add	fp, sp, #4
+ 101              		.cfi_def_cfa 11, 4
+ 102 0008 58D04DE2 		sub	sp, sp, #88
+  89:../src/renesas/application/r_bcd_camera.c ****     int32_t retval = 0;
+ 103              		.loc 1 89 0
+ 104 000c 0030A0E3 		mov	r3, #0
+ 105 0010 08300BE5 		str	r3, [fp, #-8]
+  90:../src/renesas/application/r_bcd_camera.c ****     e_mipi_error_t result;
+  91:../src/renesas/application/r_bcd_camera.c ****     st_mipi_param_t mipi_data;    /* Config data for MIPI */
+  92:../src/renesas/application/r_bcd_camera.c ****     st_vin_setup_t vin_setup;     /* Config data for VIN */
+  93:../src/renesas/application/r_bcd_camera.c ****     
+  94:../src/renesas/application/r_bcd_camera.c ****     /* Initialize MIPI config data */
+  95:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_lanenum    = CAM_MIPI_LANE_NUM;
+ 106              		.loc 1 95 0
+ 107 0014 0230A0E3 		mov	r3, #2
+ 108 0018 20304BE5 		strb	r3, [fp, #-32]
+  96:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_vc         = CAM_MIPI_SEL_VC;
+ 109              		.loc 1 96 0
+ 110 001c 0030A0E3 		mov	r3, #0
+ 111 0020 1F304BE5 		strb	r3, [fp, #-31]
+  97:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_interlace  = MIPI_PROGRESSIVE;
+ 112              		.loc 1 97 0
+ 113 0024 0030A0E3 		mov	r3, #0
+ 114 0028 1E304BE5 		strb	r3, [fp, #-30]
+  98:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_laneswap   = CAM_MIPI_LANE_SWAP;
+ 115              		.loc 1 98 0
+ 116 002c 0030A0E3 		mov	r3, #0
+ 117 0030 1D304BE5 		strb	r3, [fp, #-29]
+  99:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_frametop   = 0;
+ 118              		.loc 1 99 0
+ 119 0034 0030A0E3 		mov	r3, #0
+ 120 0038 BC314BE1 		strh	r3, [fp, #-28]	@ movhi
+ 100:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_outputrate = CAM_MIPI_TRANSFER_RATE;
+ 121              		.loc 1 100 0
+ 122 003c 5030A0E3 		mov	r3, #80
+ 123 0040 BA314BE1 		strh	r3, [fp, #-26]	@ movhi
+ 101:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_ths_prepare  = CAM_MIPI_THS_PREPARE;
+ 124              		.loc 1 101 0
+ 125 0044 1230A0E3 		mov	r3, #18
+ 126 0048 B8314BE1 		strh	r3, [fp, #-24]	@ movhi
+ 102:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_ths_settle   = CAM_MIPI_THS_SETTLE;
+ 127              		.loc 1 102 0
+ 128 004c 1930A0E3 		mov	r3, #25
+ 129 0050 B6314BE1 		strh	r3, [fp, #-22]	@ movhi
+ 103:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_tclk_prepare = CAM_MIPI_TCLK_PREPARE;
+ 130              		.loc 1 103 0
+ 131 0054 0F30A0E3 		mov	r3, #15
+ 132 0058 B4314BE1 		strh	r3, [fp, #-20]	@ movhi
+ 104:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_tclk_settle  = CAM_MIPI_TCLK_SETTLE;
+ 133              		.loc 1 104 0
+ 134 005c 1E30A0E3 		mov	r3, #30
+ 135 0060 B2314BE1 		strh	r3, [fp, #-18]	@ movhi
+ 105:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_tclk_miss    = CAM_MIPI_TCLK_MISS;
+ 136              		.loc 1 105 0
+ 137 0064 0830A0E3 		mov	r3, #8
+ 138 0068 B0314BE1 		strh	r3, [fp, #-16]	@ movhi
+ 106:../src/renesas/application/r_bcd_camera.c ****     mipi_data.mipi_phy_timing.mipi_t_init_slave = CAM_MIPI_T_INIT_SLAVE;
+ 139              		.loc 1 106 0
+ 140 006c 8F3303E3 		movw	r3, #13199
+ 141 0070 BE304BE1 		strh	r3, [fp, #-14]	@ movhi
+ 107:../src/renesas/application/r_bcd_camera.c ****     
+ 108:../src/renesas/application/r_bcd_camera.c ****     /* Initialize VIN config data */
+ 109:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_preclip.vin_preclip_starty = CAM_VIN_PRECLIP_START_Y;
+ 142              		.loc 1 109 0
+ 143 0074 0030A0E3 		mov	r3, #0
+ 144 0078 B8344BE1 		strh	r3, [fp, #-72]	@ movhi
+ 110:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_preclip.vin_preclip_endy   = ((CAM_VIN_PRECLIP_START_Y + CAM_VIN_PRECLIP_WIDTH_Y)
+ 145              		.loc 1 110 0
+ 146 007c CF3200E3 		movw	r3, #719
+ 147 0080 B6344BE1 		strh	r3, [fp, #-70]	@ movhi
+ 111:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_preclip.vin_preclip_startx = CAM_VIN_PRECLIP_START_X;
+ 148              		.loc 1 111 0
+ 149 0084 1E30A0E3 		mov	r3, #30
+ 150 0088 B4344BE1 		strh	r3, [fp, #-68]	@ movhi
+ 112:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_preclip.vin_preclip_endx   = ((CAM_VIN_PRECLIP_START_X + CAM_VIN_PRECLIP_WIDTH_X)
+ 151              		.loc 1 112 0
+ 152 008c DD3300E3 		movw	r3, #989
+ 153 0090 B2344BE1 		strh	r3, [fp, #-66]	@ movhi
+ 113:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_inputformat  = CAM_VIN_INPUT_FORMAT;
+ 154              		.loc 1 113 0
+ 155 0094 0430A0E3 		mov	r3, #4
+ 156 0098 34304BE5 		strb	r3, [fp, #-52]
+ 114:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_outputformat = CAM_VIN_OUTPUT_FORMAT;
+ 157              		.loc 1 114 0
+ 158 009c 2030A0E3 		mov	r3, #32
+ 159 00a0 33304BE5 		strb	r3, [fp, #-51]
+ 115:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_outputendian = CAM_VIN_OUTPUT_ENDIAN;
+ 160              		.loc 1 115 0
+ 161 00a4 0030A0E3 		mov	r3, #0
+ 162 00a8 32304BE5 		strb	r3, [fp, #-50]
+ 116:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_interlace    = VIN_PROGRESSIVE;
+ 163              		.loc 1 116 0
+ 164 00ac 0330A0E3 		mov	r3, #3
+ 165 00b0 30304BE5 		strb	r3, [fp, #-48]
+ 117:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_stride       = CAM_VIN_OUTPUT_IS;
+ 166              		.loc 1 117 0
+ 167 00b4 0F3DA0E3 		mov	r3, #960
+ 168 00b8 BC324BE1 		strh	r3, [fp, #-44]	@ movhi
+ 118:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_ycoffset     = (CAM_VIN_OUTPUT_IS * CAM_VIN_PRECLIP_WIDTH_Y);
+ 169              		.loc 1 118 0
+ 170 00bc 233BA0E3 		mov	r3, #35840
+ 171 00c0 0A3040E3 		movt	r3, 10
+ 172 00c4 28300BE5 		str	r3, [fp, #-40]
+ 119:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_input_align  = CAM_VIN_INPUT_YCAL;
+ 173              		.loc 1 119 0
+ 174 00c8 0030A0E3 		mov	r3, #0
+ 175 00cc 24304BE5 		strb	r3, [fp, #-36]
+ 120:../src/renesas/application/r_bcd_camera.c ****     vin_setup.vin_output_swap  = CAM_VIN_OUTPUT_BPSM;
+ 176              		.loc 1 120 0
+ 177 00d0 0030A0E3 		mov	r3, #0
+ 178 00d4 23304BE5 		strb	r3, [fp, #-35]
+ 121:../src/renesas/application/r_bcd_camera.c ****     
+ 122:../src/renesas/application/r_bcd_camera.c ****     /* Internal static RAM initialize */
+ 123:../src/renesas/application/r_bcd_camera.c ****     buff_write_point = 0;
+ 179              		.loc 1 123 0
+ 180 00d8 003000E3 		movw	r3, #:lower16:buff_write_point
+ 181 00dc 003040E3 		movt	r3, #:upper16:buff_write_point
+ 182 00e0 0020A0E3 		mov	r2, #0
+ 183 00e4 002083E5 		str	r2, [r3]
+ 124:../src/renesas/application/r_bcd_camera.c **** 
+ 125:../src/renesas/application/r_bcd_camera.c ****     /* MIPI I/F power on */
+ 126:../src/renesas/application/r_bcd_camera.c ****     Init_Camera();
+ 184              		.loc 1 126 0
+ 185 00e8 FEFFFFEB 		bl	Init_Camera
+ 127:../src/renesas/application/r_bcd_camera.c **** 
+ 128:../src/renesas/application/r_bcd_camera.c ****     /* Initialize MIPI driver */
+ 129:../src/renesas/application/r_bcd_camera.c ****     R_RVAPI_InitializeMIPI();
+ 186              		.loc 1 129 0
+ 187 00ec FEFFFFEB 		bl	R_RVAPI_InitializeMIPI
+ 130:../src/renesas/application/r_bcd_camera.c **** 
+ 131:../src/renesas/application/r_bcd_camera.c ****     /* Initial setting of MIPI / VIN */
+ 132:../src/renesas/application/r_bcd_camera.c ****     result = R_RVAPI_OpenMIPI(&mipi_data);
+ 188              		.loc 1 132 0
+ 189 00f0 20304BE2 		sub	r3, fp, #32
+ 190 00f4 0300A0E1 		mov	r0, r3
+ 191 00f8 FEFFFFEB 		bl	R_RVAPI_OpenMIPI
+ 192 00fc 0030A0E1 		mov	r3, r0
+ 193 0100 09304BE5 		strb	r3, [fp, #-9]
+ 133:../src/renesas/application/r_bcd_camera.c ****     retval = (result == MIPI_OK) ? 0 : -1;
+ 194              		.loc 1 133 0
+ 195 0104 09305BE5 		ldrb	r3, [fp, #-9]	@ zero_extendqisi2
+ 196 0108 000053E3 		cmp	r3, #0
+ 197 010c 0100001A 		bne	.L4
+ 198              		.loc 1 133 0 is_stmt 0 discriminator 1
+ 199 0110 0030A0E3 		mov	r3, #0
+ 200 0114 000000EA 		b	.L5
+ 201              	.L4:
+ 202              		.loc 1 133 0 discriminator 2
+ 203 0118 0030E0E3 		mvn	r3, #0
+ 204              	.L5:
+ 205              		.loc 1 133 0 discriminator 4
+ 206 011c 08300BE5 		str	r3, [fp, #-8]
+ 134:../src/renesas/application/r_bcd_camera.c **** 
+ 135:../src/renesas/application/r_bcd_camera.c ****     if (retval == 0)
+ 207              		.loc 1 135 0 is_stmt 1 discriminator 4
+ 208 0120 08301BE5 		ldr	r3, [fp, #-8]
+ 209 0124 000053E3 		cmp	r3, #0
+ 210 0128 0B00001A 		bne	.L6
+ 136:../src/renesas/application/r_bcd_camera.c ****     {
+ 137:../src/renesas/application/r_bcd_camera.c ****         result = R_RVAPI_SetupMIPI(&vin_setup);
+ 211              		.loc 1 137 0
+ 212 012c 48304BE2 		sub	r3, fp, #72
+ 213 0130 0300A0E1 		mov	r0, r3
+ 214 0134 FEFFFFEB 		bl	R_RVAPI_SetupMIPI
+ 215 0138 0030A0E1 		mov	r3, r0
+ 216 013c 09304BE5 		strb	r3, [fp, #-9]
+ 138:../src/renesas/application/r_bcd_camera.c ****         retval = (result == MIPI_OK) ? 0 : -1;
+ 217              		.loc 1 138 0
+ 218 0140 09305BE5 		ldrb	r3, [fp, #-9]	@ zero_extendqisi2
+ 219 0144 000053E3 		cmp	r3, #0
+ 220 0148 0100001A 		bne	.L7
+ 221              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 222 014c 0030A0E3 		mov	r3, #0
+ 223 0150 000000EA 		b	.L8
+ 224              	.L7:
+ 225              		.loc 1 138 0 discriminator 2
+ 226 0154 0030E0E3 		mvn	r3, #0
+ 227              	.L8:
+ 228              		.loc 1 138 0 discriminator 4
+ 229 0158 08300BE5 		str	r3, [fp, #-8]
+ 230              	.L6:
+ 231              	.LBB2:
+ 139:../src/renesas/application/r_bcd_camera.c ****     }
+ 140:../src/renesas/application/r_bcd_camera.c **** 
+ 141:../src/renesas/application/r_bcd_camera.c ****     /* Setting of interrupt callback */
+ 142:../src/renesas/application/r_bcd_camera.c ****     {
+ 143:../src/renesas/application/r_bcd_camera.c ****         st_mipi_int_t config;
+ 144:../src/renesas/application/r_bcd_camera.c ****         config.type           = VIN_INT_SCANLINE;
+ 232              		.loc 1 144 0 is_stmt 1
+ 233 015c 0134A0E3 		mov	r3, #16777216
+ 234 0160 58300BE5 		str	r3, [fp, #-88]
+ 145:../src/renesas/application/r_bcd_camera.c ****         config.p_mipiCallback = NULL;
+ 235              		.loc 1 145 0
+ 236 0164 0030A0E3 		mov	r3, #0
+ 237 0168 54300BE5 		str	r3, [fp, #-84]
+ 146:../src/renesas/application/r_bcd_camera.c ****         config.p_vinCallback  = MipiInt_isr;
+ 238              		.loc 1 146 0
+ 239 016c 003000E3 		movw	r3, #:lower16:MipiInt_isr
+ 240 0170 003040E3 		movt	r3, #:upper16:MipiInt_isr
+ 241 0174 50300BE5 		str	r3, [fp, #-80]
+ 147:../src/renesas/application/r_bcd_camera.c ****         config.line_num       = R_BCD_CAMERA_HEIGHT - 1;
+ 242              		.loc 1 147 0
+ 243 0178 CF3200E3 		movw	r3, #719
+ 244 017c 4C300BE5 		str	r3, [fp, #-76]
+ 148:../src/renesas/application/r_bcd_camera.c ****         R_RVAPI_InterruptEnableMIPI( &config );
+ 245              		.loc 1 148 0
+ 246 0180 58304BE2 		sub	r3, fp, #88
+ 247 0184 0300A0E1 		mov	r0, r3
+ 248 0188 FEFFFFEB 		bl	R_RVAPI_InterruptEnableMIPI
+ 249              	.LBE2:
+ 149:../src/renesas/application/r_bcd_camera.c ****     }
+ 150:../src/renesas/application/r_bcd_camera.c **** 
+ 151:../src/renesas/application/r_bcd_camera.c ****     /* Camera clock start */
+ 152:../src/renesas/application/r_bcd_camera.c ****     Start_Camera();
+ 250              		.loc 1 152 0
+ 251 018c FEFFFFEB 		bl	Start_Camera
+ 153:../src/renesas/application/r_bcd_camera.c **** 
+ 154:../src/renesas/application/r_bcd_camera.c ****     return retval;
+ 252              		.loc 1 154 0
+ 253 0190 08301BE5 		ldr	r3, [fp, #-8]
+ 155:../src/renesas/application/r_bcd_camera.c **** }
+ 254              		.loc 1 155 0
+ 255 0194 0300A0E1 		mov	r0, r3
+ 256 0198 04D04BE2 		sub	sp, fp, #4
+ 257              		.cfi_def_cfa 13, 8
+ 258              		@ sp needed
+ 259 019c 0088BDE8 		pop	{fp, pc}
+ 260              		.cfi_endproc
+ 261              	.LFE1:
+ 263              		.section	.text.R_BCD_CameraCaptureStart,"ax",%progbits
+ 264              		.align	2
+ 265              		.global	R_BCD_CameraCaptureStart
+ 266              		.syntax unified
+ 267              		.arm
+ 268              		.fpu neon
+ 270              	R_BCD_CameraCaptureStart:
+ 271              	.LFB2:
+ 156:../src/renesas/application/r_bcd_camera.c **** 
+ 157:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+ 158:../src/renesas/application/r_bcd_camera.c **** * Function Name: R_BCD_CameraCaptureStart
+ 159:../src/renesas/application/r_bcd_camera.c **** * Description  : Start camera capture processing(MIPI/VIN)
+ 160:../src/renesas/application/r_bcd_camera.c **** * Arguments    : -
+ 161:../src/renesas/application/r_bcd_camera.c **** * Return Value : 0  success
+ 162:../src/renesas/application/r_bcd_camera.c **** *                -1 fail
+ 163:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+ 164:../src/renesas/application/r_bcd_camera.c **** int32_t R_BCD_CameraCaptureStart(void)
+ 165:../src/renesas/application/r_bcd_camera.c **** {
+ 272              		.loc 1 165 0
+ 273              		.cfi_startproc
+ 274              		@ args = 0, pretend = 0, frame = 16
+ 275              		@ frame_needed = 1, uses_anonymous_args = 0
+ 276 0000 00482DE9 		push	{fp, lr}
+ 277              		.cfi_def_cfa_offset 8
+ 278              		.cfi_offset 11, -8
+ 279              		.cfi_offset 14, -4
+ 280 0004 04B08DE2 		add	fp, sp, #4
+ 281              		.cfi_def_cfa 11, 4
+ 282 0008 10D04DE2 		sub	sp, sp, #16
+ 166:../src/renesas/application/r_bcd_camera.c ****     int32_t retval = 0;
+ 283              		.loc 1 166 0
+ 284 000c 0030A0E3 		mov	r3, #0
+ 285 0010 0C300BE5 		str	r3, [fp, #-12]
+ 167:../src/renesas/application/r_bcd_camera.c ****     e_mipi_error_t result;
+ 168:../src/renesas/application/r_bcd_camera.c ****     uint32_t count;
+ 169:../src/renesas/application/r_bcd_camera.c **** 
+ 170:../src/renesas/application/r_bcd_camera.c ****     /* Set all MB register before start capture */
+ 171:../src/renesas/application/r_bcd_camera.c ****     for (count = 0; count < MB_REG_NUM_MAX; count++)
+ 286              		.loc 1 171 0
+ 287 0014 0030A0E3 		mov	r3, #0
+ 288 0018 08300BE5 		str	r3, [fp, #-8]
+ 289 001c 1A0000EA 		b	.L11
+ 290              	.L12:
+ 172:../src/renesas/application/r_bcd_camera.c ****     {
+ 173:../src/renesas/application/r_bcd_camera.c ****         R_RVAPI_SetBufferMIPI(count, &frame_buffer[buff_write_point][0]);
+ 291              		.loc 1 173 0 discriminator 3
+ 292 0020 08301BE5 		ldr	r3, [fp, #-8]
+ 293 0024 7300EFE6 		uxtb	r0, r3
+ 294 0028 003000E3 		movw	r3, #:lower16:buff_write_point
+ 295 002c 003040E3 		movt	r3, #:upper16:buff_write_point
+ 296 0030 002093E5 		ldr	r2, [r3]
+ 297 0034 233BA0E3 		mov	r3, #35840
+ 298 0038 0A3040E3 		movt	r3, 10
+ 299 003c 930202E0 		mul	r2, r3, r2
+ 300 0040 003000E3 		movw	r3, #:lower16:frame_buffer
+ 301 0044 003040E3 		movt	r3, #:upper16:frame_buffer
+ 302 0048 033082E0 		add	r3, r2, r3
+ 303 004c 0310A0E1 		mov	r1, r3
+ 304 0050 FEFFFFEB 		bl	R_RVAPI_SetBufferMIPI
+ 174:../src/renesas/application/r_bcd_camera.c ****         mb_manage_table[count] = buff_write_point;
+ 305              		.loc 1 174 0 discriminator 3
+ 306 0054 003000E3 		movw	r3, #:lower16:buff_write_point
+ 307 0058 003040E3 		movt	r3, #:upper16:buff_write_point
+ 308 005c 001093E5 		ldr	r1, [r3]
+ 309 0060 003000E3 		movw	r3, #:lower16:mb_manage_table
+ 310 0064 003040E3 		movt	r3, #:upper16:mb_manage_table
+ 311 0068 08201BE5 		ldr	r2, [fp, #-8]
+ 312 006c 021183E7 		str	r1, [r3, r2, lsl #2]
+ 175:../src/renesas/application/r_bcd_camera.c ****         SwapPoint(&buff_write_point, R_BCD_CAMERA_FRAME_BUF_NUM);
+ 313              		.loc 1 175 0 discriminator 3
+ 314 0070 0110A0E3 		mov	r1, #1
+ 315 0074 000000E3 		movw	r0, #:lower16:buff_write_point
+ 316 0078 000040E3 		movt	r0, #:upper16:buff_write_point
+ 317 007c FEFFFFEB 		bl	SwapPoint
+ 171:../src/renesas/application/r_bcd_camera.c ****     {
+ 318              		.loc 1 171 0 discriminator 3
+ 319 0080 08301BE5 		ldr	r3, [fp, #-8]
+ 320 0084 013083E2 		add	r3, r3, #1
+ 321 0088 08300BE5 		str	r3, [fp, #-8]
+ 322              	.L11:
+ 171:../src/renesas/application/r_bcd_camera.c ****     {
+ 323              		.loc 1 171 0 is_stmt 0 discriminator 1
+ 324 008c 08301BE5 		ldr	r3, [fp, #-8]
+ 325 0090 020053E3 		cmp	r3, #2
+ 326 0094 E1FFFF9A 		bls	.L12
+ 176:../src/renesas/application/r_bcd_camera.c ****     }
+ 177:../src/renesas/application/r_bcd_camera.c ****     result = R_RVAPI_CaptureStartMIPI();
+ 327              		.loc 1 177 0 is_stmt 1
+ 328 0098 FEFFFFEB 		bl	R_RVAPI_CaptureStartMIPI
+ 329 009c 0030A0E1 		mov	r3, r0
+ 330 00a0 0D304BE5 		strb	r3, [fp, #-13]
+ 178:../src/renesas/application/r_bcd_camera.c ****     retval = (result == MIPI_OK) ? 0 : -1;
+ 331              		.loc 1 178 0
+ 332 00a4 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 333 00a8 000053E3 		cmp	r3, #0
+ 334 00ac 0100001A 		bne	.L13
+ 335              		.loc 1 178 0 is_stmt 0 discriminator 1
+ 336 00b0 0030A0E3 		mov	r3, #0
+ 337 00b4 000000EA 		b	.L14
+ 338              	.L13:
+ 339              		.loc 1 178 0 discriminator 2
+ 340 00b8 0030E0E3 		mvn	r3, #0
+ 341              	.L14:
+ 342              		.loc 1 178 0 discriminator 4
+ 343 00bc 0C300BE5 		str	r3, [fp, #-12]
+ 179:../src/renesas/application/r_bcd_camera.c **** 
+ 180:../src/renesas/application/r_bcd_camera.c ****     return retval;
+ 344              		.loc 1 180 0 is_stmt 1 discriminator 4
+ 345 00c0 0C301BE5 		ldr	r3, [fp, #-12]
+ 181:../src/renesas/application/r_bcd_camera.c **** }
+ 346              		.loc 1 181 0 discriminator 4
+ 347 00c4 0300A0E1 		mov	r0, r3
+ 348 00c8 04D04BE2 		sub	sp, fp, #4
+ 349              		.cfi_def_cfa 13, 8
+ 350              		@ sp needed
+ 351 00cc 0088BDE8 		pop	{fp, pc}
+ 352              		.cfi_endproc
+ 353              	.LFE2:
+ 355              		.section	.text.R_BCD_CameraGetCaptureStatus,"ax",%progbits
+ 356              		.align	2
+ 357              		.global	R_BCD_CameraGetCaptureStatus
+ 358              		.syntax unified
+ 359              		.arm
+ 360              		.fpu neon
+ 362              	R_BCD_CameraGetCaptureStatus:
+ 363              	.LFB3:
+ 182:../src/renesas/application/r_bcd_camera.c **** 
+ 183:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+ 184:../src/renesas/application/r_bcd_camera.c **** * Function Name: R_BCD_CameraGetCaptureStatus
+ 185:../src/renesas/application/r_bcd_camera.c **** * Description  : This function returns the number of the frame buffer in
+ 186:../src/renesas/application/r_bcd_camera.c **** *              : which the capture data is stored.
+ 187:../src/renesas/application/r_bcd_camera.c **** * Arguments    : -
+ 188:../src/renesas/application/r_bcd_camera.c **** * Return Value : -1 (R_BCD_CAMERA_NOT_CAPTURED)
+ 189:../src/renesas/application/r_bcd_camera.c **** *              :   No data has been captured.
+ 190:../src/renesas/application/r_bcd_camera.c **** *              : 0
+ 191:../src/renesas/application/r_bcd_camera.c **** *              :   There is captured data in the 1st frame buffer.
+ 192:../src/renesas/application/r_bcd_camera.c **** *              : 1
+ 193:../src/renesas/application/r_bcd_camera.c **** *              :   There is captured data in the 2nd frame buffer.
+ 194:../src/renesas/application/r_bcd_camera.c **** *              : 2
+ 195:../src/renesas/application/r_bcd_camera.c **** *              :   There is captured data in the 3rd frame buffer.
+ 196:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+ 197:../src/renesas/application/r_bcd_camera.c **** int32_t R_BCD_CameraGetCaptureStatus(void)
+ 198:../src/renesas/application/r_bcd_camera.c **** {
+ 364              		.loc 1 198 0
+ 365              		.cfi_startproc
+ 366              		@ args = 0, pretend = 0, frame = 0
+ 367              		@ frame_needed = 1, uses_anonymous_args = 0
+ 368              		@ link register save eliminated.
+ 369 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 370              		.cfi_def_cfa_offset 4
+ 371              		.cfi_offset 11, -4
+ 372 0004 00B08DE2 		add	fp, sp, #0
+ 373              		.cfi_def_cfa_register 11
+ 199:../src/renesas/application/r_bcd_camera.c ****     return vdc_captured;
+ 374              		.loc 1 199 0
+ 375 0008 003000E3 		movw	r3, #:lower16:vdc_captured
+ 376 000c 003040E3 		movt	r3, #:upper16:vdc_captured
+ 377 0010 003093E5 		ldr	r3, [r3]
+ 200:../src/renesas/application/r_bcd_camera.c **** }
+ 378              		.loc 1 200 0
+ 379 0014 0300A0E1 		mov	r0, r3
+ 380 0018 00D08BE2 		add	sp, fp, #0
+ 381              		.cfi_def_cfa_register 13
+ 382              		@ sp needed
+ 383 001c 04B09DE4 		ldr	fp, [sp], #4
+ 384              		.cfi_restore 11
+ 385              		.cfi_def_cfa_offset 0
+ 386 0020 1EFF2FE1 		bx	lr
+ 387              		.cfi_endproc
+ 388              	.LFE3:
+ 390              		.section	.text.R_BCD_CameraClearCaptureStatus,"ax",%progbits
+ 391              		.align	2
+ 392              		.global	R_BCD_CameraClearCaptureStatus
+ 393              		.syntax unified
+ 394              		.arm
+ 395              		.fpu neon
+ 397              	R_BCD_CameraClearCaptureStatus:
+ 398              	.LFB4:
+ 201:../src/renesas/application/r_bcd_camera.c **** 
+ 202:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+ 203:../src/renesas/application/r_bcd_camera.c **** * Function Name: R_BCD_CameraClearCaptureStatus
+ 204:../src/renesas/application/r_bcd_camera.c **** * Description  : This function clears the variable indicating the frame buffer
+ 205:../src/renesas/application/r_bcd_camera.c **** *              : where the capture data is stored.
+ 206:../src/renesas/application/r_bcd_camera.c **** * Arguments    : -
+ 207:../src/renesas/application/r_bcd_camera.c **** * Return Value : -
+ 208:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+ 209:../src/renesas/application/r_bcd_camera.c **** void R_BCD_CameraClearCaptureStatus(void)
+ 210:../src/renesas/application/r_bcd_camera.c **** {
+ 399              		.loc 1 210 0
+ 400              		.cfi_startproc
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 1, uses_anonymous_args = 0
+ 403              		@ link register save eliminated.
+ 404 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 405              		.cfi_def_cfa_offset 4
+ 406              		.cfi_offset 11, -4
+ 407 0004 00B08DE2 		add	fp, sp, #0
+ 408              		.cfi_def_cfa_register 11
+ 211:../src/renesas/application/r_bcd_camera.c ****     vdc_captured = R_BCD_CAMERA_NOT_CAPTURED;
+ 409              		.loc 1 211 0
+ 410 0008 003000E3 		movw	r3, #:lower16:vdc_captured
+ 411 000c 003040E3 		movt	r3, #:upper16:vdc_captured
+ 412 0010 0020E0E3 		mvn	r2, #0
+ 413 0014 002083E5 		str	r2, [r3]
+ 212:../src/renesas/application/r_bcd_camera.c **** 
+ 213:../src/renesas/application/r_bcd_camera.c ****     return;
+ 414              		.loc 1 213 0
+ 415 0018 00F020E3 		nop
+ 214:../src/renesas/application/r_bcd_camera.c **** }
+ 416              		.loc 1 214 0
+ 417 001c 00D08BE2 		add	sp, fp, #0
+ 418              		.cfi_def_cfa_register 13
+ 419              		@ sp needed
+ 420 0020 04B09DE4 		ldr	fp, [sp], #4
+ 421              		.cfi_restore 11
+ 422              		.cfi_def_cfa_offset 0
+ 423 0024 1EFF2FE1 		bx	lr
+ 424              		.cfi_endproc
+ 425              	.LFE4:
+ 427              		.section	.text.MipiInt_isr,"ax",%progbits
+ 428              		.align	2
+ 429              		.syntax unified
+ 430              		.arm
+ 431              		.fpu neon
+ 433              	MipiInt_isr:
+ 434              	.LFB5:
+ 215:../src/renesas/application/r_bcd_camera.c **** 
+ 216:../src/renesas/application/r_bcd_camera.c **** /******************************************************************************
+ 217:../src/renesas/application/r_bcd_camera.c **** * Function Name: MipiInt_isr
+ 218:../src/renesas/application/r_bcd_camera.c **** * Description  : Function to handle interrupt of MIPI
+ 219:../src/renesas/application/r_bcd_camera.c **** *              : Find the frame buffer where the capture data is stored
+ 220:../src/renesas/application/r_bcd_camera.c **** *              : (Frame buffer is triple buffer)
+ 221:../src/renesas/application/r_bcd_camera.c **** * Arguments    : int_type
+ 222:../src/renesas/application/r_bcd_camera.c **** *              :   interrupt type (unused)
+ 223:../src/renesas/application/r_bcd_camera.c **** * Return Value : -
+ 224:../src/renesas/application/r_bcd_camera.c **** ******************************************************************************/
+ 225:../src/renesas/application/r_bcd_camera.c **** static void MipiInt_isr(e_mipi_interrupt_type_t int_type)
+ 226:../src/renesas/application/r_bcd_camera.c **** {
+ 435              		.loc 1 226 0
+ 436              		.cfi_startproc
+ 437              		@ args = 0, pretend = 0, frame = 16
+ 438              		@ frame_needed = 1, uses_anonymous_args = 0
+ 439 0000 00482DE9 		push	{fp, lr}
+ 440              		.cfi_def_cfa_offset 8
+ 441              		.cfi_offset 11, -8
+ 442              		.cfi_offset 14, -4
+ 443 0004 04B08DE2 		add	fp, sp, #4
+ 444              		.cfi_def_cfa 11, 4
+ 445 0008 10D04DE2 		sub	sp, sp, #16
+ 446 000c 10000BE5 		str	r0, [fp, #-16]
+ 227:../src/renesas/application/r_bcd_camera.c **** 	static int isr_toggle = 0;
+ 228:../src/renesas/application/r_bcd_camera.c ****     if ((int_type & VIN_INT_SCANLINE) == VIN_INT_SCANLINE)
+ 447              		.loc 1 228 0
+ 448 0010 10301BE5 		ldr	r3, [fp, #-16]
+ 449 0014 013403E2 		and	r3, r3, #16777216
+ 450 0018 000053E3 		cmp	r3, #0
+ 451 001c 3F00000A 		beq	.L25
+ 452              	.LBB3:
+ 229:../src/renesas/application/r_bcd_camera.c ****     {
+ 230:../src/renesas/application/r_bcd_camera.c ****         st_vin_info_type_t info;
+ 231:../src/renesas/application/r_bcd_camera.c ****         /* Capture complete */
+ 232:../src/renesas/application/r_bcd_camera.c **** 
+ 233:../src/renesas/application/r_bcd_camera.c ****         R_MIPI_GetInfo(&info);
+ 453              		.loc 1 233 0
+ 454 0020 08304BE2 		sub	r3, fp, #8
+ 455 0024 0300A0E1 		mov	r0, r3
+ 456 0028 FEFFFFEB 		bl	R_MIPI_GetInfo
+ 234:../src/renesas/application/r_bcd_camera.c ****         vdc_captured = mb_manage_table[info.vin_nowcapturebase];
+ 457              		.loc 1 234 0
+ 458 002c 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 459 0030 0320A0E1 		mov	r2, r3
+ 460 0034 003000E3 		movw	r3, #:lower16:mb_manage_table
+ 461 0038 003040E3 		movt	r3, #:upper16:mb_manage_table
+ 462 003c 023193E7 		ldr	r3, [r3, r2, lsl #2]
+ 463 0040 0320A0E1 		mov	r2, r3
+ 464 0044 003000E3 		movw	r3, #:lower16:vdc_captured
+ 465 0048 003040E3 		movt	r3, #:upper16:vdc_captured
+ 466 004c 002083E5 		str	r2, [r3]
+ 235:../src/renesas/application/r_bcd_camera.c ****         R_RVAPI_SetBufferMIPI(info.vin_nowcapturebase, &frame_buffer[buff_write_point][0]);
+ 467              		.loc 1 235 0
+ 468 0050 05005BE5 		ldrb	r0, [fp, #-5]	@ zero_extendqisi2
+ 469 0054 003000E3 		movw	r3, #:lower16:buff_write_point
+ 470 0058 003040E3 		movt	r3, #:upper16:buff_write_point
+ 471 005c 002093E5 		ldr	r2, [r3]
+ 472 0060 233BA0E3 		mov	r3, #35840
+ 473 0064 0A3040E3 		movt	r3, 10
+ 474 0068 930202E0 		mul	r2, r3, r2
+ 475 006c 003000E3 		movw	r3, #:lower16:frame_buffer
+ 476 0070 003040E3 		movt	r3, #:upper16:frame_buffer
+ 477 0074 033082E0 		add	r3, r2, r3
+ 478 0078 0310A0E1 		mov	r1, r3
+ 479 007c FEFFFFEB 		bl	R_RVAPI_SetBufferMIPI
+ 236:../src/renesas/application/r_bcd_camera.c ****         mb_manage_table[info.vin_nowcapturebase] = buff_write_point;
+ 480              		.loc 1 236 0
+ 481 0080 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 482 0084 0310A0E1 		mov	r1, r3
+ 483 0088 003000E3 		movw	r3, #:lower16:buff_write_point
+ 484 008c 003040E3 		movt	r3, #:upper16:buff_write_point
+ 485 0090 002093E5 		ldr	r2, [r3]
+ 486 0094 003000E3 		movw	r3, #:lower16:mb_manage_table
+ 487 0098 003040E3 		movt	r3, #:upper16:mb_manage_table
+ 488 009c 012183E7 		str	r2, [r3, r1, lsl #2]
+ 237:../src/renesas/application/r_bcd_camera.c ****         SwapPoint(&buff_write_point, R_BCD_CAMERA_FRAME_BUF_NUM);         /* swap buffer point for 
+ 489              		.loc 1 237 0
+ 490 00a0 0110A0E3 		mov	r1, #1
+ 491 00a4 000000E3 		movw	r0, #:lower16:buff_write_point
+ 492 00a8 000040E3 		movt	r0, #:upper16:buff_write_point
+ 493 00ac FEFFFFEB 		bl	SwapPoint
+ 238:../src/renesas/application/r_bcd_camera.c **** 
+ 239:../src/renesas/application/r_bcd_camera.c ****         if (isr_toggle == 0)
+ 494              		.loc 1 239 0
+ 495 00b0 003000E3 		movw	r3, #:lower16:isr_toggle.69488
+ 496 00b4 003040E3 		movt	r3, #:upper16:isr_toggle.69488
+ 497 00b8 003093E5 		ldr	r3, [r3]
+ 498 00bc 000053E3 		cmp	r3, #0
+ 499 00c0 0900001A 		bne	.L22
+ 240:../src/renesas/application/r_bcd_camera.c ****         {
+ 241:../src/renesas/application/r_bcd_camera.c ****         	PerformSetStartTime(IPP_CAMERA_FRAMERATE);
+ 500              		.loc 1 241 0
+ 501 00c4 0A00A0E3 		mov	r0, #10
+ 502 00c8 FEFFFFEB 		bl	PerformSetStartTime
+ 242:../src/renesas/application/r_bcd_camera.c ****         	isr_toggle++;
+ 503              		.loc 1 242 0
+ 504 00cc 003000E3 		movw	r3, #:lower16:isr_toggle.69488
+ 505 00d0 003040E3 		movt	r3, #:upper16:isr_toggle.69488
+ 506 00d4 003093E5 		ldr	r3, [r3]
+ 507 00d8 012083E2 		add	r2, r3, #1
+ 508 00dc 003000E3 		movw	r3, #:lower16:isr_toggle.69488
+ 509 00e0 003040E3 		movt	r3, #:upper16:isr_toggle.69488
+ 510 00e4 002083E5 		str	r2, [r3]
+ 511              	.LBE3:
+ 243:../src/renesas/application/r_bcd_camera.c ****         }
+ 244:../src/renesas/application/r_bcd_camera.c ****         else
+ 245:../src/renesas/application/r_bcd_camera.c ****         {
+ 246:../src/renesas/application/r_bcd_camera.c ****         	PerformSetEndTime(IPP_CAMERA_FRAMERATE);
+ 247:../src/renesas/application/r_bcd_camera.c ****         	isr_toggle = 0;
+ 248:../src/renesas/application/r_bcd_camera.c ****         	g_camera_vsync_us = PerformGetElapsedTime_us(IPP_CAMERA_FRAMERATE);
+ 249:../src/renesas/application/r_bcd_camera.c ****         }
+ 250:../src/renesas/application/r_bcd_camera.c **** 
+ 251:../src/renesas/application/r_bcd_camera.c ****     }
+ 252:../src/renesas/application/r_bcd_camera.c ****     return;
+ 512              		.loc 1 252 0
+ 513 00e8 0C0000EA 		b	.L25
+ 514              	.L22:
+ 515              	.LBB4:
+ 246:../src/renesas/application/r_bcd_camera.c ****         	isr_toggle = 0;
+ 516              		.loc 1 246 0
+ 517 00ec 0A00A0E3 		mov	r0, #10
+ 518 00f0 FEFFFFEB 		bl	PerformSetEndTime
+ 247:../src/renesas/application/r_bcd_camera.c ****         	g_camera_vsync_us = PerformGetElapsedTime_us(IPP_CAMERA_FRAMERATE);
+ 519              		.loc 1 247 0
+ 520 00f4 003000E3 		movw	r3, #:lower16:isr_toggle.69488
+ 521 00f8 003040E3 		movt	r3, #:upper16:isr_toggle.69488
+ 522 00fc 0020A0E3 		mov	r2, #0
+ 523 0100 002083E5 		str	r2, [r3]
+ 248:../src/renesas/application/r_bcd_camera.c ****         }
+ 524              		.loc 1 248 0
+ 525 0104 0A00A0E3 		mov	r0, #10
+ 526 0108 FEFFFFEB 		bl	PerformGetElapsedTime_us
+ 527 010c 0020A0E1 		mov	r2, r0
+ 528 0110 003000E3 		movw	r3, #:lower16:g_camera_vsync_us
+ 529 0114 003040E3 		movt	r3, #:upper16:g_camera_vsync_us
+ 530 0118 002083E5 		str	r2, [r3]
+ 531              	.LBE4:
+ 532              		.loc 1 252 0
+ 533 011c 00F020E3 		nop
+ 534              	.L25:
+ 535 0120 00F020E3 		nop
+ 253:../src/renesas/application/r_bcd_camera.c **** }
+ 536              		.loc 1 253 0
+ 537 0124 04D04BE2 		sub	sp, fp, #4
+ 538              		.cfi_def_cfa 13, 8
+ 539              		@ sp needed
+ 540 0128 0088BDE8 		pop	{fp, pc}
+ 541              		.cfi_endproc
+ 542              	.LFE5:
+ 544              		.section	.text.SwapPoint,"ax",%progbits
+ 545              		.align	2
+ 546              		.syntax unified
+ 547              		.arm
+ 548              		.fpu neon
+ 550              	SwapPoint:
+ 551              	.LFB6:
+ 254:../src/renesas/application/r_bcd_camera.c **** 
+ 255:../src/renesas/application/r_bcd_camera.c **** /**********************************************************************
+ 256:../src/renesas/application/r_bcd_camera.c **** * Function Name: SwapPoint
+ 257:../src/renesas/application/r_bcd_camera.c **** * Description  : Swap Pointer Function
+ 258:../src/renesas/application/r_bcd_camera.c **** * Arguments    : point        : Address of pointer value
+ 259:../src/renesas/application/r_bcd_camera.c ****                  max_point    : Max of pointer value
+ 260:../src/renesas/application/r_bcd_camera.c **** * Return Value : none
+ 261:../src/renesas/application/r_bcd_camera.c **** **********************************************************************/
+ 262:../src/renesas/application/r_bcd_camera.c **** static void SwapPoint (volatile uint32_t * point, uint32_t max_point)
+ 263:../src/renesas/application/r_bcd_camera.c **** {
+ 552              		.loc 1 263 0
+ 553              		.cfi_startproc
+ 554              		@ args = 0, pretend = 0, frame = 8
+ 555              		@ frame_needed = 1, uses_anonymous_args = 0
+ 556              		@ link register save eliminated.
+ 557 0000 04B02DE5 		str	fp, [sp, #-4]!
+ 558              		.cfi_def_cfa_offset 4
+ 559              		.cfi_offset 11, -4
+ 560 0004 00B08DE2 		add	fp, sp, #0
+ 561              		.cfi_def_cfa_register 11
+ 562 0008 0CD04DE2 		sub	sp, sp, #12
+ 563 000c 08000BE5 		str	r0, [fp, #-8]
+ 564 0010 0C100BE5 		str	r1, [fp, #-12]
+ 264:../src/renesas/application/r_bcd_camera.c ****     /* This implicit casting is valid because either values are pointer */
+ 265:../src/renesas/application/r_bcd_camera.c ****     if (point != NULL )
+ 565              		.loc 1 265 0
+ 566 0014 08301BE5 		ldr	r3, [fp, #-8]
+ 567 0018 000053E3 		cmp	r3, #0
+ 568 001c 0C00000A 		beq	.L28
+ 266:../src/renesas/application/r_bcd_camera.c ****     {
+ 267:../src/renesas/application/r_bcd_camera.c ****         *point = *point + 1;
+ 569              		.loc 1 267 0
+ 570 0020 08301BE5 		ldr	r3, [fp, #-8]
+ 571 0024 003093E5 		ldr	r3, [r3]
+ 572 0028 012083E2 		add	r2, r3, #1
+ 573 002c 08301BE5 		ldr	r3, [fp, #-8]
+ 574 0030 002083E5 		str	r2, [r3]
+ 268:../src/renesas/application/r_bcd_camera.c ****         if (*point >= max_point)
+ 575              		.loc 1 268 0
+ 576 0034 08301BE5 		ldr	r3, [fp, #-8]
+ 577 0038 003093E5 		ldr	r3, [r3]
+ 578 003c 0C201BE5 		ldr	r2, [fp, #-12]
+ 579 0040 030052E1 		cmp	r2, r3
+ 580 0044 0200008A 		bhi	.L28
+ 269:../src/renesas/application/r_bcd_camera.c ****         {
+ 270:../src/renesas/application/r_bcd_camera.c ****             *point = 0;
+ 581              		.loc 1 270 0
+ 582 0048 08301BE5 		ldr	r3, [fp, #-8]
+ 583 004c 0020A0E3 		mov	r2, #0
+ 584 0050 002083E5 		str	r2, [r3]
+ 585              	.L28:
+ 271:../src/renesas/application/r_bcd_camera.c ****         }
+ 272:../src/renesas/application/r_bcd_camera.c ****     }
+ 273:../src/renesas/application/r_bcd_camera.c **** }   /* End of function SwapBuffer() */
+ 586              		.loc 1 273 0
+ 587 0054 00F020E3 		nop
+ 588 0058 00D08BE2 		add	sp, fp, #0
+ 589              		.cfi_def_cfa_register 13
+ 590              		@ sp needed
+ 591 005c 04B09DE4 		ldr	fp, [sp], #4
+ 592              		.cfi_restore 11
+ 593              		.cfi_def_cfa_offset 0
+ 594 0060 1EFF2FE1 		bx	lr
+ 595              		.cfi_endproc
+ 596              	.LFE6:
+ 598              		.section	.bss.isr_toggle.69488,"aw",%nobits
+ 599              		.align	2
+ 602              	isr_toggle.69488:
+ 603 0000 00000000 		.space	4
+ 604              		.text
+ 605              	.Letext0:
+ 606              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 607              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 608              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 609              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 610              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 611              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 612              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 613              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate\
+ 614              		.file 10 "D:/Projects/e2_studio/RZ_A2M/workspace/Renesas_9.10_final/app/RZA2M_DRP_Benchmark/src/re
+ 615              		.file 11 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+DEFINED SYMBOLS
+                            *ABS*:00000000 r_bcd_camera.c
+                            *COM*:00000004 g_camera_vsync_us
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:18     .data.vdc_captured:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:21     .data.vdc_captured:00000000 vdc_captured
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:24     Capture_RAM:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:27     Capture_RAM:00000000 frame_buffer
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:30     .bss.mb_manage_table:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:33     .bss.mb_manage_table:00000000 mb_manage_table
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:36     .bss.buff_write_point:00000000 $d
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:39     .bss.buff_write_point:00000000 buff_write_point
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:42     .text.R_BCD_CameraGetFrameAddress:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:48     .text.R_BCD_CameraGetFrameAddress:00000000 R_BCD_CameraGetFrameAddress
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:84     .text.R_BCD_CameraInit:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:90     .text.R_BCD_CameraInit:00000000 R_BCD_CameraInit
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:433    .text.MipiInt_isr:00000000 MipiInt_isr
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:264    .text.R_BCD_CameraCaptureStart:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:270    .text.R_BCD_CameraCaptureStart:00000000 R_BCD_CameraCaptureStart
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:550    .text.SwapPoint:00000000 SwapPoint
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:356    .text.R_BCD_CameraGetCaptureStatus:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:362    .text.R_BCD_CameraGetCaptureStatus:00000000 R_BCD_CameraGetCaptureStatus
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:391    .text.R_BCD_CameraClearCaptureStatus:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:397    .text.R_BCD_CameraClearCaptureStatus:00000000 R_BCD_CameraClearCaptureStatus
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:428    .text.MipiInt_isr:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:602    .bss.isr_toggle.69488:00000000 isr_toggle.69488
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:545    .text.SwapPoint:00000000 $a
+C:\Users\Y\AppData\Local\Temp\ccRWVyo7.s:599    .bss.isr_toggle.69488:00000000 $d
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.mipi_camera.h.31.8759126531659326f737b053fbb3b8a1
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_mipi_user.h.41.904962207e45a5581bdc399e4d770943
+                           .group:00000000 wm4.camera_imx219_b.h.42.c4f1a09dac6ee0a3abbf4a585714b9bf
+                           .group:00000000 wm4.r_bcd_camera.h.39.02cc8bb17fdb55aae8ad279361c920b0
+                           .group:00000000 wm4.stdbool.h.29.07dce69c3b78884144b7f7bd19483461
+                           .group:00000000 wm4.r_bcd_main.h.79.2de2d1028f89440fb1c64e8fb2e24d7e
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_intc_lld_rza2m.h.46.7dc7c9a114da565f71778e91111dd70b
+
+UNDEFINED SYMBOLS
+Init_Camera
+R_RVAPI_InitializeMIPI
+R_RVAPI_OpenMIPI
+R_RVAPI_SetupMIPI
+R_RVAPI_InterruptEnableMIPI
+Start_Camera
+R_RVAPI_SetBufferMIPI
+R_RVAPI_CaptureStartMIPI
+R_MIPI_GetInfo
+PerformSetStartTime
+PerformSetEndTime
+PerformGetElapsedTime_us

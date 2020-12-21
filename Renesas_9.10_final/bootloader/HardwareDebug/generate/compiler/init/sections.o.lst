@@ -1,0 +1,97 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"sections.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.global	BTBL_F2
+  17              		.global	DTBL_F2
+  18              		.global	BTBL_F
+  19              		.global	DTBL_F
+  20              		.section	.rodata.BTBL_F,"a",%progbits
+  21              		.align	2
+  24              	BTBL_F:
+  25 0000 00000000 		.word	__bss_start
+  26 0004 00000000 		.word	__bss_end
+  27 0008 00000000 		.word	0
+  28 000c 00000000 		.word	0
+  29              		.section	.rodata.BTBL_F2,"a",%progbits
+  30              		.align	2
+  33              	BTBL_F2:
+  34 0000 00000000 		.space	8
+  34      00000000 
+  35              		.section	.rodata.DTBL_F,"a",%progbits
+  36              		.align	2
+  39              	DTBL_F:
+  40 0000 00000000 		.word	__module2_load_start
+  41 0004 00000000 		.word	__module2_load_end
+  42 0008 00000000 		.word	__module2_exec_start
+  43 000c 00000000 		.word	0
+  44 0010 00000000 		.word	0
+  45 0014 00000000 		.word	0
+  46              		.section	.rodata.DTBL_F2,"a",%progbits
+  47              		.align	2
+  50              	DTBL_F2:
+  51 0000 00000000 		.word	__module4_load_start
+  52 0004 00000000 		.word	__module4_load_end
+  53 0008 00000000 		.word	__module4_exec_start
+  54 000c 00000000 		.word	0
+  55 0010 00000000 		.word	0
+  56 0014 00000000 		.word	0
+  57              		.text
+  58              	.Letext0:
+  59              		.file 1 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  60              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  61              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+  62              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  63              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+  64              		.file 6 "../generate/compiler/init/sections.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 sections.c
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:33     .rodata.BTBL_F2:00000000 BTBL_F2
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:50     .rodata.DTBL_F2:00000000 DTBL_F2
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:24     .rodata.BTBL_F:00000000 BTBL_F
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:39     .rodata.DTBL_F:00000000 DTBL_F
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:21     .rodata.BTBL_F:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:30     .rodata.BTBL_F2:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:36     .rodata.DTBL_F:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGJd5jU.s:47     .rodata.DTBL_F2:00000000 $d
+                           .group:00000000 wm4.0.5abf75bd0eb20652be5d61cc56051b9b
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+
+UNDEFINED SYMBOLS
+__bss_start
+__bss_end
+__module2_load_start
+__module2_load_end
+__module2_exec_start
+__module4_load_start
+__module4_load_end
+__module4_exec_start

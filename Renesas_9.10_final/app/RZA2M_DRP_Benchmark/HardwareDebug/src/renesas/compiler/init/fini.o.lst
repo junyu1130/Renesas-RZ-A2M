@@ -1,0 +1,174 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"fini.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.__libc_fini_array,"ax",%progbits
+  17              		.align	2
+  18              		.global	__libc_fini_array
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	__libc_fini_array:
+  24              	.LFB0:
+  25              		.file 1 "../src/renesas/compiler/init/fini.c"
+   1:../src/renesas/compiler/init/fini.c **** /*******************************************************************************
+   2:../src/renesas/compiler/init/fini.c **** * DISCLAIMER
+   3:../src/renesas/compiler/init/fini.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../src/renesas/compiler/init/fini.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../src/renesas/compiler/init/fini.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../src/renesas/compiler/init/fini.c **** * all applicable laws, including copyright laws.
+   7:../src/renesas/compiler/init/fini.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../src/renesas/compiler/init/fini.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../src/renesas/compiler/init/fini.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../src/renesas/compiler/init/fini.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/renesas/compiler/init/fini.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../src/renesas/compiler/init/fini.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../src/renesas/compiler/init/fini.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../src/renesas/compiler/init/fini.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../src/renesas/compiler/init/fini.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/renesas/compiler/init/fini.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../src/renesas/compiler/init/fini.c **** * and to discontinue the availability of this software. By using this software,
+  18:../src/renesas/compiler/init/fini.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../src/renesas/compiler/init/fini.c **** * following link:
+  20:../src/renesas/compiler/init/fini.c **** * http://www.renesas.com/disclaimer
+  21:../src/renesas/compiler/init/fini.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../src/renesas/compiler/init/fini.c **** *******************************************************************************/
+  23:../src/renesas/compiler/init/fini.c **** /*******************************************************************************
+  24:../src/renesas/compiler/init/fini.c **** * File Name : fini.c
+  25:../src/renesas/compiler/init/fini.c **** * $Rev: 255 $
+  26:../src/renesas/compiler/init/fini.c **** * $Date:: 2018-03-08 21:03:54 +0900#$
+  27:../src/renesas/compiler/init/fini.c **** * Description :
+  28:../src/renesas/compiler/init/fini.c **** ******************************************************************************/
+  29:../src/renesas/compiler/init/fini.c **** /*
+  30:../src/renesas/compiler/init/fini.c ****  * Copyright (C) 2010 CodeSourcery, Inc.
+  31:../src/renesas/compiler/init/fini.c ****  *
+  32:../src/renesas/compiler/init/fini.c ****  * Permission to use, copy, modify, and distribute this file
+  33:../src/renesas/compiler/init/fini.c ****  * for any purpose is hereby granted without fee, provided that
+  34:../src/renesas/compiler/init/fini.c ****  * the above copyright notice and this notice appears in all
+  35:../src/renesas/compiler/init/fini.c ****  * copies.
+  36:../src/renesas/compiler/init/fini.c ****  *
+  37:../src/renesas/compiler/init/fini.c ****  * This file is distributed WITHOUT ANY WARRANTY; without even the implied
+  38:../src/renesas/compiler/init/fini.c ****  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  39:../src/renesas/compiler/init/fini.c ****  */
+  40:../src/renesas/compiler/init/fini.c **** 
+  41:../src/renesas/compiler/init/fini.c **** /* Handle ELF .{pre_init,init,fini}_array sections.  */
+  42:../src/renesas/compiler/init/fini.c **** #include <sys/types.h>
+  43:../src/renesas/compiler/init/fini.c **** 
+  44:../src/renesas/compiler/init/fini.c **** #ifdef HAVE_INITFINI_ARRAY
+  45:../src/renesas/compiler/init/fini.c **** extern void (*__fini_array_start []) (void) __attribute__((weak));
+  46:../src/renesas/compiler/init/fini.c **** extern void (*__fini_array_end []) (void) __attribute__((weak));
+  47:../src/renesas/compiler/init/fini.c **** 
+  48:../src/renesas/compiler/init/fini.c **** extern void _fini (void);
+  49:../src/renesas/compiler/init/fini.c **** 
+  50:../src/renesas/compiler/init/fini.c **** /* Run all the cleanup routines.  */
+  51:../src/renesas/compiler/init/fini.c **** void
+  52:../src/renesas/compiler/init/fini.c **** __libc_fini_array (void)
+  53:../src/renesas/compiler/init/fini.c **** {
+  26              		.loc 1 53 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 00482DE9 		push	{fp, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 11, -8
+  33              		.cfi_offset 14, -4
+  34 0004 04B08DE2 		add	fp, sp, #4
+  35              		.cfi_def_cfa 11, 4
+  36 0008 08D04DE2 		sub	sp, sp, #8
+  54:../src/renesas/compiler/init/fini.c ****   size_t count;
+  55:../src/renesas/compiler/init/fini.c ****   size_t i;
+  56:../src/renesas/compiler/init/fini.c ****   
+  57:../src/renesas/compiler/init/fini.c ****   count = __fini_array_end - __fini_array_start;
+  37              		.loc 1 57 0
+  38 000c 002000E3 		movw	r2, #:lower16:__fini_array_end
+  39 0010 002040E3 		movt	r2, #:upper16:__fini_array_end
+  40 0014 003000E3 		movw	r3, #:lower16:__fini_array_start
+  41 0018 003040E3 		movt	r3, #:upper16:__fini_array_start
+  42 001c 033042E0 		sub	r3, r2, r3
+  43 0020 4331A0E1 		asr	r3, r3, #2
+  44 0024 0C300BE5 		str	r3, [fp, #-12]
+  58:../src/renesas/compiler/init/fini.c ****   for (i = count; i > 0; i--)
+  45              		.loc 1 58 0
+  46 0028 0C301BE5 		ldr	r3, [fp, #-12]
+  47 002c 08300BE5 		str	r3, [fp, #-8]
+  48 0030 080000EA 		b	.L2
+  49              	.L3:
+  59:../src/renesas/compiler/init/fini.c ****     __fini_array_start[i-1] ();
+  50              		.loc 1 59 0 discriminator 3
+  51 0034 08301BE5 		ldr	r3, [fp, #-8]
+  52 0038 012043E2 		sub	r2, r3, #1
+  53 003c 003000E3 		movw	r3, #:lower16:__fini_array_start
+  54 0040 003040E3 		movt	r3, #:upper16:__fini_array_start
+  55 0044 023193E7 		ldr	r3, [r3, r2, lsl #2]
+  56 0048 33FF2FE1 		blx	r3
+  57              	.LVL0:
+  58:../src/renesas/compiler/init/fini.c ****   for (i = count; i > 0; i--)
+  58              		.loc 1 58 0 discriminator 3
+  59 004c 08301BE5 		ldr	r3, [fp, #-8]
+  60 0050 013043E2 		sub	r3, r3, #1
+  61 0054 08300BE5 		str	r3, [fp, #-8]
+  62              	.L2:
+  58:../src/renesas/compiler/init/fini.c ****   for (i = count; i > 0; i--)
+  63              		.loc 1 58 0 is_stmt 0 discriminator 1
+  64 0058 08301BE5 		ldr	r3, [fp, #-8]
+  65 005c 000053E3 		cmp	r3, #0
+  66 0060 F3FFFF1A 		bne	.L3
+  60:../src/renesas/compiler/init/fini.c **** 
+  61:../src/renesas/compiler/init/fini.c ****   //_fini ();
+  62:../src/renesas/compiler/init/fini.c **** }
+  67              		.loc 1 62 0 is_stmt 1
+  68 0064 00F020E3 		nop
+  69 0068 04D04BE2 		sub	sp, fp, #4
+  70              		.cfi_def_cfa 13, 8
+  71              		@ sp needed
+  72 006c 0088BDE8 		pop	{fp, pc}
+  73              		.cfi_endproc
+  74              	.LFE0:
+  76              		.weak	__fini_array_start
+  77              		.weak	__fini_array_end
+  78              		.text
+  79              	.Letext0:
+  80              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+DEFINED SYMBOLS
+                            *ABS*:00000000 fini.c
+C:\Users\10094\AppData\Local\Temp\cchcgDWF.s:17     .text.__libc_fini_array:00000000 $a
+C:\Users\10094\AppData\Local\Temp\cchcgDWF.s:23     .text.__libc_fini_array:00000000 __libc_fini_array
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.newlib.h.21.64e14ed41172bf448383d50cbb14725e
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.features.h.22.5cdadbb3efe495d1c9e38350b8c376c7
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+
+UNDEFINED SYMBOLS
+__fini_array_end
+__fini_array_start

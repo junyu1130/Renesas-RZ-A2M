@@ -1,0 +1,3114 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"r_cpg_lld_rza2m.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.cpg_io_reg_write_16,"ax",%progbits
+  17              		.align	2
+  18              		.syntax unified
+  19              		.arm
+  20              		.fpu neon
+  22              	cpg_io_reg_write_16:
+  23              	.LFB4:
+  24              		.file 1 "../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c"
+   1:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*******************************************************************************
+   2:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * DISCLAIMER
+   3:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * all applicable laws, including copyright laws.
+   7:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * and to discontinue the availability of this software. By using this software,
+  18:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * following link:
+  20:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * http://www.renesas.com/disclaimer
+  21:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** *******************************************************************************/
+  23:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*******************************************************************************
+  24:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * File Name    : r_cpg_lld_rza2m.c
+  25:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * $Rev: 732 $
+  26:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * $Date:: 2018-11-21 11:23:46 +0900#$
+  27:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Device(s)    : RZ/A2M
+  28:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Tool-Chain   : e2Studio Ver 7.0.0
+  29:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** *              : GCC ARM Embedded 5.4.1.20160919
+  30:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * OS           : None
+  31:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * H/W Platform : RZ/A2M Evaluation Board
+  32:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Description  : RZ/A2M Sample Program - Low level function of CPG module
+  33:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Operation    :
+  34:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** * Limitations  :
+  35:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** *******************************************************************************/
+  36:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  37:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  38:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Includes   <System Includes> , "Project Includes"
+  39:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  40:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "rza_io_regrw.h"
+  41:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "iodefine.h"
+  42:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "iobitmask.h"
+  43:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "r_typedefs.h"
+  44:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "r_cpg_hld_api.h"
+  45:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "r_cpg_drv_link.h"
+  46:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** #include "r_cpg_drv_sc_cfg.h"
+  47:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  48:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  49:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Typedef definitions
+  50:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  51:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  52:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  53:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  54:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Macro definitions
+  55:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  56:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  57:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  58:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  59:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Imported global variables and functions (from other files)
+  60:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  61:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  62:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  63:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  64:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Exported global variables and functions (to be accessed by other files)
+  65:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  66:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  67:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  68:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+  69:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** Private global variables and functions
+  70:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** ******************************************************************************/
+  71:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! Version Information */
+  72:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static const st_drv_info_t gs_lld_info =
+  73:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+  74:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+  75:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ((STDIO_CPG_RZ_LLD_VERSION_MAJOR << 16) + STDIO_CPG_RZ_LLD_VERSION_MINOR)
+  76:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     },
+  77:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     STDIO_CPG_RZ_LLD_BUILD_NUM,
+  78:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     STDIO_CPG_RZ_LLD_DRV_NAME
+  79:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** };
+  80:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  81:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! EXTAL frequency (khz) */
+  82:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static float64_t gs_cpg_extal_frequency_khz = 24000.0;
+  83:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  84:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! PLL frequency (khz) */
+  85:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static float64_t gs_cpg_pll_frequency_khz = 1056000.0;
+  86:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  87:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! ICLK divisor */
+  88:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint32_t gs_cpg_iclk_divisor = 2;
+  89:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  90:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! ICLK frequency (khz) */
+  91:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static float64_t gs_cpg_iclk_frequency_khz = 528000.0;
+  92:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  93:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! BCLK divisor */
+  94:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint32_t gs_cpg_bclk_divisor = 8;
+  95:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  96:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! BCLK frequency (khz) */
+  97:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static float64_t gs_cpg_bclk_frequency_khz = 132000.0;
+  98:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+  99:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! P1CLK divisor */
+ 100:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint32_t gs_cpg_p1clk_divisor = 16;
+ 101:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 102:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! P1CLK frequency (khz) */
+ 103:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static float64_t gs_cpg_p1clk_frequency_khz = 66000.0;
+ 104:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 105:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /*! flag to check initialised or not */
+ 106:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static bool_t gs_drv_cpg_is_initialized = false;
+ 107:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 108:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 109:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_write_8
+ 110:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Write 8 bit I/O register
+ 111:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 112:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  write_value: value to write
+ 113:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 114:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 115:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   @note if pass IOREG_NONMASK_ACCESS to the mask,
+ 116:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         this function does not read the previous value
+ 117:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         and write entire bit of write_value without shifting.
+ 118:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 119:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static void cpg_io_reg_write_8(volatile uint8_t * ioreg, uint8_t write_value, uint8_t shift, uint32
+ 120:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 121:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint8_t reg_value;
+ 122:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+ 123:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 124:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = *ioreg;                                         /* Read from register */
+ 125:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (uint8_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify 
+ 126:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 127:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 128:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 129:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = write_value;
+ 130:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 131:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     *ioreg    = reg_value;                                      /* Write to register  */
+ 132:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 133:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 134:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_write_8
+ 135:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 136:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 137:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 138:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_write_16
+ 139:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Write 16 bit I/O register
+ 140:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 141:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  write_value: value to write
+ 142:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 143:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 144:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   @note if pass IOREG_NONMASK_ACCESS to the mask,
+ 145:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         this function does not read the previous value
+ 146:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         and write entire bit of write_value without shifting.
+ 147:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 148:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static void cpg_io_reg_write_16(volatile uint16_t * ioreg, uint16_t write_value, uint16_t shift, ui
+ 149:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+  25              		.loc 1 149 0
+  26              		.cfi_startproc
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		@ link register save eliminated.
+  30              	.LVL0:
+ 150:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t reg_value;
+ 151:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 152:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+  31              		.loc 1 152 0
+  32 0000 010073E3 		cmn	r3, #1
+  33 0004 0400000A 		beq	.L2
+ 153:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 154:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = *ioreg;                                         /* Read from register */
+  34              		.loc 1 154 0
+  35 0008 B0C0D0E1 		ldrh	ip, [r0]
+  36              	.LVL1:
+ 155:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (uint16_t)((reg_value & (~mask)) | (unsigned)(write_value << shift)); /* Modify
+  37              		.loc 1 155 0
+  38 000c 0330CCE1 		bic	r3, ip, r3
+  39              	.LVL2:
+  40 0010 1112A0E1 		lsl	r1, r1, r2
+  41              	.LVL3:
+  42 0014 7110FFE6 		uxth	r1, r1
+  43 0018 011083E1 		orr	r1, r3, r1
+  44              	.LVL4:
+  45              	.L2:
+ 156:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 157:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 158:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 159:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = write_value;
+ 160:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 161:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     *ioreg    = reg_value;                                      /* Write to register  */
+  46              		.loc 1 161 0
+  47 001c B010C0E1 		strh	r1, [r0]	@ movhi
+ 162:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+  48              		.loc 1 162 0
+  49 0020 1EFF2FE1 		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE4:
+  53              		.section	.text.cpg_io_reg_write_32,"ax",%progbits
+  54              		.align	2
+  55              		.syntax unified
+  56              		.arm
+  57              		.fpu neon
+  59              	cpg_io_reg_write_32:
+  60              	.LFB5:
+ 163:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 164:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_write_16
+ 165:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 166:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 167:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 168:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_write_32
+ 169:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Write 32 bit I/O register
+ 170:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 171:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  write_value: value to write
+ 172:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 173:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 174:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   @note if pass IOREG_NONMASK_ACCESS to the mask,
+ 175:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         this function does not read the previous value
+ 176:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                         and write entire bit of write_value without shifting.
+ 177:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 178:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static void cpg_io_reg_write_32(volatile uint32_t * ioreg, uint32_t write_value, uint32_t shift, ui
+ 179:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+  61              		.loc 1 179 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  66              	.LVL5:
+ 180:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint32_t reg_value;
+ 181:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+  67              		.loc 1 181 0
+  68 0000 010073E3 		cmn	r3, #1
+ 182:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 183:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = *ioreg;                                         /* Read from register */
+  69              		.loc 1 183 0
+  70 0004 00C09015 		ldrne	ip, [r0]
+  71              	.LVL6:
+ 184:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (reg_value & (~mask)) | (unsigned)(write_value << shift); /* Modify value      
+  72              		.loc 1 184 0
+  73 0008 0330CC11 		bicne	r3, ip, r3
+  74              	.LVL7:
+  75 000c 11128311 		orrne	r1, r3, r1, lsl r2
+  76              	.LVL8:
+  77              	.L4:
+ 185:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 186:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 187:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 188:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = write_value;
+ 189:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 190:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     *ioreg    = reg_value;                                      /* Write to register  */
+  78              		.loc 1 190 0
+  79 0010 001080E5 		str	r1, [r0]
+ 191:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+  80              		.loc 1 191 0
+  81 0014 1EFF2FE1 		bx	lr
+  82              		.cfi_endproc
+  83              	.LFE5:
+  85              		.section	.text.cpg_io_reg_read_16,"ax",%progbits
+  86              		.align	2
+  87              		.syntax unified
+  88              		.arm
+  89              		.fpu neon
+  91              	cpg_io_reg_read_16:
+  92              	.LFB7:
+ 192:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 193:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_write_32
+ 194:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 195:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 196:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 197:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_read_8
+ 198:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Read 8 bit I/O register
+ 199:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 200:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 201:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 202:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @return     read value
+ 203:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 204:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint8_t cpg_io_reg_read_8(volatile uint8_t * ioreg, uint8_t shift, uint32_t mask)
+ 205:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 206:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint8_t reg_value;
+ 207:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 208:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     reg_value = *ioreg;                         /* Read from register            */
+ 209:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+ 210:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 211:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (uint8_t)((reg_value & mask) >> shift);    /* Clear other bit and Bit shift */
+ 212:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 213:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 214:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (reg_value);
+ 215:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 216:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 217:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_read_8
+ 218:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 219:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 220:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 221:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_read_16
+ 222:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Read 16 bit I/O register
+ 223:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 224:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 225:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 226:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @return     read value
+ 227:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 228:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint16_t cpg_io_reg_read_16(volatile uint16_t * ioreg, uint16_t shift, uint32_t mask)
+ 229:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+  93              		.loc 1 229 0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		@ link register save eliminated.
+  98              	.LVL9:
+ 230:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t reg_value;
+ 231:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 232:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     reg_value = *ioreg;                         /* Read from register            */
+  99              		.loc 1 232 0
+ 100 0000 B000D0E1 		ldrh	r0, [r0]
+ 101              	.LVL10:
+ 102 0004 7000FFE6 		uxth	r0, r0
+ 103              	.LVL11:
+ 233:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+ 104              		.loc 1 233 0
+ 105 0008 010072E3 		cmn	r2, #1
+ 106 000c 1EFF2F01 		bxeq	lr
+ 234:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 235:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (uint16_t)((reg_value & mask) >> shift);    /* Clear other bit and Bit shift */
+ 107              		.loc 1 235 0
+ 108 0010 020000E0 		and	r0, r0, r2
+ 109              	.LVL12:
+ 110 0014 3001A0E1 		lsr	r0, r0, r1
+ 111 0018 7000FFE6 		uxth	r0, r0
+ 112              	.LVL13:
+ 236:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 237:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 238:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (reg_value);
+ 239:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 113              		.loc 1 239 0
+ 114 001c 1EFF2FE1 		bx	lr
+ 115              		.cfi_endproc
+ 116              	.LFE7:
+ 118              		.section	.text.cpg_io_reg_read_32,"ax",%progbits
+ 119              		.align	2
+ 120              		.syntax unified
+ 121              		.arm
+ 122              		.fpu neon
+ 124              	cpg_io_reg_read_32:
+ 125              	.LFB8:
+ 240:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 241:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_read_16
+ 242:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 243:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 244:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 245:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      cpg_io_reg_read_32
+ 246:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Read 32 bit I/O register
+ 247:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  ioreg: register address
+ 248:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  shift: beginning target bit in register (LSB is 0)
+ 249:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  mask: target bit mask in register
+ 250:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @return     read value
+ 251:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 252:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static uint32_t cpg_io_reg_read_32(volatile uint32_t * ioreg, uint32_t shift, uint32_t mask)
+ 253:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 126              		.loc 1 253 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131              	.LVL14:
+ 254:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint32_t reg_value;
+ 255:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 256:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     reg_value = *ioreg;                         /* Read from register            */
+ 132              		.loc 1 256 0
+ 133 0000 000090E5 		ldr	r0, [r0]
+ 134              	.LVL15:
+ 257:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( IOREG_NONMASK_ACCESS != mask )
+ 135              		.loc 1 257 0
+ 136 0004 010072E3 		cmn	r2, #1
+ 137 0008 1EFF2F01 		bxeq	lr
+ 258:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 259:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         reg_value = (reg_value & mask) >> shift;    /* Clear other bit and Bit shift */
+ 138              		.loc 1 259 0
+ 139 000c 020000E0 		and	r0, r0, r2
+ 140              	.LVL16:
+ 141 0010 3001A0E1 		lsr	r0, r0, r1
+ 142              	.LVL17:
+ 260:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 261:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 262:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (reg_value);
+ 263:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 143              		.loc 1 263 0
+ 144 0014 1EFF2FE1 		bx	lr
+ 145              		.cfi_endproc
+ 146              	.LFE8:
+ 148              		.section	.text.is_nearly_equal,"ax",%progbits
+ 149              		.align	2
+ 150              		.syntax unified
+ 151              		.arm
+ 152              		.fpu neon
+ 154              	is_nearly_equal:
+ 155              	.LFB9:
+ 264:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 265:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_io_reg_read_32
+ 266:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 267:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 268:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 269:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      is_nearly_equal
+ 270:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Check two value is nearly equal or not
+ 271:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  value1: 1st value
+ 272:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  value2: 2nd value
+ 273:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     true nearly equal
+ 274:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     false not nearly equal
+ 275:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 276:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static bool_t is_nearly_equal(float64_t value1, float64_t value2)
+ 277:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 156              		.loc 1 277 0
+ 157              		.cfi_startproc
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              		@ link register save eliminated.
+ 161              	.LVL18:
+ 278:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     bool_t result;
+ 279:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     static const float64_t margin = 0.125;      /* margin */
+ 280:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     float64_t low_water = value1 - margin;
+ 162              		.loc 1 280 0
+ 163 0000 000BF4EE 		vmov.f64	d16, #1.25e-1
+ 164 0004 601B70EE 		vsub.f64	d17, d0, d16
+ 165              	.LVL19:
+ 281:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     float64_t high_water = value1 + margin;
+ 166              		.loc 1 281 0
+ 167 0008 200B30EE 		vadd.f64	d0, d0, d16
+ 168              	.LVL20:
+ 282:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( (low_water < value2) && (value2 < high_water) )
+ 169              		.loc 1 282 0
+ 170 000c C11BF4EE 		vcmpe.f64	d17, d1
+ 171 0010 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 172 0014 0400005A 		bpl	.L15
+ 173              		.loc 1 282 0 is_stmt 0 discriminator 1
+ 174 0018 C10BB4EE 		vcmpe.f64	d0, d1
+ 175 001c 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 176 0020 030000CA 		bgt	.L13
+ 283:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 284:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         result = true;
+ 285:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 286:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 287:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 288:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         result = false;
+ 177              		.loc 1 288 0 is_stmt 1
+ 178 0024 0000A0E3 		mov	r0, #0
+ 179 0028 1EFF2FE1 		bx	lr
+ 180              	.L15:
+ 181 002c 0000A0E3 		mov	r0, #0
+ 182 0030 1EFF2FE1 		bx	lr
+ 183              	.L13:
+ 284:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 184              		.loc 1 284 0
+ 185 0034 0100A0E3 		mov	r0, #1
+ 186              	.LVL21:
+ 289:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 290:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (result);
+ 291:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 187              		.loc 1 291 0
+ 188 0038 1EFF2FE1 		bx	lr
+ 189              		.cfi_endproc
+ 190              	.LFE9:
+ 192              		.section	.text.cpg_modify_frqcr,"ax",%progbits
+ 193              		.align	2
+ 194              		.syntax unified
+ 195              		.arm
+ 196              		.fpu neon
+ 198              	cpg_modify_frqcr:
+ 199              	.LFB14:
+ 292:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 293:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function is_nearly_equal
+ 294:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 295:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 296:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 297:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      R_CPG_InitialiseHwIf
+ 298:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Prepare the CPG driver for operation
+ 299:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_SUCCESS Successful operate
+ 300:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 301:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_InitialiseHwIf( void )
+ 302:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 303:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t retval;
+ 304:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 305:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     retval = DRV_SUCCESS;
+ 306:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 307:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* only initialises at first time */
+ 308:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( !gs_drv_cpg_is_initialized )
+ 309:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 310:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         /* standby_mode_en bit of Power Control Register setting */
+ 311:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         cpg_io_reg_write_32(&pl310.REG15_POWER_CTRL.LONG, 1, PL310_REG15_POWER_CTRL_standby_mode_en
+ 312:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         cpg_io_reg_read_32(&pl310.REG15_POWER_CTRL.LONG, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCES
+ 313:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_drv_cpg_is_initialized = true;
+ 314:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 315:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         /* Initialise clock setting configured on SC by user */
+ 316:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         retval = R_CPG_SetXtalClock(s_sc_cpg_xtal_frequency_khz_config);
+ 317:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS == retval )
+ 318:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 319:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             retval = R_CPG_SetMainClock(&s_sc_cpg_main_clock_config);
+ 320:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 321:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS == retval )
+ 322:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 323:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             retval = R_CPG_SetSubClockDividers(&s_sc_cpg_sub_clock_div_config[0], (sizeof s_sc_cpg_
+ 324:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 325:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS == retval )
+ 326:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 327:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             retval = R_CPG_SetSubClockSource(&s_sc_cpg_sub_clock_src_config[0], (sizeof s_sc_cpg_su
+ 328:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 329:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS == retval )
+ 330:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 331:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             retval = R_CPG_ConfigExtClockPin(&s_sc_cpg_ext_clk_config);
+ 332:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 333:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 334:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 335:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 336:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (retval);
+ 337:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 338:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 339:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_InitialiseHwIf
+ 340:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 341:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 342:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 343:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      R_CPG_UninitialiseHwIf
+ 344:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Finalise the CPG driver for operation
+ 345:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_SUCCESS Successful operate
+ 346:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 347:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_UninitialiseHwIf( void )
+ 348:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 349:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 350:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 351:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 352:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 353:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_UninitialiseHwIf
+ 354:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 355:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 356:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 357:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      R_CPG_SetXtalClock
+ 358:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Change XTAL clock
+ 359:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             @note It is only store in local variable and does not
+ 360:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   re-configure each driver's parameter.
+ 361:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  frequency_khz: XTAL clock by KHz
+ 362:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_SUCCESS     Successful operate
+ 363:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_ERROR Failure operate
+ 364:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 365:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_SetXtalClock(float64_t frequency_khz)
+ 366:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 367:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t ret;
+ 368:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( (frequency_khz >= 10000.0) && (frequency_khz <= 12000.0) )
+ 369:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 370:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_pll_frequency_khz = frequency_khz * 88.0;
+ 371:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = DRV_SUCCESS;
+ 372:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 373:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( (frequency_khz >= 20000.0) && (frequency_khz <= 24000.0) )
+ 374:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 375:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_pll_frequency_khz = frequency_khz * 44.0;
+ 376:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = DRV_SUCCESS;
+ 377:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 378:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 379:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 380:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = DRV_ERROR;
+ 381:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 382:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 383:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( DRV_SUCCESS == ret )
+ 384:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 385:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         /* calculate updated frequency */
+ 386:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_iclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_iclk_divisor;
+ 387:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_bclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_bclk_divisor;
+ 388:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_p1clk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_p1clk_divisor;
+ 389:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_extal_frequency_khz = frequency_khz;
+ 390:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 391:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 392:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (ret);
+ 393:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 394:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 395:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_SetXtalClock
+ 396:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 397:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 398:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 399:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief      R_CPG_SetMainClock
+ 400:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             Change Main clock frequency
+ 401:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *             @note RZ/A2M can not adjust main clock ratio.
+ 402:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   If dedicated frequency is not fit in the ratio, this
+ 403:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                   function fails.
+ 404:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]  p_main_clk_settings: main clock frequency setting
+ 405:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_SUCCESS     Successful operate
+ 406:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval     DRV_ERROR Failure operate
+ 407:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 408:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_SetMainClock(const st_r_drv_cpg_set_main_t * p_main_clk_settings)
+ 409:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 410:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* Can't modify main clock on RZA2M.
+ 411:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****      * This function just checks if value is reasonable.
+ 412:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****      */
+ 413:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 414:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( CPG_CLOCK_SOURCE_PLL != p_main_clk_settings->clk_src )
+ 415:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 416:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         /* RZA2M main clock only support from PLL */
+ 417:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 418:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 419:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 420:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( !is_nearly_equal(p_main_clk_settings->main_clk_frequency_khz, gs_cpg_pll_frequency_khz) )
+ 421:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 422:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 423:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 424:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 425:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 426:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 427:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 428:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_SetMainClock
+ 429:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 430:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 431:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 432:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          cpg_modify_frqcr
+ 433:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Make frqcr value for setting clock ratio
+ 434:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      p_sub_clk_setting: sub clock frequency setting
+ 435:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in/out]  p_frqcr: receive previous value and return modified
+ 436:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 437:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 438:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 439:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static int_t cpg_modify_frqcr(const st_r_drv_cpg_set_sub_t * p_sub_clk_setting, uint16_t * p_frqcr)
+ 440:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 200              		.loc 1 440 0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              	.LVL22:
+ 205 0000 70402DE9 		push	{r4, r5, r6, lr}
+ 206              		.cfi_def_cfa_offset 16
+ 207              		.cfi_offset 4, -16
+ 208              		.cfi_offset 5, -12
+ 209              		.cfi_offset 6, -8
+ 210              		.cfi_offset 14, -4
+ 211 0004 048B2DED 		vpush.64	{d8, d9}
+ 212              		.cfi_def_cfa_offset 32
+ 213              		.cfi_offset 80, -32
+ 214              		.cfi_offset 81, -28
+ 215              		.cfi_offset 82, -24
+ 216              		.cfi_offset 83, -20
+ 217 0008 0040A0E1 		mov	r4, r0
+ 218 000c 0150A0E1 		mov	r5, r1
+ 441:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     float64_t div_d;
+ 442:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t fc;
+ 443:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 444:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* here the comparison floating value with zero is OK for avoiding divide by zero */
+ 445:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( is_nearly_equal( 0, p_sub_clk_setting->sub_clk_frequency_khz ) )
+ 219              		.loc 1 445 0
+ 220 0010 028B90ED 		vldr.64	d8, [r0, #8]
+ 221 0014 481BB0EE 		vmov.f64	d1, d8
+ 222 0018 300E80F2 		vmov.i64	d0, #0	@ float
+ 223 001c FEFFFFEB 		bl	is_nearly_equal
+ 224              	.LVL23:
+ 225 0020 000050E3 		cmp	r0, #0
+ 226 0024 5C00001A 		bne	.L23
+ 446:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 447:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         /* ZERO value gets error */
+ 448:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 449:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 450:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     div_d = gs_cpg_pll_frequency_khz / p_sub_clk_setting->sub_clk_frequency_khz;
+ 227              		.loc 1 450 0
+ 228 0028 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 229 002c 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 230 0030 000BD3ED 		vldr.64	d16, [r3]
+ 231 0034 889B80EE 		vdiv.f64	d9, d16, d8
+ 232              	.LVL24:
+ 451:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 452:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( CPG_SUB_CLOCK_ICLK == p_sub_clk_setting->clk_sub_src )
+ 233              		.loc 1 452 0
+ 234 0038 0030D4E5 		ldrb	r3, [r4]	@ zero_extendqisi2
+ 235 003c 000053E3 		cmp	r3, #0
+ 236 0040 2200001A 		bne	.L18
+ 453:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 454:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( is_nearly_equal( 2 , div_d ) )
+ 237              		.loc 1 454 0
+ 238 0044 491BB0EE 		vmov.f64	d1, d9
+ 239 0048 000BB0EE 		vmov.f64	d0, #2.0e+0
+ 240 004c FEFFFFEB 		bl	is_nearly_equal
+ 241              	.LVL25:
+ 242 0050 000050E3 		cmp	r0, #0
+ 243 0054 1000001A 		bne	.L24
+ 455:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 456:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 0;
+ 457:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 458:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 4 , div_d ) )
+ 244              		.loc 1 458 0
+ 245 0058 491BB0EE 		vmov.f64	d1, d9
+ 246 005c 000BB1EE 		vmov.f64	d0, #4.0e+0
+ 247 0060 FEFFFFEB 		bl	is_nearly_equal
+ 248              	.LVL26:
+ 249 0064 000050E3 		cmp	r0, #0
+ 250 0068 1400001A 		bne	.L25
+ 459:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 460:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 1;
+ 461:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 462:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 8 , div_d ) )
+ 251              		.loc 1 462 0
+ 252 006c 491BB0EE 		vmov.f64	d1, d9
+ 253 0070 000BB2EE 		vmov.f64	d0, #8.0e+0
+ 254 0074 FEFFFFEB 		bl	is_nearly_equal
+ 255              	.LVL27:
+ 256 0078 000050E3 		cmp	r0, #0
+ 257 007c 1100001A 		bne	.L26
+ 463:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 464:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 2;
+ 465:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 466:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 16 , div_d ) )
+ 258              		.loc 1 466 0
+ 259 0080 491BB0EE 		vmov.f64	d1, d9
+ 260 0084 000BB3EE 		vmov.f64	d0, #1.6e+1
+ 261 0088 FEFFFFEB 		bl	is_nearly_equal
+ 262              	.LVL28:
+ 263 008c 000050E3 		cmp	r0, #0
+ 264 0090 4300000A 		beq	.L27
+ 467:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 468:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 3;
+ 265              		.loc 1 468 0
+ 266 0094 0310A0E3 		mov	r1, #3
+ 267 0098 000000EA 		b	.L19
+ 268              	.L24:
+ 456:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 269              		.loc 1 456 0
+ 270 009c 0010A0E3 		mov	r1, #0
+ 271              	.L19:
+ 272              	.LVL29:
+ 469:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 470:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 471:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 472:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 473:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 474:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) &= (uint16_t)(~CPG_FRQCR_IFC);
+ 273              		.loc 1 474 0
+ 274 00a0 B020D5E1 		ldrh	r2, [r5]
+ 275 00a4 FF3C0FE3 		movw	r3, #64767
+ 276 00a8 023003E0 		and	r3, r3, r2
+ 475:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) |= (uint16_t)(fc << CPG_FRQCR_IFC_SHIFT);
+ 277              		.loc 1 475 0
+ 278 00ac 013483E1 		orr	r3, r3, r1, lsl #8
+ 279 00b0 B030C5E1 		strh	r3, [r5]	@ movhi
+ 476:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 477:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( CPG_SUB_CLOCK_BCLK == p_sub_clk_setting->clk_sub_src )
+ 478:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 479:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( is_nearly_equal( 8 , div_d ) )
+ 480:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 481:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 1;
+ 482:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 483:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 16 , div_d ) )
+ 484:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 485:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 2;
+ 486:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 487:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 32 , div_d ) )
+ 488:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 489:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 3;
+ 490:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 491:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 492:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 493:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 494:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 495:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) &= (uint16_t)(~CPG_FRQCR_BFC);
+ 496:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) |= (uint16_t)(fc << CPG_FRQCR_BFC_SHIFT);
+ 497:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 498:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( CPG_SUB_CLOCK_P1CLK == p_sub_clk_setting->clk_sub_src )
+ 499:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 500:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( is_nearly_equal( 16 , div_d ) )
+ 501:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 502:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 2;
+ 503:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 504:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( is_nearly_equal( 32 , div_d ) )
+ 505:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 506:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             fc = 3;
+ 507:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 508:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 509:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 510:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 511:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 512:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) &= (uint16_t)(~CPG_FRQCR_PFC);
+ 513:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) |= (uint16_t)(fc << CPG_FRQCR_PFC_SHIFT);
+ 514:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 515:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 516:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 517:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 518:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 519:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 520:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 280              		.loc 1 520 0
+ 281 00b4 0000A0E3 		mov	r0, #0
+ 282              	.LVL30:
+ 283              	.L16:
+ 521:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 284              		.loc 1 521 0
+ 285 00b8 048BBDEC 		vldm	sp!, {d8-d9}
+ 286              		.cfi_remember_state
+ 287              		.cfi_restore 82
+ 288              		.cfi_restore 83
+ 289              		.cfi_restore 80
+ 290              		.cfi_restore 81
+ 291              		.cfi_def_cfa_offset 16
+ 292 00bc 7080BDE8 		pop	{r4, r5, r6, pc}
+ 293              	.LVL31:
+ 294              	.L25:
+ 295              		.cfi_restore_state
+ 460:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 296              		.loc 1 460 0
+ 297 00c0 0110A0E3 		mov	r1, #1
+ 298 00c4 F5FFFFEA 		b	.L19
+ 299              	.L26:
+ 464:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 300              		.loc 1 464 0
+ 301 00c8 0210A0E3 		mov	r1, #2
+ 302 00cc F3FFFFEA 		b	.L19
+ 303              	.L18:
+ 477:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 304              		.loc 1 477 0
+ 305 00d0 010053E3 		cmp	r3, #1
+ 306 00d4 0D00000A 		beq	.L35
+ 498:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 307              		.loc 1 498 0
+ 308 00d8 020053E3 		cmp	r3, #2
+ 309 00dc 3400001A 		bne	.L31
+ 500:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 310              		.loc 1 500 0
+ 311 00e0 491BB0EE 		vmov.f64	d1, d9
+ 312 00e4 000BB3EE 		vmov.f64	d0, #1.6e+1
+ 313 00e8 FEFFFFEB 		bl	is_nearly_equal
+ 314              	.LVL32:
+ 315 00ec 000050E3 		cmp	r0, #0
+ 316 00f0 2100001A 		bne	.L32
+ 504:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 317              		.loc 1 504 0
+ 318 00f4 491BB0EE 		vmov.f64	d1, d9
+ 319 00f8 320B9FED 		vldr.64	d0, .L36
+ 320 00fc FEFFFFEB 		bl	is_nearly_equal
+ 321              	.LVL33:
+ 322 0100 000050E3 		cmp	r0, #0
+ 323 0104 2C00000A 		beq	.L33
+ 506:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 324              		.loc 1 506 0
+ 325 0108 0310A0E3 		mov	r1, #3
+ 326 010c 1B0000EA 		b	.L22
+ 327              	.L35:
+ 479:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 328              		.loc 1 479 0
+ 329 0110 491BB0EE 		vmov.f64	d1, d9
+ 330 0114 000BB2EE 		vmov.f64	d0, #8.0e+0
+ 331 0118 FEFFFFEB 		bl	is_nearly_equal
+ 332              	.LVL34:
+ 333 011c 000050E3 		cmp	r0, #0
+ 334 0120 0B00001A 		bne	.L28
+ 483:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 335              		.loc 1 483 0
+ 336 0124 491BB0EE 		vmov.f64	d1, d9
+ 337 0128 000BB3EE 		vmov.f64	d0, #1.6e+1
+ 338 012c FEFFFFEB 		bl	is_nearly_equal
+ 339              	.LVL35:
+ 340 0130 000050E3 		cmp	r0, #0
+ 341 0134 0E00001A 		bne	.L29
+ 487:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 342              		.loc 1 487 0
+ 343 0138 491BB0EE 		vmov.f64	d1, d9
+ 344 013c 210B9FED 		vldr.64	d0, .L36
+ 345 0140 FEFFFFEB 		bl	is_nearly_equal
+ 346              	.LVL36:
+ 347 0144 000050E3 		cmp	r0, #0
+ 348 0148 1700000A 		beq	.L30
+ 489:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 349              		.loc 1 489 0
+ 350 014c 0310A0E3 		mov	r1, #3
+ 351 0150 000000EA 		b	.L21
+ 352              	.L28:
+ 481:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 353              		.loc 1 481 0
+ 354 0154 0110A0E3 		mov	r1, #1
+ 355              	.L21:
+ 356              	.LVL37:
+ 495:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) |= (uint16_t)(fc << CPG_FRQCR_BFC_SHIFT);
+ 357              		.loc 1 495 0
+ 358 0158 B020D5E1 		ldrh	r2, [r5]
+ 359 015c CF3F0FE3 		movw	r3, #65487
+ 360 0160 023003E0 		and	r3, r3, r2
+ 496:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 361              		.loc 1 496 0
+ 362 0164 013283E1 		orr	r3, r3, r1, lsl #4
+ 363 0168 B030C5E1 		strh	r3, [r5]	@ movhi
+ 520:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 364              		.loc 1 520 0
+ 365 016c 0000A0E3 		mov	r0, #0
+ 366 0170 D0FFFFEA 		b	.L16
+ 367              	.LVL38:
+ 368              	.L29:
+ 485:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 369              		.loc 1 485 0
+ 370 0174 0210A0E3 		mov	r1, #2
+ 371 0178 F6FFFFEA 		b	.L21
+ 372              	.L32:
+ 502:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 373              		.loc 1 502 0
+ 374 017c 0210A0E3 		mov	r1, #2
+ 375              	.L22:
+ 376              	.LVL39:
+ 512:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         (*p_frqcr) |= (uint16_t)(fc << CPG_FRQCR_PFC_SHIFT);
+ 377              		.loc 1 512 0
+ 378 0180 B020D5E1 		ldrh	r2, [r5]
+ 379 0184 FC3F0FE3 		movw	r3, #65532
+ 380 0188 023003E0 		and	r3, r3, r2
+ 513:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 381              		.loc 1 513 0
+ 382 018c 013083E1 		orr	r3, r3, r1
+ 383 0190 B030C5E1 		strh	r3, [r5]	@ movhi
+ 520:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 384              		.loc 1 520 0
+ 385 0194 0000A0E3 		mov	r0, #0
+ 386 0198 C6FFFFEA 		b	.L16
+ 387              	.LVL40:
+ 388              	.L23:
+ 448:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 389              		.loc 1 448 0
+ 390 019c 0000E0E3 		mvn	r0, #0
+ 391 01a0 C4FFFFEA 		b	.L16
+ 392              	.LVL41:
+ 393              	.L27:
+ 472:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 394              		.loc 1 472 0
+ 395 01a4 0000E0E3 		mvn	r0, #0
+ 396 01a8 C2FFFFEA 		b	.L16
+ 397              	.L30:
+ 493:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 398              		.loc 1 493 0
+ 399 01ac 0000E0E3 		mvn	r0, #0
+ 400 01b0 C0FFFFEA 		b	.L16
+ 401              	.L31:
+ 517:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 402              		.loc 1 517 0
+ 403 01b4 0000E0E3 		mvn	r0, #0
+ 404 01b8 BEFFFFEA 		b	.L16
+ 405              	.L33:
+ 510:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 406              		.loc 1 510 0
+ 407 01bc 0000E0E3 		mvn	r0, #0
+ 408 01c0 BCFFFFEA 		b	.L16
+ 409              	.L37:
+ 410 01c4 00F020E3 		.align	3
+ 411              	.L36:
+ 412 01c8 00000000 		.word	0
+ 413 01cc 00004040 		.word	1077936128
+ 414              		.cfi_endproc
+ 415              	.LFE14:
+ 417              		.section	.text.set_sub_clock_source,"ax",%progbits
+ 418              		.align	2
+ 419              		.syntax unified
+ 420              		.arm
+ 421              		.fpu neon
+ 423              	set_sub_clock_source:
+ 424              	.LFB16:
+ 522:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 523:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function cpg_modify_frqcr
+ 524:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 525:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 526:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 527:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          R_CPG_SetSubClockDividers
+ 528:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Set clock divider for suitable the specified sub clock parameter
+ 529:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      p_sub_clk_settings: sub clock frequency setting
+ 530:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      count: count of sub clock settings
+ 531:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 532:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 533:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @note RZ/A2M restricts the combination of clock ratio in listed below:
+ 534:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       FRQCR  | Instruction | Bus  | Peripheral1
+ 535:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       ------ | ----------- | ---- | -----------
+ 536:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       0x012  | 1/2         | 1/8  | 1/16
+ 537:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       0x112  | 1/4         | 1/8  | 1/16
+ 538:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       0x212  | 1/8         | 1/8  | 1/16
+ 539:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       0x322  | 1/16        | 1/16 | 1/16
+ 540:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       0x333  | 1/16        | 1/32 | 1/32
+ 541:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *
+ 542:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       Settings except listed above may causes unpredictable behaviour and
+ 543:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *       this function does not allow.
+ 544:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 545:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_SetSubClockDividers(const st_r_drv_cpg_set_sub_t * p_sub_clk_settings, uint32_t count)
+ 546:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 547:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t frqcr;
+ 548:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t check_frqcr;
+ 549:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t ret;
+ 550:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 551:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* read previous settings */
+ 552:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     frqcr = cpg_io_reg_read_16(&CPG.FRQCR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 553:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 554:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* overwrite parameter settings */
+ 555:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     while (0 != count)
+ 556:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 557:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         count--;
+ 558:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 559:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = cpg_modify_frqcr(&p_sub_clk_settings[count], &frqcr);
+ 560:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS != ret )
+ 561:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 562:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (ret);
+ 563:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 564:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 565:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 566:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* check unless valid combination */
+ 567:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     check_frqcr = frqcr & (CPG_FRQCR_IFC | CPG_FRQCR_BFC | CPG_FRQCR_PFC);
+ 568:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch ( check_frqcr )
+ 569:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 570:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0x012: /* "VALID":do nothing, fall through */
+ 571:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0x112: /* "VALID":do nothing, fall through */
+ 572:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0x212: /* "VALID":do nothing, fall through */
+ 573:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0x322: /* "VALID":do nothing, fall through */
+ 574:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0x333: /* "VALID":do nothing, fall through */
+ 575:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 576:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 577:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 578:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 579:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 580:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 581:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 582:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 583:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 584:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* update local divisor variables */
+ 585:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch((frqcr & CPG_FRQCR_IFC)>>CPG_FRQCR_IFC_SHIFT)
+ 586:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 587:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 0:
+ 588:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 589:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_iclk_divisor = 2;
+ 590:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 591:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 592:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 1:
+ 593:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 594:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_iclk_divisor = 4;
+ 595:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 596:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 597:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 2:
+ 598:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 599:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_iclk_divisor = 8;
+ 600:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 601:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 602:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 3:
+ 603:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 604:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_iclk_divisor = 16;
+ 605:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 606:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 607:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 608:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 609:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             /* never execute */
+ 610:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 611:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 612:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 613:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch((frqcr & CPG_FRQCR_BFC)>>CPG_FRQCR_BFC_SHIFT)
+ 614:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 615:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 1:
+ 616:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 617:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_bclk_divisor = 8;
+ 618:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 619:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 620:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 2:
+ 621:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 622:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_bclk_divisor = 16;
+ 623:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 624:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 625:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 3:
+ 626:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 627:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_bclk_divisor = 32;
+ 628:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 629:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 630:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 631:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 632:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             /* never execute */
+ 633:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 634:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 635:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 636:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch((frqcr & CPG_FRQCR_PFC)>>CPG_FRQCR_PFC_SHIFT)
+ 637:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 638:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 2:
+ 639:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 640:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_p1clk_divisor = 16;
+ 641:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 642:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 643:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case 3:
+ 644:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 645:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             gs_cpg_p1clk_divisor = 32;
+ 646:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 647:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 648:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 649:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 650:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             /* never execute */
+ 651:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 652:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 653:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 654:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 655:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* calculate updated frequency */
+ 656:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     gs_cpg_iclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_iclk_divisor;
+ 657:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     gs_cpg_bclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_bclk_divisor;
+ 658:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     gs_cpg_p1clk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_p1clk_divisor;
+ 659:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 660:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* write new settings */
+ 661:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_write_16(&CPG.FRQCR.WORD, frqcr, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 662:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_read_16(&CPG.FRQCR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 663:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 664:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 665:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 666:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 667:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_SetSubClockDividers
+ 668:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 669:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 670:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 671:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          set_sub_clock_source
+ 672:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Make CKIOSEL and SCLKSEL value for setting external clock
+ 673:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      p_sub_clk_setting: external clock selector setting
+ 674:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[out]     p_ckiosel: clock selector value for CKIO pin
+ 675:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[out]     p_sclksel: clock selector value for serial flash
+ 676:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 677:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 678:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 679:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** static int_t set_sub_clock_source(const st_r_drv_cpg_set_src_t * p_sub_clk_setting, uint16_t *p_cki
+ 680:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 425              		.loc 1 680 0
+ 426              		.cfi_startproc
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 429              		@ link register save eliminated.
+ 430              	.LVL42:
+ 681:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( CPG_SUB_CLOCK_CKIO == p_sub_clk_setting->clk_sub_selection )
+ 431              		.loc 1 681 0
+ 432 0000 0030D0E5 		ldrb	r3, [r0]	@ zero_extendqisi2
+ 433 0004 000053E3 		cmp	r3, #0
+ 434 0008 1000001A 		bne	.L39
+ 682:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 683:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( CPG_SUB_CLOCK_BCLK_IN == p_sub_clk_setting->clk_src_option )
+ 435              		.loc 1 683 0
+ 436 000c 0130D0E5 		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 437 0010 000053E3 		cmp	r3, #0
+ 438 0014 0800000A 		beq	.L58
+ 684:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 685:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_ckiosel) &= (uint16_t)(~CPG_CKIOSEL_CKIOSEL);
+ 686:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_ckiosel) |= (uint16_t)(0 << CPG_CKIOSEL_CKIOSEL_SHIFT);
+ 687:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 688:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_P1CLK_IN == p_sub_clk_setting->clk_src_option )
+ 439              		.loc 1 688 0
+ 440 0018 010053E3 		cmp	r3, #1
+ 441 001c 7A00001A 		bne	.L53
+ 689:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 690:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_ckiosel) &= (uint16_t)(~CPG_CKIOSEL_CKIOSEL);
+ 442              		.loc 1 690 0
+ 443 0020 B020D1E1 		ldrh	r2, [r1]
+ 444              	.LVL43:
+ 445 0024 FC3F0FE3 		movw	r3, #65532
+ 446 0028 023003E0 		and	r3, r3, r2
+ 691:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_ckiosel) |= (uint16_t)(1 << CPG_CKIOSEL_CKIOSEL_SHIFT);
+ 447              		.loc 1 691 0
+ 448 002c 013083E3 		orr	r3, r3, #1
+ 449 0030 B030C1E1 		strh	r3, [r1]	@ movhi
+ 692:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 693:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 694:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 695:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 696:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 697:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 698:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( CPG_SUB_CLOCK_OCTAMEM == p_sub_clk_setting->clk_sub_selection )
+ 699:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 700:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( CPG_SUB_CLOCK_P0CLK_IN == p_sub_clk_setting->clk_src_option )
+ 701:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 702:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_OCTCR);
+ 703:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 704:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 705:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_P1CLK_IN == p_sub_clk_setting->clk_src_option )
+ 706:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 707:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_OCTCR);
+ 708:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 709:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 710:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_BCLK_IN == p_sub_clk_setting->clk_src_option )
+ 711:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 712:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_OCTCR);
+ 713:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 714:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 715:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_GCLK_IN == p_sub_clk_setting->clk_src_option )
+ 716:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 717:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_OCTCR);
+ 718:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 719:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 720:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 721:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 722:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 723:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 724:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 725:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( CPG_SUB_CLOCK_HYPERBUS == p_sub_clk_setting->clk_sub_selection )
+ 726:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 727:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( CPG_SUB_CLOCK_P0CLK_IN == p_sub_clk_setting->clk_src_option )
+ 728:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 729:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_HYMCR);
+ 730:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 731:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 732:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_P1CLK_IN == p_sub_clk_setting->clk_src_option )
+ 733:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 734:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_HYMCR);
+ 735:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 736:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 737:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_BCLK_IN == p_sub_clk_setting->clk_src_option )
+ 738:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 739:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_HYMCR);
+ 740:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 741:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 742:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_GCLK_IN == p_sub_clk_setting->clk_src_option )
+ 743:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 744:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_HYMCR);
+ 745:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 746:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 747:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 748:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 749:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 750:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 751:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 752:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else if ( CPG_SUB_CLOCK_SPICLK == p_sub_clk_setting->clk_sub_selection )
+ 753:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 754:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( CPG_SUB_CLOCK_P0CLK_IN == p_sub_clk_setting->clk_src_option )
+ 755:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 756:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_SPICR);
+ 757:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_SPICR_SHIFT);
+ 758:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 759:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_P1CLK_IN == p_sub_clk_setting->clk_src_option )
+ 760:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 761:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_SPICR);
+ 762:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_SPICR_SHIFT);
+ 763:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 764:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_BCLK_IN == p_sub_clk_setting->clk_src_option )
+ 765:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 766:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_SPICR);
+ 767:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_SPICR_SHIFT);
+ 768:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 769:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else if ( CPG_SUB_CLOCK_GCLK_IN == p_sub_clk_setting->clk_src_option )
+ 770:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 771:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) &= (uint16_t)(~CPG_SCLKSEL_SPICR);
+ 772:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_SPICR_SHIFT);
+ 773:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 774:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         else
+ 775:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 776:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 777:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 778:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 779:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     else
+ 780:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 781:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 782:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 783:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 450              		.loc 1 783 0
+ 451 0034 0000A0E3 		mov	r0, #0
+ 452              	.LVL44:
+ 453 0038 1EFF2FE1 		bx	lr
+ 454              	.LVL45:
+ 455              	.L58:
+ 685:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_ckiosel) |= (uint16_t)(0 << CPG_CKIOSEL_CKIOSEL_SHIFT);
+ 456              		.loc 1 685 0
+ 457 003c B030D1E1 		ldrh	r3, [r1]
+ 458 0040 0330C3E3 		bic	r3, r3, #3
+ 459 0044 B030C1E1 		strh	r3, [r1]	@ movhi
+ 460              		.loc 1 783 0
+ 461 0048 0000A0E3 		mov	r0, #0
+ 462              	.LVL46:
+ 463 004c 1EFF2FE1 		bx	lr
+ 464              	.LVL47:
+ 465              	.L39:
+ 698:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 466              		.loc 1 698 0
+ 467 0050 010053E3 		cmp	r3, #1
+ 468 0054 1300000A 		beq	.L59
+ 725:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 469              		.loc 1 725 0
+ 470 0058 020053E3 		cmp	r3, #2
+ 471 005c 3400000A 		beq	.L60
+ 752:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 472              		.loc 1 752 0
+ 473 0060 030053E3 		cmp	r3, #3
+ 474 0064 6E00001A 		bne	.L56
+ 754:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 475              		.loc 1 754 0
+ 476 0068 0130D0E5 		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 477 006c 030053E3 		cmp	r3, #3
+ 478 0070 5200000A 		beq	.L61
+ 759:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 479              		.loc 1 759 0
+ 480 0074 010053E3 		cmp	r3, #1
+ 481 0078 5500000A 		beq	.L62
+ 764:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 482              		.loc 1 764 0
+ 483 007c 000053E3 		cmp	r3, #0
+ 484 0080 5A00000A 		beq	.L63
+ 769:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 485              		.loc 1 769 0
+ 486 0084 020053E3 		cmp	r3, #2
+ 487 0088 6700001A 		bne	.L57
+ 771:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_SPICR_SHIFT);
+ 488              		.loc 1 771 0
+ 489 008c B010D2E1 		ldrh	r1, [r2]
+ 490              	.LVL48:
+ 491 0090 FC3F0FE3 		movw	r3, #65532
+ 492 0094 013003E0 		and	r3, r3, r1
+ 772:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 493              		.loc 1 772 0
+ 494 0098 033083E3 		orr	r3, r3, #3
+ 495 009c B030C2E1 		strh	r3, [r2]	@ movhi
+ 496              		.loc 1 783 0
+ 497 00a0 0000A0E3 		mov	r0, #0
+ 498              	.LVL49:
+ 499 00a4 1EFF2FE1 		bx	lr
+ 500              	.LVL50:
+ 501              	.L59:
+ 700:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 502              		.loc 1 700 0
+ 503 00a8 0130D0E5 		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 504 00ac 030053E3 		cmp	r3, #3
+ 505 00b0 0C00000A 		beq	.L64
+ 705:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 506              		.loc 1 705 0
+ 507 00b4 010053E3 		cmp	r3, #1
+ 508 00b8 0F00000A 		beq	.L65
+ 710:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 509              		.loc 1 710 0
+ 510 00bc 000053E3 		cmp	r3, #0
+ 511 00c0 1400000A 		beq	.L66
+ 715:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 512              		.loc 1 715 0
+ 513 00c4 020053E3 		cmp	r3, #2
+ 514 00c8 5100001A 		bne	.L54
+ 717:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 515              		.loc 1 717 0
+ 516 00cc B010D2E1 		ldrh	r1, [r2]
+ 517              	.LVL51:
+ 518 00d0 FF3C0FE3 		movw	r3, #64767
+ 519 00d4 013003E0 		and	r3, r3, r1
+ 718:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 520              		.loc 1 718 0
+ 521 00d8 033C83E3 		orr	r3, r3, #768
+ 522 00dc B030C2E1 		strh	r3, [r2]	@ movhi
+ 523              		.loc 1 783 0
+ 524 00e0 0000A0E3 		mov	r0, #0
+ 525              	.LVL52:
+ 526 00e4 1EFF2FE1 		bx	lr
+ 527              	.LVL53:
+ 528              	.L64:
+ 702:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 529              		.loc 1 702 0
+ 530 00e8 B030D2E1 		ldrh	r3, [r2]
+ 531 00ec 033CC3E3 		bic	r3, r3, #768
+ 532 00f0 B030C2E1 		strh	r3, [r2]	@ movhi
+ 533              		.loc 1 783 0
+ 534 00f4 0000A0E3 		mov	r0, #0
+ 535              	.LVL54:
+ 536 00f8 1EFF2FE1 		bx	lr
+ 537              	.LVL55:
+ 538              	.L65:
+ 707:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 539              		.loc 1 707 0
+ 540 00fc B010D2E1 		ldrh	r1, [r2]
+ 541              	.LVL56:
+ 542 0100 FF3C0FE3 		movw	r3, #64767
+ 543 0104 013003E0 		and	r3, r3, r1
+ 708:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 544              		.loc 1 708 0
+ 545 0108 013C83E3 		orr	r3, r3, #256
+ 546 010c B030C2E1 		strh	r3, [r2]	@ movhi
+ 547              		.loc 1 783 0
+ 548 0110 0000A0E3 		mov	r0, #0
+ 549              	.LVL57:
+ 550 0114 1EFF2FE1 		bx	lr
+ 551              	.LVL58:
+ 552              	.L66:
+ 712:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_OCTCR_SHIFT);
+ 553              		.loc 1 712 0
+ 554 0118 B010D2E1 		ldrh	r1, [r2]
+ 555              	.LVL59:
+ 556 011c FF3C0FE3 		movw	r3, #64767
+ 557 0120 013003E0 		and	r3, r3, r1
+ 713:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 558              		.loc 1 713 0
+ 559 0124 023C83E3 		orr	r3, r3, #512
+ 560 0128 B030C2E1 		strh	r3, [r2]	@ movhi
+ 561              		.loc 1 783 0
+ 562 012c 0000A0E3 		mov	r0, #0
+ 563              	.LVL60:
+ 564 0130 1EFF2FE1 		bx	lr
+ 565              	.LVL61:
+ 566              	.L60:
+ 727:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 567              		.loc 1 727 0
+ 568 0134 0130D0E5 		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 569 0138 030053E3 		cmp	r3, #3
+ 570 013c 0C00000A 		beq	.L67
+ 732:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 571              		.loc 1 732 0
+ 572 0140 010053E3 		cmp	r3, #1
+ 573 0144 0F00000A 		beq	.L68
+ 737:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 574              		.loc 1 737 0
+ 575 0148 000053E3 		cmp	r3, #0
+ 576 014c 1400000A 		beq	.L69
+ 742:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 577              		.loc 1 742 0
+ 578 0150 020053E3 		cmp	r3, #2
+ 579 0154 3000001A 		bne	.L55
+ 744:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(3 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 580              		.loc 1 744 0
+ 581 0158 B010D2E1 		ldrh	r1, [r2]
+ 582              	.LVL62:
+ 583 015c CF3F0FE3 		movw	r3, #65487
+ 584 0160 013003E0 		and	r3, r3, r1
+ 745:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 585              		.loc 1 745 0
+ 586 0164 303083E3 		orr	r3, r3, #48
+ 587 0168 B030C2E1 		strh	r3, [r2]	@ movhi
+ 588              		.loc 1 783 0
+ 589 016c 0000A0E3 		mov	r0, #0
+ 590              	.LVL63:
+ 591 0170 1EFF2FE1 		bx	lr
+ 592              	.LVL64:
+ 593              	.L67:
+ 729:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 594              		.loc 1 729 0
+ 595 0174 B030D2E1 		ldrh	r3, [r2]
+ 596 0178 3030C3E3 		bic	r3, r3, #48
+ 597 017c B030C2E1 		strh	r3, [r2]	@ movhi
+ 598              		.loc 1 783 0
+ 599 0180 0000A0E3 		mov	r0, #0
+ 600              	.LVL65:
+ 601 0184 1EFF2FE1 		bx	lr
+ 602              	.LVL66:
+ 603              	.L68:
+ 734:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 604              		.loc 1 734 0
+ 605 0188 B010D2E1 		ldrh	r1, [r2]
+ 606              	.LVL67:
+ 607 018c CF3F0FE3 		movw	r3, #65487
+ 608 0190 013003E0 		and	r3, r3, r1
+ 735:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 609              		.loc 1 735 0
+ 610 0194 103083E3 		orr	r3, r3, #16
+ 611 0198 B030C2E1 		strh	r3, [r2]	@ movhi
+ 612              		.loc 1 783 0
+ 613 019c 0000A0E3 		mov	r0, #0
+ 614              	.LVL68:
+ 615 01a0 1EFF2FE1 		bx	lr
+ 616              	.LVL69:
+ 617              	.L69:
+ 739:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_HYMCR_SHIFT);
+ 618              		.loc 1 739 0
+ 619 01a4 B010D2E1 		ldrh	r1, [r2]
+ 620              	.LVL70:
+ 621 01a8 CF3F0FE3 		movw	r3, #65487
+ 622 01ac 013003E0 		and	r3, r3, r1
+ 740:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 623              		.loc 1 740 0
+ 624 01b0 203083E3 		orr	r3, r3, #32
+ 625 01b4 B030C2E1 		strh	r3, [r2]	@ movhi
+ 626              		.loc 1 783 0
+ 627 01b8 0000A0E3 		mov	r0, #0
+ 628              	.LVL71:
+ 629 01bc 1EFF2FE1 		bx	lr
+ 630              	.LVL72:
+ 631              	.L61:
+ 756:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(0 << CPG_SCLKSEL_SPICR_SHIFT);
+ 632              		.loc 1 756 0
+ 633 01c0 B030D2E1 		ldrh	r3, [r2]
+ 634 01c4 0330C3E3 		bic	r3, r3, #3
+ 635 01c8 B030C2E1 		strh	r3, [r2]	@ movhi
+ 636              		.loc 1 783 0
+ 637 01cc 0000A0E3 		mov	r0, #0
+ 638              	.LVL73:
+ 639 01d0 1EFF2FE1 		bx	lr
+ 640              	.LVL74:
+ 641              	.L62:
+ 761:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(1 << CPG_SCLKSEL_SPICR_SHIFT);
+ 642              		.loc 1 761 0
+ 643 01d4 B010D2E1 		ldrh	r1, [r2]
+ 644              	.LVL75:
+ 645 01d8 FC3F0FE3 		movw	r3, #65532
+ 646 01dc 013003E0 		and	r3, r3, r1
+ 762:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 647              		.loc 1 762 0
+ 648 01e0 013083E3 		orr	r3, r3, #1
+ 649 01e4 B030C2E1 		strh	r3, [r2]	@ movhi
+ 650              		.loc 1 783 0
+ 651 01e8 0000A0E3 		mov	r0, #0
+ 652              	.LVL76:
+ 653 01ec 1EFF2FE1 		bx	lr
+ 654              	.LVL77:
+ 655              	.L63:
+ 766:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             (*p_sclksel) |= (uint16_t)(2 << CPG_SCLKSEL_SPICR_SHIFT);
+ 656              		.loc 1 766 0
+ 657 01f0 B010D2E1 		ldrh	r1, [r2]
+ 658              	.LVL78:
+ 659 01f4 FC3F0FE3 		movw	r3, #65532
+ 660 01f8 013003E0 		and	r3, r3, r1
+ 767:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 661              		.loc 1 767 0
+ 662 01fc 023083E3 		orr	r3, r3, #2
+ 663 0200 B030C2E1 		strh	r3, [r2]	@ movhi
+ 664              		.loc 1 783 0
+ 665 0204 0000A0E3 		mov	r0, #0
+ 666              	.LVL79:
+ 667 0208 1EFF2FE1 		bx	lr
+ 668              	.LVL80:
+ 669              	.L53:
+ 695:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 670              		.loc 1 695 0
+ 671 020c 0000E0E3 		mvn	r0, #0
+ 672              	.LVL81:
+ 673 0210 1EFF2FE1 		bx	lr
+ 674              	.LVL82:
+ 675              	.L54:
+ 722:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 676              		.loc 1 722 0
+ 677 0214 0000E0E3 		mvn	r0, #0
+ 678              	.LVL83:
+ 679 0218 1EFF2FE1 		bx	lr
+ 680              	.LVL84:
+ 681              	.L55:
+ 749:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 682              		.loc 1 749 0
+ 683 021c 0000E0E3 		mvn	r0, #0
+ 684              	.LVL85:
+ 685 0220 1EFF2FE1 		bx	lr
+ 686              	.LVL86:
+ 687              	.L56:
+ 781:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 688              		.loc 1 781 0
+ 689 0224 0000E0E3 		mvn	r0, #0
+ 690              	.LVL87:
+ 691 0228 1EFF2FE1 		bx	lr
+ 692              	.LVL88:
+ 693              	.L57:
+ 776:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 694              		.loc 1 776 0
+ 695 022c 0000E0E3 		mvn	r0, #0
+ 696              	.LVL89:
+ 784:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 697              		.loc 1 784 0
+ 698 0230 1EFF2FE1 		bx	lr
+ 699              		.cfi_endproc
+ 700              	.LFE16:
+ 702              		.section	.text.R_CPG_UninitialiseHwIf,"ax",%progbits
+ 703              		.align	2
+ 704              		.global	R_CPG_UninitialiseHwIf
+ 705              		.syntax unified
+ 706              		.arm
+ 707              		.fpu neon
+ 709              	R_CPG_UninitialiseHwIf:
+ 710              	.LFB11:
+ 348:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 711              		.loc 1 348 0
+ 712              		.cfi_startproc
+ 713              		@ args = 0, pretend = 0, frame = 0
+ 714              		@ frame_needed = 0, uses_anonymous_args = 0
+ 715              		@ link register save eliminated.
+ 351:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 716              		.loc 1 351 0
+ 717 0000 0000A0E3 		mov	r0, #0
+ 718 0004 1EFF2FE1 		bx	lr
+ 719              		.cfi_endproc
+ 720              	.LFE11:
+ 722              		.section	.text.R_CPG_SetXtalClock,"ax",%progbits
+ 723              		.align	2
+ 724              		.global	R_CPG_SetXtalClock
+ 725              		.syntax unified
+ 726              		.arm
+ 727              		.fpu neon
+ 729              	R_CPG_SetXtalClock:
+ 730              	.LFB12:
+ 366:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t ret;
+ 731              		.loc 1 366 0
+ 732              		.cfi_startproc
+ 733              		@ args = 0, pretend = 0, frame = 0
+ 734              		@ frame_needed = 0, uses_anonymous_args = 0
+ 735              		@ link register save eliminated.
+ 736              	.LVL90:
+ 368:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 737              		.loc 1 368 0
+ 738 0000 400BDFED 		vldr.64	d16, .L87
+ 739 0004 E00BB4EE 		vcmpe.f64	d0, d16
+ 740 0008 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 741 000c 090000BA 		blt	.L72
+ 368:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 742              		.loc 1 368 0 is_stmt 0 discriminator 1
+ 743 0010 3E0BDFED 		vldr.64	d16, .L87+8
+ 744 0014 E00BB4EE 		vcmpe.f64	d0, d16
+ 745 0018 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 746 001c 0500008A 		bhi	.L72
+ 370:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = DRV_SUCCESS;
+ 747              		.loc 1 370 0 is_stmt 1
+ 748 0020 3C0BDFED 		vldr.64	d16, .L87+16
+ 749 0024 200B60EE 		vmul.f64	d16, d0, d16
+ 750 0028 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 751 002c 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 752 0030 000BC3ED 		vstr.64	d16, [r3]
+ 753              	.LVL91:
+ 754 0034 0C0000EA 		b	.L75
+ 755              	.LVL92:
+ 756              	.L72:
+ 373:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 757              		.loc 1 373 0
+ 758 0038 380BDFED 		vldr.64	d16, .L87+24
+ 759 003c E00BB4EE 		vcmpe.f64	d0, d16
+ 760 0040 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 761 0044 2B0000BA 		blt	.L85
+ 373:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 762              		.loc 1 373 0 is_stmt 0 discriminator 1
+ 763 0048 360BDFED 		vldr.64	d16, .L87+32
+ 764 004c E00BB4EE 		vcmpe.f64	d0, d16
+ 765 0050 10FAF1EE 		vmrs	APSR_nzcv, FPSCR
+ 766 0054 2900008A 		bhi	.L86
+ 375:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = DRV_SUCCESS;
+ 767              		.loc 1 375 0 is_stmt 1
+ 768 0058 340BDFED 		vldr.64	d16, .L87+40
+ 769 005c 200B60EE 		vmul.f64	d16, d0, d16
+ 770 0060 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 771 0064 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 772 0068 000BC3ED 		vstr.64	d16, [r3]
+ 773              	.LVL93:
+ 774              	.L75:
+ 386:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_bclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_bclk_divisor;
+ 775              		.loc 1 386 0
+ 776 006c 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 777 0070 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 778 0074 001BD3ED 		vldr.64	d17, [r3]
+ 779 0078 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 780 007c 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 781 0080 003093E5 		ldr	r3, [r3]
+ 782 0084 903A07EE 		vmov	s15, r3	@ int
+ 783 0088 670BF8EE 		vcvt.f64.u32	d16, s15
+ 784 008c A02BC1EE 		vdiv.f64	d18, d17, d16
+ 785 0090 003000E3 		movw	r3, #:lower16:.LANCHOR2
+ 786 0094 003040E3 		movt	r3, #:upper16:.LANCHOR2
+ 787 0098 002BC3ED 		vstr.64	d18, [r3]
+ 387:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_p1clk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_p1clk_divisor;
+ 788              		.loc 1 387 0
+ 789 009c 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 790 00a0 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 791 00a4 003093E5 		ldr	r3, [r3]
+ 792 00a8 903A07EE 		vmov	s15, r3	@ int
+ 793 00ac 670BF8EE 		vcvt.f64.u32	d16, s15
+ 794 00b0 A02BC1EE 		vdiv.f64	d18, d17, d16
+ 795 00b4 003000E3 		movw	r3, #:lower16:.LANCHOR4
+ 796 00b8 003040E3 		movt	r3, #:upper16:.LANCHOR4
+ 797 00bc 002BC3ED 		vstr.64	d18, [r3]
+ 388:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_cpg_extal_frequency_khz = frequency_khz;
+ 798              		.loc 1 388 0
+ 799 00c0 003000E3 		movw	r3, #:lower16:.LANCHOR5
+ 800 00c4 003040E3 		movt	r3, #:upper16:.LANCHOR5
+ 801 00c8 003093E5 		ldr	r3, [r3]
+ 802 00cc 903A07EE 		vmov	s15, r3	@ int
+ 803 00d0 670BF8EE 		vcvt.f64.u32	d16, s15
+ 804 00d4 A02BC1EE 		vdiv.f64	d18, d17, d16
+ 805 00d8 003000E3 		movw	r3, #:lower16:.LANCHOR6
+ 806 00dc 003040E3 		movt	r3, #:upper16:.LANCHOR6
+ 807 00e0 002BC3ED 		vstr.64	d18, [r3]
+ 389:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 808              		.loc 1 389 0
+ 809 00e4 003000E3 		movw	r3, #:lower16:.LANCHOR7
+ 810 00e8 003040E3 		movt	r3, #:upper16:.LANCHOR7
+ 811 00ec 000B83ED 		vstr.64	d0, [r3]
+ 812 00f0 0000A0E3 		mov	r0, #0
+ 813 00f4 1EFF2FE1 		bx	lr
+ 814              	.LVL94:
+ 815              	.L85:
+ 380:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 816              		.loc 1 380 0
+ 817 00f8 0000E0E3 		mvn	r0, #0
+ 818 00fc 1EFF2FE1 		bx	lr
+ 819              	.L86:
+ 820 0100 0000E0E3 		mvn	r0, #0
+ 393:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 821              		.loc 1 393 0
+ 822 0104 1EFF2FE1 		bx	lr
+ 823              	.L88:
+ 824              		.align	3
+ 825              	.L87:
+ 826 0108 00000000 		.word	0
+ 827 010c 0088C340 		.word	1086556160
+ 828 0110 00000000 		.word	0
+ 829 0114 0070C740 		.word	1086812160
+ 830 0118 00000000 		.word	0
+ 831 011c 00005640 		.word	1079377920
+ 832 0120 00000000 		.word	0
+ 833 0124 0088D340 		.word	1087604736
+ 834 0128 00000000 		.word	0
+ 835 012c 0070D740 		.word	1087860736
+ 836 0130 00000000 		.word	0
+ 837 0134 00004640 		.word	1078329344
+ 838              		.cfi_endproc
+ 839              	.LFE12:
+ 841              		.section	.text.R_CPG_SetMainClock,"ax",%progbits
+ 842              		.align	2
+ 843              		.global	R_CPG_SetMainClock
+ 844              		.syntax unified
+ 845              		.arm
+ 846              		.fpu neon
+ 848              	R_CPG_SetMainClock:
+ 849              	.LFB13:
+ 409:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* Can't modify main clock on RZA2M.
+ 850              		.loc 1 409 0
+ 851              		.cfi_startproc
+ 852              		@ args = 0, pretend = 0, frame = 0
+ 853              		@ frame_needed = 0, uses_anonymous_args = 0
+ 854              	.LVL95:
+ 414:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 855              		.loc 1 414 0
+ 856 0000 0030D0E5 		ldrb	r3, [r0]	@ zero_extendqisi2
+ 857 0004 000053E3 		cmp	r3, #0
+ 858 0008 0B00001A 		bne	.L91
+ 409:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* Can't modify main clock on RZA2M.
+ 859              		.loc 1 409 0
+ 860 000c 10402DE9 		push	{r4, lr}
+ 861              		.cfi_def_cfa_offset 8
+ 862              		.cfi_offset 4, -8
+ 863              		.cfi_offset 14, -4
+ 420:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 864              		.loc 1 420 0
+ 865 0010 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 866 0014 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 867 0018 001B93ED 		vldr.64	d1, [r3]
+ 868 001c 020B90ED 		vldr.64	d0, [r0, #8]
+ 869 0020 FEFFFFEB 		bl	is_nearly_equal
+ 870              	.LVL96:
+ 871 0024 000050E3 		cmp	r0, #0
+ 872 0028 0100000A 		beq	.L97
+ 425:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 873              		.loc 1 425 0
+ 874 002c 0000A0E3 		mov	r0, #0
+ 426:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 875              		.loc 1 426 0
+ 876 0030 1080BDE8 		pop	{r4, pc}
+ 877              	.L97:
+ 422:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 878              		.loc 1 422 0
+ 879 0034 0000E0E3 		mvn	r0, #0
+ 880 0038 1080BDE8 		pop	{r4, pc}
+ 881              	.LVL97:
+ 882              	.L91:
+ 883              		.cfi_def_cfa_offset 0
+ 884              		.cfi_restore 4
+ 885              		.cfi_restore 14
+ 417:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 886              		.loc 1 417 0
+ 887 003c 0000E0E3 		mvn	r0, #0
+ 888              	.LVL98:
+ 426:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 889              		.loc 1 426 0
+ 890 0040 1EFF2FE1 		bx	lr
+ 891              		.cfi_endproc
+ 892              	.LFE13:
+ 894              		.section	.text.R_CPG_SetSubClockDividers,"ax",%progbits
+ 895              		.align	2
+ 896              		.global	R_CPG_SetSubClockDividers
+ 897              		.syntax unified
+ 898              		.arm
+ 899              		.fpu neon
+ 901              	R_CPG_SetSubClockDividers:
+ 902              	.LFB15:
+ 546:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t frqcr;
+ 903              		.loc 1 546 0
+ 904              		.cfi_startproc
+ 905              		@ args = 0, pretend = 0, frame = 8
+ 906              		@ frame_needed = 0, uses_anonymous_args = 0
+ 907              	.LVL99:
+ 908 0000 30402DE9 		push	{r4, r5, lr}
+ 909              		.cfi_def_cfa_offset 12
+ 910              		.cfi_offset 4, -12
+ 911              		.cfi_offset 5, -8
+ 912              		.cfi_offset 14, -4
+ 913 0004 0CD04DE2 		sub	sp, sp, #12
+ 914              		.cfi_def_cfa_offset 24
+ 915 0008 0050A0E1 		mov	r5, r0
+ 916 000c 0140A0E1 		mov	r4, r1
+ 552:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 917              		.loc 1 552 0
+ 918 0010 0020E0E3 		mvn	r2, #0
+ 919 0014 0010A0E3 		mov	r1, #0
+ 920              	.LVL100:
+ 921 0018 1000A0E3 		mov	r0, #16
+ 922              	.LVL101:
+ 923 001c FE0C4FE3 		movt	r0, 64766
+ 924 0020 FEFFFFEB 		bl	cpg_io_reg_read_16
+ 925              	.LVL102:
+ 926 0024 B600CDE1 		strh	r0, [sp, #6]	@ movhi
+ 927              	.L99:
+ 555:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 928              		.loc 1 555 0
+ 929 0028 000054E3 		cmp	r4, #0
+ 930 002c 0600000A 		beq	.L119
+ 557:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 931              		.loc 1 557 0
+ 932 0030 014044E2 		sub	r4, r4, #1
+ 933              	.LVL103:
+ 559:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS != ret )
+ 934              		.loc 1 559 0
+ 935 0034 06108DE2 		add	r1, sp, #6
+ 936 0038 040285E0 		add	r0, r5, r4, lsl #4
+ 937 003c FEFFFFEB 		bl	cpg_modify_frqcr
+ 938              	.LVL104:
+ 560:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 939              		.loc 1 560 0
+ 940 0040 000050E3 		cmp	r0, #0
+ 941 0044 F7FFFF0A 		beq	.L99
+ 942 0048 540000EA 		b	.L98
+ 943              	.LVL105:
+ 944              	.L119:
+ 567:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch ( check_frqcr )
+ 945              		.loc 1 567 0
+ 946 004c B610DDE1 		ldrh	r1, [sp, #6]
+ 947 0050 333300E3 		movw	r3, #819
+ 948 0054 033001E0 		and	r3, r1, r3
+ 949              	.LVL106:
+ 568:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 950              		.loc 1 568 0
+ 951 0058 122200E3 		movw	r2, #530
+ 952 005c 020053E1 		cmp	r3, r2
+ 953 0060 0500000A 		beq	.L102
+ 954 0064 0C00008A 		bhi	.L103
+ 955 0068 120053E3 		cmp	r3, #18
+ 956 006c 0200000A 		beq	.L102
+ 957 0070 122100E3 		movw	r2, #274
+ 958 0074 020053E1 		cmp	r3, r2
+ 959 0078 0D00001A 		bne	.L117
+ 960              	.L102:
+ 585:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 961              		.loc 1 585 0
+ 962 007c 5134E1E7 		ubfx	r3, r1, #8, #2
+ 963              	.LVL107:
+ 964 0080 030053E3 		cmp	r3, #3
+ 965 0084 03F19F97 		ldrls	pc, [pc, r3, asl #2]
+ 966 0088 0F0000EA 		b	.L104
+ 967              	.L106:
+ 968 008c BC000000 		.word	.L105
+ 969 0090 A8010000 		.word	.L107
+ 970 0094 BC010000 		.word	.L108
+ 971 0098 D0010000 		.word	.L109
+ 972              	.LVL108:
+ 973              	.L103:
+ 568:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 974              		.loc 1 568 0
+ 975 009c 222300E3 		movw	r2, #802
+ 976 00a0 020053E1 		cmp	r3, r2
+ 977 00a4 F4FFFF0A 		beq	.L102
+ 978 00a8 332300E3 		movw	r2, #819
+ 979 00ac 020053E1 		cmp	r3, r2
+ 980 00b0 F1FFFF0A 		beq	.L102
+ 981              	.L117:
+ 580:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 982              		.loc 1 580 0
+ 983 00b4 0000E0E3 		mvn	r0, #0
+ 984 00b8 380000EA 		b	.L98
+ 985              	.LVL109:
+ 986              	.L105:
+ 589:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 987              		.loc 1 589 0
+ 988 00bc 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 989 00c0 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 990 00c4 0220A0E3 		mov	r2, #2
+ 991 00c8 002083E5 		str	r2, [r3]
+ 992              	.L104:
+ 613:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 993              		.loc 1 613 0
+ 994 00cc 5132E1E7 		ubfx	r3, r1, #4, #2
+ 995 00d0 020053E3 		cmp	r3, #2
+ 996 00d4 4700000A 		beq	.L111
+ 997 00d8 030053E3 		cmp	r3, #3
+ 998 00dc 4A00000A 		beq	.L112
+ 999 00e0 010053E3 		cmp	r3, #1
+ 1000 00e4 3E00000A 		beq	.L120
+ 1001              	.L110:
+ 636:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 1002              		.loc 1 636 0
+ 1003 00e8 033001E2 		and	r3, r1, #3
+ 1004 00ec 020053E3 		cmp	r3, #2
+ 1005 00f0 4A00000A 		beq	.L115
+ 1006 00f4 030053E3 		cmp	r3, #3
+ 1007 00f8 4D00000A 		beq	.L116
+ 1008              	.L114:
+ 656:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     gs_cpg_bclk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_bclk_divisor;
+ 1009              		.loc 1 656 0
+ 1010 00fc 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 1011 0100 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 1012 0104 001BD3ED 		vldr.64	d17, [r3]
+ 1013 0108 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 1014 010c 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 1015 0110 003093E5 		ldr	r3, [r3]
+ 1016 0114 903A07EE 		vmov	s15, r3	@ int
+ 1017 0118 670BF8EE 		vcvt.f64.u32	d16, s15
+ 1018 011c A02BC1EE 		vdiv.f64	d18, d17, d16
+ 1019 0120 003000E3 		movw	r3, #:lower16:.LANCHOR2
+ 1020 0124 003040E3 		movt	r3, #:upper16:.LANCHOR2
+ 1021 0128 002BC3ED 		vstr.64	d18, [r3]
+ 657:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     gs_cpg_p1clk_frequency_khz = gs_cpg_pll_frequency_khz / gs_cpg_p1clk_divisor;
+ 1022              		.loc 1 657 0
+ 1023 012c 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 1024 0130 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 1025 0134 003093E5 		ldr	r3, [r3]
+ 1026 0138 903A07EE 		vmov	s15, r3	@ int
+ 1027 013c 670BF8EE 		vcvt.f64.u32	d16, s15
+ 1028 0140 A02BC1EE 		vdiv.f64	d18, d17, d16
+ 1029 0144 003000E3 		movw	r3, #:lower16:.LANCHOR4
+ 1030 0148 003040E3 		movt	r3, #:upper16:.LANCHOR4
+ 1031 014c 002BC3ED 		vstr.64	d18, [r3]
+ 658:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 1032              		.loc 1 658 0
+ 1033 0150 003000E3 		movw	r3, #:lower16:.LANCHOR5
+ 1034 0154 003040E3 		movt	r3, #:upper16:.LANCHOR5
+ 1035 0158 003093E5 		ldr	r3, [r3]
+ 1036 015c 903A07EE 		vmov	s15, r3	@ int
+ 1037 0160 670BF8EE 		vcvt.f64.u32	d16, s15
+ 1038 0164 A02BC1EE 		vdiv.f64	d18, d17, d16
+ 1039 0168 003000E3 		movw	r3, #:lower16:.LANCHOR6
+ 1040 016c 003040E3 		movt	r3, #:upper16:.LANCHOR6
+ 1041 0170 002BC3ED 		vstr.64	d18, [r3]
+ 661:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_read_16(&CPG.FRQCR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1042              		.loc 1 661 0
+ 1043 0174 1040A0E3 		mov	r4, #16
+ 1044              	.LVL110:
+ 1045 0178 FE4C4FE3 		movt	r4, 64766
+ 1046 017c 0030E0E3 		mvn	r3, #0
+ 1047 0180 0020A0E3 		mov	r2, #0
+ 1048 0184 0400A0E1 		mov	r0, r4
+ 1049 0188 FEFFFFEB 		bl	cpg_io_reg_write_16
+ 1050              	.LVL111:
+ 662:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 1051              		.loc 1 662 0
+ 1052 018c 0020E0E3 		mvn	r2, #0
+ 1053 0190 0010A0E3 		mov	r1, #0
+ 1054 0194 0400A0E1 		mov	r0, r4
+ 1055 0198 FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1056              	.LVL112:
+ 664:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 1057              		.loc 1 664 0
+ 1058 019c 0000A0E3 		mov	r0, #0
+ 1059              	.L98:
+ 665:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 1060              		.loc 1 665 0
+ 1061 01a0 0CD08DE2 		add	sp, sp, #12
+ 1062              		.cfi_remember_state
+ 1063              		.cfi_def_cfa_offset 12
+ 1064              		@ sp needed
+ 1065 01a4 3080BDE8 		pop	{r4, r5, pc}
+ 1066              	.LVL113:
+ 1067              	.L107:
+ 1068              		.cfi_restore_state
+ 594:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1069              		.loc 1 594 0
+ 1070 01a8 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 1071 01ac 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 1072 01b0 0420A0E3 		mov	r2, #4
+ 1073 01b4 002083E5 		str	r2, [r3]
+ 595:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1074              		.loc 1 595 0
+ 1075 01b8 C3FFFFEA 		b	.L104
+ 1076              	.L108:
+ 599:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1077              		.loc 1 599 0
+ 1078 01bc 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 1079 01c0 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 1080 01c4 0820A0E3 		mov	r2, #8
+ 1081 01c8 002083E5 		str	r2, [r3]
+ 600:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1082              		.loc 1 600 0
+ 1083 01cc BEFFFFEA 		b	.L104
+ 1084              	.L109:
+ 604:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1085              		.loc 1 604 0
+ 1086 01d0 003000E3 		movw	r3, #:lower16:.LANCHOR1
+ 1087 01d4 003040E3 		movt	r3, #:upper16:.LANCHOR1
+ 1088 01d8 1020A0E3 		mov	r2, #16
+ 1089 01dc 002083E5 		str	r2, [r3]
+ 605:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1090              		.loc 1 605 0
+ 1091 01e0 B9FFFFEA 		b	.L104
+ 1092              	.L120:
+ 617:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1093              		.loc 1 617 0
+ 1094 01e4 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 1095 01e8 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 1096 01ec 0820A0E3 		mov	r2, #8
+ 1097 01f0 002083E5 		str	r2, [r3]
+ 618:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1098              		.loc 1 618 0
+ 1099 01f4 BBFFFFEA 		b	.L110
+ 1100              	.L111:
+ 622:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1101              		.loc 1 622 0
+ 1102 01f8 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 1103 01fc 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 1104 0200 1020A0E3 		mov	r2, #16
+ 1105 0204 002083E5 		str	r2, [r3]
+ 623:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1106              		.loc 1 623 0
+ 1107 0208 B6FFFFEA 		b	.L110
+ 1108              	.L112:
+ 627:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1109              		.loc 1 627 0
+ 1110 020c 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 1111 0210 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 1112 0214 2020A0E3 		mov	r2, #32
+ 1113 0218 002083E5 		str	r2, [r3]
+ 628:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1114              		.loc 1 628 0
+ 1115 021c B1FFFFEA 		b	.L110
+ 1116              	.L115:
+ 640:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1117              		.loc 1 640 0
+ 1118 0220 003000E3 		movw	r3, #:lower16:.LANCHOR5
+ 1119 0224 003040E3 		movt	r3, #:upper16:.LANCHOR5
+ 1120 0228 1020A0E3 		mov	r2, #16
+ 1121 022c 002083E5 		str	r2, [r3]
+ 641:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1122              		.loc 1 641 0
+ 1123 0230 B1FFFFEA 		b	.L114
+ 1124              	.L116:
+ 645:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1125              		.loc 1 645 0
+ 1126 0234 003000E3 		movw	r3, #:lower16:.LANCHOR5
+ 1127 0238 003040E3 		movt	r3, #:upper16:.LANCHOR5
+ 1128 023c 2020A0E3 		mov	r2, #32
+ 1129 0240 002083E5 		str	r2, [r3]
+ 646:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1130              		.loc 1 646 0
+ 1131 0244 ACFFFFEA 		b	.L114
+ 1132              		.cfi_endproc
+ 1133              	.LFE15:
+ 1135              		.section	.text.R_CPG_SetSubClockSource,"ax",%progbits
+ 1136              		.align	2
+ 1137              		.global	R_CPG_SetSubClockSource
+ 1138              		.syntax unified
+ 1139              		.arm
+ 1140              		.fpu neon
+ 1142              	R_CPG_SetSubClockSource:
+ 1143              	.LFB17:
+ 785:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 786:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function set_sub_clock_source
+ 787:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 788:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 789:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 790:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          R_CPG_SetSubClockSource
+ 791:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Set clock selector for external clock
+ 792:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      p_sub_clk_settings: external clock selector setting
+ 793:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      count: count of sub clock source
+ 794:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 795:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 796:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 797:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_SetSubClockSource(const st_r_drv_cpg_set_src_t * p_sub_clk_settings, uint32_t count)
+ 798:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 1144              		.loc 1 798 0
+ 1145              		.cfi_startproc
+ 1146              		@ args = 0, pretend = 0, frame = 8
+ 1147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1148              	.LVL114:
+ 1149 0000 30402DE9 		push	{r4, r5, lr}
+ 1150              		.cfi_def_cfa_offset 12
+ 1151              		.cfi_offset 4, -12
+ 1152              		.cfi_offset 5, -8
+ 1153              		.cfi_offset 14, -4
+ 1154 0004 0CD04DE2 		sub	sp, sp, #12
+ 1155              		.cfi_def_cfa_offset 24
+ 1156 0008 0050A0E1 		mov	r5, r0
+ 1157 000c 0140A0E1 		mov	r4, r1
+ 799:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t ret;
+ 800:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t ckiosel;
+ 801:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t sclksel;
+ 802:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 803:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* read previous settings */
+ 804:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     ckiosel = cpg_io_reg_read_16(&CPG.CKIOSEL.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1158              		.loc 1 804 0
+ 1159 0010 0020E0E3 		mvn	r2, #0
+ 1160 0014 0010A0E3 		mov	r1, #0
+ 1161              	.LVL115:
+ 1162 0018 010CA0E3 		mov	r0, #256
+ 1163              	.LVL116:
+ 1164 001c FE0C4FE3 		movt	r0, 64766
+ 1165 0020 FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1166              	.LVL117:
+ 1167 0024 B600CDE1 		strh	r0, [sp, #6]	@ movhi
+ 805:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     sclksel = cpg_io_reg_read_16(&CPG.SCLKSEL.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1168              		.loc 1 805 0
+ 1169 0028 0020E0E3 		mvn	r2, #0
+ 1170 002c 0010A0E3 		mov	r1, #0
+ 1171 0030 410FA0E3 		mov	r0, #260
+ 1172 0034 FE0C4FE3 		movt	r0, 64766
+ 1173 0038 FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1174              	.LVL118:
+ 1175 003c B400CDE1 		strh	r0, [sp, #4]	@ movhi
+ 1176              	.L122:
+ 806:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 807:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* overwrite parameter settings */
+ 808:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     while (0 != count)
+ 1177              		.loc 1 808 0
+ 1178 0040 000054E3 		cmp	r4, #0
+ 1179 0044 0700000A 		beq	.L126
+ 809:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 810:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         count--;
+ 1180              		.loc 1 810 0
+ 1181 0048 014044E2 		sub	r4, r4, #1
+ 1182              	.LVL119:
+ 811:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 812:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         ret = set_sub_clock_source(&p_sub_clk_settings[count], &ckiosel, &sclksel);
+ 1183              		.loc 1 812 0
+ 1184 004c 04208DE2 		add	r2, sp, #4
+ 1185 0050 06108DE2 		add	r1, sp, #6
+ 1186 0054 840085E0 		add	r0, r5, r4, lsl #1
+ 1187 0058 FEFFFFEB 		bl	set_sub_clock_source
+ 1188              	.LVL120:
+ 813:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS != ret )
+ 1189              		.loc 1 813 0
+ 1190 005c 000050E3 		cmp	r0, #0
+ 1191 0060 F6FFFF0A 		beq	.L122
+ 1192 0064 160000EA 		b	.L121
+ 1193              	.LVL121:
+ 1194              	.L126:
+ 814:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 815:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (ret);
+ 816:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 817:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 818:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 819:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* write new settings */
+ 820:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_write_16(&CPG.CKIOSEL.WORD, ckiosel, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1195              		.loc 1 820 0
+ 1196 0068 015CA0E3 		mov	r5, #256
+ 1197              	.LVL122:
+ 1198 006c FE5C4FE3 		movt	r5, 64766
+ 1199 0070 0030E0E3 		mvn	r3, #0
+ 1200 0074 0020A0E3 		mov	r2, #0
+ 1201 0078 B610DDE1 		ldrh	r1, [sp, #6]
+ 1202 007c 0500A0E1 		mov	r0, r5
+ 1203 0080 FEFFFFEB 		bl	cpg_io_reg_write_16
+ 1204              	.LVL123:
+ 821:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_write_16(&CPG.SCLKSEL.WORD, sclksel, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1205              		.loc 1 821 0
+ 1206 0084 414FA0E3 		mov	r4, #260
+ 1207              	.LVL124:
+ 1208 0088 FE4C4FE3 		movt	r4, 64766
+ 1209 008c 0030E0E3 		mvn	r3, #0
+ 1210 0090 0020A0E3 		mov	r2, #0
+ 1211 0094 B410DDE1 		ldrh	r1, [sp, #4]
+ 1212 0098 0400A0E1 		mov	r0, r4
+ 1213 009c FEFFFFEB 		bl	cpg_io_reg_write_16
+ 1214              	.LVL125:
+ 822:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_read_16(&CPG.CKIOSEL.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1215              		.loc 1 822 0
+ 1216 00a0 0020E0E3 		mvn	r2, #0
+ 1217 00a4 0010A0E3 		mov	r1, #0
+ 1218 00a8 0500A0E1 		mov	r0, r5
+ 1219 00ac FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1220              	.LVL126:
+ 823:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_read_16(&CPG.SCLKSEL.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1221              		.loc 1 823 0
+ 1222 00b0 0020E0E3 		mvn	r2, #0
+ 1223 00b4 0010A0E3 		mov	r1, #0
+ 1224 00b8 0400A0E1 		mov	r0, r4
+ 1225 00bc FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1226              	.LVL127:
+ 824:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 825:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 1227              		.loc 1 825 0
+ 1228 00c0 0000A0E3 		mov	r0, #0
+ 1229              	.L121:
+ 826:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 1230              		.loc 1 826 0
+ 1231 00c4 0CD08DE2 		add	sp, sp, #12
+ 1232              		.cfi_def_cfa_offset 12
+ 1233              		@ sp needed
+ 1234 00c8 3080BDE8 		pop	{r4, r5, pc}
+ 1235              		.cfi_endproc
+ 1236              	.LFE17:
+ 1238              		.section	.text.R_CPG_ConfigExtClockPin,"ax",%progbits
+ 1239              		.align	2
+ 1240              		.global	R_CPG_ConfigExtClockPin
+ 1241              		.syntax unified
+ 1242              		.arm
+ 1243              		.fpu neon
+ 1245              	R_CPG_ConfigExtClockPin:
+ 1246              	.LFB18:
+ 827:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 828:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_SetSubClockSource
+ 829:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 830:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 831:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 832:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          R_CPG_ConfigExtClockPin
+ 833:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Set external CKIO clock behaviour that controls supplying
+ 834:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 external clock output while in software standby state and
+ 835:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 in deep standby state.
+ 836:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      p_ext_pin_settings: external clock behaviour setting
+ 837:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 838:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 839:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 840:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_ConfigExtClockPin(const st_r_drv_cpg_ext_clk_t * p_ext_pin_settings)
+ 841:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 1247              		.loc 1 841 0
+ 1248              		.cfi_startproc
+ 1249              		@ args = 0, pretend = 0, frame = 0
+ 1250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1251              	.LVL128:
+ 1252 0000 10402DE9 		push	{r4, lr}
+ 1253              		.cfi_def_cfa_offset 8
+ 1254              		.cfi_offset 4, -8
+ 1255              		.cfi_offset 14, -4
+ 1256 0004 0040A0E1 		mov	r4, r0
+ 842:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     uint16_t frqcr;
+ 843:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 844:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* read previous settings */
+ 845:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     frqcr = cpg_io_reg_read_16(&CPG.FRQCR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1257              		.loc 1 845 0
+ 1258 0008 0020E0E3 		mvn	r2, #0
+ 1259 000c 0010A0E3 		mov	r1, #0
+ 1260 0010 1000A0E3 		mov	r0, #16
+ 1261              	.LVL129:
+ 1262 0014 FE0C4FE3 		movt	r0, 64766
+ 1263 0018 FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1264              	.LVL130:
+ 846:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 847:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* keep bit except CPG_FRQCR_CKOEN and CPG_FRQCR_CKOEN2 */
+ 848:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     frqcr &= (uint16_t)(~(CPG_FRQCR_CKOEN|CPG_FRQCR_CKOEN2));
+ 1265              		.loc 1 848 0
+ 1266 001c FF1F08E3 		movw	r1, #36863
+ 1267 0020 001001E0 		and	r1, r1, r0
+ 1268              	.LVL131:
+ 849:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 850:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* overwrite parameter settings */
+ 851:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch ( p_ext_pin_settings->clk_ext )
+ 1269              		.loc 1 851 0
+ 1270 0024 0030D4E5 		ldrb	r3, [r4]	@ zero_extendqisi2
+ 1271 0028 070053E3 		cmp	r3, #7
+ 1272 002c 03F19F97 		ldrls	pc, [pc, r3, asl #2]
+ 1273 0030 200000EA 		b	.L138
+ 1274              	.L130:
+ 1275 0034 54000000 		.word	.L129
+ 1276 0038 88000000 		.word	.L131
+ 1277 003c 90000000 		.word	.L132
+ 1278 0040 98000000 		.word	.L133
+ 1279 0044 58000000 		.word	.L134
+ 1280 0048 A0000000 		.word	.L135
+ 1281 004c A8000000 		.word	.L136
+ 1282 0050 B0000000 		.word	.L137
+ 1283              	.L129:
+ 852:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 853:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_LOW_NORM_ON_STDBY_DEEP_HIZ:
+ 854:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 855:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((1<<CPG_FRQCR_CKOEN2_SHIFT)|(0<<CPG_FRQCR_CKOEN_SHIFT));
+ 1284              		.loc 1 855 0
+ 1285 0054 011981E3 		orr	r1, r1, #16384
+ 1286              	.LVL132:
+ 1287              	.L134:
+ 856:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 857:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 858:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_LOW_NORM_ON_STDBY_DEEP_LOW:
+ 859:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 860:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((1<<CPG_FRQCR_CKOEN2_SHIFT)|(1<<CPG_FRQCR_CKOEN_SHIFT));
+ 861:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 862:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 863:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_LOW_NORM_ON_STDBY_OP_DEEP_LOWHIGH:
+ 864:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 865:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((1<<CPG_FRQCR_CKOEN2_SHIFT)|(2<<CPG_FRQCR_CKOEN_SHIFT));
+ 866:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 867:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 868:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_OFF_HIZ:
+ 869:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 870:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((1<<CPG_FRQCR_CKOEN2_SHIFT)|(3<<CPG_FRQCR_CKOEN_SHIFT));
+ 871:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 872:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 873:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_UNSTBLE_NORM_ON_STDBY_DEEP_HIZ:
+ 874:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 875:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((0<<CPG_FRQCR_CKOEN2_SHIFT)|(0<<CPG_FRQCR_CKOEN_SHIFT));
+ 876:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 877:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 878:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_UNSTBLE_NORM_ON_STDBY_DEEP_LOW:
+ 879:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 880:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((0<<CPG_FRQCR_CKOEN2_SHIFT)|(1<<CPG_FRQCR_CKOEN_SHIFT));
+ 881:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 882:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 883:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_UNSTBLE_NORM_ON_STDBY_OP_DEEP_LOWHIGH:
+ 884:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 885:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((0<<CPG_FRQCR_CKOEN2_SHIFT)|(2<<CPG_FRQCR_CKOEN_SHIFT));
+ 886:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 887:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 888:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_CKIO_INVALID_UNSTBLE_OFF_HIZ:
+ 889:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 890:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             frqcr |= ((0<<CPG_FRQCR_CKOEN2_SHIFT)|(3<<CPG_FRQCR_CKOEN_SHIFT));
+ 891:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 892:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 893:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 894:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 895:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return DRV_ERROR;
+ 896:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 897:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 898:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 899:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     /* write new settings */
+ 900:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_write_16(&CPG.FRQCR.WORD, frqcr, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1288              		.loc 1 900 0
+ 1289 0058 1040A0E3 		mov	r4, #16
+ 1290              	.LVL133:
+ 1291 005c FE4C4FE3 		movt	r4, 64766
+ 1292 0060 0030E0E3 		mvn	r3, #0
+ 1293 0064 0020A0E3 		mov	r2, #0
+ 1294 0068 0400A0E1 		mov	r0, r4
+ 1295 006c FEFFFFEB 		bl	cpg_io_reg_write_16
+ 1296              	.LVL134:
+ 901:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     cpg_io_reg_read_16(&CPG.FRQCR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+ 1297              		.loc 1 901 0
+ 1298 0070 0020E0E3 		mvn	r2, #0
+ 1299 0074 0010A0E3 		mov	r1, #0
+ 1300 0078 0400A0E1 		mov	r0, r4
+ 1301 007c FEFFFFEB 		bl	cpg_io_reg_read_16
+ 1302              	.LVL135:
+ 902:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 903:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 1303              		.loc 1 903 0
+ 1304 0080 0000A0E3 		mov	r0, #0
+ 1305 0084 1080BDE8 		pop	{r4, pc}
+ 1306              	.LVL136:
+ 1307              	.L131:
+ 860:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1308              		.loc 1 860 0
+ 1309 0088 051A81E3 		orr	r1, r1, #20480
+ 1310              	.LVL137:
+ 861:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1311              		.loc 1 861 0
+ 1312 008c F1FFFFEA 		b	.L134
+ 1313              	.L132:
+ 865:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1314              		.loc 1 865 0
+ 1315 0090 061A81E3 		orr	r1, r1, #24576
+ 1316              	.LVL138:
+ 866:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1317              		.loc 1 866 0
+ 1318 0094 EFFFFFEA 		b	.L134
+ 1319              	.L133:
+ 870:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1320              		.loc 1 870 0
+ 1321 0098 071A81E3 		orr	r1, r1, #28672
+ 1322              	.LVL139:
+ 871:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1323              		.loc 1 871 0
+ 1324 009c EDFFFFEA 		b	.L134
+ 1325              	.L135:
+ 880:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1326              		.loc 1 880 0
+ 1327 00a0 011A81E3 		orr	r1, r1, #4096
+ 1328              	.LVL140:
+ 881:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1329              		.loc 1 881 0
+ 1330 00a4 EBFFFFEA 		b	.L134
+ 1331              	.L136:
+ 885:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1332              		.loc 1 885 0
+ 1333 00a8 021A81E3 		orr	r1, r1, #8192
+ 1334              	.LVL141:
+ 886:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1335              		.loc 1 886 0
+ 1336 00ac E9FFFFEA 		b	.L134
+ 1337              	.L137:
+ 890:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1338              		.loc 1 890 0
+ 1339 00b0 031A81E3 		orr	r1, r1, #12288
+ 1340              	.LVL142:
+ 891:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1341              		.loc 1 891 0
+ 1342 00b4 E7FFFFEA 		b	.L134
+ 1343              	.L138:
+ 895:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1344              		.loc 1 895 0
+ 1345 00b8 0000E0E3 		mvn	r0, #0
+ 904:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 1346              		.loc 1 904 0
+ 1347 00bc 1080BDE8 		pop	{r4, pc}
+ 1348              		.cfi_endproc
+ 1349              	.LFE18:
+ 1351              		.section	.text.R_CPG_InitialiseHwIf,"ax",%progbits
+ 1352              		.align	2
+ 1353              		.global	R_CPG_InitialiseHwIf
+ 1354              		.syntax unified
+ 1355              		.arm
+ 1356              		.fpu neon
+ 1358              	R_CPG_InitialiseHwIf:
+ 1359              	.LFB10:
+ 302:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t retval;
+ 1360              		.loc 1 302 0
+ 1361              		.cfi_startproc
+ 1362              		@ args = 0, pretend = 0, frame = 0
+ 1363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1364              	.LVL143:
+ 308:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 1365              		.loc 1 308 0
+ 1366 0000 003000E3 		movw	r3, #:lower16:.LANCHOR8
+ 1367 0004 003040E3 		movt	r3, #:upper16:.LANCHOR8
+ 1368 0008 003093E5 		ldr	r3, [r3]
+ 1369 000c 000053E3 		cmp	r3, #0
+ 1370 0010 0100000A 		beq	.L150
+ 305:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 1371              		.loc 1 305 0
+ 1372 0014 0000A0E3 		mov	r0, #0
+ 337:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 1373              		.loc 1 337 0
+ 1374 0018 1EFF2FE1 		bx	lr
+ 1375              	.L150:
+ 302:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     int_t retval;
+ 1376              		.loc 1 302 0
+ 1377 001c 10402DE9 		push	{r4, lr}
+ 1378              		.cfi_def_cfa_offset 8
+ 1379              		.cfi_offset 4, -8
+ 1380              		.cfi_offset 14, -4
+ 311:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         cpg_io_reg_read_32(&pl310.REG15_POWER_CTRL.LONG, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCES
+ 1381              		.loc 1 311 0
+ 1382 0020 FE4DA0E3 		mov	r4, #16256
+ 1383 0024 004F41E3 		movt	r4, 7936
+ 1384 0028 0130A0E3 		mov	r3, #1
+ 1385 002c 0020A0E3 		mov	r2, #0
+ 1386 0030 0310A0E1 		mov	r1, r3
+ 1387 0034 0400A0E1 		mov	r0, r4
+ 1388 0038 FEFFFFEB 		bl	cpg_io_reg_write_32
+ 1389              	.LVL144:
+ 312:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         gs_drv_cpg_is_initialized = true;
+ 1390              		.loc 1 312 0
+ 1391 003c 0020E0E3 		mvn	r2, #0
+ 1392 0040 0010A0E3 		mov	r1, #0
+ 1393 0044 0400A0E1 		mov	r0, r4
+ 1394 0048 FEFFFFEB 		bl	cpg_io_reg_read_32
+ 1395              	.LVL145:
+ 313:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 1396              		.loc 1 313 0
+ 1397 004c 003000E3 		movw	r3, #:lower16:.LANCHOR8
+ 1398 0050 003040E3 		movt	r3, #:upper16:.LANCHOR8
+ 1399 0054 0120A0E3 		mov	r2, #1
+ 1400 0058 002083E5 		str	r2, [r3]
+ 316:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         if ( DRV_SUCCESS == retval )
+ 1401              		.loc 1 316 0
+ 1402 005c 190B9FED 		vldr.64	d0, .L153
+ 1403 0060 FEFFFFEB 		bl	R_CPG_SetXtalClock
+ 1404              	.LVL146:
+ 317:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 1405              		.loc 1 317 0
+ 1406 0064 000050E3 		cmp	r0, #0
+ 1407 0068 0200001A 		bne	.L142
+ 319:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1408              		.loc 1 319 0
+ 1409 006c 000000E3 		movw	r0, #:lower16:.LANCHOR9
+ 1410              	.LVL147:
+ 1411 0070 000040E3 		movt	r0, #:upper16:.LANCHOR9
+ 1412 0074 FEFFFFEB 		bl	R_CPG_SetMainClock
+ 1413              	.LVL148:
+ 1414              	.L142:
+ 321:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 1415              		.loc 1 321 0
+ 1416 0078 000050E3 		cmp	r0, #0
+ 1417 007c 0700000A 		beq	.L151
+ 1418              	.L143:
+ 325:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 1419              		.loc 1 325 0
+ 1420 0080 000050E3 		cmp	r0, #0
+ 1421 0084 0A00000A 		beq	.L152
+ 1422              	.L144:
+ 329:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 1423              		.loc 1 329 0
+ 1424 0088 000050E3 		cmp	r0, #0
+ 1425 008c 1080BD18 		popne	{r4, pc}
+ 331:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1426              		.loc 1 331 0
+ 1427 0090 000000E3 		movw	r0, #:lower16:.LANCHOR12
+ 1428              	.LVL149:
+ 1429 0094 000040E3 		movt	r0, #:upper16:.LANCHOR12
+ 1430 0098 FEFFFFEB 		bl	R_CPG_ConfigExtClockPin
+ 1431              	.LVL150:
+ 337:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 1432              		.loc 1 337 0
+ 1433 009c 1080BDE8 		pop	{r4, pc}
+ 1434              	.L151:
+ 323:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1435              		.loc 1 323 0
+ 1436 00a0 0310A0E3 		mov	r1, #3
+ 1437 00a4 000000E3 		movw	r0, #:lower16:.LANCHOR10
+ 1438              	.LVL151:
+ 1439 00a8 000040E3 		movt	r0, #:upper16:.LANCHOR10
+ 1440 00ac FEFFFFEB 		bl	R_CPG_SetSubClockDividers
+ 1441              	.LVL152:
+ 1442 00b0 F2FFFFEA 		b	.L143
+ 1443              	.L152:
+ 327:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1444              		.loc 1 327 0
+ 1445 00b4 0410A0E3 		mov	r1, #4
+ 1446 00b8 000000E3 		movw	r0, #:lower16:.LANCHOR11
+ 1447              	.LVL153:
+ 1448 00bc 000040E3 		movt	r0, #:upper16:.LANCHOR11
+ 1449 00c0 FEFFFFEB 		bl	R_CPG_SetSubClockSource
+ 1450              	.LVL154:
+ 1451 00c4 EFFFFFEA 		b	.L144
+ 1452              	.L154:
+ 1453              		.align	3
+ 1454              	.L153:
+ 1455 00c8 00000000 		.word	0
+ 1456 00cc 0070D740 		.word	1087860736
+ 1457              		.cfi_endproc
+ 1458              	.LFE10:
+ 1460              		.section	.text.R_CPG_GetClock,"ax",%progbits
+ 1461              		.align	2
+ 1462              		.global	R_CPG_GetClock
+ 1463              		.syntax unified
+ 1464              		.arm
+ 1465              		.fpu neon
+ 1467              	R_CPG_GetClock:
+ 1468              	.LFB19:
+ 905:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 906:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_ConfigExtPinClock
+ 907:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 908:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 909:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 910:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief          R_CPG_GetClock
+ 911:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *                 Get current clock frequency
+ 912:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[in]      src: desired clock source
+ 913:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[out]     p_freq: obtained frequency
+ 914:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_SUCCESS     Successful operate
+ 915:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval         DRV_ERROR Failure operate
+ 916:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 917:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_GetClock(e_r_drv_cpg_get_freq_src_t src, float64_t * p_freq)
+ 918:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 1469              		.loc 1 918 0
+ 1470              		.cfi_startproc
+ 1471              		@ args = 0, pretend = 0, frame = 0
+ 1472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1473              		@ link register save eliminated.
+ 1474              	.LVL155:
+ 919:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     if ( NULL == p_freq )
+ 1475              		.loc 1 919 0
+ 1476 0000 000051E3 		cmp	r1, #0
+ 1477 0004 3C00000A 		beq	.L165
+ 920:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 921:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         return (DRV_ERROR);
+ 922:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 923:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 924:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     switch ( src )
+ 1478              		.loc 1 924 0
+ 1479 0008 060050E3 		cmp	r0, #6
+ 1480 000c 00F19F97 		ldrls	pc, [pc, r0, asl #2]
+ 1481 0010 3B0000EA 		b	.L166
+ 1482              	.L158:
+ 1483 0014 30000000 		.word	.L157
+ 1484 0018 48000000 		.word	.L159
+ 1485 001c 60000000 		.word	.L160
+ 1486 0020 94000000 		.word	.L161
+ 1487 0024 AC000000 		.word	.L162
+ 1488 0028 C4000000 		.word	.L163
+ 1489 002c E4000000 		.word	.L164
+ 1490              	.L157:
+ 925:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     {
+ 926:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_EXTAL:
+ 927:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 928:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_extal_frequency_khz;
+ 1491              		.loc 1 928 0
+ 1492 0030 003000E3 		movw	r3, #:lower16:.LANCHOR7
+ 1493 0034 003040E3 		movt	r3, #:upper16:.LANCHOR7
+ 1494 0038 D020C3E1 		ldrd	r2, [r3]
+ 1495 003c F020C1E1 		strd	r2, [r1]
+ 929:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 930:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 931:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_ICLK:
+ 932:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 933:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_iclk_frequency_khz;
+ 934:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 935:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 936:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_GCLK:
+ 937:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 938:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = (gs_cpg_pll_frequency_khz * 2.0) / gs_cpg_bclk_divisor;
+ 939:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 940:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 941:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_BCLK:
+ 942:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 943:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_bclk_frequency_khz;
+ 944:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 945:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 946:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_P1CLK:
+ 947:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 948:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_p1clk_frequency_khz;
+ 949:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 950:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 951:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_P0CLK:
+ 952:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 953:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_pll_frequency_khz / 32.0;
+ 954:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 955:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 956:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         case CPG_FREQ_RTCEXTAL:
+ 957:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 958:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             *p_freq = gs_cpg_extal_frequency_khz;
+ 959:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 960:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 961:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         default:
+ 962:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         {
+ 963:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             return (DRV_ERROR);
+ 964:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 965:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 966:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 967:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 1496              		.loc 1 967 0
+ 1497 0040 0000A0E3 		mov	r0, #0
+ 1498              	.LVL156:
+ 929:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1499              		.loc 1 929 0
+ 1500 0044 1EFF2FE1 		bx	lr
+ 1501              	.LVL157:
+ 1502              	.L159:
+ 933:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1503              		.loc 1 933 0
+ 1504 0048 003000E3 		movw	r3, #:lower16:.LANCHOR2
+ 1505 004c 003040E3 		movt	r3, #:upper16:.LANCHOR2
+ 1506 0050 D020C3E1 		ldrd	r2, [r3]
+ 1507 0054 F020C1E1 		strd	r2, [r1]
+ 1508              		.loc 1 967 0
+ 1509 0058 0000A0E3 		mov	r0, #0
+ 1510              	.LVL158:
+ 934:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1511              		.loc 1 934 0
+ 1512 005c 1EFF2FE1 		bx	lr
+ 1513              	.LVL159:
+ 1514              	.L160:
+ 938:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1515              		.loc 1 938 0
+ 1516 0060 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 1517 0064 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 1518 0068 000BD3ED 		vldr.64	d16, [r3]
+ 1519 006c A00B70EE 		vadd.f64	d16, d16, d16
+ 1520 0070 003000E3 		movw	r3, #:lower16:.LANCHOR3
+ 1521 0074 003040E3 		movt	r3, #:upper16:.LANCHOR3
+ 1522 0078 003093E5 		ldr	r3, [r3]
+ 1523 007c 903A07EE 		vmov	s15, r3	@ int
+ 1524 0080 671BF8EE 		vcvt.f64.u32	d17, s15
+ 1525 0084 A12BC0EE 		vdiv.f64	d18, d16, d17
+ 1526 0088 002BC1ED 		vstr.64	d18, [r1]
+ 1527              		.loc 1 967 0
+ 1528 008c 0000A0E3 		mov	r0, #0
+ 1529              	.LVL160:
+ 939:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1530              		.loc 1 939 0
+ 1531 0090 1EFF2FE1 		bx	lr
+ 1532              	.LVL161:
+ 1533              	.L161:
+ 943:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1534              		.loc 1 943 0
+ 1535 0094 003000E3 		movw	r3, #:lower16:.LANCHOR4
+ 1536 0098 003040E3 		movt	r3, #:upper16:.LANCHOR4
+ 1537 009c D020C3E1 		ldrd	r2, [r3]
+ 1538 00a0 F020C1E1 		strd	r2, [r1]
+ 1539              		.loc 1 967 0
+ 1540 00a4 0000A0E3 		mov	r0, #0
+ 1541              	.LVL162:
+ 944:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1542              		.loc 1 944 0
+ 1543 00a8 1EFF2FE1 		bx	lr
+ 1544              	.LVL163:
+ 1545              	.L162:
+ 948:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1546              		.loc 1 948 0
+ 1547 00ac 003000E3 		movw	r3, #:lower16:.LANCHOR6
+ 1548 00b0 003040E3 		movt	r3, #:upper16:.LANCHOR6
+ 1549 00b4 D020C3E1 		ldrd	r2, [r3]
+ 1550 00b8 F020C1E1 		strd	r2, [r1]
+ 1551              		.loc 1 967 0
+ 1552 00bc 0000A0E3 		mov	r0, #0
+ 1553              	.LVL164:
+ 949:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1554              		.loc 1 949 0
+ 1555 00c0 1EFF2FE1 		bx	lr
+ 1556              	.LVL165:
+ 1557              	.L163:
+ 953:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1558              		.loc 1 953 0
+ 1559 00c4 003000E3 		movw	r3, #:lower16:.LANCHOR0
+ 1560 00c8 003040E3 		movt	r3, #:upper16:.LANCHOR0
+ 1561 00cc 000BD3ED 		vldr.64	d16, [r3]
+ 1562 00d0 0E1BDFED 		vldr.64	d17, .L167
+ 1563 00d4 A10B60EE 		vmul.f64	d16, d16, d17
+ 1564 00d8 000BC1ED 		vstr.64	d16, [r1]
+ 1565              		.loc 1 967 0
+ 1566 00dc 0000A0E3 		mov	r0, #0
+ 1567              	.LVL166:
+ 954:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1568              		.loc 1 954 0
+ 1569 00e0 1EFF2FE1 		bx	lr
+ 1570              	.LVL167:
+ 1571              	.L164:
+ 958:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****             break;
+ 1572              		.loc 1 958 0
+ 1573 00e4 003000E3 		movw	r3, #:lower16:.LANCHOR7
+ 1574 00e8 003040E3 		movt	r3, #:upper16:.LANCHOR7
+ 1575 00ec D020C3E1 		ldrd	r2, [r3]
+ 1576 00f0 F020C1E1 		strd	r2, [r1]
+ 1577              		.loc 1 967 0
+ 1578 00f4 0000A0E3 		mov	r0, #0
+ 1579              	.LVL168:
+ 959:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1580              		.loc 1 959 0
+ 1581 00f8 1EFF2FE1 		bx	lr
+ 1582              	.LVL169:
+ 1583              	.L165:
+ 921:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     }
+ 1584              		.loc 1 921 0
+ 1585 00fc 0000E0E3 		mvn	r0, #0
+ 1586              	.LVL170:
+ 1587 0100 1EFF2FE1 		bx	lr
+ 1588              	.LVL171:
+ 1589              	.L166:
+ 963:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****         }
+ 1590              		.loc 1 963 0
+ 1591 0104 0000E0E3 		mvn	r0, #0
+ 1592              	.LVL172:
+ 968:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 1593              		.loc 1 968 0
+ 1594 0108 1EFF2FE1 		bx	lr
+ 1595              	.L168:
+ 1596 010c 00F020E3 		.align	3
+ 1597              	.L167:
+ 1598 0110 00000000 		.word	0
+ 1599 0114 0000A03F 		.word	1067450368
+ 1600              		.cfi_endproc
+ 1601              	.LFE19:
+ 1603              		.section	.text.R_CPG_GetVersion,"ax",%progbits
+ 1604              		.align	2
+ 1605              		.global	R_CPG_GetVersion
+ 1606              		.syntax unified
+ 1607              		.arm
+ 1608              		.fpu neon
+ 1610              	R_CPG_GetVersion:
+ 1611              	.LFB20:
+ 969:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /******************************************************************************
+ 970:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * End of function R_CPG_GetClock
+ 971:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  ******************************************************************************/
+ 972:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 973:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** /**
+ 974:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @brief       R_CPG_GetVersion
+ 975:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  *              Gets the version number of this low-level driver
+ 976:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @param[out]  p_ver_info: returns the driver information
+ 977:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  * @retval      DRV_SUCCESS Always returned
+ 978:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****  */
+ 979:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** int_t R_CPG_GetVersion(st_ver_info_t *p_ver_info)
+ 980:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** {
+ 1612              		.loc 1 980 0
+ 1613              		.cfi_startproc
+ 1614              		@ args = 0, pretend = 0, frame = 0
+ 1615              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1616              		@ link register save eliminated.
+ 1617              	.LVL173:
+ 1618 0000 0030A0E1 		mov	r3, r0
+ 981:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     p_ver_info->lld.p_szdriver_name = gs_lld_info.p_szdriver_name;
+ 1619              		.loc 1 981 0
+ 1620 0004 002000E3 		movw	r2, #:lower16:.LC0
+ 1621 0008 002040E3 		movt	r2, #:upper16:.LC0
+ 1622 000c 142080E5 		str	r2, [r0, #20]
+ 982:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     p_ver_info->lld.version.sub.major = gs_lld_info.version.sub.major;
+ 1623              		.loc 1 982 0
+ 1624 0010 0120A0E3 		mov	r2, #1
+ 1625 0014 BE20C0E1 		strh	r2, [r0, #14]	@ movhi
+ 983:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     p_ver_info->lld.version.sub.minor = gs_lld_info.version.sub.minor;
+ 1626              		.loc 1 983 0
+ 1627 0018 BC20C0E1 		strh	r2, [r0, #12]	@ movhi
+ 984:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     p_ver_info->lld.build = gs_lld_info.build;
+ 1628              		.loc 1 984 0
+ 1629 001c 0000A0E3 		mov	r0, #0
+ 1630              	.LVL174:
+ 1631 0020 100083E5 		str	r0, [r3, #16]
+ 985:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** 
+ 986:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c ****     return (DRV_SUCCESS);
+ 987:../generate/drivers/r_cpg/src/lld/r_cpg_lld_rza2m.c **** }
+ 1632              		.loc 1 987 0
+ 1633 0024 1EFF2FE1 		bx	lr
+ 1634              		.cfi_endproc
+ 1635              	.LFE20:
+ 1637              		.section	.bss.gs_drv_cpg_is_initialized,"aw",%nobits
+ 1638              		.align	2
+ 1639              		.set	.LANCHOR8,. + 0
+ 1642              	gs_drv_cpg_is_initialized:
+ 1643 0000 00000000 		.space	4
+ 1644              		.section	.data.gs_cpg_bclk_divisor,"aw",%progbits
+ 1645              		.align	2
+ 1646              		.set	.LANCHOR3,. + 0
+ 1649              	gs_cpg_bclk_divisor:
+ 1650 0000 08000000 		.word	8
+ 1651              		.section	.data.gs_cpg_bclk_frequency_khz,"aw",%progbits
+ 1652              		.align	3
+ 1653              		.set	.LANCHOR4,. + 0
+ 1656              	gs_cpg_bclk_frequency_khz:
+ 1657 0000 00000000 		.word	0
+ 1658 0004 001D0041 		.word	1090526464
+ 1659              		.section	.data.gs_cpg_extal_frequency_khz,"aw",%progbits
+ 1660              		.align	3
+ 1661              		.set	.LANCHOR7,. + 0
+ 1664              	gs_cpg_extal_frequency_khz:
+ 1665 0000 00000000 		.word	0
+ 1666 0004 0070D740 		.word	1087860736
+ 1667              		.section	.data.gs_cpg_iclk_divisor,"aw",%progbits
+ 1668              		.align	2
+ 1669              		.set	.LANCHOR1,. + 0
+ 1672              	gs_cpg_iclk_divisor:
+ 1673 0000 02000000 		.word	2
+ 1674              		.section	.data.gs_cpg_iclk_frequency_khz,"aw",%progbits
+ 1675              		.align	3
+ 1676              		.set	.LANCHOR2,. + 0
+ 1679              	gs_cpg_iclk_frequency_khz:
+ 1680 0000 00000000 		.word	0
+ 1681 0004 001D2041 		.word	1092623616
+ 1682              		.section	.data.gs_cpg_p1clk_divisor,"aw",%progbits
+ 1683              		.align	2
+ 1684              		.set	.LANCHOR5,. + 0
+ 1687              	gs_cpg_p1clk_divisor:
+ 1688 0000 10000000 		.word	16
+ 1689              		.section	.data.gs_cpg_p1clk_frequency_khz,"aw",%progbits
+ 1690              		.align	3
+ 1691              		.set	.LANCHOR6,. + 0
+ 1694              	gs_cpg_p1clk_frequency_khz:
+ 1695 0000 00000000 		.word	0
+ 1696 0004 001DF040 		.word	1089477888
+ 1697              		.section	.data.gs_cpg_pll_frequency_khz,"aw",%progbits
+ 1698              		.align	3
+ 1699              		.set	.LANCHOR0,. + 0
+ 1702              	gs_cpg_pll_frequency_khz:
+ 1703 0000 00000000 		.word	0
+ 1704 0004 001D3041 		.word	1093672192
+ 1705              		.section	.rodata.R_CPG_GetVersion.str1.4,"aMS",%progbits,1
+ 1706              		.align	2
+ 1707              	.LC0:
+ 1708 0000 4C4C4420 		.ascii	"LLD EBK_RZA2M CPG\000"
+ 1708      45424B5F 
+ 1708      525A4132 
+ 1708      4D204350 
+ 1708      4700
+ 1709              		.section	.rodata.s_sc_cpg_ext_clk_config,"a",%progbits
+ 1710              		.align	2
+ 1711              		.set	.LANCHOR12,. + 0
+ 1714              	s_sc_cpg_ext_clk_config:
+ 1715 0000 07       		.byte	7
+ 1716              		.section	.rodata.s_sc_cpg_main_clock_config,"a",%progbits
+ 1717              		.align	3
+ 1718              		.set	.LANCHOR9,. + 0
+ 1721              	s_sc_cpg_main_clock_config:
+ 1722 0000 00       		.byte	0
+ 1723 0001 00000000 		.space	7
+ 1723      000000
+ 1724 0008 00000000 		.word	0
+ 1725 000c 001D3041 		.word	1093672192
+ 1726              		.section	.rodata.s_sc_cpg_sub_clock_div_config,"a",%progbits
+ 1727              		.align	3
+ 1728              		.set	.LANCHOR10,. + 0
+ 1731              	s_sc_cpg_sub_clock_div_config:
+ 1732 0000 00       		.byte	0
+ 1733 0001 00000000 		.space	7
+ 1733      000000
+ 1734 0008 00000000 		.word	0
+ 1735 000c 001D2041 		.word	1092623616
+ 1736 0010 01       		.byte	1
+ 1737 0011 00000000 		.space	7
+ 1737      000000
+ 1738 0018 00000000 		.word	0
+ 1739 001c 001D0041 		.word	1090526464
+ 1740 0020 02       		.byte	2
+ 1741 0021 00000000 		.space	7
+ 1741      000000
+ 1742 0028 00000000 		.word	0
+ 1743 002c 001DF040 		.word	1089477888
+ 1744              		.section	.rodata.s_sc_cpg_sub_clock_src_config,"a",%progbits
+ 1745              		.align	2
+ 1746              		.set	.LANCHOR11,. + 0
+ 1749              	s_sc_cpg_sub_clock_src_config:
+ 1750 0000 00       		.byte	0
+ 1751 0001 00       		.byte	0
+ 1752 0002 01       		.byte	1
+ 1753 0003 02       		.byte	2
+ 1754 0004 02       		.byte	2
+ 1755 0005 02       		.byte	2
+ 1756 0006 03       		.byte	3
+ 1757 0007 00       		.byte	0
+ 1758              		.text
+ 1759              	.Letext0:
+ 1760              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1761              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1762              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1763              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1764              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 1765              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1766              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 1767              		.file 9 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/boo
+ 1768              		.file 10 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 1769              		.file 11 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 1770              		.file 12 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1771              		.file 13 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 1772              		.file 14 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 1773              		.file 15 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 1774              		.file 16 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+DEFINED SYMBOLS
+                            *ABS*:00000000 r_cpg_lld_rza2m.c
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:17     .text.cpg_io_reg_write_16:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:22     .text.cpg_io_reg_write_16:00000000 cpg_io_reg_write_16
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:54     .text.cpg_io_reg_write_32:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:59     .text.cpg_io_reg_write_32:00000000 cpg_io_reg_write_32
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:86     .text.cpg_io_reg_read_16:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:91     .text.cpg_io_reg_read_16:00000000 cpg_io_reg_read_16
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:119    .text.cpg_io_reg_read_32:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:124    .text.cpg_io_reg_read_32:00000000 cpg_io_reg_read_32
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:149    .text.is_nearly_equal:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:154    .text.is_nearly_equal:00000000 is_nearly_equal
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:193    .text.cpg_modify_frqcr:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:198    .text.cpg_modify_frqcr:00000000 cpg_modify_frqcr
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1699   .data.gs_cpg_pll_frequency_khz:00000000 .LANCHOR0
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:412    .text.cpg_modify_frqcr:000001c8 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:418    .text.set_sub_clock_source:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:423    .text.set_sub_clock_source:00000000 set_sub_clock_source
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:703    .text.R_CPG_UninitialiseHwIf:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:709    .text.R_CPG_UninitialiseHwIf:00000000 R_CPG_UninitialiseHwIf
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:723    .text.R_CPG_SetXtalClock:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:729    .text.R_CPG_SetXtalClock:00000000 R_CPG_SetXtalClock
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1669   .data.gs_cpg_iclk_divisor:00000000 .LANCHOR1
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1676   .data.gs_cpg_iclk_frequency_khz:00000000 .LANCHOR2
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1646   .data.gs_cpg_bclk_divisor:00000000 .LANCHOR3
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1653   .data.gs_cpg_bclk_frequency_khz:00000000 .LANCHOR4
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1684   .data.gs_cpg_p1clk_divisor:00000000 .LANCHOR5
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1691   .data.gs_cpg_p1clk_frequency_khz:00000000 .LANCHOR6
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1661   .data.gs_cpg_extal_frequency_khz:00000000 .LANCHOR7
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:826    .text.R_CPG_SetXtalClock:00000108 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:842    .text.R_CPG_SetMainClock:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:848    .text.R_CPG_SetMainClock:00000000 R_CPG_SetMainClock
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:895    .text.R_CPG_SetSubClockDividers:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:901    .text.R_CPG_SetSubClockDividers:00000000 R_CPG_SetSubClockDividers
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:968    .text.R_CPG_SetSubClockDividers:0000008c $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:975    .text.R_CPG_SetSubClockDividers:0000009c $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1136   .text.R_CPG_SetSubClockSource:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1142   .text.R_CPG_SetSubClockSource:00000000 R_CPG_SetSubClockSource
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1239   .text.R_CPG_ConfigExtClockPin:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1245   .text.R_CPG_ConfigExtClockPin:00000000 R_CPG_ConfigExtClockPin
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1275   .text.R_CPG_ConfigExtClockPin:00000034 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1285   .text.R_CPG_ConfigExtClockPin:00000054 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1352   .text.R_CPG_InitialiseHwIf:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1358   .text.R_CPG_InitialiseHwIf:00000000 R_CPG_InitialiseHwIf
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1639   .bss.gs_drv_cpg_is_initialized:00000000 .LANCHOR8
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1718   .rodata.s_sc_cpg_main_clock_config:00000000 .LANCHOR9
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1711   .rodata.s_sc_cpg_ext_clk_config:00000000 .LANCHOR12
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1728   .rodata.s_sc_cpg_sub_clock_div_config:00000000 .LANCHOR10
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1746   .rodata.s_sc_cpg_sub_clock_src_config:00000000 .LANCHOR11
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1455   .text.R_CPG_InitialiseHwIf:000000c8 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1461   .text.R_CPG_GetClock:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1467   .text.R_CPG_GetClock:00000000 R_CPG_GetClock
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1483   .text.R_CPG_GetClock:00000014 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1492   .text.R_CPG_GetClock:00000030 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1598   .text.R_CPG_GetClock:00000110 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1604   .text.R_CPG_GetVersion:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1610   .text.R_CPG_GetVersion:00000000 R_CPG_GetVersion
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1707   .rodata.R_CPG_GetVersion.str1.4:00000000 .LC0
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1638   .bss.gs_drv_cpg_is_initialized:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1642   .bss.gs_drv_cpg_is_initialized:00000000 gs_drv_cpg_is_initialized
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1645   .data.gs_cpg_bclk_divisor:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1649   .data.gs_cpg_bclk_divisor:00000000 gs_cpg_bclk_divisor
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1652   .data.gs_cpg_bclk_frequency_khz:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1656   .data.gs_cpg_bclk_frequency_khz:00000000 gs_cpg_bclk_frequency_khz
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1660   .data.gs_cpg_extal_frequency_khz:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1664   .data.gs_cpg_extal_frequency_khz:00000000 gs_cpg_extal_frequency_khz
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1668   .data.gs_cpg_iclk_divisor:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1672   .data.gs_cpg_iclk_divisor:00000000 gs_cpg_iclk_divisor
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1675   .data.gs_cpg_iclk_frequency_khz:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1679   .data.gs_cpg_iclk_frequency_khz:00000000 gs_cpg_iclk_frequency_khz
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1683   .data.gs_cpg_p1clk_divisor:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1687   .data.gs_cpg_p1clk_divisor:00000000 gs_cpg_p1clk_divisor
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1690   .data.gs_cpg_p1clk_frequency_khz:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1694   .data.gs_cpg_p1clk_frequency_khz:00000000 gs_cpg_p1clk_frequency_khz
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1698   .data.gs_cpg_pll_frequency_khz:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1702   .data.gs_cpg_pll_frequency_khz:00000000 gs_cpg_pll_frequency_khz
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1706   .rodata.R_CPG_GetVersion.str1.4:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1710   .rodata.s_sc_cpg_ext_clk_config:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1714   .rodata.s_sc_cpg_ext_clk_config:00000000 s_sc_cpg_ext_clk_config
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1717   .rodata.s_sc_cpg_main_clock_config:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1721   .rodata.s_sc_cpg_main_clock_config:00000000 s_sc_cpg_main_clock_config
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1727   .rodata.s_sc_cpg_sub_clock_div_config:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1731   .rodata.s_sc_cpg_sub_clock_div_config:00000000 s_sc_cpg_sub_clock_div_config
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1745   .rodata.s_sc_cpg_sub_clock_src_config:00000000 $d
+C:\Users\10094\AppData\Local\Temp\ccGtPSZo.s:1749   .rodata.s_sc_cpg_sub_clock_src_config:00000000 s_sc_cpg_sub_clock_src_config
+                           .group:00000000 wm4.0.5abf75bd0eb20652be5d61cc56051b9b
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+                           .group:00000000 wm4.rza_io_regrw.h.46.8ffd34a4c69bd0fad4b7b3d6d30a6855
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.iobitmask.h.29.773e8f8428b0c21e1206a8c47a6d3927
+                           .group:00000000 wm4.adc_iobitmask.h.29.48ba2821c8a4fc20022447ad9316d399
+                           .group:00000000 wm4.bsc_iobitmask.h.29.115d15c4ad4b48e00598dcd62d33c637
+                           .group:00000000 wm4.ceu_iobitmask.h.29.413b5b68bb3c2148786493166a57173e
+                           .group:00000000 wm4.cpg_iobitmask.h.29.58382d682aa9abf69ab653ac5fe9149b
+                           .group:00000000 wm4.csi2link_iobitmask.h.29.701c130cb17627664fe7c147084057cf
+                           .group:00000000 wm4.dmac_iobitmask.h.29.98850e876107975c53dc0bb8ebb53eb5
+                           .group:00000000 wm4.drpk_iobitmask.h.29.167e7cf6b1feb4d38b8903a46d8c35ac
+                           .group:00000000 wm4.drw_iobitmask.h.29.71d46f2244f6e7ae6117fe6c41c5567d
+                           .group:00000000 wm4.edmac_iobitmask.h.29.4e406d859155ba914663e1cf61cad89a
+                           .group:00000000 wm4.eptpc_iobitmask.h.29.64bcd0a67db3a886572992ae6da8898c
+                           .group:00000000 wm4.etherc_iobitmask.h.29.07b13cb10c426023658e5c51f952b6de
+                           .group:00000000 wm4.gpio_iobitmask.h.29.ea8c1464682eb61f2d0763b97ed530f9
+                           .group:00000000 wm4.gpt_iobitmask.h.29.94173800a704c5ba32e348ba97cd23cf
+                           .group:00000000 wm4.hyper_iobitmask.h.29.f09febbc7b835674abe34ae75f3c700d
+                           .group:00000000 wm4.imr2_iobitmask.h.29.90b834f92ca4d39c49dda81fe096b5f0
+                           .group:00000000 wm4.intc_iobitmask.h.29.6d3be2e47bf3d7eb7e91eeddcab863af
+                           .group:00000000 wm4.irda_iobitmask.h.29.6f43dde454e599a1d4a8be2978ac9459
+                           .group:00000000 wm4.jcu_iobitmask.h.29.9fd48851a81ff31733aa19b29e4846ad
+                           .group:00000000 wm4.lvds_iobitmask.h.29.4a6f69c8911426fa05f0b05eab5f5e15
+                           .group:00000000 wm4.mtu_iobitmask.h.29.7a98ba20f3fb30f35d72abcc74524cc2
+                           .group:00000000 wm4.nandc_iobitmask.h.29.a3a0f4ae99fdf814aa6f25f430186b14
+                           .group:00000000 wm4.octa_iobitmask.h.29.88d29c353902045cc5df621720d36632
+                           .group:00000000 wm4.ostm_iobitmask.h.29.38ee9f4e1711e17bd3f38545ba631cde
+                           .group:00000000 wm4.pl310_iobitmask.h.29.c1ef5625c0a9d67f24e89fe2fd7e4886
+                           .group:00000000 wm4.pmg_iobitmask.h.29.d20cb8352080a58cf6cbf526935d968e
+                           .group:00000000 wm4.poe3_iobitmask.h.29.3a3444cc2dbf606e2370573e16d57254
+                           .group:00000000 wm4.poeg_iobitmask.h.29.5601eb8cf1161926d683c0720340f85d
+                           .group:00000000 wm4.prr_iobitmask.h.29.52f8479a52e2236c122b5956e4bdbfce
+                           .group:00000000 wm4.ptpedmac_iobitmask.h.29.494dcb2240ebba7fa20d0c2ab02007f7
+                           .group:00000000 wm4.rcanfd_iobitmask.h.29.4376b1b7ff587ba618a622f2c4029df7
+                           .group:00000000 wm4.rcan_iobitmask.h.29.c6f8b9b62e8fdc007f8b5f40c1f7e95d
+                           .group:00000000 wm4.riic_iobitmask.h.29.b6e4a30b4a750b93bf8b54b204e41e8e
+                           .group:00000000 wm4.rspi_iobitmask.h.29.2e257f44186c83ca40dbb0db2548623b
+                           .group:00000000 wm4.rtc_iobitmask.h.29.83f9de1730e532ab7dfce6a57bb996ea
+                           .group:00000000 wm4.scifa_iobitmask.h.29.c7af830569e0d6a26f3d66e3adc293d7
+                           .group:00000000 wm4.scim_iobitmask.h.29.3b5e9d8b03a11c94acd93de96d2037f6
+                           .group:00000000 wm4.sdmmc_iobitmask.h.29.023cb9ff953a162569769cc98970f23e
+                           .group:00000000 wm4.spdif_iobitmask.h.29.c16f83f628828ab24aa2b72615b93e69
+                           .group:00000000 wm4.spibsc_iobitmask.h.29.8ade4a581f57cd5b82569a69eb5f0d67
+                           .group:00000000 wm4.sprite_iobitmask.h.29.82888597faf7ebb3bc86b5f1018a2253
+                           .group:00000000 wm4.ssif_iobitmask.h.29.482529b431f1ad627a02168620c61eee
+                           .group:00000000 wm4.usb_iobitmask.h.29.aae4dfd463dfdd120bf5855c9dc97483
+                           .group:00000000 wm4.vdc6_iobitmask.h.29.3ce0a3f9d2209ce71e4fec48b4ecb79a
+                           .group:00000000 wm4.vin_iobitmask.h.29.576a1d6e4b2cf6cbd353044865e437f2
+                           .group:00000000 wm4.wdt_iobitmask.h.29.c612db09eac33fb3da8d8aaee67287a9
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.77.0700439a69a80a9acf3c1705a4c37926
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.64cbac6cc01576ca10b0fa4399792cde
+
+NO UNDEFINED SYMBOLS

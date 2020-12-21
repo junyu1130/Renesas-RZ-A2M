@@ -1,0 +1,398 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"hwsetup.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.R_SC_HardwareSetup,"ax",%progbits
+  17              		.align	2
+  18              		.global	R_SC_HardwareSetup
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	R_SC_HardwareSetup:
+  24              	.LFB3:
+  25              		.file 1 "../generate/system/hwsetup.c"
+   1:../generate/system/hwsetup.c **** /*******************************************************************************
+   2:../generate/system/hwsetup.c **** * DISCLAIMER
+   3:../generate/system/hwsetup.c **** * This software is supplied by Renesas Electronics Corporation and is only
+   4:../generate/system/hwsetup.c **** * intended for use with Renesas products. No other uses are authorized. This
+   5:../generate/system/hwsetup.c **** * software is owned by Renesas Electronics Corporation and is protected under
+   6:../generate/system/hwsetup.c **** * all applicable laws, including copyright laws.
+   7:../generate/system/hwsetup.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8:../generate/system/hwsetup.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9:../generate/system/hwsetup.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10:../generate/system/hwsetup.c **** * AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../generate/system/hwsetup.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12:../generate/system/hwsetup.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13:../generate/system/hwsetup.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14:../generate/system/hwsetup.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15:../generate/system/hwsetup.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../generate/system/hwsetup.c **** * Renesas reserves the right, without notice, to make changes to this software
+  17:../generate/system/hwsetup.c **** * and to discontinue the availability of this software. By using this software,
+  18:../generate/system/hwsetup.c **** * you agree to the additional terms and conditions found by accessing the
+  19:../generate/system/hwsetup.c **** * following link:
+  20:../generate/system/hwsetup.c **** * http://www.renesas.com/disclaimer
+  21:../generate/system/hwsetup.c **** * Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22:../generate/system/hwsetup.c **** *******************************************************************************/
+  23:../generate/system/hwsetup.c **** /*******************************************************************************
+  24:../generate/system/hwsetup.c **** * File Name    : hwsetup.c
+  25:../generate/system/hwsetup.c **** * Device(s)    : RZ/A2M
+  26:../generate/system/hwsetup.c **** * OS           : None
+  27:../generate/system/hwsetup.c **** * H/W Platform : RZ/A2M Evaluation Board
+  28:../generate/system/hwsetup.c **** * Description  : RZ/A2M Sample Program - FIT function of Hardware Setup
+  29:../generate/system/hwsetup.c **** * Operation    :
+  30:../generate/system/hwsetup.c **** * Limitations  :
+  31:../generate/system/hwsetup.c **** *******************************************************************************/
+  32:../generate/system/hwsetup.c **** 
+  33:../generate/system/hwsetup.c **** /******************************************************************************
+  34:../generate/system/hwsetup.c **** Includes   <System Includes> , "Project Includes"
+  35:../generate/system/hwsetup.c **** ******************************************************************************/
+  36:../generate/system/hwsetup.c **** #include "r_typedefs.h"
+  37:../generate/system/hwsetup.c **** #include "r_cpg_drv_api.h"
+  38:../generate/system/hwsetup.c **** #include "r_spibsc_lld_rza2m_api.h"
+  39:../generate/system/hwsetup.c **** #include "hwsetup.h"
+  40:../generate/system/hwsetup.c **** 
+  41:../generate/system/hwsetup.c **** 
+  42:../generate/system/hwsetup.c **** 
+  43:../generate/system/hwsetup.c **** /******************************************************************************
+  44:../generate/system/hwsetup.c **** Typedef definitions
+  45:../generate/system/hwsetup.c **** ******************************************************************************/
+  46:../generate/system/hwsetup.c **** 
+  47:../generate/system/hwsetup.c **** 
+  48:../generate/system/hwsetup.c **** /******************************************************************************
+  49:../generate/system/hwsetup.c **** Macro definitions
+  50:../generate/system/hwsetup.c **** ******************************************************************************/
+  51:../generate/system/hwsetup.c **** #define SPIBSC_PRV_DDR_SETTING
+  52:../generate/system/hwsetup.c **** 
+  53:../generate/system/hwsetup.c **** 
+  54:../generate/system/hwsetup.c **** /******************************************************************************
+  55:../generate/system/hwsetup.c **** Imported global variables and functions (from other files)
+  56:../generate/system/hwsetup.c **** ******************************************************************************/
+  57:../generate/system/hwsetup.c **** 
+  58:../generate/system/hwsetup.c **** 
+  59:../generate/system/hwsetup.c **** /******************************************************************************
+  60:../generate/system/hwsetup.c **** Exported global variables and functions (to be accessed by other files)
+  61:../generate/system/hwsetup.c **** ******************************************************************************/
+  62:../generate/system/hwsetup.c **** 
+  63:../generate/system/hwsetup.c **** 
+  64:../generate/system/hwsetup.c **** /******************************************************************************
+  65:../generate/system/hwsetup.c **** Private global variables and functions
+  66:../generate/system/hwsetup.c **** ******************************************************************************/
+  67:../generate/system/hwsetup.c **** 
+  68:../generate/system/hwsetup.c **** 
+  69:../generate/system/hwsetup.c **** /******************************************************************************
+  70:../generate/system/hwsetup.c **** * Function Name: R_SC_HardwareSetup
+  71:../generate/system/hwsetup.c **** * Description  :
+  72:../generate/system/hwsetup.c **** * Arguments    :
+  73:../generate/system/hwsetup.c **** * Return Value :
+  74:../generate/system/hwsetup.c **** ******************************************************************************/
+  75:../generate/system/hwsetup.c **** void R_SC_HardwareSetup(void)
+  76:../generate/system/hwsetup.c **** {
+  26              		.loc 1 76 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 10402DE9 		push	{r4, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 4, -8
+  33              		.cfi_offset 14, -4
+  34 0004 08D04DE2 		sub	sp, sp, #8
+  35              		.cfi_def_cfa_offset 16
+  77:../generate/system/hwsetup.c **** 
+  78:../generate/system/hwsetup.c **** #if 0 /* This code must to be run in internal RAM. */
+  79:../generate/system/hwsetup.c ****     volatile uint16_t dummy_read_16;
+  80:../generate/system/hwsetup.c **** 
+  81:../generate/system/hwsetup.c ****     if( 1 == RZA_IO_RegRead_16(&CPG.DSFR, CPG_DSFR_IOKEEP_SHIFT,  CPG_DSFR_IOKEEP) )
+  82:../generate/system/hwsetup.c ****     {
+  83:../generate/system/hwsetup.c ****         RZA_IO_RegWrite_16(&CPG.DSFR, 0, CPG_DSFR_IOKEEP_SHIFT,  CPG_DSFR_IOKEEP);
+  84:../generate/system/hwsetup.c ****         dummy_read_16 = CPG.DSFR;
+  85:../generate/system/hwsetup.c ****     }
+  86:../generate/system/hwsetup.c **** #endif
+  87:../generate/system/hwsetup.c **** 
+  88:../generate/system/hwsetup.c **** 
+  89:../generate/system/hwsetup.c ****     /*    initialize SPIBSC,
+  90:../generate/system/hwsetup.c ****      *    this speeds up SPIBSC in BOOT-TIME.
+  91:../generate/system/hwsetup.c ****      */
+  92:../generate/system/hwsetup.c **** 
+  93:../generate/system/hwsetup.c ****         e_spibsc_err_t err;
+  94:../generate/system/hwsetup.c ****         st_spibsc_config_t  spibsc_config_tbl;
+  95:../generate/system/hwsetup.c **** 
+  96:../generate/system/hwsetup.c ****         spibsc_config_tbl.flash_type = SPIBSC_FLASH_SPI;
+  36              		.loc 1 96 0
+  37 0008 0040A0E3 		mov	r4, #0
+  38 000c 0440CDE5 		strb	r4, [sp, #4]
+  97:../generate/system/hwsetup.c ****         spibsc_config_tbl.flash_num = SPIBSC_CMNCR_BSZ_SINGLE;
+  39              		.loc 1 97 0
+  40 0010 0540CDE5 		strb	r4, [sp, #5]
+  98:../generate/system/hwsetup.c ****         spibsc_config_tbl.flash_port_voltage = SPIBSC_PORT_VOLTAGE_3_3V;
+  41              		.loc 1 98 0
+  42 0014 0640CDE5 		strb	r4, [sp, #6]
+  99:../generate/system/hwsetup.c **** 
+ 100:../generate/system/hwsetup.c **** 
+ 101:../generate/system/hwsetup.c **** 
+ 102:../generate/system/hwsetup.c ****          /* ==== SPIBSC initialize ==== */
+ 103:../generate/system/hwsetup.c ****         R_SPIBSC_Init( &spibsc_config_tbl );
+  43              		.loc 1 103 0
+  44 0018 04008DE2 		add	r0, sp, #4
+  45 001c FEFFFFEB 		bl	R_SPIBSC_Init
+  46              	.LVL0:
+ 104:../generate/system/hwsetup.c **** 
+ 105:../generate/system/hwsetup.c **** 
+ 106:../generate/system/hwsetup.c ****         /* Switch to manual operating mode */
+ 107:../generate/system/hwsetup.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_MANUAL, SPIBSC_SDR_TRANSFER, 0);
+  47              		.loc 1 107 0
+  48 0020 0420A0E1 		mov	r2, r4
+  49 0024 0410A0E1 		mov	r1, r4
+  50 0028 0400A0E1 		mov	r0, r4
+  51 002c FEFFFFEB 		bl	R_SPIBSC_ChangeMode
+  52              	.LVL1:
+ 108:../generate/system/hwsetup.c **** 
+ 109:../generate/system/hwsetup.c **** #ifdef SPIBSC_PRV_DDR_SETTING
+ 110:../generate/system/hwsetup.c ****         /* Set Quad mode (DDR) */
+ 111:../generate/system/hwsetup.c ****         Userdef_SPIBSC_SFLASH_SetMode(SPIBSC_QE_ENABLE, SPIBSC_DDR_TRANSFER);
+  53              		.loc 1 111 0
+  54 0030 0110A0E3 		mov	r1, #1
+  55 0034 0100A0E1 		mov	r0, r1
+  56 0038 FEFFFFEB 		bl	Userdef_SPIBSC_SFLASH_SetMode
+  57              	.LVL2:
+ 112:../generate/system/hwsetup.c **** #else
+ 113:../generate/system/hwsetup.c ****         /* Set Quad mode (SDR) */
+ 114:../generate/system/hwsetup.c ****         Userdef_SPIBSC_SFLASH_SetMode(SPIBSC_QE_ENABLE, SPIBSC_SDR_TRANSFER);
+ 115:../generate/system/hwsetup.c **** #endif
+ 116:../generate/system/hwsetup.c **** 
+ 117:../generate/system/hwsetup.c **** 
+ 118:../generate/system/hwsetup.c ****         /* Switch Manual to XIP */
+ 119:../generate/system/hwsetup.c ****         /* Switch to External address space read mode */
+ 120:../generate/system/hwsetup.c **** #ifdef SPIBSC_PRV_DDR_SETTING
+ 121:../generate/system/hwsetup.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_XIP, SPIBSC_DDR_TRANSFER, SFLASH_CMD_INDEX_XIP_4DTRD4B_EEH)
+  58              		.loc 1 121 0
+  59 003c 0420A0E1 		mov	r2, r4
+  60 0040 0110A0E3 		mov	r1, #1
+  61 0044 0100A0E1 		mov	r0, r1
+  62 0048 FEFFFFEB 		bl	R_SPIBSC_ChangeMode
+  63              	.LVL3:
+ 122:../generate/system/hwsetup.c **** #else
+ 123:../generate/system/hwsetup.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_XIP, SPIBSC_SDR_TRANSFER, SFLASH_CMD_INDEX_XIP_4READ4B_ECH)
+ 124:../generate/system/hwsetup.c **** #endif
+ 125:../generate/system/hwsetup.c **** 
+ 126:../generate/system/hwsetup.c **** 
+ 127:../generate/system/hwsetup.c **** 
+ 128:../generate/system/hwsetup.c **** 
+ 129:../generate/system/hwsetup.c ****     /*    Initialize clock pulse generator,
+ 130:../generate/system/hwsetup.c ****      *    this speeds up instruction clocks, etc.
+ 131:../generate/system/hwsetup.c ****      */
+ 132:../generate/system/hwsetup.c ****     R_CPG_InitialiseHwIf();
+  64              		.loc 1 132 0
+  65 004c FEFFFFEB 		bl	R_CPG_InitialiseHwIf
+  66              	.LVL4:
+ 133:../generate/system/hwsetup.c **** 
+ 134:../generate/system/hwsetup.c **** #ifdef SPIBSC_PRV_DDR_SETTING
+ 135:../generate/system/hwsetup.c ****     /* SPIBSC Adjust Phy */
+ 136:../generate/system/hwsetup.c ****     if ( SPIBSC_FLASH_SPI == spibsc_config_tbl.flash_type )
+  67              		.loc 1 136 0
+  68 0050 0430DDE5 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  69 0054 040053E1 		cmp	r3, r4
+  70 0058 0100000A 		beq	.L5
+  71              	.L1:
+ 137:../generate/system/hwsetup.c ****     {
+ 138:../generate/system/hwsetup.c **** 
+ 139:../generate/system/hwsetup.c **** 
+ 140:../generate/system/hwsetup.c ****         /* Switch to manual operating mode */
+ 141:../generate/system/hwsetup.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_MANUAL, SPIBSC_DDR_TRANSFER, 0);
+ 142:../generate/system/hwsetup.c **** 
+ 143:../generate/system/hwsetup.c ****         err = R_SPIBSC_AdjustPhy();
+ 144:../generate/system/hwsetup.c **** 
+ 145:../generate/system/hwsetup.c ****         /* Switch Manual to XIP */
+ 146:../generate/system/hwsetup.c ****         /* Switch to External address space read mode */
+ 147:../generate/system/hwsetup.c ****         R_SPIBSC_ChangeMode(SPIBSC_MODE_XIP, SPIBSC_DDR_TRANSFER, SFLASH_CMD_INDEX_XIP_4DTRD4B_EEH)
+ 148:../generate/system/hwsetup.c ****         if ( 0 > err )
+ 149:../generate/system/hwsetup.c ****         {
+ 150:../generate/system/hwsetup.c ****             /* Stops program from running off */
+ 151:../generate/system/hwsetup.c ****             while(1)
+ 152:../generate/system/hwsetup.c ****             {
+ 153:../generate/system/hwsetup.c ****                 __asm__("nop");
+ 154:../generate/system/hwsetup.c ****             }
+ 155:../generate/system/hwsetup.c ****             
+ 156:../generate/system/hwsetup.c ****         }
+ 157:../generate/system/hwsetup.c ****     }
+ 158:../generate/system/hwsetup.c **** #endif
+ 159:../generate/system/hwsetup.c **** }
+  72              		.loc 1 159 0
+  73 005c 08D08DE2 		add	sp, sp, #8
+  74              		.cfi_remember_state
+  75              		.cfi_def_cfa_offset 8
+  76              		@ sp needed
+  77 0060 1080BDE8 		pop	{r4, pc}
+  78              	.L5:
+  79              		.cfi_restore_state
+ 141:../generate/system/hwsetup.c **** 
+  80              		.loc 1 141 0
+  81 0064 0420A0E1 		mov	r2, r4
+  82 0068 0110A0E3 		mov	r1, #1
+  83 006c 0400A0E1 		mov	r0, r4
+  84 0070 FEFFFFEB 		bl	R_SPIBSC_ChangeMode
+  85              	.LVL5:
+ 143:../generate/system/hwsetup.c **** 
+  86              		.loc 1 143 0
+  87 0074 FEFFFFEB 		bl	R_SPIBSC_AdjustPhy
+  88              	.LVL6:
+  89 0078 0040A0E1 		mov	r4, r0
+  90              	.LVL7:
+ 147:../generate/system/hwsetup.c ****         if ( 0 > err )
+  91              		.loc 1 147 0
+  92 007c 0020A0E3 		mov	r2, #0
+  93 0080 0110A0E3 		mov	r1, #1
+  94 0084 0100A0E1 		mov	r0, r1
+  95 0088 FEFFFFEB 		bl	R_SPIBSC_ChangeMode
+  96              	.LVL8:
+ 148:../generate/system/hwsetup.c ****         {
+  97              		.loc 1 148 0
+  98 008c 000054E3 		cmp	r4, #0
+  99 0090 F1FFFFAA 		bge	.L1
+ 100              	.L3:
+ 153:../generate/system/hwsetup.c ****             }
+ 101              		.loc 1 153 0 discriminator 1
+ 102              		.syntax divided
+ 103              	@ 153 "../generate/system/hwsetup.c" 1
+ 104 0094 00F020E3 		nop
+ 105              	@ 0 "" 2
+ 106              		.arm
+ 107              		.syntax unified
+ 108 0098 FDFFFFEA 		b	.L3
+ 109              		.cfi_endproc
+ 110              	.LFE3:
+ 112              		.text
+ 113              	.Letext0:
+ 114              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 115              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 116              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 117              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 118              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 119              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 120              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 121              		.file 9 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/boo
+ 122              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 123              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 124              		.file 12 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 125              		.file 13 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 126              		.file 14 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 127              		.file 15 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 128              		.file 16 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+ 129              		.file 17 "D:/Project/e2_studio/workspace2/RZA2M_DRP_Benchmark_V1.0.0/RZA2M_DRP_Benchmark_V1.0.0/bo
+DEFINED SYMBOLS
+                            *ABS*:00000000 hwsetup.c
+C:\Users\10094\AppData\Local\Temp\ccTkwaWj.s:17     .text.R_SC_HardwareSetup:00000000 $a
+C:\Users\10094\AppData\Local\Temp\ccTkwaWj.s:23     .text.R_SC_HardwareSetup:00000000 R_SC_HardwareSetup
+                           .group:00000000 wm4.0.5abf75bd0eb20652be5d61cc56051b9b
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.e90d9de5300d9ae020e5db8c5af88b3e
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.77.0700439a69a80a9acf3c1705a4c37926
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.64cbac6cc01576ca10b0fa4399792cde
+                           .group:00000000 wm4.r_cpg_drv_api.h.38.b40a52cab6e6adb0f168c573c5a31ec8
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.r_spibsc_lld_rza2m_reg.h.41.976b0e72e154b02f742a03dc8c64dccd
+                           .group:00000000 wm4.r_spibsc_lld_rza2m_api.h.50.f9c452986541e72f270c3a76fbeab96c
+
+UNDEFINED SYMBOLS
+R_SPIBSC_Init
+R_SPIBSC_ChangeMode
+Userdef_SPIBSC_SFLASH_SetMode
+R_CPG_InitialiseHwIf
+R_SPIBSC_AdjustPhy

@@ -1,0 +1,79 @@
+   1              	# 1 "../src/renesas/application/dat.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	.section ".data"
+  24              	@In this test case, we will load too many DRP libs, in order to reduce memory,
+  25              	@we allocate DRP lib into flash, but need more time to load (1.x vs internal RAM)
+  26              	
+  27              	
+  28              	@********Below libraries are allocated in Flash to reduce bss mem size *************
+  29              	.section ".rodata"
+  30              	
+  31              	.balign 32
+  32              	.global g_drp_lib_bayer2grayscale
+  33              	g_drp_lib_bayer2grayscale:
+  34 0000 40000000 	.incbin "r_drp_bayer2grayscale.dat"
+  34      646B3263 
+  34      02000200 
+  34      01000000 
+  34      00000000 
+  35              	
+  36              	.balign 32
+  37              	.global g_drp_lib_binarization_fixed
+  38              	g_drp_lib_binarization_fixed:
+  39 e9a0 40000000 	.incbin "r_drp_binarization_fixed.dat"
+  39      646B3263 
+  39      02000200 
+  39      01000000 
+  39      00000000 
+  40              	
+  41              	.balign 32
+  42              	.global g_drp_lib_resize_bilinear
+  43              	g_drp_lib_resize_bilinear:
+  44 12e20 40000000 	.incbin "r_drp_resize_bilinear.dat"
+  44      646B3263 
+  44      02000200 
+  44      01000000 
+  44      00000000 
+  45              	
+  46              	.balign 32
+  47              	.global g_drp_lib_resize_nearest
+  48              	g_drp_lib_resize_nearest:
+  49 72500 40000000 	.incbin "r_drp_resize_nearest.dat"
+  49      646B3263 
+  49      02000200 
+  49      01000000 
+  49      00000000 
+  50              	
+  51              	.end
+DEFINED SYMBOLS
+../src/renesas/application/dat.asm:31     .rodata:00000000 $d
+../src/renesas/application/dat.asm:33     .rodata:00000000 g_drp_lib_bayer2grayscale
+../src/renesas/application/dat.asm:38     .rodata:0000e9a0 g_drp_lib_binarization_fixed
+../src/renesas/application/dat.asm:43     .rodata:00012e20 g_drp_lib_resize_bilinear
+../src/renesas/application/dat.asm:48     .rodata:00072500 g_drp_lib_resize_nearest
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,367 @@
+   1              		.cpu cortex-a9
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"hwsetup_userdef.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.Userdef_PreHardwareSetup,"ax",%progbits
+  17              		.align	2
+  18              		.weak	Userdef_PreHardwareSetup
+  19              		.syntax unified
+  20              		.arm
+  21              		.fpu neon
+  23              	Userdef_PreHardwareSetup:
+  24              	.LFB6:
+  25              		.file 1 "../src/renesas/hwsetup/hwsetup_userdef.c"
+   1:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+   2:../src/renesas/hwsetup/hwsetup_userdef.c ****  * DISCLAIMER
+   3:../src/renesas/hwsetup/hwsetup_userdef.c ****  * This software is supplied by Renesas Electronics Corporation and is only intended for use with R
+   4:../src/renesas/hwsetup/hwsetup_userdef.c ****  * other uses are authorized. This software is owned by Renesas Electronics Corporation and is prot
+   5:../src/renesas/hwsetup/hwsetup_userdef.c ****  * applicable laws, including copyright laws.
+   6:../src/renesas/hwsetup/hwsetup_userdef.c ****  * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   7:../src/renesas/hwsetup/hwsetup_userdef.c ****  * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+   8:../src/renesas/hwsetup/hwsetup_userdef.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAI
+   9:../src/renesas/hwsetup/hwsetup_userdef.c ****  * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS A
+  10:../src/renesas/hwsetup/hwsetup_userdef.c ****  * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY R
+  11:../src/renesas/hwsetup/hwsetup_userdef.c ****  * THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DA
+  12:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Renesas reserves the right, without notice, to make changes to this software and to discontinue 
+  13:../src/renesas/hwsetup/hwsetup_userdef.c ****  * this software. By using this software, you agree to the additional terms and conditions found by
+  14:../src/renesas/hwsetup/hwsetup_userdef.c ****  * following link:
+  15:../src/renesas/hwsetup/hwsetup_userdef.c ****  * http://www.renesas.com/disclaimer
+  16:../src/renesas/hwsetup/hwsetup_userdef.c ****  *
+  17:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
+  18:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  19:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  20:../src/renesas/hwsetup/hwsetup_userdef.c ****  * File Name    : hwsetup_userdef.c
+  21:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Version      : 1.0
+  22:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Description  : .
+  23:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  24:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  25:../src/renesas/hwsetup/hwsetup_userdef.c ****  * History : DD.MM.YYYY Version  Description
+  26:../src/renesas/hwsetup/hwsetup_userdef.c ****  *         : 29.08.2019 1.00     First Release
+  27:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  28:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  29:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  30:../src/renesas/hwsetup/hwsetup_userdef.c ****  Includes   <System Includes> , "Project Includes"
+  31:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  32:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "r_typedefs.h"
+  33:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "iodefine.h"
+  34:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "iobitmask.h"
+  35:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "rza_io_regrw.h"
+  36:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "r_cpg_drv_api.h"
+  37:../src/renesas/hwsetup/hwsetup_userdef.c **** #include "hwsetup.h"
+  38:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  39:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  40:../src/renesas/hwsetup/hwsetup_userdef.c ****  Macro definitions
+  41:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  42:../src/renesas/hwsetup/hwsetup_userdef.c **** /* Comment it if you does not need to use pre hardware setup function */
+  43:../src/renesas/hwsetup/hwsetup_userdef.c **** #define R_PRV_USE_PRE_HWSETUP
+  44:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  45:../src/renesas/hwsetup/hwsetup_userdef.c **** /* Comment it if you does not need to use post hardware setup function */
+  46:../src/renesas/hwsetup/hwsetup_userdef.c **** #define R_PRV_USE_POST_HWSETUP
+  47:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  48:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  49:../src/renesas/hwsetup/hwsetup_userdef.c ****  Local Typedef definitions
+  50:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  51:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  52:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  53:../src/renesas/hwsetup/hwsetup_userdef.c ****  Exported global variables
+  54:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  55:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  56:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  57:../src/renesas/hwsetup/hwsetup_userdef.c ****  Private (static) variables and functions
+  58:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  59:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  60:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  61:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Function Name: Userdef_PreHardwareSetup
+  62:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Description  : User defined hardware setup called earlier of R_SC_HardwareSetup.
+  63:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Arguments    : None.
+  64:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Return Value : None.
+  65:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  66:../src/renesas/hwsetup/hwsetup_userdef.c **** #if defined(R_PRV_USE_PRE_HWSETUP)
+  67:../src/renesas/hwsetup/hwsetup_userdef.c **** void Userdef_PreHardwareSetup(void)
+  68:../src/renesas/hwsetup/hwsetup_userdef.c **** {
+  26              		.loc 1 68 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 00482DE9 		push	{fp, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 11, -8
+  33              		.cfi_offset 14, -4
+  34 0004 04B08DE2 		add	fp, sp, #4
+  35              		.cfi_def_cfa 11, 4
+  69:../src/renesas/hwsetup/hwsetup_userdef.c ****     /* If the IOKEEP is 1, then clear to 0. */
+  70:../src/renesas/hwsetup/hwsetup_userdef.c ****     if(1 == RZA_IO_RegRead_16(&PMG.DSFR.WORD, PMG_DSFR_IOKEEP_SHIFT, PMG_DSFR_IOKEEP))
+  36              		.loc 1 70 0
+  37 0008 0229A0E3 		mov	r2, #32768
+  38 000c 0F10A0E3 		mov	r1, #15
+  39 0010 08000CE3 		movw	r0, #49160
+  40 0014 FF0C4FE3 		movt	r0, 64767
+  41 0018 FEFFFFEB 		bl	RZA_IO_RegRead_16
+  42 001c 0030A0E1 		mov	r3, r0
+  43 0020 010053E3 		cmp	r3, #1
+  44 0024 0A00001A 		bne	.L3
+  71:../src/renesas/hwsetup/hwsetup_userdef.c ****     {
+  72:../src/renesas/hwsetup/hwsetup_userdef.c ****         /* Clear IOKEEP bit */
+  73:../src/renesas/hwsetup/hwsetup_userdef.c ****         RZA_IO_RegWrite_16(&PMG.DSFR.WORD, 0, PMG_DSFR_IOKEEP_SHIFT, PMG_DSFR_IOKEEP);
+  45              		.loc 1 73 0
+  46 0028 0239A0E3 		mov	r3, #32768
+  47 002c 0F20A0E3 		mov	r2, #15
+  48 0030 0010A0E3 		mov	r1, #0
+  49 0034 08000CE3 		movw	r0, #49160
+  50 0038 FF0C4FE3 		movt	r0, 64767
+  51 003c FEFFFFEB 		bl	RZA_IO_RegWrite_16
+  74:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  75:../src/renesas/hwsetup/hwsetup_userdef.c ****         /* dummy read*/
+  76:../src/renesas/hwsetup/hwsetup_userdef.c ****         RZA_IO_RegRead_16(&PMG.DSFR.WORD, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+  52              		.loc 1 76 0
+  53 0040 0020E0E3 		mvn	r2, #0
+  54 0044 0010A0E3 		mov	r1, #0
+  55 0048 08000CE3 		movw	r0, #49160
+  56 004c FF0C4FE3 		movt	r0, 64767
+  57 0050 FEFFFFEB 		bl	RZA_IO_RegRead_16
+  58              	.L3:
+  77:../src/renesas/hwsetup/hwsetup_userdef.c ****     }
+  78:../src/renesas/hwsetup/hwsetup_userdef.c **** }
+  59              		.loc 1 78 0
+  60 0054 00F020E3 		nop
+  61 0058 0088BDE8 		pop	{fp, pc}
+  62              		.cfi_endproc
+  63              	.LFE6:
+  65              		.section	.text.Userdef_PostHardwareSetup,"ax",%progbits
+  66              		.align	2
+  67              		.weak	Userdef_PostHardwareSetup
+  68              		.syntax unified
+  69              		.arm
+  70              		.fpu neon
+  72              	Userdef_PostHardwareSetup:
+  73              	.LFB7:
+  79:../src/renesas/hwsetup/hwsetup_userdef.c **** #endif
+  80:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  81:../src/renesas/hwsetup/hwsetup_userdef.c ****  * End of function Userdef_PreHardwareSetup
+  82:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  83:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  84:../src/renesas/hwsetup/hwsetup_userdef.c **** /**************************************************************************************************
+  85:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Function Name: Userdef_PostHardwareSetup
+  86:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Description  : User defined hardware setup called later of R_SC_HardwareSetup.
+  87:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Arguments    : None.
+  88:../src/renesas/hwsetup/hwsetup_userdef.c ****  * Return Value : None.
+  89:../src/renesas/hwsetup/hwsetup_userdef.c ****  **************************************************************************************************
+  90:../src/renesas/hwsetup/hwsetup_userdef.c **** #if defined(R_PRV_USE_POST_HWSETUP)
+  91:../src/renesas/hwsetup/hwsetup_userdef.c **** void Userdef_PostHardwareSetup(void)
+  92:../src/renesas/hwsetup/hwsetup_userdef.c **** {
+  74              		.loc 1 92 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 00482DE9 		push	{fp, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 11, -8
+  81              		.cfi_offset 14, -4
+  82 0004 04B08DE2 		add	fp, sp, #4
+  83              		.cfi_def_cfa 11, 4
+  93:../src/renesas/hwsetup/hwsetup_userdef.c ****     /* Enable write access for the retention RAM (0x8000_0000 ~ 0x8001_FFFF) */
+  94:../src/renesas/hwsetup/hwsetup_userdef.c ****     RZA_IO_RegWrite_8(&CPG.SYSCR3.BYTE, 0xf, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+  84              		.loc 1 94 0
+  85 0008 0030E0E3 		mvn	r3, #0
+  86 000c 0020A0E3 		mov	r2, #0
+  87 0010 0F10A0E3 		mov	r1, #15
+  88 0014 080400E3 		movw	r0, #1032
+  89 0018 FE0C4FE3 		movt	r0, 64766
+  90 001c FEFFFFEB 		bl	RZA_IO_RegWrite_8
+  95:../src/renesas/hwsetup/hwsetup_userdef.c **** 
+  96:../src/renesas/hwsetup/hwsetup_userdef.c ****     /* dummy read*/
+  97:../src/renesas/hwsetup/hwsetup_userdef.c ****     RZA_IO_RegRead_8(&CPG.SYSCR3.BYTE, IOREG_NONSHIFT_ACCESS, IOREG_NONMASK_ACCESS);
+  91              		.loc 1 97 0
+  92 0020 0020E0E3 		mvn	r2, #0
+  93 0024 0010A0E3 		mov	r1, #0
+  94 0028 080400E3 		movw	r0, #1032
+  95 002c FE0C4FE3 		movt	r0, 64766
+  96 0030 FEFFFFEB 		bl	RZA_IO_RegRead_8
+  98:../src/renesas/hwsetup/hwsetup_userdef.c **** }
+  97              		.loc 1 98 0
+  98 0034 00F020E3 		nop
+  99 0038 0088BDE8 		pop	{fp, pc}
+ 100              		.cfi_endproc
+ 101              	.LFE7:
+ 103              		.text
+ 104              	.Letext0:
+ 105              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 106              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 107              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 108              		.file 5 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 109              		.file 6 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 110              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 111              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 112              		.file 9 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\inc/r_typedefs.h"
+ 113              		.file 10 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 114              		.file 11 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 115              		.file 12 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 116              		.file 13 "c:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 117              		.file 14 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+ 118              		.file 15 "D:\\Projects\\e2_studio\\RZ_A2M\\workspace\\Renesas_9.10_final\\bsp\\src\\rza2\\generate
+DEFINED SYMBOLS
+                            *ABS*:00000000 hwsetup_userdef.c
+C:\Users\Y\AppData\Local\Temp\cc86EYsR.s:17     .text.Userdef_PreHardwareSetup:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc86EYsR.s:23     .text.Userdef_PreHardwareSetup:00000000 Userdef_PreHardwareSetup
+C:\Users\Y\AppData\Local\Temp\cc86EYsR.s:66     .text.Userdef_PostHardwareSetup:00000000 $a
+C:\Users\Y\AppData\Local\Temp\cc86EYsR.s:72     .text.Userdef_PostHardwareSetup:00000000 Userdef_PostHardwareSetup
+                           .group:00000000 wm4.0.8dd29768c59cec9282bc365ab603b999
+                           .group:00000000 wm4.stddef.h.39.a38874c8f8a57e66301090908ec2a69f
+                           .group:00000000 wm4._newlib_version.h.4.3572908597b70d672d181fc7fc501c19
+                           .group:00000000 wm4.features.h.33.d97f2d646536517df901beeb5b9993f5
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.cce27fed8484c08a33f522034c30d2b5
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.newlib.h.8.e0fd068ed40a600f7426443f865dd469
+                           .group:00000000 wm4.ieeefp.h.77.49bcce8a603f3d93a95080d6a3573782
+                           .group:00000000 wm4.config.h.220.6cac6a9685cfce5e83c17784171638d9
+                           .group:00000000 wm4._ansi.h.23.9f8fcfa20193763fcf364fb91705c94b
+                           .group:00000000 wm4.lock.h.2.1461d1fff82dffe8bfddc23307f6484f
+                           .group:00000000 wm4._types.h.125.5cf8a495f1f7ef36777ad868a1e32068
+                           .group:00000000 wm4.stddef.h.161.5349cb105733e8777bfb0cf53c4e3f34
+                           .group:00000000 wm4._types.h.184.7120b8bb2e0149e2359704f4e2251b68
+                           .group:00000000 wm4.reent.h.17.87376802c2b370b32a762f0a30482d9e
+                           .group:00000000 wm4.cdefs.h.47.d5f52c0838d768c139d665d47892271a
+                           .group:00000000 wm4.math.h.13.adb102f7bd7860b1f241e149d6914a1e
+                           .group:00000000 wm4.r_typedefs.h.38.b77fc4808eb0fdda6099b2f7d23000e5
+                           .group:00000000 wm4.adc_iodefine.h.29.14c6f50dce37432a7d004e4b1ce33da7
+                           .group:00000000 wm4.bsc_iodefine.h.29.9281d1f3639266933964d6d0c2d42c4f
+                           .group:00000000 wm4.ceu_iodefine.h.29.2a669d0b46fdde030a50db9e3c307fbf
+                           .group:00000000 wm4.cpg_iodefine.h.29.d6fdc9cb4798723afd88b251d64c2ce2
+                           .group:00000000 wm4.csi2link_iodefine.h.29.221c4531636a409f24d307b16341ada8
+                           .group:00000000 wm4.dmac_iodefine.h.29.578fccc2cc1da886ec95a029bf874f01
+                           .group:00000000 wm4.drpk_iodefine.h.29.580eb8588a2b2d43d2726fbe791e513f
+                           .group:00000000 wm4.drw_iodefine.h.29.df30f4a4a34a79f6a86c4df91353dffe
+                           .group:00000000 wm4.edmac_iodefine.h.29.33e8759349004a722f42f5429c1353f6
+                           .group:00000000 wm4.eptpc_iodefine.h.29.74d8f9fab0f5549b56097fb9e937dde8
+                           .group:00000000 wm4.etherc_iodefine.h.29.14602750383a574f1c21f994ad33a366
+                           .group:00000000 wm4.gpio_iodefine.h.29.3d0b021c56839cee4ae5149903684e4b
+                           .group:00000000 wm4.gpt_iodefine.h.29.557ead75d7b0585b898d3898b64c7f87
+                           .group:00000000 wm4.hyper_iodefine.h.29.000caadbb74d881e97db55b39b432154
+                           .group:00000000 wm4.imr_iodefine.h.29.77c022f017e711c4d51cc0145db1dad3
+                           .group:00000000 wm4.intc_iodefine.h.29.b68f5799a35a7495d63b4cd458e1ba57
+                           .group:00000000 wm4.irda_iodefine.h.29.37e67bd2005173d68a74d1cc937d8444
+                           .group:00000000 wm4.jcu_iodefine.h.29.3aca452908962e7a7ccf26164751feda
+                           .group:00000000 wm4.lvds_iodefine.h.29.c11cbe1900e5209c8dcc76c2336c16bc
+                           .group:00000000 wm4.mtu_iodefine.h.29.5498fb974bb53caf05aa143c2deec781
+                           .group:00000000 wm4.nandc_iodefine.h.29.e0b343306750f017ee86e169ad98efe9
+                           .group:00000000 wm4.octa_iodefine.h.29.07f258f06288ca2075168d59626c2aac
+                           .group:00000000 wm4.ostm_iodefine.h.29.6914f7e330a1cf0008b34219adcdfed4
+                           .group:00000000 wm4.pl_iodefine.h.29.abbb6d725aed990aa8343242bfe31416
+                           .group:00000000 wm4.pmg_iodefine.h.29.8bcfbc4771a6f9b7dd4d6f504427219e
+                           .group:00000000 wm4.poeg_iodefine.h.29.0d8e258d10986260cbc70cfb8c0ef273
+                           .group:00000000 wm4.poe_iodefine.h.29.fe74e55e7b6b4afbe3596c74ba035e98
+                           .group:00000000 wm4.prr_iodefine.h.29.c1f15576f7a27b9c83aa3b40f5b2f988
+                           .group:00000000 wm4.ptpedmac_iodefine.h.29.cd24a93374ce35cebc41e26889d619ef
+                           .group:00000000 wm4.rcanfd_iodefine.h.29.b6feaa6a7ae0ef05da408110e3fc69b1
+                           .group:00000000 wm4.rcan_iodefine.h.29.a47a89db1b35c12b54af48fa1956acba
+                           .group:00000000 wm4.riic_iodefine.h.29.f96943d49800d297612c4af3bba5c943
+                           .group:00000000 wm4.rspi_iodefine.h.29.7efa041fe34a7d27db66a7b337879dfe
+                           .group:00000000 wm4.rtc_iodefine.h.29.6dc76be5ca3df69cecb5a81d06cc46b5
+                           .group:00000000 wm4.scifa_iodefine.h.29.b04ccd664d71baaf31c75761c45b9c4d
+                           .group:00000000 wm4.scim_iodefine.h.29.87d0760abf94446b00d826c797bf0ff2
+                           .group:00000000 wm4.sdmmc_iodefine.h.29.e67e9815445e8057a3262d1566bea0db
+                           .group:00000000 wm4.spdif_iodefine.h.29.59f5d70150fa200a4d8ee50be1ee34c8
+                           .group:00000000 wm4.spibsc_iodefine.h.29.f4930f8b8da1140200204513a363c76f
+                           .group:00000000 wm4.sprite_iodefine.h.29.55796d1fa083a2457fea4ece974a192e
+                           .group:00000000 wm4.ssif_iodefine.h.29.054ec6d95f487f631f16aee39c85c47a
+                           .group:00000000 wm4.usb_iodefine.h.29.6dc44ea388ba227e8fdcfb33c315887b
+                           .group:00000000 wm4.vdc_iodefine.h.29.db282ded1f052d8567fbbd3b61ce8f7a
+                           .group:00000000 wm4.vin_iodefine.h.29.9b392e5601347d53e64be3272934e170
+                           .group:00000000 wm4.wdt_iodefine.h.29.ed07bb44b797072f8c28b41c64fdca30
+                           .group:00000000 wm4.iobitmask.h.29.773e8f8428b0c21e1206a8c47a6d3927
+                           .group:00000000 wm4.adc_iobitmask.h.29.48ba2821c8a4fc20022447ad9316d399
+                           .group:00000000 wm4.bsc_iobitmask.h.29.115d15c4ad4b48e00598dcd62d33c637
+                           .group:00000000 wm4.ceu_iobitmask.h.29.413b5b68bb3c2148786493166a57173e
+                           .group:00000000 wm4.cpg_iobitmask.h.29.58382d682aa9abf69ab653ac5fe9149b
+                           .group:00000000 wm4.csi2link_iobitmask.h.29.701c130cb17627664fe7c147084057cf
+                           .group:00000000 wm4.dmac_iobitmask.h.29.98850e876107975c53dc0bb8ebb53eb5
+                           .group:00000000 wm4.drpk_iobitmask.h.29.167e7cf6b1feb4d38b8903a46d8c35ac
+                           .group:00000000 wm4.drw_iobitmask.h.29.71d46f2244f6e7ae6117fe6c41c5567d
+                           .group:00000000 wm4.edmac_iobitmask.h.29.4e406d859155ba914663e1cf61cad89a
+                           .group:00000000 wm4.eptpc_iobitmask.h.29.64bcd0a67db3a886572992ae6da8898c
+                           .group:00000000 wm4.etherc_iobitmask.h.29.07b13cb10c426023658e5c51f952b6de
+                           .group:00000000 wm4.gpio_iobitmask.h.29.ea8c1464682eb61f2d0763b97ed530f9
+                           .group:00000000 wm4.gpt_iobitmask.h.29.94173800a704c5ba32e348ba97cd23cf
+                           .group:00000000 wm4.hyper_iobitmask.h.29.f09febbc7b835674abe34ae75f3c700d
+                           .group:00000000 wm4.imr2_iobitmask.h.29.90b834f92ca4d39c49dda81fe096b5f0
+                           .group:00000000 wm4.intc_iobitmask.h.29.6d3be2e47bf3d7eb7e91eeddcab863af
+                           .group:00000000 wm4.irda_iobitmask.h.29.6f43dde454e599a1d4a8be2978ac9459
+                           .group:00000000 wm4.jcu_iobitmask.h.29.9fd48851a81ff31733aa19b29e4846ad
+                           .group:00000000 wm4.lvds_iobitmask.h.29.4a6f69c8911426fa05f0b05eab5f5e15
+                           .group:00000000 wm4.mtu_iobitmask.h.29.7a98ba20f3fb30f35d72abcc74524cc2
+                           .group:00000000 wm4.nandc_iobitmask.h.29.a3a0f4ae99fdf814aa6f25f430186b14
+                           .group:00000000 wm4.octa_iobitmask.h.29.88d29c353902045cc5df621720d36632
+                           .group:00000000 wm4.ostm_iobitmask.h.29.38ee9f4e1711e17bd3f38545ba631cde
+                           .group:00000000 wm4.pl310_iobitmask.h.29.c1ef5625c0a9d67f24e89fe2fd7e4886
+                           .group:00000000 wm4.pmg_iobitmask.h.29.d20cb8352080a58cf6cbf526935d968e
+                           .group:00000000 wm4.poe3_iobitmask.h.29.3a3444cc2dbf606e2370573e16d57254
+                           .group:00000000 wm4.poeg_iobitmask.h.29.5601eb8cf1161926d683c0720340f85d
+                           .group:00000000 wm4.prr_iobitmask.h.29.52f8479a52e2236c122b5956e4bdbfce
+                           .group:00000000 wm4.ptpedmac_iobitmask.h.29.494dcb2240ebba7fa20d0c2ab02007f7
+                           .group:00000000 wm4.rcanfd_iobitmask.h.29.4376b1b7ff587ba618a622f2c4029df7
+                           .group:00000000 wm4.rcan_iobitmask.h.29.c6f8b9b62e8fdc007f8b5f40c1f7e95d
+                           .group:00000000 wm4.riic_iobitmask.h.29.b6e4a30b4a750b93bf8b54b204e41e8e
+                           .group:00000000 wm4.rspi_iobitmask.h.29.2e257f44186c83ca40dbb0db2548623b
+                           .group:00000000 wm4.rtc_iobitmask.h.29.83f9de1730e532ab7dfce6a57bb996ea
+                           .group:00000000 wm4.scifa_iobitmask.h.29.c7af830569e0d6a26f3d66e3adc293d7
+                           .group:00000000 wm4.scim_iobitmask.h.29.3b5e9d8b03a11c94acd93de96d2037f6
+                           .group:00000000 wm4.sdmmc_iobitmask.h.29.023cb9ff953a162569769cc98970f23e
+                           .group:00000000 wm4.spdif_iobitmask.h.29.c16f83f628828ab24aa2b72615b93e69
+                           .group:00000000 wm4.spibsc_iobitmask.h.29.8ade4a581f57cd5b82569a69eb5f0d67
+                           .group:00000000 wm4.sprite_iobitmask.h.29.82888597faf7ebb3bc86b5f1018a2253
+                           .group:00000000 wm4.ssif_iobitmask.h.29.482529b431f1ad627a02168620c61eee
+                           .group:00000000 wm4.usb_iobitmask.h.29.aae4dfd463dfdd120bf5855c9dc97483
+                           .group:00000000 wm4.vdc6_iobitmask.h.29.3ce0a3f9d2209ce71e4fec48b4ecb79a
+                           .group:00000000 wm4.vin_iobitmask.h.29.576a1d6e4b2cf6cbd353044865e437f2
+                           .group:00000000 wm4.wdt_iobitmask.h.29.c612db09eac33fb3da8d8aaee67287a9
+                           .group:00000000 wm4.rza_io_regrw.h.46.8ffd34a4c69bd0fad4b7b3d6d30a6855
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stddef.h.161.19e15733342b50ead2919490b095303e
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.types.h.40.e8c16e7ec36ba55f133d0616070e25fc
+                           .group:00000000 wm4._endian.h.31.65a10590763c3dde1ac4a7f66d7d4891
+                           .group:00000000 wm4.endian.h.9.49f3a4695c1b61e8a0808de3c4a106cb
+                           .group:00000000 wm4._timeval.h.30.0e8bfd94e85db17dda3286ee81496fe6
+                           .group:00000000 wm4.timespec.h.41.d855182eb0e690443ab8651bcedca6e1
+                           .group:00000000 wm4.select.h.30.bbece7fa40993a78092dcc5805132560
+                           .group:00000000 wm4.types.h.69.ed3eae3cf73030a737515151ebcab7a1
+                           .group:00000000 wm4.sched.h.22.c60982713a5c428609783c78f9c78d95
+                           .group:00000000 wm4._pthreadtypes.h.36.fcee9961c35163dde6267ef772ad1972
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.81.932d0c162786b883f622b8d05c120c78
+                           .group:00000000 wm4.stdlib.h.13.4ed386f5c1a80d71e72172885d946ef2
+                           .group:00000000 wm4.alloca.h.8.dfc0c703c47ec3e69746825b17d9e66d
+                           .group:00000000 wm4.stdlib.h.56.d4493cd3736e51e9d56335045f26df45
+                           .group:00000000 wm4.reent.h.91.b3ea049ebc5486622b61409b78486f84
+                           .group:00000000 wm4._default_fcntl.h.6.6460bee906b14bf62388713178ece422
+                           .group:00000000 wm4.time.h.8.db4619001f026d0b4874c029fef0e91f
+                           .group:00000000 wm4.time.h.2.4581ce0ffb6627cfc02162c94bf846c9
+                           .group:00000000 wm4.time.h.25.0e6a0fdbc9955f5707ed54246ed2e089
+                           .group:00000000 wm4.time.h.162.d096f2f5887c52e271c4dc33d795dc64
+                           .group:00000000 wm4.stat.h.71.d65ac61ff88c651e198008cfb38bda9c
+                           .group:00000000 wm4.fcntl.h.9.9336f33d7f5028f694c75e6e224e0cf7
+                           .group:00000000 wm4.driver.h.36.e845ee112228a323a15767ba5ed55e32
+                           .group:00000000 wm4.r_devlink_wrapper.h.71.70095b186f49b4e8547c7f00050c4257
+                           .group:00000000 wm4.r_cpg_lld_rza2m.h.43.7fe5132a77561580dbf35c71e690474f
+                           .group:00000000 wm4.r_cpg_drv_api.h.38.b40a52cab6e6adb0f168c573c5a31ec8
+                           .group:00000000 wm4.r_compiler_abstraction_api.h.26.3b351159b244321245f7af93e3423b5f
+                           .group:00000000 wm4.hwsetup.h.39.7f7ead0e307fea8a70ee37c3e31614e1
+
+UNDEFINED SYMBOLS
+RZA_IO_RegRead_16
+RZA_IO_RegWrite_16
+RZA_IO_RegWrite_8
+RZA_IO_RegRead_8

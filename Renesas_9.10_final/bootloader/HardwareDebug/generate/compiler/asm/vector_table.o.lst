@@ -1,0 +1,70 @@
+   1              	# 1 "../generate/compiler/asm/vector_table.asm"
+   1              	@/*******************************************************************************
+   0              	
+   0              	
+   0              	
+   2              	@* DISCLAIMER
+   3              	@* This software is supplied by Renesas Electronics Corporation and is only
+   4              	@* intended for use with Renesas products. No other uses are authorized. This
+   5              	@* software is owned by Renesas Electronics Corporation and is protected under
+   6              	@* all applicable laws, including copyright laws.
+   7              	@* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+   8              	@* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+   9              	@* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+  10              	@* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11              	@* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+  12              	@* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+  13              	@* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+  14              	@* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+  15              	@* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16              	@* Renesas reserves the right, without notice, to make changes to this software
+  17              	@* and to discontinue the availability of this software. By using this software,
+  18              	@* you agree to the additional terms and conditions found by accessing the
+  19              	@* following link:
+  20              	@* http://www.renesas.com/disclaimer
+  21              	@* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+  22              	@*******************************************************************************/
+  23              	@/*******************************************************************************
+  24              	@* File Name   : vector_table.asm
+  25              	@* $Rev: 328 $
+  26              	@* $Date:: 2018-04-27 09:45:43 +0900#$
+  27              	@* Description : Vector table
+  28              	@*******************************************************************************/
+  29              	
+  30              	
+  31              	@==================================================================
+  32              	@ Entry point for the Reset handler
+  33              	@==================================================================
+  34              	    .section    VECTOR_TABLE, #execinstr, #alloc
+  35              	    .arm
+  36              	
+  37              	    .extern  reset_handler
+  38              	
+  39              	    .global Start
+  40              	    .global  vector_table
+  41              	
+  42              	Start:
+  43              	
+  44              	vector_table:
+  45 0000 18F09FE5 	    LDR pc, =reset_handler          @ +0x0000_0000 : Reset exception
+  46 0004 FEFFFFEA 	    B   .                           @ +0x0000_0004 : Undefined instructions exception
+  47 0008 FEFFFFEA 	    B   .                           @ +0x0000_0008 : Software interrupts exceptions
+  48 000c FEFFFFEA 	    B   .                           @ +0x0000_000c : Prefetch abort exception
+  49 0010 FEFFFFEA 	    B   .                           @ +0x0000_0010 : Data abort exception
+  50 0014 FEFFFFEA 	    B   .                           @ +0x0000_0014 : Reserved
+  51 0018 FEFFFFEA 	    B   .                           @ +0x0000_0018 : IRQ exception
+  52 001c FEFFFFEA 	    B   .                           @ +0x0000_001c : FIQ exception
+  53              	
+  54              	Literals:
+  55 0020 00000000 	    .LTORG
+  56              	
+  57              	    .END
+DEFINED SYMBOLS
+../generate/compiler/asm/vector_table.asm:42     VECTOR_TABLE:00000000 Start
+../generate/compiler/asm/vector_table.asm:44     VECTOR_TABLE:00000000 vector_table
+../generate/compiler/asm/vector_table.asm:45     VECTOR_TABLE:00000000 $a
+../generate/compiler/asm/vector_table.asm:54     VECTOR_TABLE:00000020 Literals
+../generate/compiler/asm/vector_table.asm:55     VECTOR_TABLE:00000020 $d
+
+UNDEFINED SYMBOLS
+reset_handler
